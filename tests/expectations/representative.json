@@ -1,0 +1,147 @@
+{
+  "schema_version": 1,
+  "document": {
+    "fixture": "representative.pdf",
+    "notes": "Synthetic expectations describe intended visible/native content before extraction."
+  },
+  "pages": [
+    {
+      "pdf_page": 1,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets",
+        "expected_order_pairs"
+      ],
+      "checks": {
+        "required_exact_snippets": ["MATN EXTRACTION BASELINE", "First list item", "Second list item"],
+        "required_numbers_and_units": ["42 kg"],
+        "forbidden_snippets": ["مرحبا بالعالم"],
+        "expected_order_pairs": [["MATN EXTRACTION BASELINE", "First list item"]]
+      },
+      "notes": "English title, list, header, footer, number, and unit."
+    },
+    {
+      "pdf_page": 2,
+      "applicable_checks": ["required_exact_snippets", "forbidden_snippets"],
+      "checks": {
+        "required_exact_snippets": ["مرحبا بالعالم"],
+        "required_numbers_and_units": [],
+        "forbidden_snippets": ["Matn 2026"],
+        "expected_order_pairs": []
+      },
+      "notes": "Visually shaped Arabic; raw output may expose presentation forms."
+    },
+    {
+      "pdf_page": 3,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets"
+      ],
+      "checks": {
+        "required_exact_snippets": ["Matn 2026", "القياس"],
+        "required_numbers_and_units": ["123 kg"],
+        "forbidden_snippets": ["LEFT COLUMN A"],
+        "expected_order_pairs": []
+      },
+      "notes": "Arabic, English, Western digits, and a unit in one visual line."
+    },
+    {
+      "pdf_page": 4,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets",
+        "expected_order_pairs"
+      ],
+      "checks": {
+        "required_exact_snippets": ["LEFT COLUMN A", "RIGHT COLUMN A"],
+        "required_numbers_and_units": ["11 m", "22 s"],
+        "forbidden_snippets": ["LEFT COLUMN B"],
+        "expected_order_pairs": [["LEFT COLUMN A", "RIGHT COLUMN A"]]
+      },
+      "notes": "Two columns inserted in visual reading order."
+    },
+    {
+      "pdf_page": 5,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets",
+        "expected_order_pairs"
+      ],
+      "checks": {
+        "required_exact_snippets": ["LEFT COLUMN B", "RIGHT COLUMN B"],
+        "required_numbers_and_units": ["33 m", "44 s"],
+        "forbidden_snippets": ["LEFT COLUMN A"],
+        "expected_order_pairs": [["LEFT COLUMN B", "RIGHT COLUMN B"]]
+      },
+      "notes": "Right column was inserted first; expected order remains visual left-to-right."
+    },
+    {
+      "pdf_page": 6,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets",
+        "expected_order_pairs"
+      ],
+      "checks": {
+        "required_exact_snippets": ["SIMPLE TABLE", "Item", "Mass", "Length"],
+        "required_numbers_and_units": ["7 kg", "9 m"],
+        "forbidden_snippets": ["ROTATED PAGE TOKEN"],
+        "expected_order_pairs": [["Item", "Mass"], ["Mass", "Length"]]
+      },
+      "notes": "Simple ruled table with two columns."
+    },
+    {
+      "pdf_page": 7,
+      "applicable_checks": ["required_exact_snippets", "forbidden_snippets"],
+      "checks": {
+        "required_exact_snippets": ["ROTATED PAGE TOKEN - 270 degrees"],
+        "required_numbers_and_units": [],
+        "forbidden_snippets": ["SIMPLE TABLE"],
+        "expected_order_pairs": []
+      },
+      "notes": "PDF page rotation metadata is 90 degrees; visible token states 270 degrees."
+    },
+    {
+      "pdf_page": 8,
+      "applicable_checks": ["forbidden_snippets"],
+      "checks": {
+        "required_exact_snippets": [],
+        "required_numbers_and_units": [],
+        "forbidden_snippets": ["ROTATED PAGE TOKEN", "IMAGE ONLY FIXTURE"],
+        "expected_order_pairs": []
+      },
+      "notes": "Truly blank page; absence checks only."
+    },
+    {
+      "pdf_page": 9,
+      "applicable_checks": ["forbidden_snippets"],
+      "checks": {
+        "required_exact_snippets": [],
+        "required_numbers_and_units": [],
+        "forbidden_snippets": ["IMAGE ONLY FIXTURE - 73 km", "MIXED NATIVE TEXT"],
+        "expected_order_pairs": []
+      },
+      "notes": "Image-only page; visible image text must remain absent because OCR is disabled."
+    },
+    {
+      "pdf_page": 10,
+      "applicable_checks": [
+        "required_exact_snippets",
+        "required_numbers_and_units",
+        "forbidden_snippets"
+      ],
+      "checks": {
+        "required_exact_snippets": ["MIXED NATIVE TEXT"],
+        "required_numbers_and_units": ["88 kg"],
+        "forbidden_snippets": ["IMAGE REGION - 99 m", "IMAGE ONLY FIXTURE"],
+        "expected_order_pairs": []
+      },
+      "notes": "Native text plus an image whose visible text must not be OCRed."
+    }
+  ]
+}

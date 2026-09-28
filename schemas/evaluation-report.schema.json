@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/evaluation-report.schema.json",
+  "title": "Matn extractor comparison report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evaluation_run_id",
+    "run_status",
+    "source",
+    "requested_pdf_pages",
+    "expectations",
+    "timing",
+    "method",
+    "extractors"
+  ],
+  "properties": {
+    "schema_version": {"const": 2},
+    "evaluation_run_id": {"type": "string", "format": "uuid"},
+    "run_status": {"const": "completed"},
+    "source": {"type": "object"},
+    "requested_pdf_pages": {"type": "object"},
+    "expectations": {
+      "type": "object",
+      "required": ["file_name", "sha256"],
+      "properties": {
+        "file_name": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "timing": {"type": "object"},
+    "method": {
+      "type": "object",
+      "required": ["judge", "fuzzy_matching", "llm_judge", "excludes_not_applicable_from_denominator", "interpretation_warning"],
+      "properties": {
+        "judge": {"const": "deterministic exact matching"},
+        "fuzzy_matching": {"const": false},
+        "llm_judge": {"const": false},
+        "excludes_not_applicable_from_denominator": {"const": true},
+        "interpretation_warning": {"type": "string"}
+      }
+    },
+    "extractors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["raw", "structured"],
+      "properties": {
+        "raw": {"$ref": "#/$defs/extractorResult"},
+        "structured": {"$ref": "#/$defs/extractorResult"}
+      }
+    }
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "required": ["passed_checks", "applicable_checks", "failed_checks", "needs_human_review_checks", "display"],
+      "properties": {
+        "passed_checks": {"type": "integer", "minimum": 0},
+        "applicable_checks": {"type": "integer", "minimum": 0},
+        "failed_checks": {"type": "integer", "minimum": 0},
+        "needs_human_review_checks": {"type": "integer", "minimum": 0},
+        "display": {"type": "string", "pattern": "^[0-9]+ / [0-9]+$"}
+      }
+    },
+    "extractorResult": {
+      "type": "object",
+      "required": ["manifest_path", "extractor", "metrics", "canonical_metrics", "pages", "canonical_pages"],
+      "properties": {
+        "manifest_path": {"type": "string"},
+        "extractor": {"type": "object"},
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_exact_snippets", "required_numbers_and_units", "forbidden_snippets", "expected_order_pairs"],
+          "properties": {
+            "required_exact_snippets": {"$ref": "#/$defs/metric"},
+            "required_numbers_and_units": {"$ref": "#/$defs/metric"},
+            "forbidden_snippets": {"$ref": "#/$defs/metric"},
+            "expected_order_pairs": {"$ref": "#/$defs/metric"}
+          }
+        },
+        "canonical_metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["required_exact_snippets", "required_numbers_and_units", "forbidden_snippets", "expected_order_pairs"],
+          "properties": {
+            "required_exact_snippets": {"$ref": "#/$defs/metric"},
+            "required_numbers_and_units": {"$ref": "#/$defs/metric"},
+            "forbidden_snippets": {"$ref": "#/$defs/metric"},
+            "expected_order_pairs": {"$ref": "#/$defs/metric"}
+          }
+        },
+        "pages": {"type": "array"},
+        "canonical_pages": {"type": "array"}
+      }
+    }
+  }
+}
