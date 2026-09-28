@@ -1,4 +1,118 @@
-# Matn Phase 01 - local PDF extraction baseline
+# Matn - local PDF evidence store and source-scoped selection
+
+Current verified gates:
+
+- `PHASE_01_VERIFIED_FOR_SUPPORTED_PROFILE`
+- `PHASE_02_VERIFIED_FOR_SUPPORTED_PROFILE`
+
+Phase 02 adds deterministic document structure, reviewed section indexing, and
+page/section-scoped source selection. It does **not** summarize content and does
+not use an LLM, Ollama, RAG, a vector database, agents, OCR, or PowerPoint.
+
+## Phase 02 quick start (Windows PowerShell)
+
+Start with completed raw and structured Phase 01 runs that cover the same PDF
+pages. A full-document index should use full-document runs.
+
+```powershell
+cd C:\Users\asmaa\Documents\notebooklm\matn
+.\.venv\Scripts\python.exe .\inspect_pdf.py `
+  --pdf ".\documents\paper.pdf" --pages "1-42" `
+  --extractor raw --out ".\output\paper-raw"
+.\.venv\Scripts\python.exe .\inspect_pdf.py `
+  --pdf ".\documents\paper.pdf" --pages "1-42" `
+  --extractor structured --out ".\output\paper-structured"
+```
+
+Build a baseline index. Heading-only evidence remains `proposed` and cannot be
+selected as confirmed without an explicit flag.
+
+```powershell
+.\.venv\Scripts\python.exe .\build_document_index.py `
+  --pdf ".\documents\paper.pdf" `
+  --raw-run ".\output\paper-raw" `
+  --structured-run ".\output\paper-structured" `
+  --out ".\output\paper-store"
+```
+
+For reviewed documents, pass a local correction file. Keep real-document
+corrections and generated stores in ignored paths such as `documents/` and
+`output/`.
+
+```powershell
+.\.venv\Scripts\python.exe .\build_document_index.py `
+  --pdf ".\documents\paper.pdf" `
+  --raw-run ".\output\paper-raw" `
+  --structured-run ".\output\paper-structured" `
+  --manual-corrections ".\documents\paper-corrections.json" `
+  --out ".\output\paper-store-reviewed"
+```
+
+List IDs before selecting. This avoids silently deciding whether “the first two
+sections” includes Abstract or subsections.
+
+```powershell
+.\.venv\Scripts\python.exe .\select_source.py `
+  --document-store ".\output\paper-store-reviewed" --list-sections
+```
+
+Create a section-scoped selection. End-exclusive section anchors prevent text
+from the next same/higher-level section entering the result.
+
+```powershell
+.\.venv\Scripts\python.exe .\select_source.py `
+  --document-store ".\output\paper-store-reviewed" `
+  --sections "sec-2,sec-3" --out ".\output\selection-sections.json"
+```
+
+Create a page-scoped selection. Every extracted block on the explicit PDF pages
+is included; non-contiguous pages remain non-contiguous.
+
+```powershell
+.\.venv\Scripts\python.exe .\select_source.py `
+  --document-store ".\output\paper-store-reviewed" `
+  --pages "2-5,8" --out ".\output\selection-pages.json"
+```
+
+Use `--allow-unconfirmed` only when intentionally selecting `proposed` or
+conflicting evidence. The selection records that decision and emits a warning.
+Source content is written to `--out`, never printed by default.
+
+Run the deterministic evaluator with reviewed local ground truth, then the full
+regression suite:
+
+```powershell
+.\.venv\Scripts\python.exe .\evaluate_document_index.py `
+  --document-store ".\output\paper-store-reviewed" `
+  --expectations ".\documents\paper-ground-truth.json" `
+  --out ".\output\paper-index-evaluation.json"
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
+### Numbering and evidence semantics
+
+- `pdf_page` is the physical 1-based page position in the PDF.
+- `page_label` is optional PDF metadata and may be non-numeric.
+- `printed_page` is populated only by a human-reviewed correction; otherwise it
+  is `null`.
+- Page-scoped selection includes whole requested pages. Section-scoped selection
+  starts at the heading anchor and ends immediately before the next heading at
+  the same or a higher level.
+- `proposed` means the evidence has not passed the confirmation gate.
+  `confirmed` means outline and extracted heading agree, or a human explicitly
+  confirmed it. Conflicts never become confirmed silently.
+- Repeated edge lines are candidates only. Nothing is removed from raw or
+  structured evidence. Only manually confirmed repetitive headers/footers are
+  excluded from selection text, with the excluded lines and reason retained.
+- The section index is a local evidence index, not a semantic guarantee for an
+  unknown PDF. Raw text and the original PDF remain evidence alongside the
+  structured Markdown.
+
+Schemas are in `schemas/document-store.schema.json` and
+`schemas/source-selection.schema.json`. Design and acceptance details are in
+`docs/phase02_design.md` and `docs/phase02_acceptance.md`.
+
+## Phase 01 extraction baseline
 
 Matn currently provides two local, page-preserving extraction paths:
 

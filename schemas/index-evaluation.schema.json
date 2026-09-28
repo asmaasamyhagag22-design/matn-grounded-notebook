@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/index-evaluation.schema.json",
+  "title": "Matn Phase 02 index evaluation report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "evaluation_status", "document_id", "method", "metrics", "cases"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "evaluation_status": {"const": "completed"},
+    "document_id": {"type": "string"},
+    "method": {
+      "type": "object",
+      "required": ["llm_judge", "fuzzy_matching", "not_applicable_excluded_from_denominator", "general_accuracy_reported"],
+      "properties": {
+        "llm_judge": {"const": false},
+        "fuzzy_matching": {"const": false},
+        "not_applicable_excluded_from_denominator": {"const": true},
+        "general_accuracy_reported": {"const": false}
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": ["heading_detection", "heading_level", "parent_relation", "start_boundary", "end_boundary", "chunk_inclusion", "chunk_exclusion", "page_reference_validity"],
+      "additionalProperties": {"$ref": "#/$defs/metric"}
+    },
+    "cases": {"type": "array", "items": {"type": "object"}}
+  },
+  "$defs": {
+    "metric": {
+      "type": "object",
+      "required": ["passed_checks", "applicable_checks", "display", "failures"],
+      "properties": {
+        "passed_checks": {"type": "integer", "minimum": 0},
+        "applicable_checks": {"type": "integer", "minimum": 0},
+        "display": {"type": "string", "pattern": "^[0-9]+ / [0-9]+$"},
+        "failures": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

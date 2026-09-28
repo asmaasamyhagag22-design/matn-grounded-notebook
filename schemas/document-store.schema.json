@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/document-store.schema.json",
+  "title": "Matn Phase 02 document store",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "store_status", "document", "index_run", "coverage",
+    "outline", "pages", "chunks", "heading_candidates", "sections",
+    "header_footer_candidates", "warnings"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "store_status": {"const": "completed"},
+    "document": {
+      "type": "object",
+      "required": ["document_id", "sha256", "size_bytes", "safe_file_name", "pdf_page_count"],
+      "properties": {
+        "document_id": {"type": "string", "pattern": "^sha256-[0-9a-f]{64}$"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "size_bytes": {"type": "integer", "minimum": 1},
+        "safe_file_name": {"type": "string", "minLength": 1},
+        "pdf_page_count": {"type": "integer", "minimum": 1}
+      }
+    },
+    "index_run": {"type": "object"},
+    "coverage": {"type": "object"},
+    "outline": {"type": "object"},
+    "pages": {"type": "array", "items": {"$ref": "#/$defs/page"}},
+    "chunks": {"type": "array", "items": {"$ref": "#/$defs/chunk"}},
+    "heading_candidates": {"type": "array", "items": {"$ref": "#/$defs/heading"}},
+    "sections": {"type": "array", "items": {"$ref": "#/$defs/section"}},
+    "header_footer_candidates": {"type": "array", "items": {"type": "object"}},
+    "warnings": {"type": "array", "items": {"type": "string"}}
+  },
+  "$defs": {
+    "page": {
+      "type": "object",
+      "required": ["pdf_page", "page_label", "printed_page", "raw_text_path", "structured_text_path", "chunk_ids", "content_risk_flags", "warnings"],
+      "properties": {
+        "pdf_page": {"type": "integer", "minimum": 1},
+        "page_label": {"type": ["string", "null"]},
+        "printed_page": {"type": ["string", "integer", "null"]},
+        "raw_text_path": {"type": "string"},
+        "structured_text_path": {"type": "string"},
+        "chunk_ids": {"type": "array", "items": {"type": "string"}},
+        "content_risk_flags": {"type": "array", "items": {"type": "string"}},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "chunk": {
+      "type": "object",
+      "required": ["chunk_id", "order", "pdf_page", "source_type", "source_text_path", "start_offset", "end_offset", "block_kind", "text", "content_risk_flags", "warnings"],
+      "properties": {
+        "chunk_id": {"type": "string", "pattern": "^chk-[0-9a-f]{16}$"},
+        "order": {"type": "integer", "minimum": 0},
+        "pdf_page": {"type": "integer", "minimum": 1},
+        "source_type": {"enum": ["structured", "raw-derived"]},
+        "source_text_path": {"type": "string"},
+        "start_offset": {"type": "integer", "minimum": 0},
+        "end_offset": {"type": "integer", "minimum": 0},
+        "block_kind": {"type": "string"},
+        "text": {"type": "string"},
+        "content_risk_flags": {"type": "array", "items": {"type": "string"}},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "heading": {
+      "type": "object",
+      "required": ["heading_id", "text", "normalized_text", "level", "pdf_page", "chunk_id", "start_offset", "end_offset", "source_method", "evidence", "evidence_status", "status", "warnings"],
+      "properties": {
+        "heading_id": {"type": "string"},
+        "text": {"type": "string"},
+        "normalized_text": {"type": "string"},
+        "level": {"type": "integer", "minimum": 1},
+        "pdf_page": {"type": "integer", "minimum": 1},
+        "chunk_id": {"type": "string"},
+        "start_offset": {"type": "integer", "minimum": 0},
+        "end_offset": {"type": "integer", "minimum": 0},
+        "source_method": {"type": "array", "items": {"type": "string"}},
+        "evidence": {"type": "object"},
+        "evidence_status": {"enum": ["exact_outline_match", "outline_and_heading_agree", "heading_only", "conflicting_evidence", "manual_confirmed", "manual_rejected"]},
+        "status": {"enum": ["proposed", "confirmed", "rejected"]},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "section": {
+      "type": "object",
+      "required": ["section_id", "heading_id", "title", "normalized_title", "level", "parent_section_id", "start_anchor", "end_anchor_exclusive", "first_pdf_page", "last_pdf_page", "included_chunk_ids", "source_evidence", "confirmation_status", "content_risk_flags", "warnings"],
+      "properties": {
+        "section_id": {"type": "string"},
+        "heading_id": {"type": "string"},
+        "title": {"type": "string"},
+        "normalized_title": {"type": "string"},
+        "level": {"type": "integer", "minimum": 1},
+        "parent_section_id": {"type": ["string", "null"]},
+        "start_anchor": {"type": "object"},
+        "end_anchor_exclusive": {"type": ["object", "null"]},
+        "first_pdf_page": {"type": "integer", "minimum": 1},
+        "last_pdf_page": {"type": "integer", "minimum": 1},
+        "included_chunk_ids": {"type": "array", "items": {"type": "string"}},
+        "source_evidence": {"type": "object"},
+        "confirmation_status": {"enum": ["proposed", "confirmed"]},
+        "content_risk_flags": {"type": "array", "items": {"type": "string"}},
+        "warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}

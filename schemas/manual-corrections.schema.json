@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/manual-corrections.schema.json",
+  "title": "Matn Phase 02 reviewed corrections",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "headings", "header_footer", "printed_pages"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "headings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["normalized_title", "action"],
+        "properties": {
+          "normalized_title": {"type": "string", "minLength": 1},
+          "pdf_page": {"type": "integer", "minimum": 1},
+          "action": {"enum": ["confirm", "reject"]},
+          "level": {"type": "integer", "minimum": 1},
+          "section_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "header_footer": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["normalized_text", "position", "action"],
+        "properties": {
+          "normalized_text": {"type": "string", "minLength": 1},
+          "position": {"enum": ["header", "footer"]},
+          "action": {"enum": ["confirm", "reject"]}
+        }
+      }
+    },
+    "printed_pages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pdf_page", "printed_page"],
+        "properties": {
+          "pdf_page": {"type": "integer", "minimum": 1},
+          "printed_page": {"type": ["string", "integer"]}
+        }
+      }
+    }
+  }
+}
