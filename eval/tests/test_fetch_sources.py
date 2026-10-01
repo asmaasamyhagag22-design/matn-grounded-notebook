@@ -92,6 +92,52 @@ def test_no_network_without_explicit_env(monkeypatch):
     assert err.value.code == "NETWORK_NOT_ALLOWED"
 
 
+def test_tls_uses_the_certifi_bundle_and_keeps_verification_strict():
+    import ssl
+
+    import certifi
+
+    context, info = fs.tls_context()
+    assert info == {"ca_source": "certifi", "cafile": certifi.where(), "certifi_version": certifi.__version__}
+    assert context.verify_mode == ssl.CERT_REQUIRED and context.check_hostname is True
+    assert len(context.get_ca_certs()) > 100
+
+
+def test_tls_falls_back_to_the_system_store_without_certifi(monkeypatch):
+    import ssl
+    import sys
+
+    monkeypatch.setitem(sys.modules, "certifi", None)  # import certifi -> ImportError
+    context, info = fs.tls_context()
+    assert info == {"ca_source": "system", "cafile": None, "certifi_version": None}
+    assert context.verify_mode == ssl.CERT_REQUIRED and context.check_hostname is True
+
+
+def test_https_requests_use_that_context(monkeypatch):
+    seen = {}
+
+    class Stop(Exception):
+        pass
+
+    def fake_build_opener(*handlers):
+        seen["handlers"] = handlers
+        raise Stop
+
+    monkeypatch.setenv("MATN_ALLOW_NETWORK", "1")
+    monkeypatch.setattr(fs.urllib.request, "build_opener", fake_build_opener)
+    with pytest.raises(Stop):
+        fs.http_get("https://www.gao.gov/assets/doc.pdf")
+    https = [h for h in seen["handlers"] if isinstance(h, fs.urllib.request.HTTPSHandler)]
+    assert len(https) == 1 and https[0]._context.verify_mode == __import__("ssl").CERT_REQUIRED
+    assert len(https[0]._context.get_ca_certs()) > 100
+
+
+def test_log_records_the_trust_store(root, scratch, monkeypatch):
+    web = FakeWeb({"https://www.gao.gov/assets/doc.pdf": (200, "application/pdf", GOOD_PDF, None)})
+    log, _ = run(root, scratch, web, monkeypatch)
+    assert log["tls"]["ca_source"] in {"certifi", "system"}
+
+
 def test_redirect_to_a_host_outside_the_list_is_refused():
     handler = fs.AllowlistRedirects()
     with pytest.raises(fs.FetchRefused) as err:

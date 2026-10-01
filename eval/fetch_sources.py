@@ -30,6 +30,7 @@ import json
 import os
 import re
 import shutil
+import ssl
 import sys
 import urllib.error
 import urllib.request
@@ -106,13 +107,35 @@ class AllowlistRedirects(urllib.request.HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
+def tls_context() -> tuple[ssl.SSLContext, dict]:
+    """Strict TLS (certificate and hostname checked) against the certifi CA bundle when installed.
+
+    On Windows, Python only sees the roots already present in the Windows store, which fills lazily (39 roots on the
+    Step 0 laptop: arxiv.org failed with CERTIFICATE_VERIFY_FAILED). certifi ships Mozilla's CA list. Without
+    certifi the system store is used. Verification is never disabled.
+    """
+    info = tls_info()
+    return ssl.create_default_context(cafile=info["cafile"]), info
+
+
+def tls_info() -> dict:
+    """Which CA bundle tls_context() uses (cheap: no context is built)."""
+    try:
+        import certifi
+    except ImportError:
+        return {"ca_source": "system", "cafile": None, "certifi_version": None}
+    return {"ca_source": "certifi", "cafile": certifi.where(), "certifi_version": certifi.__version__}
+
+
 def http_get(url: str) -> Response:
     if os.environ.get("MATN_ALLOW_NETWORK") != "1":
         raise FetchRefused("NETWORK_NOT_ALLOWED")
     check_url(url)
     print(f"GET {url}", flush=True)
     redirects = AllowlistRedirects()
-    opener = urllib.request.build_opener(redirects)  # no HTTPCookieProcessor: cookies are never stored or sent
+    context, _ = tls_context()
+    # No HTTPCookieProcessor: cookies are never stored or sent.
+    opener = urllib.request.build_opener(urllib.request.HTTPSHandler(context=context), redirects)
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"}, method="GET")
     try:
         with opener.open(request, timeout=120) as response:
@@ -295,7 +318,7 @@ def run(root: Path, scratch: Path, *, save_pages=(), citation_pages=(), compare_
     rows = parse_sources(root / "incoming" / "SOURCES.md")
     registry = _registry(root)
     log = {"started_utc": _now(), "tool": "eval/fetch_sources.py", "user_agent": USER_AGENT,
-           "allowed_hosts": sorted(ALLOWED_HOSTS), "entries": [], "ok": True}
+           "allowed_hosts": sorted(ALLOWED_HOSTS), "tls": tls_info(), "entries": [], "ok": True}
     save_pages = list(save_pages) + [rows.get(n, {}).get("url", "").strip() for n in citation_pages]
     # Rows whose PDF link must first be resolved from a landing page are the likeliest to stop the run: last.
     direct = [r for r in rows.values() if not _needs_resolution(root, r)]
