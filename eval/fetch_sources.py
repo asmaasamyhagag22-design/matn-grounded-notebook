@@ -11,7 +11,8 @@ Rules, all enforced in code:
   HTTP 200, %PDF- magic bytes, sha256 equal to the registry (once registered), the SOURCES.md title on the first
   pages, and English text (an Arabic edition exists for one document);
 - an existing file is never overwritten; one whose sha256 differs from the registry is reported;
-- the first failure stops the run; the failing temp file is deleted;
+- the first failure stops the run; the failing temp file is deleted (or, with --keep-rejected, moved to
+  <scratch>/rejected/ for inspection; it never enters eval/incoming/);
 - an empty pdf_url is resolved from the row's citation page (one unambiguous PDF link on an allowed host);
 - --save-page URL / --save-citation-page FILE keeps a landing page (e.g. the arXiv abstract page, for its license)
   in scratch;
@@ -180,6 +181,11 @@ def title_coverage(title: str, text: str) -> float:
     return round(len(wanted & _words(text)) / len(wanted), 4) if wanted else 0.0
 
 
+def title_missing_words(title: str, text: str) -> list[str]:
+    """Words of OUR title (SOURCES.md) not found in the text; never words of the document itself."""
+    return sorted(_words(title) - _words(text))
+
+
 def _record(entry: dict, response: Response) -> None:
     entry.update(final_url=response.final_url, redirects=response.redirects, http_status=response.status,
                  content_type=response.content_type, fetched_at_utc=_now())
@@ -234,7 +240,7 @@ def resolve_pdf_url(page_url: str, scratch: Path, entry: dict) -> str:
     return candidates[0]
 
 
-def download_row(row: dict, root: Path, scratch: Path, registry: dict, entry: dict) -> None:
+def download_row(row: dict, root: Path, scratch: Path, registry: dict, entry: dict, keep_rejected: bool = False) -> None:
     name = row["file"]
     entry.update(kind="pdf", file=name, registry_sha256=registry.get(name))
     target = root / "incoming" / name
@@ -265,7 +271,7 @@ def download_row(row: dict, root: Path, scratch: Path, registry: dict, entry: di
     try:
         text = first_pages_text(temp)
         entry.update(page_count=page_count(temp), title_coverage=title_coverage(row.get("title", ""), text),
-                     latin_ratio=latin_ratio(text))
+                     title_missing_words=title_missing_words(row.get("title", ""), text), latin_ratio=latin_ratio(text))
         if entry["title_coverage"] < TITLE_COVERAGE_MIN:
             raise FetchRefused("TITLE_NOT_FOUND")
         if entry["latin_ratio"] < LATIN_RATIO_MIN:
@@ -273,6 +279,11 @@ def download_row(row: dict, root: Path, scratch: Path, registry: dict, entry: di
         shutil.move(str(temp), str(target))
         entry["result"] = "DOWNLOADED"
     finally:
+        if temp.exists() and keep_rejected:  # for inspection only: scratch is outside the repository
+            kept = scratch / "rejected" / name
+            kept.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(temp), str(kept))
+            entry["kept_at"] = str(kept)
         temp.unlink(missing_ok=True)
 
 
@@ -310,7 +321,8 @@ def _needs_resolution(root: Path, row: dict) -> bool:
     return not (root / "incoming" / row["file"]).exists() and not (row.get("pdf_url") or "").strip()
 
 
-def run(root: Path, scratch: Path, *, save_pages=(), citation_pages=(), compare_copies=()) -> dict:
+def run(root: Path, scratch: Path, *, save_pages=(), citation_pages=(), compare_copies=(),
+        keep_rejected: bool = False) -> dict:
     scratch = Path(scratch)
     if scratch.resolve().is_relative_to(REPO.resolve()):
         raise FetchRefused("SCRATCH_INSIDE_REPO")
@@ -324,9 +336,9 @@ def run(root: Path, scratch: Path, *, save_pages=(), citation_pages=(), compare_
     direct = [r for r in rows.values() if not _needs_resolution(root, r)]
     resolve = [r for r in rows.values() if _needs_resolution(root, r)]
     jobs = ([lambda e, u=u: save_page(u, scratch, e) for u in save_pages]
-            + [lambda e, r=r: download_row(r, root, scratch, registry, e) for r in direct]
+            + [lambda e, r=r: download_row(r, root, scratch, registry, e, keep_rejected) for r in direct]
             + [lambda e, n=n: compare_copy(n, root, scratch, rows, e) for n in compare_copies]
-            + [lambda e, r=r: download_row(r, root, scratch, registry, e) for r in resolve])
+            + [lambda e, r=r: download_row(r, root, scratch, registry, e, keep_rejected) for r in resolve])
     for job in jobs:
         entry: dict = {}
         log["entries"].append(entry)
@@ -370,6 +382,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="save the citation page (url column) of this SOURCES.md row")
     parser.add_argument("--compare-copy", action="append", default=[], metavar="FILE")
     parser.add_argument("--log", type=Path, default=REPO / "reports" / "step0-evidence" / "fetch-log.json")
+    parser.add_argument("--keep-rejected", action="store_true",
+                        help="move a PDF that fails a check to <scratch>/rejected/ for inspection (never to incoming/)")
     parser.add_argument("--dry-run", action="store_true", help="print the planned requests; no network")
     args = parser.parse_args(argv)
     if args.dry_run:
@@ -377,7 +391,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     try:
         log = run(args.root, args.scratch, save_pages=args.save_page, citation_pages=args.save_citation_page,
-                  compare_copies=args.compare_copy)
+                  compare_copies=args.compare_copy, keep_rejected=args.keep_rejected)
     except FetchRefused as refused:
         print(f"REFUSED {refused.code} {json.dumps(refused.details)}")
         return 1

@@ -198,6 +198,25 @@ def test_wrong_document_is_refused(root, scratch, monkeypatch):
     assert entries["doc.pdf"]["result"] == "TITLE_NOT_FOUND" and not (root / "incoming" / "doc.pdf").exists()
 
 
+def test_missing_title_words_are_logged_from_our_title_only(root, scratch, monkeypatch):
+    body = pdf_bytes("Harbor Pilot Report\nSome other cover words.")
+    web = FakeWeb({"https://www.gao.gov/assets/doc.pdf": (200, "application/pdf", body, None)})
+    log, entries = run(root, scratch, web, monkeypatch)
+    assert entries["doc.pdf"]["result"] == "TITLE_NOT_FOUND"
+    assert entries["doc.pdf"]["title_missing_words"] == ["evidence", "first", "review"]
+    assert "cover words" not in json.dumps(log)
+
+
+def test_keep_rejected_moves_the_file_to_scratch_never_to_incoming(root, scratch, monkeypatch):
+    body = pdf_bytes("Quarterly Bulletin of Something Else\nUnrelated text in English.")
+    web = FakeWeb({"https://www.gao.gov/assets/doc.pdf": (200, "application/pdf", body, None)})
+    log, entries = run(root, scratch, web, monkeypatch, keep_rejected=True)
+    kept = Path(entries["doc.pdf"]["kept_at"])
+    assert entries["doc.pdf"]["result"] == "TITLE_NOT_FOUND" and kept.read_bytes() == body
+    assert kept.is_relative_to(scratch / "rejected") and not (root / "incoming" / "doc.pdf").exists()
+    assert list(scratch.rglob("*.partial")) == []
+
+
 def test_non_english_edition_is_refused(root, scratch, monkeypatch):
     # The Arabic edition carries the English title on its cover but Arabic body text.
     monkeypatch.setattr(fs, "first_pages_text", lambda path: TITLE + " " + "تقرير تجريبي عن المراجعة القائمة على الأدلة " * 20)
