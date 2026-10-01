@@ -1,9 +1,146 @@
-# Matn - local PDF evidence store and source-scoped selection
+# Matn - local PDF evidence store and grounded summarization
 
 Current verified gates:
 
 - `PHASE_01_VERIFIED_FOR_SUPPORTED_PROFILE`
-- `PHASE_02_VERIFIED_FOR_SUPPORTED_PROFILE`
+- `PHASE_02_VERIFIED_FOR_REVIEW_ASSISTED_SUPPORTED_PROFILE`
+- `PHASE_03_IMPLEMENTED_AND_LOCALLY_EVALUATED_PENDING_HUMAN_REVIEW`
+- `PHASE_04A_MVP_IMPLEMENTED_AND_VISUALLY_VERIFIED`
+
+Phase 04A adds a local English presentation MVP. It does not change the Phase
+03B review status above and does not imply approval of Arabic output.
+
+## Phase 04A English presentation MVP
+
+### Launch the book demo
+
+The prepared primary sample is Chapter 2 of *Build a Large Language Model (From
+Scratch)* by Sebastian Raschka. It opens without an inference call during the
+demo. From this checkout, run:
+
+```powershell
+cd C:\Users\asmaa\Documents\notebooklm\matn
+.\.venv\Scripts\python.exe -m streamlit run .\app.py
+```
+
+The application opens at `http://localhost:8501`. It uses a wide, English-only
+interface and exposes only the Phase 04A workflow.
+
+### Primary prepared sample
+
+1. Leave `Sample book chapter` selected.
+2. Click `Create presentation`.
+3. Review `Overview`, `Presentation`, and `Sources`.
+4. Download the PowerPoint. The deck plan remains under `Advanced processing details`.
+
+This route loads the pre-reviewed 10-slide book presentation immediately and
+makes zero model calls while opening it. The preparation run used only local
+`qwen3.5:9b` at `http://127.0.0.1:11434`; the cold run used seven map calls and
+the warm replay used seven cache hits. Final artifacts are under
+`output/book-demo/`.
+
+### Upload a PDF
+
+1. Select `Upload a PDF`.
+2. Upload a text-based PDF.
+3. Enter a physical 1-based PDF page range.
+4. Confirm the CPU-time notice, then click `Create presentation`.
+5. Review the result before downloading it.
+
+Live generation contacts only `http://127.0.0.1:11434` and uses
+`qwen3.5:9b`. CPU-only generation can take a long time, especially on a cold
+model. A cache hit and cache miss are reported explicitly. There is no cloud
+fallback. A failed live run leaves the validated cached demo unchanged.
+
+### Local-only statement and MVP limitations
+
+- Inference endpoints must resolve to loopback; non-loopback endpoints fail
+  closed.
+- The prepared book sample performs no inference while opening and uses physical
+  PDF pages 43–49 (printed pages 21–27).
+- Uploaded PDFs must contain extractable text. OCR and scanned/image-only PDFs
+  are outside this MVP.
+- Live Local Generation uses bounded sentence claims from the selected text and
+  one local structured planning call. It does not claim human semantic review.
+- The UI is English-only. Arabic, chat, agents, authentication, databases,
+  cloud deployment, and arbitrary theme controls are intentionally absent.
+- Phase 03B remains
+  `PHASE_03_IMPLEMENTED_AND_LOCALLY_EVALUATED_PENDING_HUMAN_REVIEW`.
+- The previous research-paper presentation remains available as the automatic
+  fallback under `output/phase04a-english-demo/`.
+
+Phase 03B adds sentence-aware boundary reconciliation, a lossless English
+evidence inventory with ordered multi-span provenance, a frozen canonical
+semantic plan, coherent summaries, deterministic citations and review
+packages, and controlled Arabic rendering of that exact plan. Arabic output is
+checked by both structural parity and reusable high-risk semantic-relation
+rules; those automated gates are not semantic support or language-quality
+approval. The phase therefore remains pending independent human review.
+
+## Phase 03 quick start (Windows PowerShell)
+
+Keep the PDF, reviewed store, selection, glossary, cache, and generated run under
+ignored `documents/` and `output/` paths.
+
+```powershell
+.\.venv\Scripts\python.exe .\summarize_selection.py `
+  --selection ".\output\phase02-final-sec-2-2.json" `
+  --document-store ".\output\phase02-store-final\document-store.json" `
+  --pdf ".\documents\2601.14525v1.pdf" `
+  --language en `
+  --audience "junior AI engineer" `
+  --length long `
+  --model "qwen3.5:9b" `
+  --strategy hierarchical `
+  --num-predict 1536 `
+  --cache ".\output\.phase03b-map-cache" `
+  --out ".\output\summary-en"
+```
+
+Arabic is never an independent summarization run. Render it from the frozen
+English plan:
+
+```powershell
+.\.venv\Scripts\python.exe .\summarize_selection.py `
+  --selection ".\output\phase02-final-sec-2-2.json" `
+  --document-store ".\output\phase02-store-final\document-store.json" `
+  --pdf ".\documents\2601.14525v1.pdf" `
+  --language ar `
+  --audience "مهندس ذكاء اصطناعي مبتدئ" `
+  --length long `
+  --glossary ".\examples\terminology.example.json" `
+  --semantic-plan ".\output\summary-en\semantic-plan.json" `
+  --model "qwen3.5:9b" `
+  --strategy hierarchical `
+  --num-predict 512 `
+  --out ".\output\summary-ar"
+```
+
+If an Arabic rendering fails its semantic gate, publication is atomic: one
+constrained repair is allowed, then the run fails and writes a rejected
+human-review artifact. `--rejected-render` can revalidate that artifact against
+the same frozen plan; `--translation-memory` can reuse exact accepted claim
+translations only when model, glossary, and render-prompt identities match.
+
+The CLI requires the original PDF and store so it can reject changed source
+files and identity mismatches before inference. It refuses non-loopback Ollama
+URLs and existing output paths. Normal runs use `num_ctx=4096`, temperature 0,
+`stream=false`, and `think=false`; the local model must advertise thinking
+control. A direct baseline is available with `--strategy direct`.
+
+Evaluate deterministic citation/quote metrics, optionally adding a separate
+human review file for semantic metrics:
+
+```powershell
+.\.venv\Scripts\python.exe .\evaluate_summary.py `
+  --checklist ".\documents\phase03\evaluation-checklist.json" `
+  --run ".\output\summary-run" `
+  --out ".\output\summary-evaluation.json"
+```
+
+See `docs/phase03_design.md`, `docs/phase03b_coverage_audit.md`, and
+`docs/phase03b_acceptance.md` for contracts, measurements, failures, metrics,
+and review gates.
 
 Phase 02 adds deterministic document structure, reviewed section indexing, and
 page/section-scoped source selection. It does **not** summarize content and does
@@ -15,7 +152,7 @@ Start with completed raw and structured Phase 01 runs that cover the same PDF
 pages. A full-document index should use full-document runs.
 
 ```powershell
-cd C:\Users\asmaa\Documents\notebooklm\matn
+cd C:\path\to\matn
 .\.venv\Scripts\python.exe .\inspect_pdf.py `
   --pdf ".\documents\paper.pdf" --pages "1-42" `
   --extractor raw --out ".\output\paper-raw"
@@ -133,7 +270,7 @@ documented in `docs/phase01c_acceptance.md`.
 ## Windows setup
 
 ```powershell
-cd C:\Users\asmaa\Documents\notebooklm\matn
+cd C:\path\to\matn
 py -3.11 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install --upgrade pip
 .\.venv\Scripts\python.exe -m pip install -r .\requirements-dev.txt

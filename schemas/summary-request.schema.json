@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/summary-request.schema.json",
+  "title": "Matn Phase 03 summary request",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "document", "source_selection", "ordered_chunk_ids", "language", "audience", "length", "glossary", "model", "prompt_version", "output_schema_version", "inference", "constraints", "execution_controls"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "document": {"type": "object", "required": ["document_id", "sha256"], "properties": {"document_id": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}},
+    "source_selection": {"type": "object", "required": ["selection_id", "confirmation_status"], "properties": {"selection_id": {"type": "string"}, "confirmation_status": {"const": "confirmed"}}},
+    "ordered_chunk_ids": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string"}},
+    "language": {"enum": ["en", "ar"]},
+    "audience": {"type": "string", "minLength": 1, "maxLength": 200},
+    "length": {"enum": ["short", "medium", "long"]},
+    "glossary": {"type": "object", "required": ["version", "sha256", "terms"], "properties": {"version": {"type": "string"}, "sha256": {"type": ["string", "null"]}, "terms": {"type": "object"}}},
+    "model": {"type": "object", "required": ["name", "digest"], "properties": {"name": {"type": "string"}, "digest": {"type": "string"}}},
+    "prompt_version": {"type": "string"},
+    "render_seed": {"type": "object", "additionalProperties": false, "required": ["sha256", "status"], "properties": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "status": {"const": "rejected_render_revalidation"}}},
+    "translation_memory": {"type": "object", "additionalProperties": false, "required": ["sha256", "status"], "properties": {"sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}, "status": {"const": "accepted_exact_claim_reuse"}}},
+    "output_schema_version": {"const": 1},
+    "inference": {"type": "object", "required": ["base_url", "num_ctx", "num_predict", "temperature", "stream", "think"], "properties": {"base_url": {"type": "string"}, "num_ctx": {"const": 4096}, "num_predict": {"type": "integer", "minimum": 64}, "temperature": {"const": 0}, "stream": {"const": false}, "think": {"const": false}}},
+    "execution_controls": {
+      "type": "object", "additionalProperties": false,
+      "required": ["bypass_result_cache", "bypass_map_cache", "translation_memory_disabled", "rejected_render_reuse_disabled", "required_model_stages", "cold_requested", "local_only", "require_new_output_directory"],
+      "properties": {
+        "bypass_result_cache": {"type": "boolean"}, "bypass_map_cache": {"type": "boolean"},
+        "translation_memory_disabled": {"type": "boolean"}, "rejected_render_reuse_disabled": {"type": "boolean"},
+        "required_model_stages": {"type": "array", "uniqueItems": true, "items": {"enum": ["map", "render", "synthesis", "repair"]}},
+        "cold_requested": {"type": "boolean"}, "local_only": {"const": true}, "require_new_output_directory": {"const": true}
+      }
+    },
+    "constraints": {"type": "object", "required": ["model_must_not_emit_page_numbers", "source_is_untrusted_data", "no_tools"], "properties": {"model_must_not_emit_page_numbers": {"const": true}, "source_is_untrusted_data": {"const": true}, "no_tools": {"const": true}}}
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/run-metadata.schema.json",
+  "title": "Matn Phase 03 run metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "run_id", "run_status", "phase_status", "started_at", "completed_at", "wall_clock_ns", "generation_mode", "render_source", "provenance_classification", "cold_or_warm", "canonical_content_source", "model_calls_total", "model_map_calls", "model_synthesis_calls", "model_render_calls", "model_repair_calls", "calibration_calls", "cache_bypassed", "result_cache_bypassed", "map_cache_bypassed", "translation_memory_used", "rejected_render_used", "actual_generation_duration_ns", "strategy", "language_role", "evidence_extraction_mode", "map_batches", "claims_before_validation", "claims_after_validation", "model_claims_accepted", "model_claims_rejected", "repair_attempts", "arabic_parity_repair_attempts", "cache", "runtime", "prompt_versions", "schema_versions", "inference", "requests", "context_budget", "local_only", "offline_status"],
+  "properties": {
+    "schema_version": {"const": 4}, "run_id": {"type": "string", "format": "uuid"}, "run_status": {"const": "completed"},
+    "phase_status": {"const": "PHASE_03_IMPLEMENTED_AND_LOCALLY_EVALUATED_PENDING_HUMAN_REVIEW"},
+    "started_at": {"type": "string", "format": "date-time"}, "completed_at": {"type": "string", "format": "date-time"}, "wall_clock_ns": {"type": "integer", "minimum": 0},
+    "generation_mode": {"enum": ["model_generation", "cache_replay", "translation_memory_replay", "rejected_render_revalidation", "deterministic_assembly", "mixed"]},
+    "render_source": {"enum": ["ollama", "cache", "translation_memory", "rejected_render", "deterministic", "mixed"]},
+    "provenance_classification": {"enum": ["cold", "warm", "replay", "deterministic", "mixed"]},
+    "cold_or_warm": {"enum": ["cold", "warm", "replay", "deterministic", "mixed"]},
+    "canonical_content_source": {"enum": ["deterministic_reconciled_source"]},
+    "model_calls_total": {"type": "integer", "minimum": 0}, "model_map_calls": {"type": "integer", "minimum": 0},
+    "model_synthesis_calls": {"type": "integer", "minimum": 0}, "model_render_calls": {"type": "integer", "minimum": 0},
+    "model_repair_calls": {"type": "integer", "minimum": 0}, "calibration_calls": {"type": "integer", "minimum": 0},
+    "cache_bypassed": {"type": "boolean"}, "result_cache_bypassed": {"type": "boolean"}, "map_cache_bypassed": {"type": "boolean"},
+    "translation_memory_used": {"type": "boolean"}, "rejected_render_used": {"type": "boolean"},
+    "actual_generation_duration_ns": {"type": "integer", "minimum": 0},
+    "strategy": {"enum": ["direct", "hierarchical"]},
+    "language_role": {"enum": ["canonical_english", "arabic_rendering_of_frozen_english_plan"]},
+    "evidence_extraction_mode": {"enum": ["deterministic_lossless", "deterministic_plus_model", "frozen_plan"]},
+    "map_batches": {"type": "integer", "minimum": 0}, "claims_before_validation": {"type": "integer", "minimum": 0}, "claims_after_validation": {"type": "integer", "minimum": 0}, "repair_attempts": {"type": "integer", "minimum": 0},
+    "model_claims_accepted": {"type": "integer", "minimum": 0}, "model_claims_rejected": {"type": "integer", "minimum": 0},
+    "arabic_parity_repair_attempts": {"type": "integer", "minimum": 0, "maximum": 1},
+    "cache": {"type": "object"}, "runtime": {"type": "object"}, "prompt_versions": {"type": "object"}, "schema_versions": {"type": "object"}, "inference": {"type": "object"},
+    "requests": {"type": "array", "items": {"type": "object"}}, "context_budget": {"type": "object"},
+    "local_only": {
+      "type": "object", "additionalProperties": false,
+      "required": ["enforced", "cloud_fallback_enabled", "contacted_inference_hosts"],
+      "properties": {"enforced": {"const": true}, "cloud_fallback_enabled": {"const": false}, "contacted_inference_hosts": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["localhost", "127.0.0.1", "::1"]}}}
+    },
+    "offline_status": {"type": "object"}
+  }
+}

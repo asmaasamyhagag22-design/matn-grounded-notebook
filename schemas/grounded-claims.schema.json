@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://matn.local/schemas/grounded-claims.schema.json",
+  "title": "Matn Phase 03 grounded claims",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "claims"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "claims": {"type": "array", "items": {"$ref": "#/$defs/claim"}}
+  },
+  "$defs": {
+    "evidence": {"type": "object", "additionalProperties": false, "required": ["source_chunk_id", "short_quote"], "properties": {
+      "source_chunk_id": {"type": "string"},
+      "short_quote": {"type": "string", "minLength": 1, "maxLength": 240},
+      "exact_text": {"type": "string", "minLength": 1, "maxLength": 5000},
+      "start_offset": {"type": "integer", "minimum": 0},
+      "end_offset": {"type": "integer", "minimum": 1},
+      "pdf_page": {"type": "integer", "minimum": 1}
+    }},
+    "claim": {"type": "object", "additionalProperties": false, "required": ["local_claim_id", "claim_text", "topic", "importance", "evidence", "numbers_and_units", "technical_terms", "limitation_or_uncertainty"], "properties": {
+      "local_claim_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+      "claim_text": {"type": "string", "minLength": 1, "maxLength": 5000},
+      "topic": {"type": "string", "minLength": 1, "maxLength": 60},
+      "importance": {"enum": ["core", "supporting"]},
+      "evidence": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"$ref": "#/$defs/evidence"}},
+      "numbers_and_units": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 120}},
+      "technical_terms": {"type": "array", "maxItems": 20, "items": {"type": "string", "maxLength": 120}},
+      "limitation_or_uncertainty": {"type": ["string", "null"], "maxLength": 800},
+      "content_risk_flags": {"type": "array", "items": {"type": "string"}},
+      "review_status": {"enum": ["unreviewed", "human_review_required", "visually_verified", "excluded_due_to_extraction_risk"]},
+      "extraction_method": {"enum": ["model", "deterministic_source_fallback"]}
+      ,"normalization_notes": {"type": "array", "items": {"type": "string"}}
+    }}
+  }
+}

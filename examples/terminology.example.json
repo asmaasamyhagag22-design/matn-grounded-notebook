@@ -1,0 +1,40 @@
+{
+  "version": "phase03-example-1",
+  "terms": {
+    "Idea Executor": "منفّذ الأفكار (Idea Executor)",
+    "Implementer": "المنفّذ (Implementer)",
+    "Scheduler": "المُجدوِل (Scheduler)",
+    "Worker": "العامل (Worker)",
+    "accuracy": "الدقة (Accuracy)",
+    "precision": "الإحكام (Precision)",
+    "loss": "الخسارة (Loss)",
+    "diff file": "ملف فروقات برمجية (diff file)",
+    "pre-training": "التدريب المسبق (pre-training)",
+    "post-training": "التدريب اللاحق (post-training)",
+    "evolutionary search": "البحث التطوري (evolutionary search)",
+    "reinforcement learning": "التعلم المعزز (reinforcement learning)",
+    "average reward": "متوسط المكافأة (average reward)",
+    "maximum reward": "أقصى مكافأة (maximum reward)"
+    ,"codebase": "قاعدة الشيفرة البرمجية (codebase)"
+    ,"ideator model": "نموذج توليد الأفكار (ideator model)"
+    ,"compute cluster": "عنقود الحوسبة (compute cluster)"
+    ,"scheduling interval": "الفاصل الزمني للجدولة (scheduling interval)"
+  },
+  "semantic_rules": [
+    {
+      "source_term": "codebase",
+      "preferred_arabic": ["قاعدة الشيفرة البرمجية", "مستودع الشيفرة"],
+      "forbidden_arabic": ["قاعدة البيانات", "قواعد البيانات"]
+    },
+    {
+      "source_term": "clock frequency",
+      "preferred_arabic": ["على فواصل زمنية محددة", "بوتيرة زمنية محددة"],
+      "forbidden_arabic": ["تردد ساعة"]
+    },
+    {
+      "source_term": "patch/apply a diff",
+      "preferred_arabic": ["تطبيق ملف الفروقات", "دمج ملف الفروقات"],
+      "forbidden_arabic": ["إصلاح ملف الفروقات"]
+    }
+  ]
+}

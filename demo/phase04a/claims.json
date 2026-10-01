@@ -1,0 +1,537 @@
+{
+  "schema_version": 1,
+  "bundle_purpose": "Minimal validated Phase 04A presentation inputs",
+  "source_artifact": "local Phase 03B accepted run",
+  "claims": [
+    {
+      "claim_id": "src-src-001",
+      "claim_text": "To measure the effectiveness of model-generated ideas, we build an automated executor that takes natural language research ideas as input, generates code implementations, runs the experiments on the backend, and returns the idea’s benchmark performance as the final output.",
+      "evidence": [
+        {
+          "short_quote": "To measure the effectiveness of model-generated ideas, we build an automated executor",
+          "pdf_page": 2
+        },
+        {
+          "short_quote": "research ideas as input, generates code implementations, runs the experiments on the",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-002",
+      "claim_text": "Table 1: Performance of our execution-guided search in comparison with the provided baselines and best human experts.",
+      "evidence": [
+        {
+          "short_quote": "Table 1: Performance of our execution-guided search in comparison with the provided",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "human_review_required"
+    },
+    {
+      "claim_id": "src-src-003",
+      "claim_text": "The post-training task is to finetune a 1.5B model for math reasoning, and the metric is validation accuracy.",
+      "evidence": [
+        {
+          "short_quote": "The post-training task is to finetune a 1.5B model for math reasoning,",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "human_review_required"
+    },
+    {
+      "claim_id": "src-src-004",
+      "claim_text": "The pre-training task is to train a 124M Transformer on FineWeb, and the metric is the training time to reach 3.28 validation loss.",
+      "evidence": [
+        {
+          "short_quote": "The pre-training task is to train a 124M Transformer on FineWeb, and",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "human_review_required"
+    },
+    {
+      "claim_id": "src-src-005",
+      "claim_text": "Our automated idea executor is grounded in specific research environments, where each environment consists of a research problem, a baseline codebase, a benchmark to measure performance on, fixed training and evaluation data, and evaluation metrics.",
+      "evidence": [
+        {
+          "short_quote": "Our automated idea executor is grounded in specific research environments, where each",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-006",
+      "claim_text": "When constructing the research environments, we aim to select research problems that are open-ended, so that there is ample room for new algorithmic innovations, and at the same time have well-established baselines and benchmarking metrics so that measuring effectiveness is straightforward.",
+      "evidence": [
+        {
+          "short_quote": "When constructing the research environments, we aim to select research problems that",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-007",
+      "claim_text": "In this work, we construct both a pre-training environment and a post-training environment for the automated AI researchers to work on.<sup>1</sup> **Pre-Training Task: Improving nanoGPT** In the nanoGPT environment, we provide a baseline codebase adapted from the nanoGPT speedrun (Jordan et al., 2024) and ask the ideator model to brainstorm possible improvements.",
+      "evidence": [
+        {
+          "short_quote": "In this work, we construct both a pre-training environment and a post-training",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-008",
+      "claim_text": "The original speedrun task is to minimize the time to pre-train a 124M GPT-2 model (Radford et al., 2019) on the FineWeb corpus (Penedo et al., 2024) to reach a validation loss of 3.28 on the validation set on 8 H100 GPUs.",
+      "evidence": [
+        {
+          "short_quote": "The original speedrun task is to minimize the time to pre-train a",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-009",
+      "claim_text": "We did several modifications to the original speedrun setting.",
+      "evidence": [
+        {
+          "short_quote": "We did several modifications to the original speedrun setting.",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-010",
+      "claim_text": "First, we introduce a proxy reward equal to the reciprocal of the validation loss (1 / loss) when performing the search and RL experiments in later sections of the paper.",
+      "evidence": [
+        {
+          "short_quote": "First, we introduce a proxy reward equal to the reciprocal of the",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [
+        "equation_or_symbol_risk"
+      ],
+      "review_status": "human_review_required"
+    },
+    {
+      "claim_id": "src-src-011",
+      "claim_text": "This way, we can fix the training wall-clock time to be 25 minutes and ask the model to directly optimize the proxy reward under this fixed budget, so that we can avoid different runs having vastly different runtimes.",
+      "evidence": [
+        {
+          "short_quote": "This way, we can fix the training wall-clock time to be 25",
+          "pdf_page": 2
+        }
+      ],
+      "content_risk_flags": [],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-012",
+      "claim_text": "We report the validation loss or the proxy reward metric in most plots, and only measure and report the training time metric for the top solution in order to directly compare it with the human experts’ solutions on the original nanoGPT speedrun leaderboard.",
+      "evidence": [
+        {
+          "short_quote": "We report the validation loss or the proxy reward metric in most",
+          "pdf_page": 2
+        },
+        {
+          "short_quote": "to directly compare it with the human experts’ solutions on the original",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-013",
+      "claim_text": "Second, to avoid any possible reward hacking, we freeze all evaluation hyper-parameters and implement an inference function that predicts one future token at a time to prevent models from changing the attention mechanism in a way that leaks future tokens (which happened multiple times during our initial development).",
+      "evidence": [
+        {
+          "short_quote": "Second, to avoid any possible reward hacking, we freeze all evaluation hyper-parameters",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-014",
+      "claim_text": "We use this inference function during the final validation after each training run.",
+      "evidence": [
+        {
+          "short_quote": "We use this inference function during the final validation after each training",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-015",
+      "claim_text": "**Post-Training Task: Improving GRPO** In the GRPO environment, the baseline is an implementation of the GRPO algorithm (Shao et al., 2024) that finetunes a Qwen2.5-Math-1.5B checkpoint (Yang et al., 2024) on the MATH dataset (Hendrycks et al., 2021).",
+      "evidence": [
+        {
+          "short_quote": "**Post-Training Task: Improving GRPO** In the GRPO environment, the baseline is an",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-016",
+      "claim_text": "The ideator model needs to brainstorm post-training algorithms that are more effective than the baseline.",
+      "evidence": [
+        {
+          "short_quote": "The ideator model needs to brainstorm post-training algorithms that are more effective",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-017",
+      "claim_text": "We specify a fixed training wall-clock time budget and use the max accuracy on the MATH validation set during training as the metric.",
+      "evidence": [
+        {
+          "short_quote": "We specify a fixed training wall-clock time budget and use the max",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-018",
+      "claim_text": "To prevent reward hacking, we keep all validation-related code in a separate file and do not allow the automatic executor to access or modify it.",
+      "evidence": [
+        {
+          "short_quote": "To prevent reward hacking, we keep all validation-related code in a separate",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-019",
+      "claim_text": "In both environments, we do not set any constraints on the ideation scope, so anything between extensive hyperparameter tuning and novel model architecture or training algorithms is within scope.",
+      "evidence": [
+        {
+          "short_quote": "In both environments, we do not set any constraints on the ideation",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-020",
+      "claim_text": "The automated idea executor can be viewed as a high-level API whose input is a batch of natural language ideas, and the output is the benchmark performance of each idea.",
+      "evidence": [
+        {
+          "short_quote": "The automated idea executor can be viewed as a high-level API whose",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-021",
+      "claim_text": "There are three core building blocks of this API (Figure 1): _Implementer_ – the server that generates the code diff for the idea and applies those changes; _Scheduler_ – a middle layer that receives the list of codebases and allocates resources to run experiments; _Worker_ – the cluster with GPU available that runs the experiments and uploads the experiment results.",
+      "evidence": [
+        {
+          "short_quote": "There are three core building blocks of this API (Figure 1): _Implementer_",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-022",
+      "claim_text": "**Implementer** The implementer is hosted on a CPU machine with high IO capacity.",
+      "evidence": [
+        {
+          "short_quote": "**Implementer** The implementer is hosted on a CPU machine with high IO",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-023",
+      "claim_text": "First, the user submits a batch of natural language ideas.",
+      "evidence": [
+        {
+          "short_quote": "First, the user submits a batch of natural language ideas.",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-024",
+      "claim_text": "Then, for each idea, the implementer makes parallelized API calls to the code execution LLM to obtain a diff file that can be patched into the corresponding baseline codebase.",
+      "evidence": [
+        {
+          "short_quote": "Then, for each idea, the implementer makes parallelized API calls to the",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-025",
+      "claim_text": "To optimize for efficiency, we prompt the code execution LLM with both the idea and the baseline codebase to sample 10 code diff files in parallel.",
+      "evidence": [
+        {
+          "short_quote": "To optimize for efficiency, we prompt the code execution LLM with both",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-026",
+      "claim_text": "For each sample, if the generated diff file cannot be patched into the original codebase, we provide the patch log and ask the model to revise the original generation.",
+      "evidence": [
+        {
+          "short_quote": "For each sample, if the generated diff file cannot be patched into",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-027",
+      "claim_text": "We repeat this sequential self-revision for a maximum of 2 times.",
+      "evidence": [
+        {
+          "short_quote": "We repeat this sequential self-revision for a maximum of 2 times.",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-028",
+      "claim_text": "In the end, we return the first code diff file that can be successfully patched into the baseline codebase.",
+      "evidence": [
+        {
+          "short_quote": "In the end, we return the first code diff file that can",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-029",
+      "claim_text": "The patched codebase is then submitted to a cloud bucket as a .zip file.",
+      "evidence": [
+        {
+          "short_quote": "The patched codebase is then submitted to a cloud bucket as a",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-030",
+      "claim_text": "**Scheduler** Under a set clock frequency, the scheduler downloads the new codebases from the cloud.",
+      "evidence": [
+        {
+          "short_quote": "**Scheduler** Under a set clock frequency, the scheduler downloads the new codebases",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-031",
+      "claim_text": "If the codebase has not been executed, the scheduler examines the resource requirement of the given research environment and prepares a job configuration to be submitted.",
+      "evidence": [
+        {
+          "short_quote": "If the codebase has not been executed, the scheduler examines the resource",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-032",
+      "claim_text": "**Worker** Once the scheduler finds available resources, it connects the prepared job configuration with the GPU resource and initializes the worker to run the experiment.",
+      "evidence": [
+        {
+          "short_quote": "**Worker** Once the scheduler finds available resources, it connects the prepared job",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-033",
+      "claim_text": "If the execution of the experiment is successful, the worker will upload the experiment logs including all performance metrics to another cloud bucket (wandb) along with the complete metadata: idea content, code change, execution log, etc.",
+      "evidence": [
+        {
+          "short_quote": "If the execution of the experiment is successful, the worker will upload",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-034",
+      "claim_text": "If the execution fails (e.g., due to bugs in code implementation), the worker halts.",
+      "evidence": [
+        {
+          "short_quote": "If the execution fails (e.g., due to bugs in code implementation), the",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-035",
+      "claim_text": "The user (i.e., the ideator model) can then download the execution results and see the performance of the batch of ideas they submitted with full training logs.",
+      "evidence": [
+        {
+          "short_quote": "The user (i.e., the ideator model) can then download the execution results",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    },
+    {
+      "claim_id": "src-src-036",
+      "claim_text": "Raw picture-region transcription intentionally excluded from the portable demo bundle.",
+      "evidence": [],
+      "content_risk_flags": [
+        "contains_picture_region",
+        "extraction_order_risk"
+      ],
+      "review_status": "visually_verified"
+    },
+    {
+      "claim_id": "src-src-037",
+      "claim_text": "Figure 2: Model performance comparison with self-execution (top row) vs GPT-5 execution (bottom row) on the GRPO and nanoGPT environments.",
+      "evidence": [
+        {
+          "short_quote": "Figure 2: Model performance comparison with selfexecution (top row) vs GPT-5 execution",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "visually_verified"
+    },
+    {
+      "claim_id": "src-src-038",
+      "claim_text": "The baseline accuracy for GRPO is 0.480, and the baseline loss for nanoGPT is 3.255.",
+      "evidence": [
+        {
+          "short_quote": "The baseline accuracy for GRPO is 0.480, and the baseline loss for",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "visually_verified"
+    },
+    {
+      "claim_id": "src-src-039",
+      "claim_text": "The completion rate is high for most models, especially under self-execution.",
+      "evidence": [
+        {
+          "short_quote": "The completion rate is high for most models, especially under self-execution.",
+          "pdf_page": 3
+        }
+      ],
+      "content_risk_flags": [
+        "extraction_order_risk"
+      ],
+      "review_status": "unreviewed"
+    }
+  ]
+}

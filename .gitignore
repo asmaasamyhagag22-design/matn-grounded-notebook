@@ -12,3 +12,57 @@ wheelhouse/
 *.png
 *.staging/
 *.tmp
+# ---- Step 0 foundation: never commit these ----
+# Virtual environments (".venv*/" already covers .venv and .venv-offline)
+venv/
+env/
+.conda/
+# Node / Codex runtime junctions, at any depth
+node_modules
+**/node_modules/
+.codex-*/
+# Model files and runtime data
+*.gguf
+*.safetensors
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.bin
+.ollama/
+models/
+# Caches
+*.py[cod]
+.mypy_cache/
+.ruff_cache/
+.cache/
+*-cache/
+.*-cache/
+# Run outputs ("output/", "outputs/", "tmp/" already ignored)
+runs/
+# Generated decks and machine-specific diagnostics (document text / local paths)
+*.pptx
+codeintegrity-events.txt
+pymupdf-environment.txt
+pymupdf_failures.txt
+pymupdf_recovery_validation.txt
+# Commercial book and anything derived from it (moved out of the repo; ignored if it ever returns)
+*Z-Library*
+*Raschka*
+**/book-*/
+**/*book-demo*/
+pre-demo-backup/
+_quarantine*/
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+.streamlit/secrets.toml
+# Claude Code local-only settings
+.claude/settings.local.json
+# Audit working files stay local; the report, findings and diffs are committed
+audit/scratch/
+audit/logs/
+# Evaluation inputs stay local (sha256 pinned in eval/registry.json); "*.pdf" already ignores the PDFs
+eval/pages/
