@@ -91,25 +91,25 @@ def cross_check(root: Path, splits: list[str], *, include_test_before_freeze: bo
                 if len(pages) != reg["page_count"]:
                     report["page_count_mismatches"].append({"doc_id": doc_id, "mode": mode, "pages": len(pages),
                                                             "registry": reg["page_count"]})
-            doc = {"items": 0, "verified": 0}
+            counts = {"items": 0, "verified": 0}
             for item in gold.get("key_points", []) + gold.get("key_numbers", []):
                 quote, index = str(item.get("evidence_quote", "")), item.get("page_index")
                 on_page = {m: isinstance(index, int) and index < len(p) and quote_on_page(quote, p[index])
                            for m, p in texts.items()}
-                doc["items"] += 1
+                counts["items"] += 1
                 for mode, ok in on_page.items():
                     report["verified_by_mode"][mode] += ok
                 if any(on_page.values()):
-                    doc["verified"] += 1
+                    counts["verified"] += 1
                     continue
                 found = sorted({i for p in texts.values() for i, page in enumerate(p) if quote_on_page(quote, page)})
                 report["mismatches"].append({"doc_id": doc_id, "item": item.get("id"), "page_index": index,
                                              "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": found,
                                              "difference": difference_type(quote, texts, index) if isinstance(index, int)
                                              else "page_out_of_range"})
-            report["documents"][doc_id] = doc
-            report["items"] += doc["items"]
-            report["verified"] += doc["verified"]
+            report["documents"][doc_id] = counts
+            report["items"] += counts["items"]
+            report["verified"] += counts["verified"]
     return report
 
 

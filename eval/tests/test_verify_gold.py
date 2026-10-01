@@ -433,6 +433,14 @@ def test_difference_type(name, quote, page, other, expected):
 
 
 @needs_pdftotext
+def test_cross_check_without_filter_checks_every_gold_file(root):
+    for doc_id in ("doc0", "doc1", "doc2"):
+        write_gold(root, gold_for(root, doc_id))
+    report = cross_check.cross_check(root, ["dev"])
+    assert sorted(report["documents"]) == ["doc0", "doc1", "doc2"] and report["items"] == 36
+
+
+@needs_pdftotext
 def test_cross_check_doc_filter(root):
     write_gold(root, gold_for(root, "doc0"))
     write_gold(root, gold_for(root, "doc1"))
