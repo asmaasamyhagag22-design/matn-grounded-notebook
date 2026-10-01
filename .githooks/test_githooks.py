@@ -86,6 +86,54 @@ def test_g2_allows_python_commit_when_tests_pass(repo):
     assert result.returncode == 0, result.stderr
 
 
+SLOW_FAILING_TESTS = ("import pytest\n\n\ndef test_fast():\n    assert True\n\n\n"
+                      "@pytest.mark.slow\ndef test_slow_fails():\n    assert False\n")
+
+
+def test_g2_runs_only_fast_tests(repo):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text(SLOW_FAILING_TESTS, encoding="utf-8")
+    result = commit(repo, "tool.py", "print('x')\n")
+    assert result.returncode == 0, result.stderr
+
+
+# ---------- G4 (pre-push: full suite) ----------
+@pytest.fixture()
+def remote(tmp_path_factory) -> Path:
+    # A local bare repository outside the work tree: the push never leaves the machine.
+    bare = tmp_path_factory.mktemp("remote") / "remote.git"
+    subprocess.run(["git", "init", "-q", "--bare", str(bare)], check=True, capture_output=True)
+    return bare
+
+
+def push(repo: Path, remote: Path) -> subprocess.CompletedProcess:
+    return git(repo, "push", "-q", remote.as_posix(), "HEAD:refs/heads/main")
+
+
+def test_g4_blocks_push_when_a_slow_test_fails(repo, remote):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text(SLOW_FAILING_TESTS, encoding="utf-8")
+    assert commit(repo, "tool.py", "print('x')\n").returncode == 0  # pre-commit skips the slow test
+    result = push(repo, remote)
+    assert result.returncode != 0 and "[G4]" in result.stderr, result.stderr
+
+
+def test_g4_blocks_push_without_python_changes_in_the_pushed_commits(repo, remote):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text("def test_fail():\n    assert False\n", encoding="utf-8")
+    assert commit(repo, "a.md").returncode == 0  # no .py staged: G2 does not run
+    result = push(repo, remote)
+    assert result.returncode != 0 and "[G4]" in result.stderr, result.stderr
+
+
+def test_g4_allows_push_when_all_tests_pass(repo, remote):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    assert commit(repo, "tool.py", "print('x')\n").returncode == 0
+    result = push(repo, remote)
+    assert result.returncode == 0, result.stderr
+
+
 # ---------- G3 ----------
 @pytest.mark.parametrize("msg", ["fix stuff", "fix stuff\n\nCo-Authored-By: Someone <a@b.c>\n", ""])
 def test_g3_blocks_messages_without_a_why_body(repo, msg):

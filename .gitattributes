@@ -1,4 +1,5 @@
 # Shell hooks must keep LF endings so /bin/sh can run them on Ubuntu and in Git for Windows.
 .githooks/pre-commit text eol=lf
 .githooks/commit-msg text eol=lf
+.githooks/pre-push text eol=lf
 *.sh text eol=lf

@@ -2,7 +2,8 @@
 
 G1  reject staged paths in a forbidden category (venvs, node_modules, model files, caches, run outputs, PDFs/PPTX,
     eval page text, audit working files, the commercial book or anything derived from it) and files over 5 MB.
-G2  when any staged file is Python, run the test suites that exist in this repository; reject on failure.
+G2  when any staged file is Python, run the FAST tests (pytest -m "not slow") of the suites that exist in this
+    repository; reject on failure. Slow tests are listed in the root conftest.py and run on push (G4, pre_push.py).
 Exit code != 0 aborts the commit; the reason goes to stderr.
 """
 from __future__ import annotations
@@ -34,6 +35,21 @@ def git(*args: str) -> str:
     return subprocess.run(["git", *args], capture_output=True, text=True, check=True).stdout
 
 
+def run_tests(tag: str, *pytest_args: str) -> int:
+    """Run pytest over the TEST_DIRS that exist; on failure print the tail under `tag` and return 1."""
+    root = Path(git("rev-parse", "--show-toplevel").strip())
+    dirs = [d for d in TEST_DIRS if (root / d).is_dir()]
+    if not dirs:
+        return 0
+    result = subprocess.run([sys.executable, "-B", "-m", "pytest", *dirs, "-q", "-p", "no:cacheprovider", "-x",
+                             *pytest_args], cwd=root, capture_output=True, text=True)
+    if result.returncode not in (0, 5):  # 5 = no tests selected (e.g. every test is slow)
+        tail = "\n".join(result.stdout.strip().splitlines()[-15:])
+        sys.stderr.write(f"[{tag}] blocked: tests failed ({' '.join(dirs)} {' '.join(pytest_args)})\n{tail}\n")
+        return 1
+    return 0
+
+
 def main() -> int:
     staged = [p for p in git("diff", "--cached", "--name-only", "--diff-filter=ACMR", "-z").split("\0") if p]
     problems = []
@@ -51,15 +67,7 @@ def main() -> int:
         sys.stderr.write("[G1] commit blocked, forbidden staged paths:\n" + "\n".join(f"  - {p}" for p in problems) + "\n")
         return 1
     if any(p.endswith(".py") for p in staged):
-        root = Path(git("rev-parse", "--show-toplevel").strip())
-        dirs = [d for d in TEST_DIRS if (root / d).is_dir()]
-        if dirs:
-            result = subprocess.run([sys.executable, "-B", "-m", "pytest", *dirs, "-q", "-p", "no:cacheprovider", "-x"],
-                                    cwd=root, capture_output=True, text=True)
-            if result.returncode != 0:
-                tail = "\n".join(result.stdout.strip().splitlines()[-15:])
-                sys.stderr.write(f"[G2] commit blocked: tests failed ({' '.join(dirs)})\n{tail}\n")
-                return 1
+        return run_tests("G2", "-m", "not slow")
     return 0
 
 
