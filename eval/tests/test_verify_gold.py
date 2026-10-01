@@ -26,6 +26,10 @@ PAGES = [
 ]
 
 
+SOURCES_HEADER = ("| file | title | publisher | url | pdf_url | license | license_url | doc_type | notes |\n"
+                  "|---|---|---|---|---|---|---|---|---|\n")
+
+
 def make_pdf(path: Path, pages=PAGES) -> None:
     doc = pymupdf.open()
     for text in pages:
@@ -40,10 +44,9 @@ def root(tmp_path: Path) -> Path:
     incoming.mkdir()
     for i in range(5):
         make_pdf(incoming / f"doc{i}.pdf")
-    rows = "\n".join(f"| doc{i}.pdf | Doc {i} | Example Publisher | https://example.org/doc{i}.pdf | CC-BY-4.0 | report |"
-                     for i in range(5))
-    (incoming / "SOURCES.md").write_text(
-        "| file | title | publisher | url | license | doc_type |\n|---|---|---|---|---|---|\n" + rows + "\n", encoding="utf-8")
+    rows = "\n".join(f"| doc{i}.pdf | Doc {i} | Example Publisher | https://example.org/doc{i} | https://example.org/doc{i}.pdf "
+                     f"| CC-BY-4.0 | https://creativecommons.org/licenses/by/4.0/ | report | |" for i in range(5))
+    (incoming / "SOURCES.md").write_text(SOURCES_HEADER + rows + "\n", encoding="utf-8")
     splits = {f"doc{i}": {"split": "dev" if i < 3 else "test", "doc_type": "report", "rationale": "test fixture"} for i in range(5)}
     (tmp_path / "splits.json").write_text(json.dumps(splits), encoding="utf-8")
     assert register.build_registry(tmp_path) == []
@@ -106,6 +109,29 @@ def test_register_refuses_missing_source_row(root):
     text = (root / "incoming" / "SOURCES.md").read_text(encoding="utf-8")
     (root / "incoming" / "SOURCES.md").write_text("\n".join(l for l in text.splitlines() if "doc2.pdf" not in l), encoding="utf-8")
     assert "SOURCE_MISSING" in {p["code"] for p in register.build_registry(root)}
+
+
+@pytest.mark.parametrize("column,value", [("license", "TO CONFIRM (see arXiv abstract page)"), ("pdf_url", ""),
+                                          ("license", ""), ("doc_type", ""), ("title", "")])
+def test_register_refuses_incomplete_source_rows(root, column, value):
+    path = root / "incoming" / "SOURCES.md"
+    header = [c.strip() for c in SOURCES_HEADER.splitlines()[0].strip("|").split("|")]
+    lines = path.read_text(encoding="utf-8").splitlines()
+    for n, line in enumerate(lines):
+        if line.startswith("| doc2.pdf"):
+            cells = [c.strip() for c in line.strip().strip("|").split("|")]
+            cells[header.index(column)] = value
+            lines[n] = "| " + " | ".join(cells) + " |"
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    problems = register.build_registry(root)
+    assert {"code": "SOURCE_INCOMPLETE", "file": "doc2.pdf", "fields": [column]} in problems
+
+
+def test_register_records_pdf_url_and_license_url(root):
+    doc = json.loads((root / "registry.json").read_text(encoding="utf-8"))["documents"][0]
+    assert doc["source"]["pdf_url"] == "https://example.org/doc0.pdf"
+    assert doc["source"]["license_url"] == "https://creativecommons.org/licenses/by/4.0/"
+    assert doc["source"]["url"] == "https://example.org/doc0" and "notes" in doc["source"]
 
 
 def test_register_refuses_pages_without_text(root):

@@ -2,7 +2,8 @@
 
 Inputs (under --root, default eval/):
   incoming/*.pdf       exactly 5 public PDFs (git-ignored; pinned by sha256 here)
-  incoming/SOURCES.md  markdown table: | file | title | publisher | url | license | doc_type |
+  incoming/SOURCES.md  markdown table: | file | title | publisher | url | pdf_url | license | license_url | doc_type | notes |
+                       (url = citation page, pdf_url = the file eval/fetch_sources.py downloads)
   splits.json          {doc_id: {"split": "dev"|"test", "doc_type": str, "rationale": str}}  (optional on a first run)
 Output: registry.json, and pages/<doc_id>/pNNNN.txt via extract_pages.
 
@@ -21,6 +22,9 @@ from pathlib import Path
 import extract_pages
 
 EXPECTED_PDFS = 5
+SOURCE_FIELDS = ("title", "publisher", "url", "pdf_url", "license", "license_url", "notes")
+# Every row must fill these, and none may still say "TO CONFIRM" (license_url and notes are optional).
+SOURCE_REQUIRED = ("title", "publisher", "url", "pdf_url", "license", "doc_type")
 
 
 def doc_id_for(path: Path) -> str:
@@ -68,6 +72,8 @@ def build_registry(root: Path, *, allow_missing_splits: bool = False) -> list[di
         source = sources.get(pdf.name)
         if not source or not source.get("url") or not source.get("publisher"):
             problems.append({"code": "SOURCE_MISSING", "file": pdf.name})
+        elif incomplete := [k for k in SOURCE_REQUIRED if not source.get(k) or "TO CONFIRM" in source[k].upper()]:
+            problems.append({"code": "SOURCE_INCOMPLETE", "file": pdf.name, "fields": incomplete})
         if info["pages_without_text"]:
             problems.append({"code": "PAGE_WITHOUT_TEXT", "doc_id": doc_id, "pages": info["pages_without_text"]})
         split = splits.get(doc_id, {})
@@ -76,7 +82,7 @@ def build_registry(root: Path, *, allow_missing_splits: bool = False) -> list[di
         registry["documents"].append({
             "doc_id": doc_id, "file": f"incoming/{pdf.name}", "sha256": hashlib.sha256(data).hexdigest(), "bytes": len(data),
             **info,
-            "source": {k: (source or {}).get(k, "") for k in ("title", "publisher", "url", "license")},
+            "source": {k: (source or {}).get(k, "") for k in SOURCE_FIELDS},
             "doc_type": split.get("doc_type") or (source or {}).get("doc_type", ""),
             "split": split.get("split"), "split_rationale": split.get("rationale", ""),
         })

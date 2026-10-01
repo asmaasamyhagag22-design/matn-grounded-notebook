@@ -14,6 +14,7 @@ a 0-based page index, the printed page label, and an exact quote, and is verifie
 | `gold/MANIFEST.json` | yes | sha256 of every gold file and the text extractor (name, version, MuPDF version, call); after it exists the test split is sealed |
 
 ```bash
+python eval/fetch_sources.py --scratch <dir outside the repo> --dry-run   # planned downloads; real run needs MATN_ALLOW_NETWORK=1
 python eval/register.py                      # registry + page text (gates: 5 PDFs, sources, text layer, 3/2 split)
 python eval/verify_gold.py --split dev       # 0 failures required
 python eval/cross_check.py --split dev       # same quotes vs a second extractor (pdftotext); mismatches reported, not fixed
