@@ -1,0 +1,167 @@
+{
+  "doc_id": "wb-eem-2021-12",
+  "split": "dev",
+  "reviewers": [
+    "r1"
+  ],
+  "reviewer_counts": {
+    "r1": {
+      "items": 25,
+      "ok": 20,
+      "change": 5,
+      "remove": 0,
+      "missing": 6
+    }
+  },
+  "body_pages_before": {
+    "first": 6,
+    "last": 41,
+    "reason": "From the Executive Summary (printed iii) through the Chapter 2 conclusion (printed 31); excludes cover, copyright, contents, acknowledgements, acronyms, references (32-33) and the annex summarizing earlier monitors (34)."
+  },
+  "body_pages_after": {
+    "first": 6,
+    "last": 41,
+    "reason": "From the Executive Summary (printed iii) through the Chapter 2 conclusion (printed 31); excludes cover, copyright, contents, acknowledgements, acronyms, references (32-33) and the annex summarizing earlier monitors (34)."
+  },
+  "decisions": [
+    {
+      "item": "wb-eem-2021-12-kp-01",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful, attribution_lost",
+      "set": {
+        "text": "The report finds Egypt's macroeconomy has remained resilient through the pandemic, helped by stabilization and energy sector reforms of recent years.",
+        "evidence_quote": "macroeconomy continues to show resilience more than a year and a half through the COVID-19 pandemic. Macroeconomic stabilization and energy sector reforms implemented in recent years have helped build resilience"
+      },
+      "reason": "Accepted: the causal clause was not in the old quote; the quote now covers both sentences. 'The World Bank finds' -> 'The report finds': the disclaimer (p1, p4) says the findings are staff views that do not necessarily reflect the World Bank's. The quote starts after the possessive to avoid the curly apostrophe."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-07",
+      "action": "remove",
+      "source": "r1",
+      "issue": "overlap (reviewer balance note)",
+      "reason": "Reviewer: partly overlaps kp-06 (fiscal consolidation) and kn-07 (interest share of spending). Removed to make room for main messages 2 and 4 within the 15-point limit."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-08",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "set": {
+        "text": "The authors caution that Egypt's outlook depends largely on containing the pandemic and remains clouded by disease variants that pose risks to the global recovery.",
+        "evidence_quote": "The outlook remains clouded by the pandemic, including the emergence of the disease variants (more recently the Omicron) which pose risks to the global recovery."
+      },
+      "reason": "Accepted: the old quote did not anchor the variants or the global-recovery risk."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-09",
+      "action": "edit",
+      "source": "r1",
+      "issue": "attribution_lost",
+      "set": {
+        "text": "Under a baseline of gradually improving pandemic conditions, the report expects Egypt to return to its pre-pandemic growth path over the medium term."
+      },
+      "reason": "Accepted: a staff projection, attributed to the report (disclaimer p1, p4)."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-11",
+      "action": "edit",
+      "source": "r1",
+      "issue": "attribution_lost, text_unfaithful",
+      "set": {
+        "text": "The report finds Egypt's government effectiveness and control of corruption scores sit below what its GovTech maturity level would predict on the cross-country trend."
+      },
+      "reason": "Accepted: attribution to the report, and the comparison is a position below a cross-country trendline."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-14",
+      "action": "remove",
+      "source": "r1",
+      "issue": "balance (reviewer: message 5 has four items)",
+      "reason": "Reviewer: four items (kp-12..15) cover main message 5 while messages 2 and 4 had none; the digital-financial-services point (importance 2) is removed, keeping broadband, skills and the legal framework."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-15",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "set": {
+        "text": "The report says Egypt's digital-economy legal and regulatory framework would benefit from comprehensive streamlining and modernization to address gaps and eliminate institutional overlap."
+      },
+      "reason": "Accepted: the page says 'would benefit from'; 'needs' hardened it."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-16",
+      "action": "add",
+      "source": "r1",
+      "missing_index": 0,
+      "new": {
+        "id": "wb-eem-2021-12-kp-16",
+        "text": "The report finds that simplifying and streamlining government processes, along with automating and digitalizing them, are pre-conditions for better governance results.",
+        "kind": "finding",
+        "importance": 3,
+        "section_path": [
+          "Executive Summary"
+        ],
+        "page_index": 8,
+        "page_label": "v",
+        "evidence_quote": "Simplification and streamlining of government processes and procedures along with their automation and digitalization are pre-conditions for better governance results"
+      },
+      "reason": "Accepted: main message 2 of the focus chapter had no item. Quote stops before the footnote marker after 'results'."
+    },
+    {
+      "item": "wb-eem-2021-12-kp-17",
+      "action": "add",
+      "source": "r1",
+      "missing_index": 1,
+      "new": {
+        "id": "wb-eem-2021-12-kp-17",
+        "text": "The report finds Egypt's digitalization of core government systems is progressing unevenly between systems and across governorates.",
+        "kind": "finding",
+        "importance": 2,
+        "section_path": [
+          "Executive Summary"
+        ],
+        "page_index": 8,
+        "page_label": "v",
+        "evidence_quote": "the progress is uneven between these systems, and across governorates as well"
+      },
+      "reason": "Accepted: main message 4 had no item. The interoperability clause the reviewer mentioned is not in this sentence, so it is left out of the text."
+    },
+    {
+      "item": "missing:inflation",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 2,
+      "reason": "Inflation is still within the CBE target range per the same sentence; lower priority than the main messages within the 15-point limit."
+    },
+    {
+      "item": "missing:deficit-target-box",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 3,
+      "reason": "A box-level caveat on one fiscal-year target; the fiscal picture is carried by kp-06, kn-04 and kn-05. Kept out within the 15-point limit."
+    },
+    {
+      "item": "missing:monetary-credit",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 4,
+      "reason": "Importance 1 by the reviewer's own rating."
+    },
+    {
+      "item": "missing:debt-projection-number",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 5,
+      "reason": "Swap candidate only; the current debt ratio kn-05 (91.6% estimate) is the number the report leads with. No swap."
+    }
+  ],
+  "summary": {
+    "edit": 5,
+    "remove": 2,
+    "add": 2,
+    "keep": 0,
+    "reject": 4
+  }
+}

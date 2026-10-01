@@ -1,0 +1,343 @@
+{
+  "schema_version": 2,
+  "doc_id": "wb-eem-2021-12",
+  "split": "dev",
+  "source_sha256": "2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a",
+  "drafted_by": "claude-subagent-drafter",
+  "body_pages": {
+    "first": 6,
+    "last": 41,
+    "reason": "From the Executive Summary (printed iii) through the Chapter 2 conclusion (printed 31); excludes cover, copyright, contents, acknowledgements, acronyms, references (32-33) and the annex summarizing earlier monitors (34)."
+  },
+  "key_points": [
+    {
+      "id": "wb-eem-2021-12-kp-01",
+      "text": "The report finds Egypt's macroeconomy has remained resilient through the pandemic, helped by stabilization and energy sector reforms of recent years.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 6,
+      "page_label": "iii",
+      "evidence_quote": "macroeconomy continues to show resilience more than a year and a half through the COVID-19 pandemic. Macroeconomic stabilization and energy sector reforms implemented in recent years have helped build resilience"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-02",
+      "text": "The focus chapter reviews the status of Egypt's digital government and discusses key priorities for advancing it further.",
+      "kind": "purpose",
+      "importance": 3,
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 8,
+      "page_label": "v",
+      "evidence_quote": "The Focus Chapter of this report thus gives a snapshot of the progressive status of the digital government in Egypt, and then discusses key priorities for further advancement"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-16",
+      "text": "The report finds that simplifying and streamlining government processes, along with automating and digitalizing them, are pre-conditions for better governance results.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 8,
+      "page_label": "v",
+      "evidence_quote": "Simplification and streamlining of government processes and procedures along with their automation and digitalization are pre-conditions for better governance results"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-17",
+      "text": "The report finds Egypt's digitalization of core government systems is progressing unevenly between systems and across governorates.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 8,
+      "page_label": "v",
+      "evidence_quote": "the progress is uneven between these systems, and across governorates as well"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-03",
+      "text": "Real GDP growth started rebounding strongly, helped by favorable base effects, improved global conditions and eased restrictions.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Real Sector, Employment and Prices"
+      ],
+      "page_index": 10,
+      "page_label": "1",
+      "evidence_quote": "Real GDP growth started rebounding strongly since Q4-FY2020/21, due to the favorable annual base effects, the improved global economic conditions, and eased restrictions."
+    },
+    {
+      "id": "wb-eem-2021-12-kp-04",
+      "text": "The pandemic continues to aggravate long-standing labor market challenges, notably for women.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Real Sector, Employment and Prices"
+      ],
+      "page_index": 12,
+      "page_label": "2",
+      "evidence_quote": "the disruptive repercussions of the pandemic continue to aggravate long-standing labor market challenges, notably for women"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-05",
+      "text": "Foreign reserves are relatively ample, but the widened trade deficit and disrupted global trade and travel keep raising external financing requirements.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "External Sector"
+      ],
+      "page_index": 17,
+      "page_label": "7",
+      "evidence_quote": "Reserves are relatively ample and a gradual recovery in foreign income activities is underway. Yet the widened trade deficit, and ongoing disruptions to global trade and travel continue to raise financing requirements"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-06",
+      "text": "Sustained fiscal consolidation is narrowing the overall budget deficit, but the government debt-to-GDP ratio has increased.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Public Finance"
+      ],
+      "page_index": 19,
+      "page_label": "9",
+      "evidence_quote": "Egypt’s sustained fiscal consolidation efforts are reflected in a narrowing overall budget deficit, but the debt-to-GDP ratio has increased."
+    },
+    {
+      "id": "wb-eem-2021-12-kp-08",
+      "text": "The authors caution that Egypt's outlook depends largely on containing the pandemic and remains clouded by disease variants that pose risks to the global recovery.",
+      "kind": "caveat",
+      "importance": 2,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Outlook"
+      ],
+      "page_index": 23,
+      "page_label": "13",
+      "evidence_quote": "The outlook remains clouded by the pandemic, including the emergence of the disease variants (more recently the Omicron) which pose risks to the global recovery."
+    },
+    {
+      "id": "wb-eem-2021-12-kp-09",
+      "text": "Under a baseline of gradually improving pandemic conditions, the report expects Egypt to return to its pre-pandemic growth path over the medium term.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Outlook"
+      ],
+      "page_index": 24,
+      "page_label": "14",
+      "evidence_quote": "Egypt is expected to revert to the pre-COVID growth path over the medium-term, under the baseline scenario that envisages a gradually improving COVID-situation."
+    },
+    {
+      "id": "wb-eem-2021-12-kp-10",
+      "text": "The report argues it is crucial to establish end-to-end digital government solutions, digitalizing every step of a government process rather than only front-end portals.",
+      "kind": "recommendation",
+      "importance": 3,
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "Introduction"
+      ],
+      "page_index": 28,
+      "page_label": "18",
+      "evidence_quote": "Thus, it is crucial to establish ‘end-to-end’ digital government solutions. This means that digital transformation occurs in every step throughout a given governmental process or procedure."
+    },
+    {
+      "id": "wb-eem-2021-12-kp-11",
+      "text": "The report finds Egypt's government effectiveness and control of corruption scores sit below what its GovTech maturity level would predict on the cross-country trend.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "A Snapshot of Egypt’s Digital Government Status"
+      ],
+      "page_index": 31,
+      "page_label": "21",
+      "evidence_quote": "This indicates that for Egypt’s level of GovTech maturity, government effectiveness and control of corruption are expected to be at higher levels"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-12",
+      "text": "The report calls for further reforms to expand high-quality broadband, including wider mobile coverage, simpler tower authorization and more fiber-optic use.",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "Strengthening the Foundations of the Digital Economy"
+      ],
+      "page_index": 36,
+      "page_label": "26",
+      "evidence_quote": "Going forward, further reforms are required to increase the availability of high-quality broadband services"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-13",
+      "text": "The report says Egypt needs to invest further in digital skills and literacy so the benefits of digital government services are inclusive.",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "Strengthening the Foundations of the Digital Economy"
+      ],
+      "page_index": 37,
+      "page_label": "27",
+      "evidence_quote": "Therefore, Egypt needs to further invest in digital skills and literacy to support adoption of digital services and innovation"
+    },
+    {
+      "id": "wb-eem-2021-12-kp-15",
+      "text": "The report says Egypt's digital-economy legal and regulatory framework would benefit from comprehensive streamlining and modernization to address gaps and eliminate institutional overlap.",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "Strengthening the Foundations of the Digital Economy"
+      ],
+      "page_index": 41,
+      "page_label": "31",
+      "evidence_quote": "Overall, the framework would benefit from a comprehensive streamlining and modernization exercise to address gaps and eliminate institutional overlap."
+    }
+  ],
+  "key_numbers": [
+    {
+      "id": "wb-eem-2021-12-kn-01",
+      "value_as_written": "9.8",
+      "label": "Year-on-year real GDP growth, Q1-FY2021/22",
+      "unit": "%",
+      "source": "body",
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 6,
+      "page_label": "iii",
+      "evidence_quote": "and then further to 9.8 percent in Q1-FY2021/22 (compared to a modest growth of 0.7 percent in Q1-FY2020/21)"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-02",
+      "value_as_written": "7.5",
+      "label": "Unemployment rate, Q1-FY2021/22",
+      "unit": "%",
+      "source": "body",
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 6,
+      "page_label": "iii",
+      "evidence_quote": "Unemployment declined to 7.5 percent by Q1-FY2021/22, compared to 9.6 percent at the height of the COVID-shock"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-03",
+      "value_as_written": "40.8",
+      "label": "International reserves, end-October 2021",
+      "unit": "USD bn",
+      "source": "body",
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 7,
+      "page_label": "iv",
+      "evidence_quote": "remain relatively ample at US$40.8 billion at end-October 2021 (covering 7 months of merchandise imports)"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-04",
+      "value_as_written": "7.4",
+      "label": "Overall budget deficit, FY2020/21",
+      "unit": "% of GDP",
+      "source": "body",
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 7,
+      "page_label": "iv",
+      "evidence_quote": "The overall budget deficit-to-GDP ratio declined from 7.9 percent in FY2019/20 to 7.4 percent in FY2020/21"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-05",
+      "value_as_written": "91.6",
+      "label": "Government debt-to-GDP ratio, end-June 2021 (estimate)",
+      "unit": "% of GDP",
+      "source": "body",
+      "section_path": [
+        "Executive Summary"
+      ],
+      "page_index": 7,
+      "page_label": "iv",
+      "evidence_quote": "the government debt-to-GDP ratio increased from 87 percent at end-June 2020 to an estimated 91.6 percent at end-June 2021"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-06",
+      "value_as_written": "4.6",
+      "label": "Current account deficit, FY2020/21",
+      "unit": "% of GDP",
+      "source": "body",
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "External Sector"
+      ],
+      "page_index": 18,
+      "page_label": "8",
+      "evidence_quote": "current account deficit widened from US$11.2 billion (3.1 percent of GDP) in FY2019/20 to US$18.4 billion (4.6 percent of GDP) in FY2020/21"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-07",
+      "value_as_written": "36.3",
+      "label": "Interest payments as share of total expenditures, FY2020/21",
+      "unit": "%",
+      "source": "body",
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Public Finance"
+      ],
+      "page_index": 20,
+      "page_label": "10",
+      "evidence_quote": "the interest burden continues to be high, taking up 36.3 percent of total expenditures; 8.9 percent of GDP; 68.2 percent of tax revenues in FY2020/21"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-08",
+      "value_as_written": "5.5",
+      "label": "Projected real GDP growth, FY2021/22 (baseline)",
+      "unit": "%",
+      "source": "body",
+      "section_path": [
+        "Chapter 1 – Recent Economic Developments and Outlook",
+        "Outlook"
+      ],
+      "page_index": 24,
+      "page_label": "14",
+      "evidence_quote": "Growth is expected to accelerate from 3.3 percent in FY2020/21 to 5.5 percent in FY2021/22"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-09",
+      "value_as_written": "0.55",
+      "label": "Egypt's UN E-Government Development Index (EGDI) score, 2020",
+      "unit": null,
+      "source": "body",
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "A Snapshot of Egypt’s Digital Government Status"
+      ],
+      "page_index": 30,
+      "page_label": "20",
+      "evidence_quote": "It was last recorded at 0.55 in 2020; very close to the MENA and the global averages of 0.60"
+    },
+    {
+      "id": "wb-eem-2021-12-kn-10",
+      "value_as_written": "103",
+      "label": "Online government services offered on the Digital Egypt platform",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Chapter 2 – The Far-Reaching Impact of Government Digital Transformation in Egypt",
+        "Towards a ‘Whole-of-Government’ Approach to Digital Transformation"
+      ],
+      "page_index": 32,
+      "page_label": "22",
+      "evidence_quote": "The platform (only available in Arabic) offers 103 online government services"
+    }
+  ],
+  "reviewed_by": "claude-subagent-reviewer r1; reconciled by the orchestrating session"
+}

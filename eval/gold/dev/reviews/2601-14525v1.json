@@ -1,0 +1,179 @@
+{
+  "doc_id": "2601-14525v1",
+  "split": "dev",
+  "reviewers": [
+    "r1"
+  ],
+  "reviewer_counts": {
+    "r1": {
+      "items": 25,
+      "ok": 17,
+      "change": 8,
+      "remove": 0,
+      "missing": 5
+    }
+  },
+  "body_pages_before": {
+    "first": 0,
+    "last": 9,
+    "reason": "Abstract and Introduction (page 0) through Conclusion and Discussion (page 9); excludes the references (end of page 9 to page 12) and Appendix A (pages 13-41: other RL attempts, idea examples, code execution trajectories)."
+  },
+  "body_pages_after": {
+    "first": 0,
+    "last": 9,
+    "reason": "Abstract and Introduction (page 0) through Conclusion and Discussion (page 9); excludes the references (end of page 9 to page 12) and Appendix A (pages 13-41: other RL attempts, idea examples, code execution trajectories)."
+  },
+  "decisions": [
+    {
+      "item": "2601-14525v1-kp-02",
+      "action": "edit",
+      "source": "r1",
+      "issue": "kind, attribution_lost",
+      "set": {
+        "kind": "purpose",
+        "text": "Earlier expert-review studies by Si et al. found LLM research ideas often look convincing but prove ineffective once executed, motivating execution-grounded idea generation."
+      },
+      "reason": "Accepted: the page credits the finding to prior studies (Si et al.), so it is the paper's motivation, not its own finding."
+    },
+    {
+      "item": "2601-14525v1-kp-03",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "set": {
+        "text": "During execution-guided search, only Claude-4.5-Opus shows a clear scaling curve over epochs; Claude-4.5-Sonnet and GPT-5 tend to saturate early."
+      },
+      "reason": "Accepted: the quote names exactly the two other models; 'the other frontier models' generalized beyond the page."
+    },
+    {
+      "item": "2601-14525v1-kp-05",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "set": {
+        "text": "A large fraction of sampled ideas execute successfully; Claude-4.5-Opus and Claude-4.5-Sonnet have significantly higher execution rates than GPT-5.",
+        "evidence_quote": "a large fraction of the sampled ideas can indeed be executed successfully, with Claude-4.5-Opus and Claude-4.5-Sonnet having a significantly higher execution rate than GPT-5."
+      },
+      "reason": "Accepted in part: the comparison 'than GPT-5' is restored and the quote extended to the end of the sentence so it carries it; the '50 ideas' condition is left out of the text because the quote does not contain it (standing rule 3)."
+    },
+    {
+      "item": "2601-14525v1-kp-06",
+      "action": "remove",
+      "source": "r1",
+      "issue": "importance",
+      "reason": "Reviewer: an algorithm detail, not key at importance 2 (proposed 1). Removed instead of downgraded to make room for two missing points of higher importance (kp-16, kp-17) within the 15-point limit."
+    },
+    {
+      "item": "2601-14525v1-kp-07",
+      "action": "edit",
+      "source": "r1",
+      "issue": "attribution_lost, text_unfaithful, importance",
+      "set": {
+        "text": "On post-training, Claude-4.5-Sonnet's search found that vanilla policy gradient with a group-average baseline, without importance reweighting or clipping, beat the standard GRPO objective in this setup.",
+        "importance": 2,
+        "evidence_quote": "Claude-4.5-Sonnet finds that using vanilla policy gradient with the group-average baseline without importance reweighting or clipping outperforms the standard GRPO objective"
+      },
+      "reason": "Accepted: the page credits Claude-4.5-Sonnet and includes the group-average baseline; one discovered recipe, so importance 2 (the headline result is kn-01). Quote extended to the model name so the text's '4.5' is in it (verifier NUMBER_NOT_IN_QUOTE on the first attempt)."
+    },
+    {
+      "item": "2601-14525v1-kp-10",
+      "action": "edit",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "set": {
+        "text": "Under the same sampling budget, execution-guided search beat best-of-N in the authors' nanoGPT comparison, which they take as evidence of learning from earlier trajectories."
+      },
+      "reason": "Accepted in substance: the comparison is scoped to the authors' nanoGPT experiment and the learning claim is attributed. 'GPT-5' and 'first 3 epochs' are left out because the quote does not contain them (rule 3)."
+    },
+    {
+      "item": "2601-14525v1-kp-11",
+      "action": "remove",
+      "source": "r1",
+      "issue": "text_unfaithful",
+      "reason": "Reviewer: the text dropped the Claude-4.5-Sonnet exception. With the exception the point is a nuanced importance-1 observation; removed to make room for higher-importance missing points within the 15-point limit."
+    },
+    {
+      "item": "2601-14525v1-kn-03",
+      "action": "edit",
+      "source": "r1",
+      "issue": "label_or_unit (quote centered on another number)",
+      "set": {
+        "page_index": 1,
+        "page_label": "2",
+        "section_path": [
+          "1. Introduction"
+        ],
+        "evidence_quote": "outperforms the GRPO baseline (69.4% vs 48.0%) on the task of post-training a 1.5B model",
+        "label": "GRPO baseline accuracy (MATH validation) on the post-training task"
+      },
+      "reason": "Accepted: the old quote's main number was 60.4%, inviting a wrong pairing; the new p1 quote states 48.0% plainly as the GRPO baseline."
+    },
+    {
+      "item": "2601-14525v1-kp-16",
+      "action": "add",
+      "source": "r1",
+      "missing_index": 0,
+      "new": {
+        "id": "2601-14525v1-kp-16",
+        "text": "Within ten search epochs, execution-guided search finds a post-training recipe that outperforms the GRPO baseline.",
+        "kind": "finding",
+        "importance": 3,
+        "section_path": [
+          "1. Introduction"
+        ],
+        "page_index": 1,
+        "page_label": "2",
+        "evidence_quote": "Within ten search epochs, this execution-guided search finds a post-training recipe that outperforms the GRPO baseline"
+      },
+      "reason": "Accepted: the sample-efficiency claim is a headline of the abstract and introduction and had no item."
+    },
+    {
+      "item": "missing:human-comparison",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 1,
+      "reason": "Already carried by kn-06 (68.8%, best human student, below the search result) and kn-01; a separate point would duplicate it within the 15-point limit."
+    },
+    {
+      "item": "2601-14525v1-kp-17",
+      "action": "add",
+      "source": "r1",
+      "missing_index": 2,
+      "new": {
+        "id": "2601-14525v1-kp-17",
+        "text": "The authors argue that avoiding the convergence and collapse seen in RL is an open problem likely needing new algorithmic interventions beyond standard GRPO.",
+        "kind": "recommendation",
+        "importance": 2,
+        "section_path": [
+          "5. Reinforcement Learning from Execution Reward",
+          "5.3. Analysis of Training Dynamics"
+        ],
+        "page_index": 8,
+        "page_label": "9",
+        "evidence_quote": "Avoiding such convergence and collapse is an open problem and likely requires new algorithmic interventions beyond standard GRPO"
+      },
+      "reason": "Accepted: the paper's main forward-looking recommendation; the gold had no recommendation item. Section checked: the sentence precedes the '6. Related Work' heading on p8."
+    },
+    {
+      "item": "missing:execution-agent-caveat",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 3,
+      "reason": "Importance 1 by the reviewer's own rating; the 15-point limit keeps the higher-importance caveat kp-15."
+    },
+    {
+      "item": "missing:rediscovery",
+      "action": "reject",
+      "source": "r1",
+      "missing_index": 4,
+      "reason": "Importance 1 by the reviewer's own rating and an interpretive remark; not needed for a one-page brief within 15 points."
+    }
+  ],
+  "summary": {
+    "edit": 6,
+    "remove": 2,
+    "add": 2,
+    "keep": 0,
+    "reject": 3
+  }
+}

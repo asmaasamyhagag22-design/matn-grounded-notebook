@@ -1,0 +1,319 @@
+{
+  "schema_version": 2,
+  "doc_id": "gao-21-519sp",
+  "split": "dev",
+  "source_sha256": "fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc",
+  "drafted_by": "claude-subagent-drafter",
+  "body_pages": {
+    "first": 1,
+    "last": 89,
+    "reason": "From the Highlights page through the end of Appendix II (forum insights, which the cover presents as part of the report). Includes foreword, framework summary, introduction, background, the four framework principles and the short methodology appendix. Excludes cover, contents, section dividers' outer matter, Appendix III-VII (agenda, participant list, auditing-standards excerpts, bibliography, contacts) and the back page."
+  },
+  "key_points": [
+    {
+      "id": "gao-21-519sp-kp-01",
+      "text": "GAO developed an AI accountability framework to help managers ensure accountability and responsible use of AI in government programs and processes.",
+      "kind": "purpose",
+      "importance": 3,
+      "section_path": [
+        "Highlights of GAO-21-519SP",
+        "What GAO Found"
+      ],
+      "page_index": 1,
+      "page_label": null,
+      "evidence_quote": "To help managers ensure accountability and responsible use of artificial intelligence (AI) in government programs and processes, GAO developed an AI accountability framework."
+    },
+    {
+      "id": "gao-21-519sp-kp-02",
+      "text": "The framework is organized around four complementary principles: governance, data, performance, and monitoring.",
+      "kind": "definition",
+      "importance": 3,
+      "section_path": [
+        "Highlights of GAO-21-519SP",
+        "What GAO Found"
+      ],
+      "page_index": 1,
+      "page_label": null,
+      "evidence_quote": "This framework is organized around four complementary principles, which address governance, data, performance, and monitoring."
+    },
+    {
+      "id": "gao-21-519sp-kp-04",
+      "text": "GAO notes AI systems pose unique challenges for independent assessments and audits because their inputs and operations are not visible to the user.",
+      "kind": "finding",
+      "importance": 3,
+      "section_path": [
+        "Introduction"
+      ],
+      "page_index": 12,
+      "page_label": "Page 9",
+      "evidence_quote": "AI systems pose unique challenges for independent assessments and audits to promote accountability because their inputs and operations are not visible to the user."
+    },
+    {
+      "id": "gao-21-519sp-kp-05",
+      "text": "GAO observes that bias is not unique to AI, but AI use can amplify existing biases and civil-liberties, ethical and social-disparity concerns.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Introduction"
+      ],
+      "page_index": 12,
+      "page_label": "Page 9",
+      "evidence_quote": "Bias is not specific to AI, but the use of AI has the potential to amplify existing biases and concerns related to civil liberties, ethics, and social disparities."
+    },
+    {
+      "id": "gao-21-519sp-kp-06",
+      "text": "Under the governance principle, GAO says management and those overseeing AI can use governance structures and processes to manage risk, show integrity and ethical values, and ensure legal compliance.",
+      "kind": "recommendation",
+      "importance": 3,
+      "section_path": [
+        "Framework Principle 1. Governance"
+      ],
+      "page_index": 29,
+      "page_label": "Page 26",
+      "evidence_quote": "Management, and those charged with oversight of AI, can use governance structures and processes to manage risk, demonstrate the importance of integrity and ethical values, and ensure compliance with relevant laws, regulations, and guidance."
+    },
+    {
+      "id": "gao-21-519sp-kp-07",
+      "text": "GAO advises that contracts for AI systems procured from vendors should provide access to data, models, and parameters so the systems can be overseen and audited.",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Framework Principle 1. Governance",
+        "Governance at the Organizational Level",
+        "1.6 Risk management"
+      ],
+      "page_index": 32,
+      "page_label": "Page 29",
+      "evidence_quote": "contracts should include provision for appropriate access to data, models, and parameters to enable sufficient oversight and auditing."
+    },
+    {
+      "id": "gao-21-519sp-kp-08",
+      "text": "GAO's data principle calls for data used to train, test and validate AI systems to be of sufficient quality and appropriate for the intended purpose.",
+      "kind": "recommendation",
+      "importance": 3,
+      "section_path": [
+        "Framework Principle 2. Data"
+      ],
+      "page_index": 41,
+      "page_label": "Page 38",
+      "evidence_quote": "Data used to train, test, and validate AI systems should be of sufficient quality and appropriate for the intended purpose to ensure the system produces consistent and accurate results"
+    },
+    {
+      "id": "gao-21-519sp-kp-09",
+      "text": "According to literature GAO reviewed and one forum participant, models trained on data that do not represent the target population may produce biased results.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Framework Principle 2. Data",
+        "Data Used for Model Development",
+        "2.2 Reliability"
+      ],
+      "page_index": 43,
+      "page_label": "Page 40",
+      "evidence_quote": "AI models trained on data that are not representative of the target population may produce biased results, in that the model performs well for the characteristics that are well represented"
+    },
+    {
+      "id": "gao-21-519sp-kp-10",
+      "text": "GAO's performance principle calls for AI systems to produce results that are consistent with program objectives.",
+      "kind": "recommendation",
+      "importance": 3,
+      "section_path": [
+        "Framework Principle 3. Performance"
+      ],
+      "page_index": 52,
+      "page_label": "Page 48",
+      "evidence_quote": "Performance Principle: Produce results that are consistent with program objectives."
+    },
+    {
+      "id": "gao-21-519sp-kp-11",
+      "text": "GAO says entities should test AI systems for biases, inequities, or other unintended consequences, for example by checking accuracy for each demographic group.",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Framework Principle 3. Performance",
+        "Performance at the System Level",
+        "3.8 Bias"
+      ],
+      "page_index": 55,
+      "page_label": "Page 52",
+      "evidence_quote": "Entities should test the AI system for biases, inequities, or other unintended consequences (see sidebar). For example, entities could test the accuracy of the AI system for each demographic group"
+    },
+    {
+      "id": "gao-21-519sp-kp-12",
+      "text": "GAO notes more human supervision may be needed when AI output could have significant consequences, such as affecting individual civil rights and liberties",
+      "kind": "recommendation",
+      "importance": 2,
+      "section_path": [
+        "Framework Principle 3. Performance",
+        "Performance at the System Level",
+        "3.9 Human supervision"
+      ],
+      "page_index": 56,
+      "page_label": "Page 53",
+      "evidence_quote": "a higher level of human supervision may be necessary if the AI output could result in significant consequences, such as impacting individual civil rights and liberties"
+    },
+    {
+      "id": "gao-21-519sp-kp-13",
+      "text": "Because AI performance can vary over time, GAO says management should establish monitoring to keep the system useful and aligned with current objectives.",
+      "kind": "recommendation",
+      "importance": 3,
+      "section_path": [
+        "Framework Principle 4. Monitoring"
+      ],
+      "page_index": 63,
+      "page_label": "Page 60",
+      "evidence_quote": "AI systems are dynamic and adaptive, and performance can vary over time. Management should establish a monitoring framework to ensure the AI system maintains its utility and remains aligned with current objectives."
+    },
+    {
+      "id": "gao-21-519sp-kp-14",
+      "text": "Forum participants cautioned that an AI system deployed successfully in one region may not perform well in another due to differing context or demographics.",
+      "kind": "caveat",
+      "importance": 2,
+      "section_path": [
+        "Framework Principle 4. Monitoring",
+        "Assessing Sustainment and Expanded Use",
+        "4.5 Scaling"
+      ],
+      "page_index": 66,
+      "page_label": "Page 63",
+      "evidence_quote": "Forum participants cautioned that an AI system successfully deployed in one region may not perform well in another because of differences in context, demographics, or other factors."
+    },
+    {
+      "id": "gao-21-519sp-kp-16",
+      "text": "GAO notes the framework does not cover all possible principles, nor specify exact evaluation criteria or acceptable performance levels.",
+      "kind": "caveat",
+      "importance": 2,
+      "section_path": [
+        "Appendix I: Objectives, Scope, and Methodology"
+      ],
+      "page_index": 72,
+      "page_label": "Page 69",
+      "evidence_quote": "It does not cover all possible principles, nor does it specify the exact criteria for evaluation or level of acceptable performance."
+    },
+    {
+      "id": "gao-21-519sp-kp-15",
+      "text": "Forum participants identified public-sector challenges: a need for expertise, limited understanding of how AI decides, and limited access to information on commercially procured systems.",
+      "kind": "finding",
+      "importance": 2,
+      "section_path": [
+        "Appendix II: Insights from a Comptroller General Forum on Oversight of Artificial Intelligence",
+        "Session III: Challenges to Using and Auditing AI Systems in the Public Sector"
+      ],
+      "page_index": 78,
+      "page_label": "Page 75",
+      "evidence_quote": "These challenges include 1) a need for expertise, 2) limited understanding of how the AI system makes its decisions, and 3) limited access to key information due to commercial procurement of such systems."
+    }
+  ],
+  "key_numbers": [
+    {
+      "id": "gao-21-519sp-kn-01",
+      "value_as_written": "46",
+      "label": "Countries that have adopted the OECD principles for trustworthy AI",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Introduction"
+      ],
+      "page_index": 13,
+      "page_label": "Page 10",
+      "evidence_quote": "It includes five principles for responsible stewardship of trustworthy AI. Those principles have now been adopted by 46 countries"
+    },
+    {
+      "id": "gao-21-519sp-kn-02",
+      "value_as_written": "2020",
+      "label": "Year the Comptroller General convened the Forum on the Oversight of AI",
+      "unit": "year",
+      "source": "body",
+      "section_path": [
+        "Introduction"
+      ],
+      "page_index": 14,
+      "page_label": "Page 11",
+      "evidence_quote": "convened a Forum on the Oversight of Artificial Intelligence on September 9 and 10, 2020."
+    },
+    {
+      "id": "gao-21-519sp-kn-03",
+      "value_as_written": "34",
+      "label": "Interviews GAO conducted with entities experienced in AI systems",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Appendix I: Objectives, Scope, and Methodology",
+        "Information Collection"
+      ],
+      "page_index": 69,
+      "page_label": "Page 66",
+      "evidence_quote": "We conducted 34 interviews with entities with experience in designing, developing, and deploying AI systems."
+    },
+    {
+      "id": "gao-21-519sp-kn-04",
+      "value_as_written": "15",
+      "label": "Federal agencies, departments and OIGs whose officials GAO interviewed",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Appendix I: Objectives, Scope, and Methodology",
+        "Information Collection"
+      ],
+      "page_index": 69,
+      "page_label": "Page 66",
+      "evidence_quote": "We interviewed officials from 15 federal agencies, departments, and Offices of Inspector General, as well as one state and one international governmental entity."
+    },
+    {
+      "id": "gao-21-519sp-kn-05",
+      "value_as_written": "23",
+      "label": "Experts selected to participate in the forum",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Appendix I: Objectives, Scope, and Methodology",
+        "Information Collection"
+      ],
+      "page_index": 70,
+      "page_label": "Page 67",
+      "evidence_quote": "We selected 23 experts representing 20 organizations to participate in the forum."
+    },
+    {
+      "id": "gao-21-519sp-kn-07",
+      "value_as_written": "68",
+      "label": "Publications reviewed in total (literature review plus recommended)",
+      "unit": "count",
+      "source": "body",
+      "section_path": [
+        "Appendix I: Objectives, Scope, and Methodology",
+        "Information Collection"
+      ],
+      "page_index": 71,
+      "page_label": "Page 68",
+      "evidence_quote": "In all, we reviewed a total of 68 publications from our literature review and recommended literature."
+    },
+    {
+      "id": "gao-21-519sp-kn-08",
+      "value_as_written": "1.5",
+      "label": "White House FY2021 nondefense budget request for AI",
+      "unit": "USD bn",
+      "source": "body",
+      "section_path": [
+        "Appendix II: Insights from a Comptroller General Forum on Oversight of Artificial Intelligence"
+      ],
+      "page_index": 73,
+      "page_label": "Page 70",
+      "evidence_quote": "In fiscal year 2021, the White House requested a nondefense budget of $1.5 billion for AI"
+    },
+    {
+      "id": "gao-21-519sp-kn-09",
+      "value_as_written": "54",
+      "label": "Increase of the nondefense AI budget request over the fiscal year 2020 request",
+      "unit": "%",
+      "source": "body",
+      "section_path": [
+        "Appendix II: Insights from a Comptroller General Forum on Oversight of Artificial Intelligence"
+      ],
+      "page_index": 73,
+      "page_label": "Page 70",
+      "evidence_quote": "a 54 percent increase over the fiscal year 2020 budget request. However, AI systems pose unique accountability challenges"
+    }
+  ],
+  "numbers_note": "The report is a qualitative accountability framework (principles, key practices, audit questions and procedures) and carries few figures; the counts of principles and practices are printed as words, so they are not key numbers. Eight numbers remain: the OECD adoption count, the forum year, four methodology counts and two budget figures. The organization count (20) was removed in review as a duplicate of the forum-experts sentence.",
+  "reviewed_by": "claude-subagent-reviewer r1; reconciled by the orchestrating session"
+}
