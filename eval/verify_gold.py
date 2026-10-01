@@ -3,14 +3,18 @@
 Checks per gold file: JSON schema; doc_id/split/source sha match registry.json; 10-15 key points and <=10 key numbers
 (numbers_note required when fewer than 10); unique IDs; page_index in range; page_label equals the PDF label when the
 PDF defines one, otherwise (if given) appears as a standalone line on that page; evidence_quote is 40-250 characters
-after normalization (normalize.py) and occurs exactly once on the stated page (so it lies within one page); value_as_written inside the quote (raw and normalized); key points <= 30 words;
-page text files unchanged since registration (sha256).
-Warnings (not failures): key points do not reach every third of the document.
+after normalization (normalize.py) and occurs exactly once on the stated page (so it lies within one page);
+value_as_written inside the quote (raw and normalized); every number in a key point's text or a key number's label
+inside its quote (standing rule 3); key points <= 30 words; body_pages a valid range and key points reaching every
+third of it; page text files unchanged since registration (sha256).
+Warnings (not failures): the last section heading is not printed on or before the item's page; a key point outside
+body_pages; the same quote used twice among key points or among key numbers.
 
 The test split is sealed: it is read only with EVAL_MILESTONE=1, or before the freeze with --include-test-before-freeze.
 Output contains IDs and codes only, never document text (standing rule 8).
 
-Usage: python eval/verify_gold.py [--root eval] [--split dev|test|all] [--include-test-before-freeze] [--json report.json]
+Usage: python eval/verify_gold.py [--root eval] [--split dev|test|all] [--include-test-before-freeze] [--doc DOC_ID]
+                                  [--json report.json]
 """
 from __future__ import annotations
 
@@ -66,17 +70,24 @@ def _check_access(root: Path, splits: list[str], include_test_before_freeze: boo
                                + ("" if frozen else " (or --include-test-before-freeze while drafting)"))
 
 
-def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = False, warnings: list | None = None) -> list[dict]:
+def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = False, warnings: list | None = None,
+           doc: str | None = None) -> list[dict]:
     _check_access(root, splits, include_test_before_freeze)
     registry = {d["doc_id"]: d for d in json.loads((root / "registry.json").read_text(encoding="utf-8"))["documents"]}
     failures: list[dict] = []
+    warnings = warnings if warnings is not None else []
     validator = Draft202012Validator(SCHEMA)
 
     def fail(doc_id, item, code, **extra):
         failures.append({"doc_id": doc_id, "item": item, "code": code, **extra})
 
+    def warn(doc_id, item, code, **extra):
+        warnings.append({"doc_id": doc_id, "item": item, "code": code, **extra})
+
     for split in splits:
         for path in _gold_files(root, split):
+            if doc is not None and path.stem != doc:
+                continue
             gold = json.loads(path.read_text(encoding="utf-8"))
             doc_id = gold.get("doc_id", path.stem)
             for error in validator.iter_errors(gold):
@@ -133,12 +144,67 @@ def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = 
                     fail(doc_id, item_id, "VALUE_NOT_IN_QUOTE")
                 if "text" in item and len(str(item["text"]).split()) > MAX_WORDS:
                     fail(doc_id, item_id, "KEY_POINT_TOO_LONG", words=len(str(item["text"]).split()))
-            n = reg["page_count"]
-            if warnings is not None and n >= 3:
-                thirds = {min(2, (kp["page_index"] * 3) // n) for kp in key_points if isinstance(kp.get("page_index"), int)}
-                if thirds != {0, 1, 2}:
-                    warnings.append({"doc_id": doc_id, "code": "KEY_POINTS_NOT_IN_EVERY_THIRD", "thirds": sorted(thirds)})
+                # Standing rule 3: a number in a key point's text or a key number's label is copied from its quote.
+                for field in ("text", "label"):
+                    if field in item:
+                        for position in numbers_missing(str(item[field]), quote):
+                            fail(doc_id, item_id, "NUMBER_NOT_IN_QUOTE", field=field, number_index=position)
+                path = item.get("section_path") or []
+                if path and isinstance(path[-1], str) and not heading_printed(path[-1], [pages[i] for i in range(index + 1)]):
+                    warn(doc_id, item_id, "SECTION_HEADING_NOT_FOUND")
+            for items in (key_points, key_numbers):
+                quotes_seen: set[str] = set()
+                for item in items:
+                    quote = normalize_text(str(item.get("evidence_quote", "")))
+                    if quote in quotes_seen:
+                        warn(doc_id, str(item.get("id")), "DUPLICATE_QUOTE")
+                    quotes_seen.add(quote)
+            _check_body_and_spread(gold, reg["page_count"], key_points, doc_id, fail, warn)
     return failures
+
+
+def numbers_missing(text: str, quote: str) -> list[int]:
+    """Positions (0-based, in order of appearance) of numbers in `text` that do not occur in `quote` as printed.
+
+    A number must not be part of a larger one in the quote ("45" is not in "145" or "0.45"); letters around it are
+    fine ("2021" is in "FY2021"). The raw and the normalized quote are both searched.
+    """
+    missing = []
+    for position, number in enumerate(re.findall(r"\d+(?:[.,]\d+)*", text)):
+        pattern = r"(?<!\d)(?<!\d[.,])" + re.escape(number) + r"(?!\d|[.,]\d)"
+        if not (re.search(pattern, quote) or re.search(pattern, normalize_text(quote))):
+            missing.append(position)
+    return missing
+
+
+def heading_printed(heading: str, pages_up_to_item: list[str]) -> bool:
+    """The heading occurs (normalized, case-insensitive) on the item's page or an earlier one."""
+    needle = normalize_text(heading).casefold()
+    return any(needle in normalize_text(page).casefold() for page in pages_up_to_item)
+
+
+def _check_body_and_spread(gold: dict, page_count: int, key_points: list, doc_id: str, fail, warn) -> None:
+    """body_pages must be a valid range; key points must reach every third of it (thirds of a short range: its pages)."""
+    body = gold.get("body_pages")
+    if not isinstance(body, dict):
+        return  # reported by the schema
+    first, last = body.get("first"), body.get("last")
+    if not (isinstance(first, int) and isinstance(last, int) and 0 <= first <= last < page_count):
+        fail(doc_id, "-", "BODY_PAGES_INVALID", first=first, last=last, page_count=page_count)
+        return
+    n = last - first + 1
+    required = {min(2, (i * 3) // n) for i in range(n)}
+    covered = set()
+    for kp in key_points:
+        index = kp.get("page_index")
+        if not isinstance(index, int):
+            continue
+        if first <= index <= last:
+            covered.add(min(2, ((index - first) * 3) // n))
+        else:
+            warn(doc_id, str(kp.get("id")), "KEY_POINT_OUTSIDE_BODY")
+    if not required <= covered:
+        fail(doc_id, "-", "KEY_POINTS_NOT_SPREAD", thirds_covered=sorted(covered), thirds_required=sorted(required))
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -146,12 +212,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent)
     parser.add_argument("--split", choices=["dev", "test", "all"], default="dev")
     parser.add_argument("--include-test-before-freeze", action="store_true")
+    parser.add_argument("--doc", help="check only this doc_id")
     parser.add_argument("--json", type=Path)
     args = parser.parse_args(argv)
     splits = ["dev", "test"] if args.split == "all" else [args.split]
     warnings: list[dict] = []
     try:
-        failures = verify(args.root, splits, include_test_before_freeze=args.include_test_before_freeze, warnings=warnings)
+        failures = verify(args.root, splits, include_test_before_freeze=args.include_test_before_freeze, warnings=warnings,
+                          doc=args.doc)
     except SealedSplitError as exc:
         print(f"SEALED: {exc}")
         return 3

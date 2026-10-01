@@ -65,18 +65,20 @@ def gold_for(root: Path, doc_id: str) -> dict:
               ("Evidence-first review produced 42 accepted statements.", 2),
               ("The pilot was too small for a general claim.", 2),
               ("A larger study would need several hundred notes.", 2)]
-    key_points = [{"id": f"{doc_id}-kp-{i + 1:02d}", "text": f"Point {i + 1} about the pilot.", "importance": 1 + i % 3,
-                   "category": "finding", "page_index": p, "page_label": None, "evidence_quote": q}
+    key_points = [{"id": f"{doc_id}-kp-{i + 1:02d}", "text": "A point about the pilot.", "kind": "finding",
+                   "importance": 1 + i % 3, "section_path": ["Harbor pilot report"], "page_index": p, "page_label": None,
+                   "evidence_quote": q}
                   for i, (q, p) in enumerate(quotes)]
     key_numbers = [
-        {"id": f"{doc_id}-kn-01", "value_as_written": "64", "description": "review sessions", "page_index": 1,
-         "page_label": None, "evidence_quote": "The team recorded 64 review sessions in total."},
-        {"id": f"{doc_id}-kn-02", "value_as_written": "42", "description": "accepted statements", "page_index": 2,
-         "page_label": None, "evidence_quote": "Evidence-first review produced 42 accepted statements."},
+        {"id": f"{doc_id}-kn-01", "value_as_written": "64", "label": "review sessions", "unit": "count", "source": "body",
+         "page_index": 1, "page_label": None, "evidence_quote": "The team recorded 64 review sessions in total."},
+        {"id": f"{doc_id}-kn-02", "value_as_written": "42", "label": "accepted statements", "unit": "count",
+         "source": "body", "page_index": 2, "page_label": None,
+         "evidence_quote": "Evidence-first review produced 42 accepted statements."},
     ]
-    return {"schema_version": 1, "doc_id": doc_id, "split": reg["split"], "source_sha256": reg["sha256"],
-            "drafted_by": "test", "key_points": key_points, "key_numbers": key_numbers,
-            "numbers_note": "Only two numbers carry the message."}
+    return {"schema_version": 2, "doc_id": doc_id, "split": reg["split"], "source_sha256": reg["sha256"],
+            "drafted_by": "test", "body_pages": {"first": 0, "last": 2, "reason": "the whole fixture"},
+            "key_points": key_points, "key_numbers": key_numbers, "numbers_note": "Only two numbers carry the message."}
 
 
 def write_gold(root: Path, gold: dict) -> Path:
@@ -171,12 +173,74 @@ def test_valid_gold_passes(root):
     (lambda g: g["key_points"][0].update(evidence_quote="The pilot tested " + "a" * 240), "QUOTE_LENGTH"),
     (lambda g: g["key_points"][9].update(evidence_quote="The checklist line was printed twice by mistake."),
      "QUOTE_NOT_UNIQUE_ON_PAGE"),
+    # schema v2 fields
+    (lambda g: g["key_points"][0].update(kind="conclusion"), "SCHEMA"),
+    (lambda g: g["key_points"][0].pop("section_path"), "SCHEMA"),
+    (lambda g: g["key_points"][0].update(section_path=[]), "SCHEMA"),
+    (lambda g: g["key_numbers"][0].update(source="chart"), "SCHEMA"),
+    (lambda g: g["key_numbers"][0].pop("unit"), "SCHEMA"),
+    (lambda g: g["key_numbers"][0].update(label="x" * 81), "SCHEMA"),
+    (lambda g: g.pop("body_pages"), "SCHEMA"),
+    (lambda g: g["key_points"][0].update(quote_flags=["looks_fine"]), "SCHEMA"),
+    # rule 3: every number in a key point's text or a key number's label is in its quote
+    (lambda g: g["key_points"][0].update(text="The pilot ran for 12 weeks."), "NUMBER_NOT_IN_QUOTE"),
+    (lambda g: g["key_points"][4].update(text="The team recorded 46 review sessions."), "NUMBER_NOT_IN_QUOTE"),
+    (lambda g: g["key_points"][1].update(text="It began on 12 March 2025."), "NUMBER_NOT_IN_QUOTE"),
+    (lambda g: g["key_numbers"][0].update(label="review sessions in 2025"), "NUMBER_NOT_IN_QUOTE"),
+    # body range and spread
+    (lambda g: g.update(body_pages={"first": 2, "last": 1, "reason": "x"}), "BODY_PAGES_INVALID"),
+    (lambda g: g.update(body_pages={"first": 0, "last": 3, "reason": "x"}), "BODY_PAGES_INVALID"),
+    (lambda g: [kp.update(page_index=0, evidence_quote="The pilot tested an evidence-first review workflow.")
+                for kp in g["key_points"]], "KEY_POINTS_NOT_SPREAD"),
 ])
 def test_invalid_gold_is_rejected(root, mutate, code):
     gold = gold_for(root, "doc0")
     mutate(gold)
     write_gold(root, gold)
     assert code in codes(verify_gold.verify(root, splits=["dev"]))
+
+
+def test_numbers_copied_from_the_quote_pass():
+    assert verify_gold.numbers_missing("It began on 12 March 2026.", "It began on 12 March 2026 at the harbor office.") == []
+    assert verify_gold.numbers_missing("Targets for 2025-2030 and 7.7% growth", "the 2025-2030 plan targets 7.7%") == []
+    assert verify_gold.numbers_missing("FY2021 revenue", "revenue in FY2021 rose") == []
+    assert verify_gold.numbers_missing("1,024 GPUs", "We used 1,024 GPUs.") == []
+    assert verify_gold.numbers_missing("1024 GPUs", "We used 1,024 GPUs.") == [0]  # reformatted: not as printed
+    assert verify_gold.numbers_missing("45 cases", "in 145 cases") == [0]  # part of a larger number
+    assert verify_gold.numbers_missing("no numbers here", "1, 2, 3") == []
+
+
+def test_spread_runs_within_body_pages_only(root):
+    gold = gold_for(root, "doc0")
+    for kp in gold["key_points"]:
+        kp.update(page_index=0, evidence_quote="The pilot tested an evidence-first review workflow.")
+    gold["body_pages"] = {"first": 0, "last": 0, "reason": "a one-page document body"}
+    write_gold(root, gold)
+    assert "KEY_POINTS_NOT_SPREAD" not in codes(verify_gold.verify(root, splits=["dev"]))
+
+
+def test_warnings_for_heading_outside_body_and_duplicate_quotes(root):
+    gold = gold_for(root, "doc0")
+    gold["key_points"][3]["section_path"] = ["Harbor pilot report", "A heading that is not printed"]
+    gold["body_pages"] = {"first": 1, "last": 2, "reason": "page 0 is the title page"}
+    gold["key_points"][5]["evidence_quote"] = gold["key_points"][6]["evidence_quote"]
+    write_gold(root, gold)
+    warnings: list = []
+    failures = verify_gold.verify(root, splits=["dev"], warnings=warnings)
+    found = {(w["code"], w.get("item")) for w in warnings}
+    assert ("SECTION_HEADING_NOT_FOUND", "doc0-kp-04") in found
+    assert ("KEY_POINT_OUTSIDE_BODY", "doc0-kp-01") in found
+    assert ("DUPLICATE_QUOTE", "doc0-kp-07") in found
+    assert "SECTION_HEADING_NOT_FOUND" not in codes(failures)
+
+
+def test_doc_filter_checks_one_document(root):
+    write_gold(root, gold_for(root, "doc0"))
+    bad = gold_for(root, "doc1")
+    bad["key_points"][0]["page_index"] = 2
+    write_gold(root, bad)
+    assert verify_gold.verify(root, splits=["dev"], doc="doc0") == []
+    assert {f["doc_id"] for f in verify_gold.verify(root, splits=["dev"], doc="doc1")} == {"doc1"}
 
 
 # ---------- gold quote rules (Step 0 part 2, amendment B2) ----------
@@ -313,8 +377,29 @@ def test_cross_check_reports_mismatches_with_ids_only(root):
     report = cross_check.cross_check(root, ["dev"])
     assert report["verified"] == 11
     assert report["mismatches"] == [{"doc_id": "doc0", "item": "doc0-kp-01", "page_index": 2,
-                                     "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": [0]}]
+                                     "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": [0],
+                                     "difference": "page_shift"}]
     assert "evidence-first review workflow" not in json.dumps(report)  # IDs and codes only (standing rule 8)
+
+
+@pytest.mark.parametrize("name,quote,page,other,expected", [
+    ("found on another page", "the pilot tested a workflow", "unrelated text here", "so the pilot tested a workflow", "page_shift"),
+    ("line break inside a word", "the evidence-first review workflow", "the evi dence-first re view workflow", "", "whitespace_or_hyphenation"),
+    ("hyphen split differently", "a state-of-the-art model", "a state-of-the- art model", "", "whitespace_or_hyphenation"),
+    ("symbols differ", "costs rose by 3% (net)", "costs rose by 3 % net", "", "symbols_or_punctuation"),
+    ("words reordered or missing", "the team recorded sessions", "sessions the team recorded", "", "reading_order_or_missing"),
+])
+def test_difference_type(name, quote, page, other, expected):
+    texts = {"default": [page, other], "raw": [page, other]}
+    assert cross_check.difference_type(quote, texts, 0) == expected, name
+
+
+@needs_pdftotext
+def test_cross_check_doc_filter(root):
+    write_gold(root, gold_for(root, "doc0"))
+    write_gold(root, gold_for(root, "doc1"))
+    report = cross_check.cross_check(root, ["dev"], doc="doc1")
+    assert list(report["documents"]) == ["doc1"] and report["items"] == 12
 
 
 @needs_pdftotext

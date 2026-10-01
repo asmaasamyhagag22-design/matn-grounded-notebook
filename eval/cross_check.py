@@ -6,11 +6,12 @@ modes: "default" (reading order) and "raw" (content-stream order). It then check
 normalization and word-boundary rule as verify_gold.py. An item counts as verified if its quote is on the stated page
 in either mode.
 
-Mismatches are REPORTED, never fixed: the report lists item IDs, page indexes, codes and the pages where the quote
-was found instead. It never contains document text (standing rule 8). The test split stays sealed as in
-verify_gold.py.
+Mismatches are REPORTED, never fixed: the report lists item IDs, page indexes, codes, a difference type (see
+difference_type) and the pages where the quote was found instead. It never contains document text (standing
+rule 8). The test split stays sealed as in verify_gold.py.
 
-Usage: python eval/cross_check.py [--root eval] [--split dev|test|all] [--include-test-before-freeze] [--json out.json]
+Usage: python eval/cross_check.py [--root eval] [--split dev|test|all] [--include-test-before-freeze] [--doc DOC_ID]
+                                  [--json out.json]
 """
 from __future__ import annotations
 
@@ -23,7 +24,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from normalize import quote_on_page
+from normalize import normalize_text, quote_on_page
 from verify_gold import SealedSplitError, _check_access, _gold_files
 
 MODES = {"default": [], "raw": ["-raw"]}
@@ -49,7 +50,28 @@ def pages_text(exe: str, pdf: Path, mode: str) -> list[str]:
     return pages[:-1] if pages and not pages[-1].strip() else pages
 
 
-def cross_check(root: Path, splits: list[str], *, include_test_before_freeze: bool = False) -> dict:
+def difference_type(quote: str, texts: dict[str, list[str]], index: int) -> str:
+    """Why a quote is not on its stated page in the second extractor (checked in this order):
+
+    page_shift                 the quote is on another page;
+    whitespace_or_hyphenation  it matches once all spaces and line breaks are ignored;
+    symbols_or_punctuation     it matches on letters and digits alone;
+    reading_order_or_missing   otherwise (text runs in another order, or text the extractor does not return).
+    """
+    if any(quote_on_page(quote, page) for pages in texts.values() for i, page in enumerate(pages) if i != index):
+        return "page_shift"
+    stated = [pages[index] for pages in texts.values() if index < len(pages)]
+
+    def squeeze(text: str, pattern: str) -> str:
+        return re.sub(pattern, "", normalize_text(text).casefold())
+
+    for kind, pattern in (("whitespace_or_hyphenation", r"\s+"), ("symbols_or_punctuation", r"[^\w]|_")):
+        if any(squeeze(quote, pattern) in squeeze(page, pattern) for page in stated):
+            return kind
+    return "reading_order_or_missing"
+
+
+def cross_check(root: Path, splits: list[str], *, include_test_before_freeze: bool = False, doc: str | None = None) -> dict:
     _check_access(root, splits, include_test_before_freeze)
     extractor = second_extractor()
     if extractor is None:
@@ -59,6 +81,8 @@ def cross_check(root: Path, splits: list[str], *, include_test_before_freeze: bo
               "verified_by_mode": {m: 0 for m in MODES}, "documents": {}, "mismatches": [], "page_count_mismatches": []}
     for split in splits:
         for path in _gold_files(root, split):
+            if doc is not None and path.stem != doc:
+                continue
             gold = json.loads(path.read_text(encoding="utf-8"))
             doc_id = gold["doc_id"]
             reg = registry[doc_id]
@@ -80,7 +104,9 @@ def cross_check(root: Path, splits: list[str], *, include_test_before_freeze: bo
                     continue
                 found = sorted({i for p in texts.values() for i, page in enumerate(p) if quote_on_page(quote, page)})
                 report["mismatches"].append({"doc_id": doc_id, "item": item.get("id"), "page_index": index,
-                                             "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": found})
+                                             "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": found,
+                                             "difference": difference_type(quote, texts, index) if isinstance(index, int)
+                                             else "page_out_of_range"})
             report["documents"][doc_id] = doc
             report["items"] += doc["items"]
             report["verified"] += doc["verified"]
@@ -92,11 +118,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=Path(__file__).resolve().parent)
     parser.add_argument("--split", choices=["dev", "test", "all"], default="dev")
     parser.add_argument("--include-test-before-freeze", action="store_true")
+    parser.add_argument("--doc", help="check only this doc_id")
     parser.add_argument("--json", type=Path)
     args = parser.parse_args(argv)
     splits = ["dev", "test"] if args.split == "all" else [args.split]
     try:
-        report = cross_check(args.root, splits, include_test_before_freeze=args.include_test_before_freeze)
+        report = cross_check(args.root, splits, include_test_before_freeze=args.include_test_before_freeze, doc=args.doc)
     except SealedSplitError as exc:
         print(f"SEALED: {exc}")
         return 3
