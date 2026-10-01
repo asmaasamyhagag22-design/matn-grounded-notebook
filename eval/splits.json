@@ -1,0 +1,7 @@
+{
+  "2601-14525v1": {"split": "dev", "doc_type": "research_paper", "rationale": "Fixed by the user (Step 0 part 2, decision 5): dev."},
+  "wb-eem-2021-12": {"split": "dev", "doc_type": "economic_report", "rationale": "Fixed by the user (Step 0 part 2, decision 5): dev."},
+  "gao-21-519sp": {"split": "dev", "doc_type": "audit_framework", "rationale": "Fixed by the user (Step 0 part 2, decision 5): dev."},
+  "nist-ai-600-1": {"split": "test", "doc_type": "technical_standard", "rationale": "Fixed by the user (Step 0 part 2, decision 5): test; its multi-page tables test generalisation beyond dev layouts."},
+  "egypt-ai-strategy-2025-2030": {"split": "test", "doc_type": "national_strategy", "rationale": "Fixed by the user (Step 0 part 2, decision 5): test; it is the demo document, so keeping it sealed keeps the demo numbers honest."}
+}
