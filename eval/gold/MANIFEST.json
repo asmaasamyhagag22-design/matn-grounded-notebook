@@ -1,0 +1,54 @@
+{
+  "schema_version": 2,
+  "frozen_at_utc": "2026-10-01T20:02:41+00:00",
+  "gold_commit": "5f45f78d950f6bbada4b879cf74a2fb7decc3b5c",
+  "labels": {
+    "created_by": "claude",
+    "review": "independent_subagent",
+    "human_spot_check": "pending"
+  },
+  "split": {
+    "2601-14525v1": "dev",
+    "egypt-ai-strategy-2025-2030": "test",
+    "gao-21-519sp": "dev",
+    "nist-ai-600-1": "test",
+    "wb-eem-2021-12": "dev"
+  },
+  "registry_sha256": "878976bf4bdd995f6ed81e09bfd64eac15f1fd62ccc5ad13c23a5f166791efe8",
+  "splits_sha256": "0cab20ceb908dfc438080caab269c1bb964c15f941c475631c6533f5310ab20b",
+  "schema_sha256": "627668c169a0b34938f9f56b494dc049dd426bc1e72c1142ffdc7e7937e4c2c5",
+  "extractor": {
+    "name": "pymupdf",
+    "version": "1.28.2",
+    "mupdf_version": "1.28.2",
+    "license": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+    "text_call": "page.get_text(\"text\") (sort=False)",
+    "label_call": "page.get_label()"
+  },
+  "second_extractor": {
+    "name": "pdftotext",
+    "vendor": "Xpdf",
+    "version": "4.06"
+  },
+  "gold": {
+    "gold/dev/2601-14525v1.json": "fdb0f225b8a7430a36f9bb477517c02ca8c8714f6f918df41ab62c6656e53797",
+    "gold/dev/gao-21-519sp.json": "dc0c5eb3b51279cda68f76a78d7dfafa888f248e46f9d091ba34453720703cc6",
+    "gold/dev/wb-eem-2021-12.json": "309b0c41b27aee3982b5e7d19f64402a4728d635e9e5e05f33b389e47fe8fa64",
+    "gold/test/egypt-ai-strategy-2025-2030.json": "1785b03bf6e62019dd813caa49299812fd7c756e4e21e7bffc726624b44fca7f",
+    "gold/test/nist-ai-600-1.json": "c0612302511d4079d1dab824ffaaad6300a6235e3a0dce8bbffe4ec2d37d71a0"
+  },
+  "reviews": {
+    "gold/dev/reviews/2601-14525v1-r1.json": "bc4202910f349fc2fa0f512b0a349fbc142f6445d04ee14723f4e6105528d4d3",
+    "gold/dev/reviews/2601-14525v1.json": "ab30325d50dc6ce4b8f5f8a618597389546e2987cf64f77a11e4d75c6a8fd6ad",
+    "gold/dev/reviews/gao-21-519sp-r1.json": "0e2ac7f82410fed6fdb933b036e2c0fa34dbf3285d579f0068f99bbaf9f66bd6",
+    "gold/dev/reviews/gao-21-519sp.json": "416e35e9f085c70840e7e3f55941c928c03d508a0704785eec639de49095c05a",
+    "gold/dev/reviews/wb-eem-2021-12-r1.json": "d76c9f3280838ce67568341abc19ad62c9a08d41ce13dadf77503a4f68ebeb2f",
+    "gold/dev/reviews/wb-eem-2021-12.json": "a7ce38723dc8e02848bfdf841efdc912b809bef7ec52d5b88e5454b6c320fe6d",
+    "gold/test/reviews/egypt-ai-strategy-2025-2030-r1.json": "8e062c752f181516fa1a73af6dedcc772f864026911bee131162c9efe3e4577b",
+    "gold/test/reviews/egypt-ai-strategy-2025-2030-r2.json": "baf837693954bc0ec8a952e0fb232cbfc59486eff7a94714b7a69b17ed31dedf",
+    "gold/test/reviews/egypt-ai-strategy-2025-2030.json": "57a2f58eb6ed4f3a7dbd18979a786c5ec36e1c9c4c290bdcca29fc471d075b3e",
+    "gold/test/reviews/nist-ai-600-1-r1.json": "87d64936ea7d46d7c4a93236d8450b9a874f81d701200f6b2e366ae9a0a64af8",
+    "gold/test/reviews/nist-ai-600-1-r2.json": "bd01733c2854912cf7b99940cfea110f3abdac90f4a2ee2285e3e016941c0e27",
+    "gold/test/reviews/nist-ai-600-1.json": "43a4968168715c5d896a34b4eba2af14ec70dc31353ec5c44f40b880f5272425"
+  }
+}
