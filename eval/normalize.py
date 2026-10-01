@@ -45,6 +45,15 @@ def quote_on_page(quote: str, page_text: str) -> bool:
     return any(_on_boundary(needle, normalize_text(page_text, rejoin_hyphens=v)) for v in (True, False))
 
 
+def count_on_page(quote: str, page_text: str) -> int:
+    """Occurrences of the normalized quote on word boundaries, overlapping ones included; max over both variants."""
+    needle = normalize_text(quote)
+    if not needle:
+        return 0
+    pattern = re.compile(r"(?=(?<!\w)" + re.escape(needle) + r"(?!\w))")
+    return max(len(pattern.findall(normalize_text(page_text, rejoin_hyphens=v))) for v in (True, False))
+
+
 def _value_boundary(value: str, text: str) -> bool:
     # Not glued to a word character or to another number ("45" in "145", "1" in "1,024", "024" in "1,024").
     pattern = r"(?<![\w.,])" + re.escape(value) + r"(?![\w]|[.,]\d)"

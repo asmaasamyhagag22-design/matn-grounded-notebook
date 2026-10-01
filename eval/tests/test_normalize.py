@@ -1,7 +1,7 @@
 """Normalization used to verify that a gold quote exists on its page and that a value appears in its quote."""
 import pytest
 
-from normalize import normalize_text, quote_on_page, value_in_quote
+from normalize import count_on_page, normalize_text, quote_on_page, value_in_quote
 
 # ---------- cases that MUST match ----------
 MUST_PASS = [
@@ -71,3 +71,17 @@ def test_value_in_quote_fails(name, value, quote):
 def test_normalize_text_is_idempotent():
     once = normalize_text("the trans-\nformer “model” — eﬃcient")
     assert normalize_text(once) == once
+
+
+# ---------- occurrences on a page (gold quote rule: exactly once) ----------
+@pytest.mark.parametrize("name,page,quote,expected", [
+    ("absent", "the model was trained", "the model was tested", 0),
+    ("once", "the model was trained on GPUs", "model was trained", 1),
+    ("twice", "rates rose. later, rates rose again", "rates rose", 2),
+    ("overlapping occurrences count twice", "ha ha ha", "ha ha", 2),
+    ("partial word is not an occurrence", "the transformer and the former", "former", 1),
+    ("once across a hyphenated line break", "the trans-\nformer layer", "transformer layer", 1),
+    ("normalized before counting", "the   “model”\nwas  trained", 'the "model" was trained', 1),
+])
+def test_count_on_page(name, page, quote, expected):
+    assert count_on_page(quote, page) == expected, name

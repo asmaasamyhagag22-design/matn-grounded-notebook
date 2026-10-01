@@ -2,8 +2,8 @@
 
 Checks per gold file: JSON schema; doc_id/split/source sha match registry.json; 10-15 key points and <=10 key numbers
 (numbers_note required when fewer than 10); unique IDs; page_index in range; page_label equals the PDF label when the
-PDF defines one, otherwise (if given) appears as a standalone line on that page; evidence_quote found on the stated page
-after normalization (normalize.py); value_as_written inside the quote (raw and normalized); key points <= 30 words;
+PDF defines one, otherwise (if given) appears as a standalone line on that page; evidence_quote is 40-250 characters
+after normalization (normalize.py) and occurs exactly once on the stated page (so it lies within one page); value_as_written inside the quote (raw and normalized); key points <= 30 words;
 page text files unchanged since registration (sha256).
 Warnings (not failures): key points do not reach every third of the document.
 
@@ -25,14 +25,32 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from extract_pages import page_file
-from normalize import quote_on_page, value_in_quote
+from normalize import count_on_page, normalize_text, value_in_quote
 
 SCHEMA = json.loads((Path(__file__).resolve().parent / "gold" / "schema.json").read_text(encoding="utf-8"))
 KEY_POINTS_MIN, KEY_POINTS_MAX, KEY_NUMBERS_MAX, MAX_WORDS = 10, 15, 10, 30
+QUOTE_MIN_CHARS, QUOTE_MAX_CHARS = 40, 250
 
 
 class SealedSplitError(RuntimeError):
     pass
+
+
+def quote_problems(quote: str, page_text: str) -> list[str]:
+    """Gold quote rules: 40-250 characters after normalization, and exactly once on the stated page.
+
+    The quote is matched against the text of ONE page, so a quote that runs across a page break is not found
+    (QUOTE_NOT_ON_PAGE). Codes only; the caller adds item IDs and counts.
+    """
+    problems = []
+    if not QUOTE_MIN_CHARS <= len(normalize_text(quote)) <= QUOTE_MAX_CHARS:
+        problems.append("QUOTE_LENGTH")
+    count = count_on_page(quote, page_text)
+    if count == 0:
+        problems.append("QUOTE_NOT_ON_PAGE")
+    elif count > 1:
+        problems.append("QUOTE_NOT_UNIQUE_ON_PAGE")
+    return problems
 
 
 def _gold_files(root: Path, split: str) -> list[Path]:
@@ -102,8 +120,15 @@ def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = 
                 elif not pdf_label and label is not None and not re.search(
                         r"(?m)^\s*" + re.escape(str(label)) + r"\s*$", pages[index]):
                     fail(doc_id, item_id, "PAGE_LABEL_MISMATCH", pdf_label=None)
-                if not quote_on_page(str(item.get("evidence_quote", "")), pages[index]):
-                    fail(doc_id, item_id, "QUOTE_NOT_ON_PAGE", page_index=index)
+                quote = str(item.get("evidence_quote", ""))
+                for code in quote_problems(quote, pages[index]):
+                    if code == "QUOTE_LENGTH":
+                        fail(doc_id, item_id, code, chars=len(normalize_text(quote)), min=QUOTE_MIN_CHARS,
+                             max=QUOTE_MAX_CHARS)
+                    elif code == "QUOTE_NOT_UNIQUE_ON_PAGE":
+                        fail(doc_id, item_id, code, page_index=index, count=count_on_page(quote, pages[index]))
+                    else:
+                        fail(doc_id, item_id, code, page_index=index)
                 if "value_as_written" in item and not value_in_quote(str(item["value_as_written"]), str(item.get("evidence_quote", ""))):
                     fail(doc_id, item_id, "VALUE_NOT_IN_QUOTE")
                 if "text" in item and len(str(item["text"]).split()) > MAX_WORDS:

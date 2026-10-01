@@ -16,10 +16,13 @@ import register
 import verify_gold
 
 PAGES = [
-    "Harbor pilot report\nThe pilot tested an evidence-first review workflow.\nIt began on 12 March 2026.\n1",
-    "Eight volunteers reviewed short technical notes.\nThe team recorded 64 review sessions in total.\n"
-    "The median session lasted 18 minutes.\n2",
-    "Evidence-first review produced 42 accepted statements.\nThe pilot was too small for a general claim.\n3",
+    "Harbor pilot report\nThe pilot tested an evidence-first review workflow.\n"
+    "It began on 12 March 2026 at the harbor office.\nReviewers checked every claim against its source page.\n1",
+    "Eight volunteers reviewed short technical notes each week.\nThe team recorded 64 review sessions in total.\n"
+    "The median session lasted 18 minutes per note.\nNotes without a source page were returned to authors.\n2",
+    "Evidence-first review produced 42 accepted statements.\nThe pilot was too small for a general claim.\n"
+    "A larger study would need several hundred notes.\nThe checklist line was printed twice by mistake.\n"
+    "The checklist line was printed twice by mistake.\n3",
 ]
 
 
@@ -49,11 +52,16 @@ def root(tmp_path: Path) -> Path:
 
 def gold_for(root: Path, doc_id: str) -> dict:
     reg = {d["doc_id"]: d for d in json.loads((root / "registry.json").read_text(encoding="utf-8"))["documents"]}[doc_id]
-    quotes = [("The pilot tested an evidence-first review workflow.", 0), ("It began on 12 March 2026.", 0),
-              ("Eight volunteers reviewed short technical notes.", 1), ("The team recorded 64 review sessions", 1),
-              ("The median session lasted 18 minutes.", 1), ("Evidence-first review produced 42 accepted statements.", 2),
-              ("The pilot was too small for a general claim.", 2), ("short technical notes", 1),
-              ("evidence-first review workflow", 0), ("too small for a general claim", 2)]
+    quotes = [("The pilot tested an evidence-first review workflow.", 0),
+              ("It began on 12 March 2026 at the harbor office.", 0),
+              ("Reviewers checked every claim against its source page.", 0),
+              ("Eight volunteers reviewed short technical notes each week.", 1),
+              ("The team recorded 64 review sessions in total.", 1),
+              ("The median session lasted 18 minutes per note.", 1),
+              ("Notes without a source page were returned to authors.", 1),
+              ("Evidence-first review produced 42 accepted statements.", 2),
+              ("The pilot was too small for a general claim.", 2),
+              ("A larger study would need several hundred notes.", 2)]
     key_points = [{"id": f"{doc_id}-kp-{i + 1:02d}", "text": f"Point {i + 1} about the pilot.", "importance": 1 + i % 3,
                    "category": "finding", "page_index": p, "page_label": None, "evidence_quote": q}
                   for i, (q, p) in enumerate(quotes)]
@@ -125,6 +133,10 @@ def test_valid_gold_passes(root):
     (lambda g: g["key_points"][0].update(page_label="99"), "PAGE_LABEL_MISMATCH"),
     (lambda g: g.pop("numbers_note"), "NUMBERS_NOTE_REQUIRED"),
     (lambda g: g["key_points"][0].update(importance=5), "SCHEMA"),
+    (lambda g: g["key_points"][0].update(evidence_quote="an evidence-first review workflow."), "QUOTE_LENGTH"),
+    (lambda g: g["key_points"][0].update(evidence_quote="The pilot tested " + "a" * 240), "QUOTE_LENGTH"),
+    (lambda g: g["key_points"][9].update(evidence_quote="The checklist line was printed twice by mistake."),
+     "QUOTE_NOT_UNIQUE_ON_PAGE"),
 ])
 def test_invalid_gold_is_rejected(root, mutate, code):
     gold = gold_for(root, "doc0")
@@ -133,9 +145,51 @@ def test_invalid_gold_is_rejected(root, mutate, code):
     assert code in codes(verify_gold.verify(root, splits=["dev"]))
 
 
+# ---------- gold quote rules (Step 0 part 2, amendment B2) ----------
+@pytest.mark.parametrize("chars,expected", [(39, ["QUOTE_LENGTH"]), (40, []), (250, []), (251, ["QUOTE_LENGTH"])])
+def test_quote_length_bounds(chars, expected):
+    quote = ("word " * 60)[:chars - 1].rstrip() + "x" * (chars - len(("word " * 60)[:chars - 1].rstrip()))
+    assert len(quote) == chars
+    assert verify_gold.quote_problems(quote, f"Start. {quote} End.") == expected
+
+
+def test_quote_length_is_counted_after_normalization():
+    page = "The   pilot\n tested an evidence-first   review workflow."  # 57 raw chars, 51 after normalization
+    assert verify_gold.quote_problems(page, page) == []
+    assert verify_gold.quote_problems("The   pilot\n tested   an  evidence", page) == ["QUOTE_LENGTH"]  # 28
+
+
+def test_quote_must_appear_exactly_once_on_its_page():
+    page = "Rates rose sharply in the second quarter of the year. Rates rose sharply in the second quarter of the year."
+    assert verify_gold.quote_problems("Rates rose sharply in the second quarter of the year.", page) == [
+        "QUOTE_NOT_UNIQUE_ON_PAGE"]
+    assert verify_gold.quote_problems("Rates rose sharply in the second quarter of the year.", page[:54]) == []
+
+
+def test_quote_must_lie_within_a_single_page():
+    page_3 = "The final section of the report discusses the"
+    page_4 = "limitations of the pilot study and next steps."
+    quote = "discusses the limitations of the pilot study and next steps"
+    assert verify_gold.quote_problems(quote, page_3) == ["QUOTE_NOT_ON_PAGE"]
+    assert verify_gold.quote_problems(quote, page_4) == ["QUOTE_NOT_ON_PAGE"]
+
+
+def test_quote_rule_failures_carry_ids_and_counts_not_text(root):
+    gold = gold_for(root, "doc0")
+    gold["key_points"][9]["evidence_quote"] = "The checklist line was printed twice by mistake."
+    gold["key_points"][0]["evidence_quote"] = "an evidence-first review workflow."
+    write_gold(root, gold)
+    failures = verify_gold.verify(root, splits=["dev"])
+    assert {"doc_id": "doc0", "item": "doc0-kp-10", "code": "QUOTE_NOT_UNIQUE_ON_PAGE", "page_index": 2,
+            "count": 2} in failures
+    assert {"doc_id": "doc0", "item": "doc0-kp-01", "code": "QUOTE_LENGTH", "chars": 34, "min": 40,
+            "max": 250} in failures
+    assert "printed twice" not in json.dumps(failures)
+
+
 def test_printed_page_label_must_appear_on_page(root):
     gold = gold_for(root, "doc0")
-    gold["key_points"][2]["page_label"] = "2"  # page 1 (0-based) prints "2" on its own line
+    gold["key_points"][3]["page_label"] = "2"  # page 1 (0-based) prints "2" on its own line
     write_gold(root, gold)
     assert verify_gold.verify(root, splits=["dev"]) == []
 
