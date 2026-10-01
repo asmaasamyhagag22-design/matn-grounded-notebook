@@ -1,7 +1,10 @@
 """Freeze the evaluation reference: record sha256 of every gold file, the registry and the split file.
 
 After eval/gold/MANIFEST.json exists, the test split is sealed (hook R4 and verify_gold.py) and any change to a gold
-file is detected by --check. Hashing reads bytes only; nothing is printed except paths, hashes and codes.
+file is detected by --check. The manifest also records the text extractor (name, version, MuPDF version, call) that
+produced eval/pages/: --write refuses if the installed extractor differs from the one recorded at registration, and
+--check reports EXTRACTOR_CHANGED_AFTER_FREEZE if it changes later, because the gold quotes were verified against
+that extractor's text. Hashing reads bytes only; nothing is printed except paths, hashes and codes.
 
 Usage: python eval/freeze.py [--root eval] --write | --check
 """
@@ -14,6 +17,12 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+import extract_pages
+
+
+class ExtractorMismatch(RuntimeError):
+    pass
+
 
 def _sha(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -24,12 +33,17 @@ def _gold_paths(root: Path) -> list[Path]:
 
 
 def write_manifest(root: Path) -> dict:
+    registered = json.loads((root / "registry.json").read_text(encoding="utf-8")).get("library")
+    installed = extract_pages.extractor_info()
+    if registered != installed:
+        raise ExtractorMismatch(f"registry.json was built with {registered}, installed is {installed}: re-register first")
     manifest = {
         "schema_version": 1,
         "frozen_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "registry_sha256": _sha(root / "registry.json"),
         "splits_sha256": _sha(root / "splits.json") if (root / "splits.json").is_file() else None,
         "schema_sha256": _sha(Path(__file__).resolve().parent / "gold" / "schema.json"),
+        "extractor": installed,
         "gold": {p.relative_to(root).as_posix(): _sha(p) for p in _gold_paths(root)},
     }
     (root / "gold" / "MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
@@ -50,6 +64,9 @@ def check_manifest(root: Path) -> list[dict]:
         problems.append({"code": "GOLD_ADDED_AFTER_FREEZE", "file": rel})
     if _sha(root / "registry.json") != manifest["registry_sha256"]:
         problems.append({"code": "REGISTRY_CHANGED_AFTER_FREEZE"})
+    if manifest.get("extractor") != extract_pages.extractor_info():
+        problems.append({"code": "EXTRACTOR_CHANGED_AFTER_FREEZE", "frozen": manifest.get("extractor"),
+                         "installed": extract_pages.extractor_info()})
     return problems
 
 
@@ -61,7 +78,11 @@ def main(argv: list[str] | None = None) -> int:
     mode.add_argument("--check", action="store_true")
     args = parser.parse_args(argv)
     if args.write:
-        manifest = write_manifest(args.root)
+        try:
+            manifest = write_manifest(args.root)
+        except ExtractorMismatch as exc:
+            print(f"REFUSED: {exc}")
+            return 1
         print(f"MANIFEST written: {len(manifest['gold'])} gold files")
         return 0
     problems = check_manifest(args.root)

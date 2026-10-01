@@ -16,7 +16,6 @@ import hashlib
 import json
 import re
 import sys
-from importlib.metadata import metadata
 from pathlib import Path
 
 import extract_pages
@@ -61,11 +60,7 @@ def build_registry(root: Path, *, allow_missing_splits: bool = False) -> list[di
     sources = parse_sources(sources_path)
     splits_path = root / "splits.json"
     splits = json.loads(splits_path.read_text(encoding="utf-8")) if splits_path.is_file() else {}
-    meta = metadata("pymupdf")
-    registry = {"schema_version": 1,
-                "library": {"name": "pymupdf", "version": meta["Version"], "license": meta["License"],
-                            "text_call": 'page.get_text("text") (sort=False)', "label_call": "page.get_label()"},
-                "documents": []}
+    registry = {"schema_version": 1, "library": extract_pages.extractor_info(), "documents": []}
     for pdf in pdfs:
         doc_id = doc_id_for(pdf)
         data = pdf.read_bytes()

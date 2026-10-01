@@ -10,9 +10,20 @@ the sha256 of every page file is pinned in registry.json.
 from __future__ import annotations
 
 import hashlib
+from importlib.metadata import metadata
 from pathlib import Path
 
 import pymupdf
+
+TEXT_CALL = 'page.get_text("text") (sort=False)'
+LABEL_CALL = "page.get_label()"
+
+
+def extractor_info() -> dict:
+    """The extractor that produces eval/pages/: recorded in registry.json and frozen in gold/MANIFEST.json."""
+    meta = metadata("pymupdf")
+    return {"name": "pymupdf", "version": meta["Version"], "mupdf_version": pymupdf.mupdf_version,
+            "license": meta["License"], "text_call": TEXT_CALL, "label_call": LABEL_CALL}
 
 
 def sha256_bytes(data: bytes) -> str:

@@ -3,11 +3,14 @@ from __future__ import annotations
 
 import copy
 import json
+from importlib.metadata import metadata
 from pathlib import Path
 
 import pymupdf
 import pytest
 
+import cross_check
+import extract_pages
 import freeze
 import register
 import verify_gold
@@ -174,3 +177,61 @@ def test_manifest_detects_changed_gold(root):
     data["key_points"][0]["text"] = "Changed after freeze."
     path.write_text(json.dumps(data), encoding="utf-8")
     assert "GOLD_CHANGED_AFTER_FREEZE" in {p["code"] for p in freeze.check_manifest(root)}
+
+
+# ---------- extractor provenance (amendment 3) ----------
+def test_manifest_records_the_extractor(root):
+    write_gold(root, gold_for(root, "doc0"))
+    manifest = freeze.write_manifest(root)
+    reg = json.loads((root / "registry.json").read_text(encoding="utf-8"))
+    assert manifest["extractor"]["name"] == "pymupdf"
+    assert manifest["extractor"]["version"] == metadata("pymupdf")["Version"]
+    assert manifest["extractor"]["text_call"] and manifest["extractor"] == reg["library"]
+
+
+def test_freeze_refuses_when_installed_extractor_differs_from_registry(root, monkeypatch):
+    write_gold(root, gold_for(root, "doc0"))
+    real = extract_pages.extractor_info()
+    monkeypatch.setattr(extract_pages, "extractor_info", lambda: {**real, "version": "0.0"})
+    with pytest.raises(freeze.ExtractorMismatch):
+        freeze.write_manifest(root)
+
+
+def test_check_detects_extractor_change_after_freeze(root, monkeypatch):
+    write_gold(root, gold_for(root, "doc0"))
+    freeze.write_manifest(root)
+    real = extract_pages.extractor_info()
+    monkeypatch.setattr(extract_pages, "extractor_info", lambda: {**real, "version": "0.0"})
+    assert "EXTRACTOR_CHANGED_AFTER_FREEZE" in {p["code"] for p in freeze.check_manifest(root)}
+
+
+# ---------- second-extractor cross-check (amendment 3) ----------
+needs_pdftotext = pytest.mark.skipif(cross_check.second_extractor() is None, reason="pdftotext not on PATH")
+
+
+@needs_pdftotext
+def test_cross_check_counts_quotes_that_also_verify_with_pdftotext(root):
+    write_gold(root, gold_for(root, "doc0"))
+    report = cross_check.cross_check(root, ["dev"])
+    assert report["extractor"]["name"] == "pdftotext" and report["extractor"]["version"]
+    assert report["items"] == 12 and report["verified"] == 12 and report["mismatches"] == []
+
+
+@needs_pdftotext
+def test_cross_check_reports_mismatches_with_ids_only(root):
+    gold = gold_for(root, "doc0")
+    gold["key_points"][0]["page_index"] = 2  # the quote is on page 0
+    write_gold(root, gold)
+    report = cross_check.cross_check(root, ["dev"])
+    assert report["verified"] == 11
+    assert report["mismatches"] == [{"doc_id": "doc0", "item": "doc0-kp-01", "page_index": 2,
+                                     "code": "QUOTE_NOT_ON_PAGE_SECOND_EXTRACTOR", "found_on_pages": [0]}]
+    assert "evidence-first review workflow" not in json.dumps(report)  # IDs and codes only (standing rule 8)
+
+
+@needs_pdftotext
+def test_cross_check_respects_the_sealed_test_split(root, monkeypatch):
+    monkeypatch.delenv("EVAL_MILESTONE", raising=False)
+    write_gold(root, gold_for(root, "doc3"))
+    with pytest.raises(verify_gold.SealedSplitError):
+        cross_check.cross_check(root, ["test"])
