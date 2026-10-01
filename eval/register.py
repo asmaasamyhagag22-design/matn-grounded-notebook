@@ -90,7 +90,7 @@ def build_registry(root: Path, *, allow_missing_splits: bool = False) -> list[di
     if not allow_missing_splits and (counts["dev"], counts["test"]) != (3, 2) and len(pdfs) == EXPECTED_PDFS:
         problems.append({"code": "SPLIT_NOT_3_DEV_2_TEST", "counts": counts})
     registry["split_counts"] = counts
-    (root / "registry.json").write_text(json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (root / "registry.json").write_text(json.dumps(registry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     return problems
 
 

@@ -3,3 +3,5 @@
 .githooks/commit-msg text eol=lf
 .githooks/pre-push text eol=lf
 *.sh text eol=lf
+# Evaluation JSON is hashed (registry, gold, MANIFEST): keep LF everywhere so the sha256 matches on every checkout.
+eval/**/*.json text eol=lf

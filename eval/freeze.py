@@ -46,7 +46,7 @@ def write_manifest(root: Path) -> dict:
         "extractor": installed,
         "gold": {p.relative_to(root).as_posix(): _sha(p) for p in _gold_paths(root)},
     }
-    (root / "gold" / "MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (root / "gold" / "MANIFEST.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
     return manifest
 
 

@@ -100,6 +100,14 @@ def test_register_records_hashes_pages_labels_and_sources(root):
     assert (root / "pages" / doc["doc_id"] / "p0001.txt").is_file()
 
 
+def test_hashed_json_files_are_written_with_lf_on_every_platform(root):
+    # freeze.py hashes these files; CRLF on Windows would not match an LF checkout on Ubuntu.
+    write_gold(root, gold_for(root, "doc0"))
+    freeze.write_manifest(root)
+    for name in ("registry.json", "gold/MANIFEST.json"):
+        assert b"\r\n" not in (root / name).read_bytes(), name
+
+
 def test_register_refuses_wrong_number_of_pdfs(root):
     (root / "incoming" / "doc4.pdf").unlink()
     assert "INCOMING_NOT_EXACTLY_5_PDFS" in {p["code"] for p in register.build_registry(root)}

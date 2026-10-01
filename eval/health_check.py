@@ -127,7 +127,7 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
     report = check_registry(args.root)
     if args.json:
-        args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     blocking = False
     for doc_id, doc in report["documents"].items():
         print(f"{doc_id:34} pages={doc['page_count']:3} flagged={json.dumps(doc['flagged'])}")

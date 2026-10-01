@@ -401,7 +401,7 @@ def main(argv: list[str] | None = None) -> int:
     history = json.loads(args.log.read_text(encoding="utf-8")) if args.log.is_file() else {"runs": []}
     history["runs"].append(log)
     args.log.parent.mkdir(parents=True, exist_ok=True)
-    args.log.write_text(json.dumps(history, indent=2) + "\n", encoding="utf-8")
+    args.log.write_text(json.dumps(history, indent=2) + "\n", encoding="utf-8", newline="\n")
     for e in log["entries"]:
         print(f"{e.get('result', '?'):24} {e.get('file') or e.get('url')} sha256={e.get('sha256', '-')} "
               f"status={e.get('http_status', '-')} pages={e.get('page_count', '-')}")

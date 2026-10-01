@@ -158,7 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     counts = {s: len(_gold_files(args.root, s)) for s in splits}
     report = {"splits": splits, "gold_files": counts, "failures": failures, "warnings": warnings}
     if args.json:
-        args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+        args.json.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8", newline="\n")
     for f in failures:
         print(json.dumps(f))
     for w in warnings:
