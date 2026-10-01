@@ -173,6 +173,25 @@ def test_hash_mismatch_with_the_registry_is_refused(root, scratch, monkeypatch):
     assert not (root / "incoming" / "doc.pdf").exists() and list(scratch.rglob("*")) == []
 
 
+def test_bytes_pinned_in_the_registry_need_no_title_check(root, scratch, monkeypatch):
+    # A cover that is only an image hides the title from the text check; once the registry pins the exact bytes
+    # (accepted and recorded at registration), the hash is the identity check.
+    body = pdf_bytes("Public Disclosure Authorized")
+    sha = hashlib.sha256(body).hexdigest()
+    (root / "registry.json").write_text(json.dumps({"documents": [{"file": "incoming/doc.pdf", "sha256": sha}]}))
+    web = FakeWeb({"https://www.gao.gov/assets/doc.pdf": (200, "application/pdf", body, None)})
+    log, entries = run(root, scratch, web, monkeypatch)
+    assert entries["doc.pdf"]["result"] == "DOWNLOADED" and entries["doc.pdf"]["verified_by"] == "registry_sha256"
+    assert entries["doc.pdf"]["title_coverage"] < fs.TITLE_COVERAGE_MIN  # still measured and logged
+    assert (root / "incoming" / "doc.pdf").read_bytes() == body
+
+
+def test_without_a_registry_pin_the_title_check_still_applies(root, scratch, monkeypatch):
+    web = FakeWeb({"https://www.gao.gov/assets/doc.pdf": (200, "application/pdf", pdf_bytes("Public Disclosure Authorized"), None)})
+    log, entries = run(root, scratch, web, monkeypatch)
+    assert entries["doc.pdf"]["result"] == "TITLE_NOT_FOUND" and entries["doc.pdf"]["verified_by"] == "content_checks"
+
+
 def test_existing_file_with_a_different_hash_is_never_overwritten(root, scratch, monkeypatch):
     (root / "incoming" / "doc.pdf").write_bytes(b"%PDF-1.7 local copy")
     (root / "registry.json").write_text(json.dumps({"documents": [{"file": "incoming/doc.pdf", "sha256": "0" * 64}]}))

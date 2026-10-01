@@ -272,9 +272,12 @@ def download_row(row: dict, root: Path, scratch: Path, registry: dict, entry: di
         text = first_pages_text(temp)
         entry.update(page_count=page_count(temp), title_coverage=title_coverage(row.get("title", ""), text),
                      title_missing_words=title_missing_words(row.get("title", ""), text), latin_ratio=latin_ratio(text))
-        if entry["title_coverage"] < TITLE_COVERAGE_MIN:
+        # Bytes equal to the registry pin were accepted at registration (with recorded evidence), so the hash is the
+        # identity check; otherwise the content checks decide. Both ratios are logged either way.
+        entry["verified_by"] = "registry_sha256" if registry.get(name) else "content_checks"
+        if not registry.get(name) and entry["title_coverage"] < TITLE_COVERAGE_MIN:
             raise FetchRefused("TITLE_NOT_FOUND")
-        if entry["latin_ratio"] < LATIN_RATIO_MIN:
+        if not registry.get(name) and entry["latin_ratio"] < LATIN_RATIO_MIN:
             raise FetchRefused("NOT_ENGLISH")
         shutil.move(str(temp), str(target))
         entry["result"] = "DOWNLOADED"
