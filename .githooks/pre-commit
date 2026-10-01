@@ -1,0 +1,10 @@
+#!/bin/sh
+# Matn pre-commit hook (G1 forbidden staged paths, G2 tests on Python commits). Logic lives in pre_commit.py.
+# Interpreter: $MATN_PYTHON, else the repo venv (Windows or POSIX layout), else python3/python.
+HOOK_DIR=$(dirname "$0")
+PY="$MATN_PYTHON"
+[ -z "$PY" ] && [ -x ".venv/Scripts/python.exe" ] && PY=".venv/Scripts/python.exe"
+[ -z "$PY" ] && [ -x ".venv/bin/python" ] && PY=".venv/bin/python"
+[ -z "$PY" ] && command -v python3 >/dev/null 2>&1 && PY=python3
+[ -z "$PY" ] && PY=python
+PYTHONDONTWRITEBYTECODE=1 exec "$PY" "$HOOK_DIR/pre_commit.py" "$@"

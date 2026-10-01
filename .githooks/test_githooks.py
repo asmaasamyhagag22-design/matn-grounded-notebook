@@ -1,0 +1,99 @@
+"""Tests for the git hooks in .githooks/ (G1 forbidden staged paths, G2 tests on Python commits, G3 commit message).
+
+Each test builds a throwaway git repository in tmp_path that uses this directory as core.hooksPath, so the real
+hooks run exactly as git runs them (through git's bundled sh on Windows).
+"""
+from __future__ import annotations
+
+import os
+import subprocess
+import sys
+from pathlib import Path
+
+import pytest
+
+HOOKS = Path(__file__).resolve().parent
+
+
+def git(repo: Path, *args: str, check: bool = False) -> subprocess.CompletedProcess:
+    env = dict(os.environ, MATN_PYTHON=sys.executable, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@example.invalid",
+               GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@example.invalid")
+    return subprocess.run(["git", *args], cwd=repo, capture_output=True, text=True, env=env, check=check)
+
+
+@pytest.fixture()
+def repo(tmp_path: Path) -> Path:
+    git(tmp_path, "init", "-q", check=True)
+    git(tmp_path, "config", "core.hooksPath", HOOKS.as_posix(), check=True)
+    git(tmp_path, "config", "core.autocrlf", "false", check=True)
+    return tmp_path
+
+
+GOOD_MSG = "docs: add note\n\nWhy: explains the change for reviewers.\n"
+
+
+def commit(repo: Path, rel: str, content: bytes | str = "x\n", msg: str = GOOD_MSG) -> subprocess.CompletedProcess:
+    path = repo / rel
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(content if isinstance(content, bytes) else content.encode())
+    git(repo, "add", "-f", rel, check=True)
+    return git(repo, "commit", "-q", "-m", msg)
+
+
+# ---------- G1 ----------
+@pytest.mark.parametrize("rel", [
+    "output/run/summary.json",
+    "runs/r1/plan.json",
+    ".venv/Lib/site.py.txt",
+    "node_modules/x/index.js",
+    "models/qwen.gguf",
+    "weights.safetensors",
+    "eval/incoming/doc.pdf",
+    "deck.pptx",
+    "eval/pages/doc/p0000.txt",
+    "audit/scratch/x.txt",
+    "documents/Build a Large Language Model (Z-Library).pdf",
+    "notes/raschka-chapter2.md",
+    "tmp/x.txt",
+])
+def test_g1_blocks_forbidden_paths(repo, rel):
+    result = commit(repo, rel)
+    assert result.returncode != 0 and "[G1]" in result.stderr, result.stderr
+
+
+def test_g1_blocks_files_over_5_mb(repo):
+    result = commit(repo, "data.json", b"0" * (5 * 1024 * 1024 + 1))
+    assert result.returncode != 0 and "[G1]" in result.stderr
+
+
+def test_g1_allows_normal_files(repo):
+    result = commit(repo, "eval/gold/dev/doc.json", "{}\n")
+    assert result.returncode == 0, result.stderr
+
+
+# ---------- G2 ----------
+def test_g2_blocks_python_commit_when_tests_fail(repo):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text("def test_fail():\n    assert False\n", encoding="utf-8")
+    result = commit(repo, "tool.py", "print('x')\n")
+    assert result.returncode != 0 and "[G2]" in result.stderr, result.stderr
+
+
+def test_g2_allows_python_commit_when_tests_pass(repo):
+    (repo / "tests").mkdir()
+    (repo / "tests" / "test_x.py").write_text("def test_ok():\n    assert True\n", encoding="utf-8")
+    result = commit(repo, "tool.py", "print('x')\n")
+    assert result.returncode == 0, result.stderr
+
+
+# ---------- G3 ----------
+@pytest.mark.parametrize("msg", ["fix stuff", "fix stuff\n\nCo-Authored-By: Someone <a@b.c>\n", ""])
+def test_g3_blocks_messages_without_a_why_body(repo, msg):
+    result = commit(repo, "a.md", "x\n", msg=msg)
+    assert result.returncode != 0
+    if msg:
+        assert "[G3]" in result.stderr, result.stderr
+
+
+def test_g3_allows_subject_plus_body(repo):
+    assert commit(repo, "a.md", "x\n", msg=GOOD_MSG).returncode == 0
