@@ -31,6 +31,7 @@ SLOW = frozenset({
     ".claude/hooks/test_guard.py::test_r4_blocks_test_gold_after_freeze_unless_milestone",
     ".claude/hooks/test_guard.py::test_r5_blocks_pipeline_outputs_while_drafting",
     ".claude/hooks/test_guard.py::test_unknown_tool_and_bad_json_do_not_crash",
+    "checks/test_fast_budget.py::test_fast_subset_fits_the_budget_on_this_machine",
     ".githooks/test_githooks.py::test_g1_allows_normal_files",
     ".githooks/test_githooks.py::test_g1_blocks_files_over_5_mb",
     ".githooks/test_githooks.py::test_g1_blocks_forbidden_paths",
