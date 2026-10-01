@@ -26,6 +26,8 @@ PAGES = [
 ]
 
 
+COMMIT = "c0ffee" + "0" * 34
+
 SOURCES_HEADER = ("| file | title | publisher | url | pdf_url | license | license_url | doc_type | notes |\n"
                   "|---|---|---|---|---|---|---|---|---|\n")
 
@@ -105,7 +107,7 @@ def test_register_records_hashes_pages_labels_and_sources(root):
 def test_hashed_json_files_are_written_with_lf_on_every_platform(root):
     # freeze.py hashes these files; CRLF on Windows would not match an LF checkout on Ubuntu.
     write_gold(root, gold_for(root, "doc0"))
-    freeze.write_manifest(root)
+    freeze.write_manifest(root, commit=COMMIT)
     for name in ("registry.json", "gold/MANIFEST.json"):
         assert b"\r\n" not in (root / name).read_bytes(), name
 
@@ -314,7 +316,7 @@ def test_test_split_needs_flag_before_freeze_and_milestone_after(root, monkeypat
         verify_gold.verify(root, splits=["test"])
     assert verify_gold.verify(root, splits=["test"], include_test_before_freeze=True) == []
     write_gold(root, gold_for(root, "doc0"))
-    freeze.write_manifest(root)
+    freeze.write_manifest(root, commit=COMMIT)
     with pytest.raises(verify_gold.SealedSplitError):
         verify_gold.verify(root, splits=["test"], include_test_before_freeze=True)
     monkeypatch.setenv("EVAL_MILESTONE", "1")
@@ -323,7 +325,7 @@ def test_test_split_needs_flag_before_freeze_and_milestone_after(root, monkeypat
 
 def test_manifest_detects_changed_gold(root):
     path = write_gold(root, gold_for(root, "doc0"))
-    freeze.write_manifest(root)
+    freeze.write_manifest(root, commit=COMMIT)
     assert freeze.check_manifest(root) == []
     data = json.loads(path.read_text(encoding="utf-8"))
     data["key_points"][0]["text"] = "Changed after freeze."
@@ -334,11 +336,47 @@ def test_manifest_detects_changed_gold(root):
 # ---------- extractor provenance (amendment 3) ----------
 def test_manifest_records_the_extractor(root):
     write_gold(root, gold_for(root, "doc0"))
-    manifest = freeze.write_manifest(root)
+    manifest = freeze.write_manifest(root, commit=COMMIT)
     reg = json.loads((root / "registry.json").read_text(encoding="utf-8"))
     assert manifest["extractor"]["name"] == "pymupdf"
     assert manifest["extractor"]["version"] == metadata("pymupdf")["Version"]
     assert manifest["extractor"]["text_call"] and manifest["extractor"] == reg["library"]
+
+
+def test_manifest_records_split_commit_labels_second_extractor_and_reviews(root):
+    write_gold(root, gold_for(root, "doc0"))
+    review = root / "gold" / "dev" / "reviews" / "doc0.json"
+    review.parent.mkdir(parents=True)
+    review.write_text('{"changes": []}\n', encoding="utf-8")
+    manifest = freeze.write_manifest(root, commit=COMMIT)
+    assert manifest["gold_commit"] == COMMIT
+    assert manifest["split"] == {"doc0": "dev", "doc1": "dev", "doc2": "dev", "doc3": "test", "doc4": "test"}
+    assert manifest["labels"] == {"created_by": "claude", "review": "independent_subagent", "human_spot_check": "pending"}
+    assert list(manifest["reviews"]) == ["gold/dev/reviews/doc0.json"]
+    second = manifest["second_extractor"]
+    assert second is None or (second["name"] == "pdftotext" and second["version"] and "path" not in second)
+    review.write_text('{"changes": ["edited"]}\n', encoding="utf-8")
+    assert "REVIEW_CHANGED_AFTER_FREEZE" in {p["code"] for p in freeze.check_manifest(root)}
+
+
+def _git(cwd, *args):
+    import subprocess
+    return subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True, check=True).stdout.strip()
+
+
+def test_gold_commit_refuses_uncommitted_gold_and_returns_head_when_clean(root):
+    _git(root, "init", "-q")
+    _git(root, "config", "user.email", "t@example.org")
+    _git(root, "config", "user.name", "t")
+    path = write_gold(root, gold_for(root, "doc0"))
+    with pytest.raises(freeze.GoldNotCommitted):
+        freeze.gold_commit(root, root)  # untracked gold
+    _git(root, "add", "gold")
+    _git(root, "-c", "core.hooksPath=/dev/null", "commit", "-q", "-m", "gold")
+    assert freeze.gold_commit(root, root) == _git(root, "rev-parse", "HEAD")
+    path.write_text(path.read_text(encoding="utf-8") + " ", encoding="utf-8")
+    with pytest.raises(freeze.GoldNotCommitted):
+        freeze.gold_commit(root, root)  # modified after the commit
 
 
 def test_freeze_refuses_when_installed_extractor_differs_from_registry(root, monkeypatch):
@@ -346,12 +384,12 @@ def test_freeze_refuses_when_installed_extractor_differs_from_registry(root, mon
     real = extract_pages.extractor_info()
     monkeypatch.setattr(extract_pages, "extractor_info", lambda: {**real, "version": "0.0"})
     with pytest.raises(freeze.ExtractorMismatch):
-        freeze.write_manifest(root)
+        freeze.write_manifest(root, commit=COMMIT)
 
 
 def test_check_detects_extractor_change_after_freeze(root, monkeypatch):
     write_gold(root, gold_for(root, "doc0"))
-    freeze.write_manifest(root)
+    freeze.write_manifest(root, commit=COMMIT)
     real = extract_pages.extractor_info()
     monkeypatch.setattr(extract_pages, "extractor_info", lambda: {**real, "version": "0.0"})
     assert "EXTRACTOR_CHANGED_AFTER_FREEZE" in {p["code"] for p in freeze.check_manifest(root)}

@@ -48,6 +48,7 @@ SLOW = frozenset({
     ".githooks/test_githooks.py::test_g4_allows_push_when_all_tests_pass",
     ".githooks/test_githooks.py::test_g4_blocks_push_when_a_slow_test_fails",
     ".githooks/test_githooks.py::test_g4_blocks_push_without_python_changes_in_the_pushed_commits",
+    "eval/tests/test_verify_gold.py::test_gold_commit_refuses_uncommitted_gold_and_returns_head_when_clean",
     "tests/test_demo_mode.py::test_validated_demo_makes_zero_network_or_model_calls",
     "tests/test_document_store.py::test_noncontiguous_pages_and_bad_selectors",
     "tests/test_inspect_pdf.py::test_blank_and_image_only_share_no_text_but_have_distinct_signals",
