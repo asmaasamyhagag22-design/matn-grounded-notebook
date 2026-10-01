@@ -134,6 +134,17 @@ def test_g4_allows_push_when_all_tests_pass(repo, remote):
     assert result.returncode == 0, result.stderr
 
 
+def test_hooks_run_every_test_directory_of_this_repository():
+    sys.path.insert(0, str(HOOKS))
+    import pre_commit
+    repo_root = HOOKS.parent
+    out = subprocess.run(["git", "ls-files", "--cached", "--others", "--exclude-standard", "--", "*test_*.py"],
+                         cwd=repo_root, capture_output=True, text=True, check=True).stdout.split()
+    dirs = {Path(p).parent.as_posix() for p in out if not p.startswith("audit/")}
+    covered = {d for d in dirs if any(d == t or d.startswith(t + "/") for t in pre_commit.TEST_DIRS)}
+    assert dirs == covered, f"test directories missing from TEST_DIRS: {sorted(dirs - covered)}"
+
+
 # ---------- G3 ----------
 @pytest.mark.parametrize("msg", ["fix stuff", "fix stuff\n\nCo-Authored-By: Someone <a@b.c>\n", ""])
 def test_g3_blocks_messages_without_a_why_body(repo, msg):

@@ -28,7 +28,7 @@ FORBIDDEN = [
      "commercial book or derived material"),
     (r"(^|/)\.env(\.|$)|\.(pem|key)$|(^|/)\.streamlit/secrets\.toml$", "secret"),
 ]
-TEST_DIRS = ["tests", "eval/tests", ".claude/hooks", ".githooks"]
+TEST_DIRS = ["tests", "eval/tests", "checks", ".claude/hooks", ".githooks"]
 
 
 def git(*args: str) -> str:
