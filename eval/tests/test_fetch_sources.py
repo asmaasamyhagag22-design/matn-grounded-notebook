@@ -103,12 +103,18 @@ def test_tls_uses_the_certifi_bundle_and_keeps_verification_strict():
     assert len(context.get_ca_certs()) > 100
 
 
+def test_tls_context_is_built_once_per_process():
+    assert fs.tls_context()[0] is fs.tls_context()[0]  # the CA bundle is loaded once, not per request
+
+
 def test_tls_falls_back_to_the_system_store_without_certifi(monkeypatch):
     import ssl
     import sys
 
     monkeypatch.setitem(sys.modules, "certifi", None)  # import certifi -> ImportError
+    fs.tls_context.cache_clear()
     context, info = fs.tls_context()
+    fs.tls_context.cache_clear()
     assert info == {"ca_source": "system", "cafile": None, "certifi_version": None}
     assert context.verify_mode == ssl.CERT_REQUIRED and context.check_hostname is True
 

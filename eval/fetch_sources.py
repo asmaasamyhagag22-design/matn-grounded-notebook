@@ -26,6 +26,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import functools
 import hashlib
 import json
 import os
@@ -108,12 +109,13 @@ class AllowlistRedirects(urllib.request.HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
+@functools.lru_cache(maxsize=1)
 def tls_context() -> tuple[ssl.SSLContext, dict]:
     """Strict TLS (certificate and hostname checked) against the certifi CA bundle when installed.
 
     On Windows, Python only sees the roots already present in the Windows store, which fills lazily (39 roots on the
     Step 0 laptop: arxiv.org failed with CERTIFICATE_VERIFY_FAILED). certifi ships Mozilla's CA list. Without
-    certifi the system store is used. Verification is never disabled.
+    certifi the system store is used. Verification is never disabled. Built once per process (loading is slow).
     """
     info = tls_info()
     return ssl.create_default_context(cafile=info["cafile"]), info

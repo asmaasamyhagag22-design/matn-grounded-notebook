@@ -61,15 +61,21 @@ def test_eval_tooling_is_allowed_and_everything_else_is_not(tmp_path):
     assert sorted(guard.scan(tmp_path, files)) == ["app.py", "matn_summarization/new.py"]
 
 
-def test_no_new_pymupdf_import_outside_eval_tooling():
-    violations = guard.scan(REPO, guard.python_files(REPO))
+@pytest.fixture(scope="module")
+def repo_violations():
+    """One scan of the repository shared by the tests below (git ls-files + parsing every file is the slow part)."""
+    return guard.scan(REPO, guard.python_files(REPO))
+
+
+def test_no_new_pymupdf_import_outside_eval_tooling(repo_violations):
+    violations = repo_violations
     new = {path: hits for path, hits in violations.items() if path not in guard.FROZEN}
     assert not new, ("ADR-0001: PyMuPDF (AGPL-3.0) is allowed in eval/ only until legal review decides. "
                      f"New imports: {new}")
 
 
-def test_frozen_list_only_shrinks():
-    violations = guard.scan(REPO, guard.python_files(REPO))
+def test_frozen_list_only_shrinks(repo_violations):
+    violations = repo_violations
     gone = sorted(path for path in guard.FROZEN if path not in violations)
     assert not gone, f"these files no longer import PyMuPDF; remove them from FROZEN and from the ADR: {gone}"
 

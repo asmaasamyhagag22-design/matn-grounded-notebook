@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import copy
 import json
+import shutil
 from importlib.metadata import metadata
 from pathlib import Path
 
@@ -40,9 +41,11 @@ def make_pdf(path: Path, pages=PAGES) -> None:
     doc.save(path)
 
 
-@pytest.fixture()
-def root(tmp_path: Path) -> Path:
-    incoming = tmp_path / "incoming"
+@pytest.fixture(scope="session")
+def registered_template(tmp_path_factory) -> Path:
+    """Built and registered once per session (5 PDFs + extraction); each test gets its own copy via `root`."""
+    template = tmp_path_factory.mktemp("registered-root")
+    incoming = template / "incoming"
     incoming.mkdir()
     for i in range(5):
         make_pdf(incoming / f"doc{i}.pdf")
@@ -50,9 +53,17 @@ def root(tmp_path: Path) -> Path:
                      f"| CC-BY-4.0 | https://creativecommons.org/licenses/by/4.0/ | report | |" for i in range(5))
     (incoming / "SOURCES.md").write_text(SOURCES_HEADER + rows + "\n", encoding="utf-8")
     splits = {f"doc{i}": {"split": "dev" if i < 3 else "test", "doc_type": "report", "rationale": "test fixture"} for i in range(5)}
-    (tmp_path / "splits.json").write_text(json.dumps(splits), encoding="utf-8")
-    assert register.build_registry(tmp_path) == []
-    return tmp_path
+    (template / "splits.json").write_text(json.dumps(splits), encoding="utf-8")
+    assert register.build_registry(template) == []
+    return template
+
+
+@pytest.fixture()
+def root(tmp_path: Path, registered_template: Path) -> Path:
+    """A fresh, registered evaluation root per test (a copy, so tests may change anything in it)."""
+    copy = tmp_path / "root"
+    shutil.copytree(registered_template, copy)
+    return copy
 
 
 def gold_for(root: Path, doc_id: str) -> dict:
