@@ -68,6 +68,7 @@ SLOW = frozenset({
     "tests/test_inspect_pdf.py::test_structured_preserves_noncontiguous_page_mapping",
     "tests/test_live_presentation.py::test_live_local_cache_miss_then_hit",
     "tests/test_presentation_renderer.py::test_renderer_creates_reopenable_bounded_presentation",
+    "tests/contracts/test_ids.py::test_block_id_is_stable_for_repeated_inputs",
 })
 
 
