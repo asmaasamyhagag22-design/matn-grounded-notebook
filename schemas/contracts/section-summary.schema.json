@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "SentenceType": {
+      "enum": [
+        "extraction",
+        "interpretation"
+      ],
+      "title": "SentenceType",
+      "type": "string"
+    },
+    "SummarySentence": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/SentenceType"
+        }
+      },
+      "required": [
+        "text",
+        "type",
+        "fact_ids"
+      ],
+      "title": "SummarySentence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "section_id": {
+      "minLength": 1,
+      "title": "Section Id",
+      "type": "string"
+    },
+    "sentences": {
+      "items": {
+        "$ref": "#/$defs/SummarySentence"
+      },
+      "title": "Sentences",
+      "type": "array"
+    }
+  },
+  "required": [
+    "section_id",
+    "sentences"
+  ],
+  "title": "SectionSummary",
+  "type": "object"
+}

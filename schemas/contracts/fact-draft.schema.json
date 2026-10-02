@@ -1,0 +1,153 @@
+{
+  "$defs": {
+    "EvidenceRefDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "block_ref": {
+          "pattern": "^b[1-9][0-9]*$",
+          "title": "Block Ref",
+          "type": "string"
+        },
+        "quote": {
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "block_ref",
+        "quote"
+      ],
+      "title": "EvidenceRefDraft",
+      "type": "object"
+    },
+    "FactKind": {
+      "enum": [
+        "purpose",
+        "finding",
+        "target",
+        "recommendation",
+        "caveat",
+        "definition",
+        "number"
+      ],
+      "title": "FactKind",
+      "type": "string"
+    },
+    "Importance": {
+      "enum": [
+        1,
+        2,
+        3
+      ],
+      "title": "Importance",
+      "type": "integer"
+    },
+    "NumberFactValueDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        },
+        "value_as_written": {
+          "minLength": 1,
+          "title": "Value As Written",
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "value_as_written",
+        "unit"
+      ],
+      "title": "NumberFactValueDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attributed_to": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Attributed To"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/EvidenceRefDraft"
+      },
+      "minItems": 1,
+      "title": "Evidence",
+      "type": "array"
+    },
+    "importance": {
+      "$ref": "#/$defs/Importance"
+    },
+    "kind": {
+      "$ref": "#/$defs/FactKind"
+    },
+    "number_value": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NumberFactValueDraft"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "statement": {
+      "minLength": 1,
+      "title": "Statement",
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "statement",
+    "attributed_to",
+    "importance",
+    "evidence",
+    "number_value"
+  ],
+  "title": "FactDraft",
+  "type": "object"
+}

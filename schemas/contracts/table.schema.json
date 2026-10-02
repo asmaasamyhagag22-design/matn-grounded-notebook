@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "TableCell": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Bbox",
+          "type": "array"
+        },
+        "col": {
+          "minimum": 0,
+          "title": "Col",
+          "type": "integer"
+        },
+        "is_header": {
+          "title": "Is Header",
+          "type": "boolean"
+        },
+        "row": {
+          "minimum": 0,
+          "title": "Row",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "row",
+        "col",
+        "text",
+        "bbox",
+        "is_header"
+      ],
+      "title": "TableCell",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bbox": {
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "title": "Bbox",
+      "type": "array"
+    },
+    "cells": {
+      "items": {
+        "$ref": "#/$defs/TableCell"
+      },
+      "title": "Cells",
+      "type": "array"
+    },
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "header_rows": {
+      "items": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "title": "Header Rows",
+      "type": "array"
+    },
+    "page_index": {
+      "minimum": 0,
+      "title": "Page Index",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "table_id": {
+      "title": "Table Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "table_id",
+    "doc_id",
+    "page_index",
+    "bbox",
+    "header_rows",
+    "cells"
+  ],
+  "title": "Table",
+  "type": "object"
+}

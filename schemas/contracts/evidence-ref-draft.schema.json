@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_ref": {
+      "pattern": "^b[1-9][0-9]*$",
+      "title": "Block Ref",
+      "type": "string"
+    },
+    "quote": {
+      "minLength": 1,
+      "title": "Quote",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "block_ref",
+    "quote"
+  ],
+  "title": "EvidenceRefDraft",
+  "type": "object"
+}

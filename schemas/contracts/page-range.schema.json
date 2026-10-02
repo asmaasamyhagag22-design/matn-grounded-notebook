@@ -1,0 +1,27 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "first_page_index": {
+      "minimum": 0,
+      "title": "First Page Index",
+      "type": "integer"
+    },
+    "last_page_index": {
+      "minimum": 0,
+      "title": "Last Page Index",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "first_page_index",
+    "last_page_index"
+  ],
+  "title": "PageRange",
+  "type": "object"
+}

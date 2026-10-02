@@ -1,0 +1,67 @@
+{
+  "$defs": {
+    "SentenceType": {
+      "enum": [
+        "extraction",
+        "interpretation"
+      ],
+      "title": "SentenceType",
+      "type": "string"
+    },
+    "SummarySentenceDraft": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/SentenceType"
+        }
+      },
+      "required": [
+        "text",
+        "type",
+        "fact_ids"
+      ],
+      "title": "SummarySentenceDraft",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "sentences": {
+      "items": {
+        "$ref": "#/$defs/SummarySentenceDraft"
+      },
+      "title": "Sentences",
+      "type": "array"
+    }
+  },
+  "required": [
+    "sentences"
+  ],
+  "title": "SectionSummaryDraft",
+  "type": "object"
+}

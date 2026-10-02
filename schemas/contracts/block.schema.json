@@ -1,0 +1,197 @@
+{
+  "$defs": {
+    "BlockStyle": {
+      "additionalProperties": false,
+      "properties": {
+        "font_size_pt": {
+          "anyOf": [
+            {
+              "exclusiveMinimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Font Size Pt"
+        },
+        "is_bold": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Is Bold"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "font_size_pt",
+        "is_bold"
+      ],
+      "title": "BlockStyle",
+      "type": "object"
+    },
+    "BlockType": {
+      "enum": [
+        "text",
+        "heading",
+        "list_item",
+        "table",
+        "figure",
+        "caption",
+        "header",
+        "footer",
+        "footnote"
+      ],
+      "title": "BlockType",
+      "type": "string"
+    },
+    "ExtractionRoute": {
+      "enum": [
+        "text_layer",
+        "ocr"
+      ],
+      "title": "ExtractionRoute",
+      "type": "string"
+    },
+    "ExtractorInfo": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "version": {
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "version"
+      ],
+      "title": "ExtractorInfo",
+      "type": "object"
+    },
+    "Visibility": {
+      "enum": [
+        "visible",
+        "hidden_image",
+        "hidden_vector"
+      ],
+      "title": "Visibility",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bbox": {
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "title": "Bbox",
+      "type": "array"
+    },
+    "block_id": {
+      "title": "Block Id",
+      "type": "string"
+    },
+    "block_type": {
+      "$ref": "#/$defs/BlockType"
+    },
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "extractor": {
+      "$ref": "#/$defs/ExtractorInfo"
+    },
+    "page_index": {
+      "minimum": 0,
+      "title": "Page Index",
+      "type": "integer"
+    },
+    "page_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Page Label"
+    },
+    "reading_order": {
+      "minimum": 0,
+      "title": "Reading Order",
+      "type": "integer"
+    },
+    "route": {
+      "$ref": "#/$defs/ExtractionRoute"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "style": {
+      "$ref": "#/$defs/BlockStyle"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "visibility": {
+      "$ref": "#/$defs/Visibility"
+    }
+  },
+  "required": [
+    "block_id",
+    "doc_id",
+    "page_index",
+    "page_label",
+    "bbox",
+    "block_type",
+    "text",
+    "reading_order",
+    "style",
+    "extractor",
+    "route",
+    "visibility"
+  ],
+  "title": "Block",
+  "type": "object"
+}

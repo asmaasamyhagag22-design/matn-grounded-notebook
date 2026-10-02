@@ -5,16 +5,16 @@ from typing import Annotated, Self
 
 from pydantic import Field, model_validator
 
-from .base import ContractModel, VersionedContract
+from .base import VersionedContract
 from .enums import ChartType, FactKind, Importance, SentenceType, SlideType
 
 
-class EvidenceRefDraft(ContractModel):
+class EvidenceRefDraft(VersionedContract):
     block_ref: Annotated[str, Field(pattern=r"^b[1-9][0-9]*$")]
     quote: Annotated[str, Field(min_length=1)]
 
 
-class NumberFactValueDraft(ContractModel):
+class NumberFactValueDraft(VersionedContract):
     label: Annotated[str, Field(min_length=1)]
     value_as_written: Annotated[str, Field(min_length=1)]
     unit: Annotated[str, Field(min_length=1)] | None
@@ -37,7 +37,7 @@ class FactDraft(VersionedContract):
         return self
 
 
-class SummarySentenceDraft(ContractModel):
+class SummarySentenceDraft(VersionedContract):
     text: Annotated[str, Field(min_length=1)]
     type: SentenceType
     fact_ids: Annotated[tuple[str, ...], Field(min_length=1)]
@@ -47,19 +47,19 @@ class SectionSummaryDraft(VersionedContract):
     sentences: tuple[SummarySentenceDraft, ...]
 
 
-class SlideItemDraft(ContractModel):
+class SlideItemDraft(VersionedContract):
     text: Annotated[str, Field(min_length=1, max_length=120)]
     fact_ids: Annotated[tuple[str, ...], Field(min_length=1)]
 
 
-class ChartSpecDraft(ContractModel):
+class ChartSpecDraft(VersionedContract):
     table_id: Annotated[str, Field(min_length=1)]
     x_column: Annotated[int, Field(ge=0)]
     y_columns: Annotated[tuple[Annotated[int, Field(ge=0)], ...], Field(min_length=1)]
     chart_type: ChartType
 
 
-class SlideDraft(ContractModel):
+class SlideDraft(VersionedContract):
     slide_type: SlideType
     title: Annotated[str, Field(min_length=1, max_length=90)]
     items: Annotated[tuple[SlideItemDraft, ...], Field(max_length=4)] = ()

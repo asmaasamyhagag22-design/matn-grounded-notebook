@@ -1,0 +1,58 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "bbox": {
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "number"
+        }
+      ],
+      "title": "Bbox",
+      "type": "array"
+    },
+    "col": {
+      "minimum": 0,
+      "title": "Col",
+      "type": "integer"
+    },
+    "is_header": {
+      "title": "Is Header",
+      "type": "boolean"
+    },
+    "row": {
+      "minimum": 0,
+      "title": "Row",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "row",
+    "col",
+    "text",
+    "bbox",
+    "is_header"
+  ],
+  "title": "TableCell",
+  "type": "object"
+}

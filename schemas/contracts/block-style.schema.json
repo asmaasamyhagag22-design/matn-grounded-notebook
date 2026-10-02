@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "font_size_pt": {
+      "anyOf": [
+        {
+          "exclusiveMinimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Font Size Pt"
+    },
+    "is_bold": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Is Bold"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "font_size_pt",
+    "is_bold"
+  ],
+  "title": "BlockStyle",
+  "type": "object"
+}

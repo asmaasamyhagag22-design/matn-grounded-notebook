@@ -1,0 +1,40 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "label": {
+      "minLength": 1,
+      "title": "Label",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "unit": {
+      "anyOf": [
+        {
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Unit"
+    },
+    "value_as_written": {
+      "minLength": 1,
+      "title": "Value As Written",
+      "type": "string"
+    }
+  },
+  "required": [
+    "label",
+    "value_as_written",
+    "unit"
+  ],
+  "title": "NumberFactValueDraft",
+  "type": "object"
+}

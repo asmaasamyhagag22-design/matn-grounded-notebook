@@ -1,0 +1,185 @@
+{
+  "$defs": {
+    "KeyNumber": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_id": {
+          "minLength": 1,
+          "title": "Fact Id",
+          "type": "string"
+        },
+        "label": {
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "page_label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Page Label"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Unit"
+        },
+        "value_as_written": {
+          "minLength": 1,
+          "title": "Value As Written",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fact_id",
+        "label",
+        "value_as_written",
+        "unit",
+        "page_label"
+      ],
+      "title": "KeyNumber",
+      "type": "object"
+    },
+    "SectionSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "section_id": {
+          "minLength": 1,
+          "title": "Section Id",
+          "type": "string"
+        },
+        "sentences": {
+          "items": {
+            "$ref": "#/$defs/SummarySentence"
+          },
+          "title": "Sentences",
+          "type": "array"
+        }
+      },
+      "required": [
+        "section_id",
+        "sentences"
+      ],
+      "title": "SectionSummary",
+      "type": "object"
+    },
+    "SentenceType": {
+      "enum": [
+        "extraction",
+        "interpretation"
+      ],
+      "title": "SentenceType",
+      "type": "string"
+    },
+    "SummarySentence": {
+      "additionalProperties": false,
+      "properties": {
+        "fact_ids": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Fact Ids",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "text": {
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "$ref": "#/$defs/SentenceType"
+        }
+      },
+      "required": [
+        "text",
+        "type",
+        "fact_ids"
+      ],
+      "title": "SummarySentence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "key_findings": {
+      "items": {
+        "$ref": "#/$defs/SummarySentence"
+      },
+      "title": "Key Findings",
+      "type": "array"
+    },
+    "key_numbers": {
+      "items": {
+        "$ref": "#/$defs/KeyNumber"
+      },
+      "title": "Key Numbers",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "section_summaries": {
+      "items": {
+        "$ref": "#/$defs/SectionSummary"
+      },
+      "title": "Section Summaries",
+      "type": "array"
+    },
+    "tldr": {
+      "items": {
+        "$ref": "#/$defs/SummarySentence"
+      },
+      "minItems": 1,
+      "title": "Tldr",
+      "type": "array"
+    }
+  },
+  "required": [
+    "doc_id",
+    "tldr",
+    "key_findings",
+    "section_summaries",
+    "key_numbers"
+  ],
+  "title": "Summary",
+  "type": "object"
+}

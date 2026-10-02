@@ -1,0 +1,52 @@
+{
+  "$defs": {
+    "ChartType": {
+      "enum": [
+        "bar",
+        "column",
+        "line"
+      ],
+      "title": "ChartType",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "chart_type": {
+      "$ref": "#/$defs/ChartType"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "table_id": {
+      "minLength": 1,
+      "title": "Table Id",
+      "type": "string"
+    },
+    "x_column": {
+      "minimum": 0,
+      "title": "X Column",
+      "type": "integer"
+    },
+    "y_columns": {
+      "items": {
+        "minimum": 0,
+        "type": "integer"
+      },
+      "minItems": 1,
+      "title": "Y Columns",
+      "type": "array"
+    }
+  },
+  "required": [
+    "table_id",
+    "x_column",
+    "y_columns",
+    "chart_type"
+  ],
+  "title": "ChartSpecDraft",
+  "type": "object"
+}

@@ -1,0 +1,73 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "num_ctx": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Num Ctx"
+    },
+    "num_predict": {
+      "anyOf": [
+        {
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Num Predict"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "seed": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Seed"
+    },
+    "temperature": {
+      "minimum": 0,
+      "title": "Temperature",
+      "type": "number"
+    },
+    "top_p": {
+      "anyOf": [
+        {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Top P"
+    }
+  },
+  "required": [
+    "temperature",
+    "seed",
+    "top_p",
+    "num_ctx",
+    "num_predict"
+  ],
+  "title": "SamplingParameters",
+  "type": "object"
+}
