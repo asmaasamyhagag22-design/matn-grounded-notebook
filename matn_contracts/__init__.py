@@ -25,6 +25,7 @@ from .domain import (
     Table,
     TableCell,
     check_section_coverage,
+    key_numbers_from_facts,
     validate_deck_plan_against_facts,
 )
 from .drafts import (
@@ -74,6 +75,7 @@ __all__ = [
     "check_section_coverage",
     "deck_plan_from_draft",
     "fact_from_draft",
+    "key_numbers_from_facts",
     "section_summary_from_draft",
     "validate_deck_plan_against_facts",
 ]

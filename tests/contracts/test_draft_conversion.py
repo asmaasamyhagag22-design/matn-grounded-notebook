@@ -234,3 +234,53 @@ def test_deck_draft_conversion_keeps_only_references_and_validates_fact_kinds() 
     payload["slides"][1]["chart"]["data_values"] = [64]
     with pytest.raises(ValidationError):
         DeckPlanDraft.model_validate(payload)
+
+
+def number_draft(quote: str, value: str, *, label: str = "Reported value") -> FactDraft:
+    return finding_draft(
+        kind=FactKind.NUMBER,
+        evidence=(EvidenceRefDraft(block_ref="b1", quote=quote),),
+        number_value=NumberFactValueDraft(label=label, value_as_written=value, unit=None),
+    )
+
+
+@pytest.mark.parametrize(
+    "quote,value",
+    [
+        ("Growth reached 64.", "64"),
+        ("In 2021, revenue rose.", "2021"),
+        ("It was 1,234.5 million.", "1,234.5"),
+    ],
+)
+def test_number_conversion_accepts_numbers_before_punctuation(quote: str, value: str) -> None:
+    converted = fact_from_draft(number_draft(quote, value), {"b1": block(text=quote)})
+    assert converted.number_value is not None
+    assert converted.number_value.value_as_written == value
+
+
+@pytest.mark.parametrize(
+    "quote,value",
+    [
+        ("Growth reached 64.5 percent.", "64"),
+        ("Version 1.2.3 shipped.", "1.2"),
+        ("It was 1,234.5 million.", "234"),
+    ],
+)
+def test_number_conversion_rejects_part_of_a_larger_number(quote: str, value: str) -> None:
+    with pytest.raises(ValueError, match="NUMBER_NOT_IN_EVIDENCE"):
+        fact_from_draft(number_draft(quote, value), {"b1": block(text=quote)})
+
+
+def test_number_label_digits_must_appear_in_the_evidence() -> None:
+    quote = "In 2021, the share was 64 percent."
+    with pytest.raises(ValueError, match="LABEL_NUMBER_NOT_IN_EVIDENCE"):
+        fact_from_draft(
+            number_draft(quote, "64", label="Share target for 2030"),
+            {"b1": block(text=quote)},
+        )
+    converted = fact_from_draft(
+        number_draft(quote, "64", label="Share in 2021"),
+        {"b1": block(text=quote)},
+    )
+    assert converted.number_value is not None
+    assert converted.number_value.label == "Share in 2021"

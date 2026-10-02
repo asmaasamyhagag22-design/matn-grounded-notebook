@@ -47,7 +47,10 @@ In particular, a model cannot write `fact_id`, `status`, `reject_reasons`, evide
 
 For number facts, the model chooses `label`, `value_as_written`, and nullable `unit` as strings. Conversion accepts
 `value_as_written` only when it exactly equals a numeric token in an evidence quote, requires a non-null unit to
-appear in that same quote, and derives `page_label` from the mapped block. KPI and chart plans contain references,
+appear in that same quote, requires every numeric token in `label` to appear in the evidence quotes, and
+derives `page_label` from the mapped block. A numeric token may be followed by sentence punctuation (`64.`, `2021,`)
+but never be part of a larger number (`64` inside `64.5`). `key_numbers_from_facts` copies key numbers from verified
+number facts only. KPI and chart plans contain references,
 not copied numeric data. Chart columns are zero-based indices because the table contract already has stable ordered
 columns; names can be duplicated or absent.
 

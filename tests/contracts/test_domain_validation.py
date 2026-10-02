@@ -23,6 +23,7 @@ from matn_contracts.domain import (
     SlideItem,
     Summary,
     SummarySentence,
+    key_numbers_from_facts,
     validate_deck_plan_against_facts,
 )
 from matn_contracts.enums import (
@@ -256,3 +257,23 @@ def test_run_manifest_requires_utc_timestamps() -> None:
     values["started_at"] = datetime(2026, 10, 2, 10, 0)
     with pytest.raises(ValidationError):
         RunManifest(**values)
+
+
+def test_key_numbers_are_copied_by_code_from_verified_number_facts_only() -> None:
+    verified = Fact.create(
+        **{
+            **number_fact().model_dump(exclude={"fact_id", "schema_version"}),
+            "status": FactStatus.VERIFIED,
+        }
+    )
+    raw_number = number_fact()
+    verified_finding = fact(status=FactStatus.VERIFIED)
+    assert key_numbers_from_facts((verified, raw_number, verified_finding)) == (
+        KeyNumber(
+            fact_id=verified.fact_id,
+            label="Reported value",
+            value_as_written="64",
+            unit="percent",
+            page_label="1",
+        ),
+    )

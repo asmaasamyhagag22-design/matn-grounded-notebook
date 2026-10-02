@@ -282,6 +282,21 @@ class Summary(VersionedContract):
     key_numbers: tuple[KeyNumber, ...]
 
 
+def key_numbers_from_facts(facts: tuple[Fact, ...]) -> tuple[KeyNumber, ...]:
+    """Key numbers are copied by code from verified number facts; the model never writes them."""
+    return tuple(
+        KeyNumber(
+            fact_id=fact.fact_id,
+            label=fact.number_value.label,
+            value_as_written=fact.number_value.value_as_written,
+            unit=fact.number_value.unit,
+            page_label=fact.number_value.page_label,
+        )
+        for fact in facts
+        if fact.status is FactStatus.VERIFIED and fact.number_value is not None
+    )
+
+
 class SlideItem(VersionedContract):
     text: Annotated[str, Field(min_length=1, max_length=120)]
     fact_ids: Annotated[tuple[str, ...], Field(min_length=1)]

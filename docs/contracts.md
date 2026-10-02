@@ -134,7 +134,7 @@ format conversion بدائل مرفوضة.
 `section_summary_from_draft(..., section_id=...)` بياخد ID من الكود، مش من الـ model.
 
 `KeyNumber.fact_id` يربط الرقم بـ verified fact؛ `label`, `value_as_written`, `unit`, و`page_label` نسخ code-owned
-من `NumberFactValue`. الـ model ما بيكتبش `KeyNumber`، علشان “six-four” أو `1008060` ما يدخلوش output.
+من `NumberFactValue`، وبيبنيهم `key_numbers_from_facts` من الـ verified number facts بس. الـ model ما بيكتبش `KeyNumber`، علشان “six-four” أو `1008060` ما يدخلوش output.
 
 `Summary.doc_id` يحدد المصدر؛ `tldr` tuple من `SummarySentence` ولازم مش فاضية؛ `key_findings` نفس shape؛
 `section_summaries` مربوطة بـ section IDs؛ و`key_numbers` مبنية بالكود. plain strings كانت هتقطع provenance.
@@ -173,6 +173,8 @@ prompt؛ `sampling_parameters` يسجل inference؛ `extractor` يسجل extract
   mapping ويرفض unknown ref.
 - `NumberFactValueDraft.label`, `value_as_written`, وnullable `unit` اختيارات نصية للـ model. مافيش `page_label`؛
   conversion يشتقه. `value_as_written` لازم يساوي numeric token كامل داخل نفس quote والوحدة تظهر فيه.
+  وأي رقم جوه `label` لازم يكون numeric token في الـ evidence، وإلا `LABEL_NUMBER_NOT_IN_EVIDENCE`. الرقم اللي بعده
+  `.` أو `,` آخر الجملة (`64.`، `2021,`) بيتحسب token، و`1,234.5` كمان؛ بس جزء من رقم أكبر (`64` جوه `64.5`) لأ.
 - `FactDraft.kind`, `statement`, `attributed_to`, `importance`, `evidence`, و`number_value` هي الاختيارات المسموحة.
   مافيش `fact_id/status/reject_reasons/offsets`. `number_value` موجود iff kind هو `number`.
 - `SummarySentenceDraft.text`, `type`, و`fact_ids` نفس semantic choices، و`SectionSummaryDraft.sentences` يجمعهم؛

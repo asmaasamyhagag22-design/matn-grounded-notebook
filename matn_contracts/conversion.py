@@ -20,7 +20,11 @@ from .drafts import DeckPlanDraft, FactDraft, SectionSummaryDraft
 from .enums import FactStatus
 
 
-_NUMERIC_TOKEN = re.compile(r"(?<![\w.,])[+-]?(?:\d+(?:,\d{3})*|\d*\.\d+)(?![\w.,])")
+# A whole number as written: 64, 2021, 1,234, 1,234.5, 12.5, .5. Sentence punctuation may follow it ("64.", "2021,"),
+# but a "." or "," followed by a digit means the match is only part of a larger number (64.5, 1.2.3, 12,34).
+_NUMERIC_TOKEN = re.compile(
+    r"(?<![\w.,])[+-]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?|\.\d+)(?!\w|[.,]\d)"
+)
 
 
 def fact_from_draft(
@@ -57,6 +61,11 @@ def fact_from_draft(
         matching_quote = draft.evidence[matching_index].quote
         if draft.number_value.unit is not None and draft.number_value.unit not in matching_quote:
             raise ValueError("UNIT_NOT_IN_EVIDENCE")
+        evidence_tokens = {
+            match.group(0) for item in draft.evidence for match in _NUMERIC_TOKEN.finditer(item.quote)
+        }
+        if any(match.group(0) not in evidence_tokens for match in _NUMERIC_TOKEN.finditer(draft.number_value.label)):
+            raise ValueError("LABEL_NUMBER_NOT_IN_EVIDENCE")
         number_value = NumberFactValue(
             label=draft.number_value.label,
             value_as_written=draft.number_value.value_as_written,
