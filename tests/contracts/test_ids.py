@@ -3,7 +3,7 @@ from __future__ import annotations
 from hypothesis import given
 from hypothesis import strategies as st
 
-from matn_contracts.ids import make_block_id, make_section_id, make_table_id
+from matn_contracts.ids import make_block_id, make_fact_id, make_section_id, make_table_id
 
 
 DOC_ID = "sha256-" + "a" * 64
@@ -27,6 +27,11 @@ def test_section_id_has_fixed_expected_value() -> None:
     assert make_section_id(DOC_ID, ("Top", "Child"), first_block_id) == (
         DOC_ID + ":section:915aaee74ade93ae"
     )
+
+
+def test_fact_id_has_fixed_expected_value_after_statement_normalization() -> None:
+    first_block_id = DOC_ID + ":p0007:93971511c4f81f88"
+    assert make_fact_id(first_block_id, "  A  finding\nHERE. ") == "fact:facf4b66a9d42d7a"
 
 
 def test_block_id_changes_when_each_identity_input_changes() -> None:
