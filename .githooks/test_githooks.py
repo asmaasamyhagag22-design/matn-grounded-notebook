@@ -29,7 +29,7 @@ def repo(tmp_path: Path) -> Path:
     return tmp_path
 
 
-GOOD_MSG = "docs: add note\n\nWhy: explains the change for reviewers.\n"
+GOOD_MSG = "docs: add note\n\nWhy: explains the change for reviewers.\n\nAgent: claude-code\n"
 
 
 def commit(repo: Path, rel: str, content: bytes | str = "x\n", msg: str = GOOD_MSG) -> subprocess.CompletedProcess:
@@ -156,3 +156,40 @@ def test_g3_blocks_messages_without_a_why_body(repo, msg):
 
 def test_g3_allows_subject_plus_body(repo):
     assert commit(repo, "a.md", "x\n", msg=GOOD_MSG).returncode == 0
+
+
+# ---------- G5 (Agent trailer, CLAUDE.md rule 15) ----------
+WHY = "docs: add note\n\nWhy: explains the change for reviewers.\n"
+
+
+@pytest.mark.parametrize("name,msg", [
+    ("no Agent trailer", WHY),
+    ("value outside the allowlist", WHY + "\nAgent: copilot\n"),
+    ("two Agent trailers", WHY + "\nAgent: codex\nAgent: claude-code\n"),
+    ("Agent trailer not last", WHY + "\nAgent: codex\nCo-Authored-By: Someone <a@b.c>\n"),
+    ("Agent only inside the body, not a trailer", "docs: add note\n\nAgent: codex is mentioned here in prose.\n"),
+])
+def test_g5_blocks_commits_without_exactly_one_valid_last_agent_trailer(repo, name, msg):
+    result = commit(repo, "a.md", "x\n", msg=msg)
+    assert result.returncode != 0, name
+    assert "[G5]" in result.stderr and "claude-code, codex, human" in result.stderr, (name, result.stderr)
+
+
+@pytest.mark.parametrize("agent", ["claude-code", "codex", "human"])
+def test_g5_allows_each_allowlisted_agent_as_the_last_trailer(repo, agent):
+    msg = WHY + f"\nCo-Authored-By: Someone <a@b.c>\nAgent: {agent}\n"
+    assert commit(repo, "a.md", "x\n", msg=msg).returncode == 0
+
+
+def test_g5_checks_merge_commits_too(repo):
+    assert commit(repo, "a.md", "x\n").returncode == 0
+    git(repo, "checkout", "-q", "-b", "side", check=True)
+    assert commit(repo, "b.md", "y\n").returncode == 0
+    git(repo, "checkout", "-q", "-", check=True)
+    assert commit(repo, "c.md", "z\n").returncode == 0
+    blocked = git(repo, "merge", "--no-ff", "-q", "side", "-m", "Merge branch 'side'")
+    assert blocked.returncode != 0 and "[G5]" in blocked.stderr, blocked.stderr
+    git(repo, "merge", "--abort")
+    allowed = git(repo, "merge", "--no-ff", "-q", "side", "-m", "Merge branch 'side'\n\nAgent: human")
+    assert allowed.returncode == 0, allowed.stderr
+
