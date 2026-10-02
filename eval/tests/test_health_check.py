@@ -32,13 +32,17 @@ def clean(**overrides) -> dict:
     ("replacement / private-use / cid glyphs", {"bad_chars": 30}, ["GARBLED"]),
     ("almost no letters on a long page", {"alpha_ratio": 0.1}, ["GARBLED"]),
     ("extractors disagree", {"overlap": 0.4}, ["EXTRACTORS_DISAGREE"]),
+    ("text hidden under a later image", {"hidden_image_chars": 120}, ["HIDDEN_TEXT_IMAGE"]),
+    ("text hidden under a later vector fill", {"hidden_vector_chars": 90}, ["HIDDEN_TEXT_VECTOR"]),
 ])
 def test_classify(name, overrides, flags):
     assert hc.classify(clean(**overrides)) == flags, name
 
 
 def test_blocking_flags_are_the_ones_that_stop_registration():
+    # Hidden text is reported, not blocking: a gold quote inside it is what fails (verify_gold.py).
     assert hc.BLOCKING == {"NO_TEXT", "LOOKS_SCANNED", "GARBLED", "EXTRACTORS_DISAGREE"}
+    assert {"HIDDEN_TEXT_IMAGE", "HIDDEN_TEXT_VECTOR"}.isdisjoint(hc.BLOCKING)
 
 
 @pytest.mark.parametrize("text,expected", [("abc �", 1), ("xy", 1), ("(cid:12) and (cid:7)", 2), ("plain", 0)])
@@ -62,9 +66,18 @@ def test_page_metrics_on_real_pdf_pages(tmp_path):
     image_page.insert_image(image_page.rect, pixmap=pix)
     image_page.insert_text((72, 72), "Public Disclosure Authorized", fontsize=9)
     doc.new_page()  # blank
+    hidden_page = doc.new_page()
+    hidden_page.insert_textbox(pymupdf.Rect(72, 72, 540, 400), BODY, fontsize=11)
+    hidden_page.insert_text((72, 500), "This outdated paragraph lies under a picture.", fontsize=11)
+    hidden_page.insert_image(pymupdf.Rect(60, 480, 560, 515), pixmap=pix)  # drawn after the text
+    hidden_page.insert_text((72, 600), "This outdated paragraph lies under a white panel.", fontsize=11)
+    hidden_page.draw_rect(pymupdf.Rect(60, 580, 560, 615), color=None, fill=(1, 1, 1))
     pdf = tmp_path / "doc.pdf"
     doc.save(pdf)
     report = hc.check_pdf(pdf)
-    assert [p["flags"] for p in report] == [[], ["LOOKS_SCANNED", "LOW_TEXT"], ["NO_TEXT"]]
+    assert [p["flags"] for p in report] == [[], ["LOOKS_SCANNED", "LOW_TEXT"], ["NO_TEXT"],
+                                            ["HIDDEN_TEXT_IMAGE", "HIDDEN_TEXT_VECTOR"]]
     assert report[0]["overlap"] > 0.9 and report[1]["image_coverage"] > 0.99
+    assert report[3]["hidden_image_chars"] > 30 and report[3]["hidden_vector_chars"] > 30
+    assert report[0]["hidden_image_chars"] == 0 and report[1]["hidden_image_chars"] == 0
     assert BODY[:30] not in json.dumps(report)  # numbers only (standing rule 8)

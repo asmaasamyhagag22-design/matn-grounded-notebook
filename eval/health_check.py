@@ -12,6 +12,10 @@ Flags (thresholds below):
   GARBLED              bad glyphs > 1% of characters, or a long page of < 25% letters  blocking
   EXTRACTORS_DISAGREE  overlap < 0.6                                              blocking
   LOW_TEXT             under 200 characters (covers, dividers): information only
+  HIDDEN_TEXT_IMAGE    text in the layer that an image drawn later covers (hidden_text.py): reported, not blocking;
+                       a gold quote inside it fails verify_gold.py
+  HIDDEN_TEXT_VECTOR   text that only a vector fill drawn later covers (noisier): reported; a gold quote inside it
+                       is a verify_gold.py warning
 The report holds numbers and page indexes only, no document text (standing rule 8).
 
 Usage: python eval/health_check.py [--root eval] [--json report.json]   (exit 1 if any page has a blocking flag)
@@ -28,6 +32,7 @@ import pymupdf  # eval tooling only (ADR-0001)
 
 import cross_check
 from extract_pages import page_file
+from hidden_text import hidden_text
 
 LOW_TEXT_CHARS = 200
 SCANNED_IMAGE_COVERAGE = 0.8
@@ -66,6 +71,10 @@ def classify(m: dict) -> list[str]:
         flags.append("GARBLED")
     if m["overlap"] is not None and m["overlap"] < OVERLAP_MIN:
         flags.append("EXTRACTORS_DISAGREE")
+    if m.get("hidden_image_chars", 0) > 0:
+        flags.append("HIDDEN_TEXT_IMAGE")
+    if m.get("hidden_vector_chars", 0) > 0:
+        flags.append("HIDDEN_TEXT_VECTOR")
     return flags
 
 
@@ -75,15 +84,18 @@ def _image_coverage(page: pymupdf.Page) -> float:
     return round(min(1.0, covered / area), 4) if area else 0.0
 
 
-def page_metrics(text: str, second: str | None, page: pymupdf.Page) -> dict:
+def page_metrics(text: str, second: str | None, page: pymupdf.Page, hidden: dict | None = None) -> dict:
     visible = re.sub(r"\s+", "", text)
+    hidden = hidden or {}
     tokens, second_tokens = len(_tokens(text)), (len(_tokens(second)) if second is not None else None)
     overlap = None
     if second is not None and max(tokens, second_tokens) >= OVERLAP_MIN_TOKENS:
         overlap = token_overlap(text, second)
     m = {"chars": len(visible), "alpha_ratio": round(sum(c.isalpha() for c in visible) / len(visible), 4) if visible else 0.0,
          "bad_chars": bad_chars(text), "image_coverage": _image_coverage(page), "tokens": tokens,
-         "second_tokens": second_tokens, "overlap": overlap}
+         "second_tokens": second_tokens, "overlap": overlap,
+         "hidden_image_chars": len(re.sub(r"\s+", "", hidden.get("image", ""))),
+         "hidden_vector_chars": len(re.sub(r"\s+", "", hidden.get("vector", "")))}
     m["flags"] = classify(m)
     return m
 
@@ -92,12 +104,13 @@ def check_pdf(pdf: Path, texts: list[str] | None = None) -> list[dict]:
     """Metrics per page; `texts` is the registered PyMuPDF text (extracted here when not given)."""
     extractor = cross_check.second_extractor()
     second = cross_check.pages_text(extractor["path"], pdf, "default") if extractor else None
+    hidden = hidden_text(pdf)
     report = []
     with pymupdf.open(pdf) as doc:
         for page in doc:
             text = texts[page.number] if texts is not None else page.get_text("text")
             other = second[page.number] if second is not None and page.number < len(second) else None
-            report.append({"page_index": page.number, **page_metrics(text, other, page)})
+            report.append({"page_index": page.number, **page_metrics(text, other, page, hidden.get(page.number))})
     return report
 
 
