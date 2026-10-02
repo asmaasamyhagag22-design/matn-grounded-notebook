@@ -6,9 +6,11 @@ PDF defines one, otherwise (if given) appears as a standalone line on that page;
 after normalization (normalize.py) and occurs exactly once on the stated page (so it lies within one page);
 value_as_written inside the quote (raw and normalized); every number in a key point's text or a key number's label
 inside its quote (standing rule 3); key points <= 30 words; body_pages a valid range and key points reaching every
-third of it; page text files unchanged since registration (sha256).
+third of it; page text files unchanged since registration (sha256); no evidence_quote inside text that an image
+drawn later hides (QUOTE_IN_HIDDEN_TEXT, see hidden_text.py; the PDF must be present: PDF_MISSING).
 Warnings (not failures): the last section heading is not printed on or before the item's page; a key point outside
-body_pages; the same quote used twice among key points or among key numbers.
+body_pages; the same quote used twice among key points or among key numbers; a quote inside text that a vector
+fill drawn later covers (QUOTE_IN_HIDDEN_TEXT with cover=vector: that detection is noisier).
 
 The test split is sealed: it is read only with EVAL_MILESTONE=1, or before the freeze with --include-test-before-freeze.
 Output contains IDs and codes only, never document text (standing rule 8).
@@ -29,7 +31,8 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from extract_pages import page_file
-from normalize import count_on_page, normalize_text, value_in_quote
+from hidden_text import hidden_text
+from normalize import count_on_page, normalize_text, quote_on_page, value_in_quote
 
 SCHEMA = json.loads((Path(__file__).resolve().parent / "gold" / "schema.json").read_text(encoding="utf-8"))
 KEY_POINTS_MIN, KEY_POINTS_MAX, KEY_NUMBERS_MAX, MAX_WORDS = 10, 15, 10, 30
@@ -108,6 +111,13 @@ def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = 
                 pages[index] = data.decode("utf-8", errors="replace")
             key_points = gold.get("key_points") or []
             key_numbers = gold.get("key_numbers") or []
+            # Hidden text (text an opaque layer covers): only the pages that items use are examined.
+            item_pages = {i.get("page_index") for i in key_points + key_numbers
+                          if isinstance(i.get("page_index"), int) and 0 <= i["page_index"] < reg["page_count"]}
+            pdf = root / reg["file"]
+            hidden = hidden_text(pdf, item_pages) if pdf.is_file() else {}
+            if not pdf.is_file():
+                fail(doc_id, "-", "PDF_MISSING")
             if not KEY_POINTS_MIN <= len(key_points) <= KEY_POINTS_MAX:
                 fail(doc_id, "-", "KEY_POINT_COUNT", count=len(key_points))
             if len(key_numbers) > KEY_NUMBERS_MAX:
@@ -140,6 +150,11 @@ def verify(root: Path, splits: list[str], *, include_test_before_freeze: bool = 
                         fail(doc_id, item_id, code, page_index=index, count=count_on_page(quote, pages[index]))
                     else:
                         fail(doc_id, item_id, code, page_index=index)
+                covered = hidden.get(index, {})
+                if quote.strip() and quote_on_page(quote, covered.get("image", "")):
+                    fail(doc_id, item_id, "QUOTE_IN_HIDDEN_TEXT", page_index=index, cover="image")
+                elif quote.strip() and quote_on_page(quote, covered.get("vector", "")):
+                    warn(doc_id, item_id, "QUOTE_IN_HIDDEN_TEXT", page_index=index, cover="vector")
                 if "value_as_written" in item and not value_in_quote(str(item["value_as_written"]), str(item.get("evidence_quote", ""))):
                     fail(doc_id, item_id, "VALUE_NOT_IN_QUOTE")
                 if "text" in item and len(str(item["text"]).split()) > MAX_WORDS:

@@ -256,6 +256,65 @@ def test_doc_filter_checks_one_document(root):
     assert {f["doc_id"] for f in verify_gold.verify(root, splits=["dev"], doc="doc1")} == {"doc1"}
 
 
+# ---------- hidden text (reviewer decision 1, Step 0 close-out) ----------
+HIDDEN_BY_IMAGE = "An outdated paragraph lies under the cover picture here."
+HIDDEN_BY_FILL = "Another outdated paragraph lies under a white panel here."
+
+
+def _pdf_with_hidden_text(path: Path) -> None:
+    doc = pymupdf.open()
+    for n, text in enumerate(PAGES):
+        page = doc.new_page()
+        page.insert_text((72, 72), text, fontsize=11)
+        if n == 0:
+            pix = pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, 8, 8), 0)
+            pix.clear_with(90)
+            page.insert_text((72, 400), HIDDEN_BY_IMAGE, fontsize=11)
+            page.insert_image(pymupdf.Rect(60, 380, 560, 415), pixmap=pix)
+            page.insert_text((72, 500), HIDDEN_BY_FILL, fontsize=11)
+            page.draw_rect(pymupdf.Rect(60, 480, 560, 515), color=None, fill=(1, 1, 1))
+    doc.save(path)
+
+
+@pytest.fixture()
+def hidden_root(root):
+    _pdf_with_hidden_text(root / "incoming" / "doc0.pdf")
+    assert register.build_registry(root) == []
+    return root
+
+
+def test_quote_in_text_hidden_by_an_image_fails(hidden_root):
+    gold = gold_for(hidden_root, "doc0")
+    gold["key_points"][0]["evidence_quote"] = HIDDEN_BY_IMAGE
+    write_gold(hidden_root, gold)
+    failures = verify_gold.verify(hidden_root, splits=["dev"])
+    assert {"doc_id": "doc0", "item": "doc0-kp-01", "code": "QUOTE_IN_HIDDEN_TEXT", "page_index": 0,
+            "cover": "image"} in failures
+
+
+def test_quote_in_text_hidden_by_a_vector_fill_is_a_warning(hidden_root):
+    gold = gold_for(hidden_root, "doc0")
+    gold["key_points"][0]["evidence_quote"] = HIDDEN_BY_FILL
+    write_gold(hidden_root, gold)
+    warnings: list = []
+    failures = verify_gold.verify(hidden_root, splits=["dev"], warnings=warnings)
+    assert failures == []
+    assert {"doc_id": "doc0", "item": "doc0-kp-01", "code": "QUOTE_IN_HIDDEN_TEXT", "page_index": 0,
+            "cover": "vector"} in warnings
+
+
+def test_visible_quotes_on_a_page_with_hidden_text_still_pass(hidden_root):
+    write_gold(hidden_root, gold_for(hidden_root, "doc0"))
+    warnings: list = []
+    assert verify_gold.verify(hidden_root, splits=["dev"], warnings=warnings) == [] and warnings == []
+
+
+def test_missing_pdf_is_reported_because_hidden_text_cannot_be_checked(root):
+    write_gold(root, gold_for(root, "doc0"))
+    (root / "incoming" / "doc0.pdf").unlink()
+    assert "PDF_MISSING" in codes(verify_gold.verify(root, splits=["dev"]))
+
+
 # ---------- gold quote rules (Step 0 part 2, amendment B2) ----------
 @pytest.mark.parametrize("chars,expected", [(39, ["QUOTE_LENGTH"]), (40, []), (250, []), (251, ["QUOTE_LENGTH"])])
 def test_quote_length_bounds(chars, expected):
