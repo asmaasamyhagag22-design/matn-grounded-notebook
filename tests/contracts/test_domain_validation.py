@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import json
+from pathlib import Path
 
 import pytest
 from pydantic import ValidationError
@@ -134,6 +136,15 @@ def test_unknown_fact_enum_and_extra_fields_are_rejected() -> None:
     payload["kind"] = "unknown"
     with pytest.raises(ValidationError):
         Fact.model_validate(payload)
+
+
+def test_fact_kind_and_importance_match_gold_schema_vocabulary() -> None:
+    schema = json.loads(Path("eval/gold/schema.json").read_text(encoding="utf-8"))
+    gold_kinds = schema["properties"]["key_points"]["items"]["properties"]["kind"]["enum"]
+    gold_importance = schema["properties"]["key_points"]["items"]["properties"]["importance"]["enum"]
+    assert {kind.value for kind in FactKind if kind is not FactKind.NUMBER} == set(gold_kinds)
+    assert {importance.value for importance in Importance} == set(gold_importance)
+    assert Importance.HEADLINE.value == 3
     payload = fact().model_dump(mode="json")
     payload["extra"] = "forbidden"
     with pytest.raises(ValidationError):

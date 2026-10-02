@@ -28,13 +28,11 @@ class Visibility(str, Enum):
 
 class FactKind(str, Enum):
     PURPOSE = "purpose"
-    SCOPE = "scope"
-    DEFINITIONS = "definitions"
-    REQUIREMENT = "requirement"
-    RECOMMENDATION = "recommendation"
     FINDING = "finding"
-    RISK = "risk"
-    LIMITATION = "limitation"
+    TARGET = "target"
+    RECOMMENDATION = "recommendation"
+    CAVEAT = "caveat"
+    DEFINITION = "definition"
     NUMBER = "number"
 
 
