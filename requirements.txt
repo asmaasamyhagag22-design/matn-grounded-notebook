@@ -1,5 +1,6 @@
 PyMuPDF==1.28.2
 PyMuPDF4LLM==1.28.2
 Pillow==11.3.0
+pydantic==2.13.5
 python-pptx==1.0.2
 streamlit==1.49.1
