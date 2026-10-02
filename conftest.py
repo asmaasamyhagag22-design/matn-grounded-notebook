@@ -36,7 +36,6 @@ SLOW = frozenset({
     ".claude/hooks/test_guard.py::test_r4_still_allows_dev_gold_and_scoped_searches",
     ".claude/hooks/test_guard.py::test_r4_indirect_rules_inactive_before_freeze",
     ".claude/hooks/test_guard.py::test_r4_blocks_search_from_the_absolute_repository_root",
-    "checks/test_fast_budget.py::test_fast_subset_fits_the_budget_on_this_machine",
     ".githooks/test_githooks.py::test_g1_allows_normal_files",
     ".githooks/test_githooks.py::test_g1_blocks_files_over_5_mb",
     ".githooks/test_githooks.py::test_g1_blocks_forbidden_paths",
