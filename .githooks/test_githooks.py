@@ -193,3 +193,35 @@ def test_g5_checks_merge_commits_too(repo):
     allowed = git(repo, "merge", "--no-ff", "-q", "side", "-m", "Merge branch 'side'\n\nAgent: human")
     assert allowed.returncode == 0, allowed.stderr
 
+
+# ---------- G4 re-check of the Agent trailer on push ----------
+def commit_without_hooks(repo: Path, rel: str, msg: str) -> None:
+    """A commit made without the hooks (e.g. another machine), to check that G4 still catches it on push."""
+    (repo / rel).write_text("x\n", encoding="utf-8")
+    git(repo, "add", rel, check=True)
+    git(repo, "-c", f"core.hooksPath={(repo / 'no-hooks').as_posix()}", "commit", "-q", "-m", msg, check=True)
+
+
+def push_with(repo: Path, remote: Path, since: str | None = None) -> subprocess.CompletedProcess:
+    env_extra = {"MATN_G5_SINCE": since} if since else {}
+    env = dict(os.environ, MATN_PYTHON=sys.executable, **env_extra)
+    return subprocess.run(["git", "push", "-q", remote.as_posix(), "HEAD:refs/heads/main"], cwd=repo,
+                          capture_output=True, text=True, env=env)
+
+
+def test_g4_blocks_push_of_a_commit_without_a_valid_agent_trailer(repo, remote):
+    assert commit(repo, "a.md").returncode == 0
+    commit_without_hooks(repo, "b.md", WHY)
+    bad = git(repo, "rev-parse", "--short", "HEAD", check=True).stdout.strip()
+    result = push_with(repo, remote)
+    assert result.returncode != 0 and "[G4]" in result.stderr and "[G5]" in result.stderr, result.stderr
+    assert bad in result.stderr
+
+
+def test_g4_checks_only_commits_from_the_baseline_onward(repo, remote):
+    commit_without_hooks(repo, "old.md", WHY)  # before the rule: no trailer, not checked
+    assert commit(repo, "a.md").returncode == 0
+    since = git(repo, "rev-parse", "HEAD", check=True).stdout.strip()
+    assert commit(repo, "b.md").returncode == 0
+    result = push_with(repo, remote, since=since)
+    assert result.returncode == 0, result.stderr

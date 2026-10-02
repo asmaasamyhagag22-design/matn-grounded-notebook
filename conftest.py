@@ -51,6 +51,8 @@ SLOW = frozenset({
     ".githooks/test_githooks.py::test_g5_blocks_commits_without_exactly_one_valid_last_agent_trailer",
     ".githooks/test_githooks.py::test_g5_allows_each_allowlisted_agent_as_the_last_trailer",
     ".githooks/test_githooks.py::test_g5_checks_merge_commits_too",
+    ".githooks/test_githooks.py::test_g4_blocks_push_of_a_commit_without_a_valid_agent_trailer",
+    ".githooks/test_githooks.py::test_g4_checks_only_commits_from_the_baseline_onward",
     "eval/tests/test_verify_gold.py::test_gold_commit_refuses_uncommitted_gold_and_returns_head_when_clean",
     "tests/test_demo_mode.py::test_validated_demo_makes_zero_network_or_model_calls",
     "tests/test_document_store.py::test_noncontiguous_pages_and_bad_selectors",
