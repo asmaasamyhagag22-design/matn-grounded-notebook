@@ -1,5 +1,6 @@
 """Strict, standalone data contracts for the Matn pipeline."""
 
+from .conversion import deck_plan_from_draft, fact_from_draft, section_summary_from_draft
 from .domain import (
     Block,
     BlockStyle,
@@ -26,17 +27,33 @@ from .domain import (
     check_section_coverage,
     validate_deck_plan_against_facts,
 )
+from .drafts import (
+    ChartSpecDraft,
+    DeckPlanDraft,
+    EvidenceRefDraft,
+    FactDraft,
+    NumberFactValueDraft,
+    SectionSummaryDraft,
+    SlideDraft,
+    SlideItemDraft,
+    SummarySentenceDraft,
+)
 
 __all__ = [
     "Block",
     "BlockStyle",
     "ChartSpec",
+    "ChartSpecDraft",
     "DeckPlan",
+    "DeckPlanDraft",
     "EvidenceRef",
+    "EvidenceRefDraft",
     "ExtractorInfo",
     "Fact",
+    "FactDraft",
     "KeyNumber",
     "NumberFactValue",
+    "NumberFactValueDraft",
     "PageRange",
     "PromptVersion",
     "RunManifest",
@@ -44,12 +61,19 @@ __all__ = [
     "Section",
     "SectionCoverage",
     "SectionSummary",
+    "SectionSummaryDraft",
     "Slide",
+    "SlideDraft",
     "SlideItem",
+    "SlideItemDraft",
     "Summary",
     "SummarySentence",
+    "SummarySentenceDraft",
     "Table",
     "TableCell",
     "check_section_coverage",
+    "deck_plan_from_draft",
+    "fact_from_draft",
+    "section_summary_from_draft",
     "validate_deck_plan_against_facts",
 ]

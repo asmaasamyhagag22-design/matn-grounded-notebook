@@ -243,7 +243,10 @@ class Fact(VersionedContract):
 
     @classmethod
     def create(cls, **values: object) -> Self:
-        evidence = tuple(values.get("evidence", ()))  # type: ignore[arg-type]
+        evidence = tuple(
+            item if isinstance(item, EvidenceRef) else EvidenceRef.model_validate(item)
+            for item in values.get("evidence", ())  # type: ignore[union-attr]
+        )
         fact_id = (
             make_fact_id(evidence[0].block_id, str(values.get("statement", "")))
             if evidence
