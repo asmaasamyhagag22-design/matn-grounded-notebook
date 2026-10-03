@@ -10,7 +10,8 @@ from pydantic import ValidationError
 from pptx import Presentation
 
 from design.creative.backgrounds import content_zone_variance, render_background
-from design.creative.spec import CreativeSpec
+from design.creative.generate import specs
+from design.creative.spec import CreativeSpec, load_spec
 from matn_deck.color import (contrast_ratio, derive_roles, oklch_to_srgb, rgb_from_hex, srgb_to_oklch)
 from matn_deck.decor import CARD_ALPHA
 from matn_deck.specimen import specimen_inputs
@@ -23,7 +24,8 @@ _A = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
 def sample_spec(**changes):
     data = {
         "id": "sample", "name_ar": "عينة", "name_en": "Sample", "mood": "Calm", "recommended_audience": "Leaders",
-        "family": "creative", "mode": "dark", "seed_colors": {"primary": "#123B66", "accent": "#D6A84B"},
+        "family": "creative", "mode": "dark",
+        "seed_colors": {"primary": "#123B66", "accent": "#D6A84B", "surface": "#081B33"},
         "fonts": {"title": "Bahnschrift", "body": "Segoe UI"},
         "background": {"generator": "aurora", "parameters": {"grain": 0.5}, "fixed_seed": 7},
         "card_style": {"fill_alpha": 0.16, "corner_radius_pt": 14,
@@ -60,6 +62,21 @@ def test_spec_rejects_nonstandard_font_and_missing_seed_role():
     del missing["seed_colors"]["accent"]
     with pytest.raises(ValidationError, match="accent"):
         CreativeSpec.model_validate(missing)
+
+
+def test_all_nine_specs_validate_and_gallery_metadata_matches():
+    found = specs()
+    assert len(found) == 9
+    gallery = json.loads((GALLERY_DIR / "src" / "gallery.json").read_text(encoding="utf-8"))["templates"]
+    creative = {entry["id"]: entry for entry in gallery if entry["family"] == "creative"}
+    assert set(creative) == set(found)
+    for template_id, (path, spec) in found.items():
+        assert load_spec(path) == spec
+        assert creative[template_id]["mood"] == spec.mood
+        assert creative[template_id]["audience"] == spec.recommended_audience
+    source = (GALLERY_DIR.parent / "creative" / "generate.py").read_text(encoding="utf-8")
+    variations = set(found) - {"nile-night", "papyrus", "mashrabiya"}
+    assert not any(template_id in source for template_id in variations)  # variations add data, never a code branch
 
 
 @pytest.mark.parametrize("kind", ["aurora", "paper", "mashrabiya"])

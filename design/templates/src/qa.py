@@ -50,6 +50,8 @@ WHITE_WINDOW = 15  # px at 2560 wide (about 5.6 pt)
 WHITE_STD = 2.0  # grey levels: below this the window is flat
 BEFORE_AFTER = ("integral-light", "film-burn-dark", "modulo")
 SHEET, PAIRS = "contact_sheet_v4.png", "before_after_v4.png"
+CREATIVE_SHEET, FAMILIES_SHEET = "contact_sheet_creative.png", "families.png"
+FAMILY_COMPARE = ("integral-light", "film-burn-dark", "modulo", "nile-night", "papyrus", "mashrabiya")
 PREVIOUS = ("png_v3", "v3 (Step 2c)", "v4 (Step 2c.1)")  # folder of the earlier PNGs, row labels
 CONTENT = {t.value for t in CONTENT_TYPES}
 
@@ -213,6 +215,7 @@ def main() -> int:
                     "-Width", str(EXPORT_W), "-Height", str(EXPORT_H)], check=True, cwd=ROOT)
 
     groups = []
+    groups_by_id = {}
     for entry in entries:
         tid = entry["id"]
         result = results[tid]
@@ -235,8 +238,15 @@ def main() -> int:
             bool(result["beauty"] >= gate["threshold"] and hard <= gate["max_hard_violations"]),
         })
         pngs = sorted((OUT / tid / "png").glob("slide_*.png"))
-        groups.append((f"{entry['name_en']}  ·  {tid}  ·  beauty {result['beauty']:.3f}", pngs))
+        group = (f"{entry['name_en']}  ·  {tid}  ·  beauty {result['beauty']:.3f}", pngs)
+        groups.append(group)
+        groups_by_id[tid] = group
     build_sheet(groups, OUT / SHEET, per_row=1, thumb_w=240, label_size=20)
+    creative_ids = [entry["id"] for entry in entries if entry.get("family", "classic") == "creative"]
+    build_sheet([groups_by_id[tid] for tid in creative_ids if tid in groups_by_id], OUT / CREATIVE_SHEET,
+                per_row=1, thumb_w=240, label_size=20)
+    build_sheet([(groups_by_id[tid][0], [groups_by_id[tid][1][0]]) for tid in FAMILY_COMPARE if tid in groups_by_id],
+                OUT / FAMILIES_SHEET, per_row=len(FAMILY_COMPARE), thumb_w=240, label_size=18)
     pairs = []
     folder_before, label_before, label_after = PREVIOUS
     for tid in BEFORE_AFTER:
@@ -280,7 +290,7 @@ def write_scores_md(results: dict, gate: dict) -> None:
     agree = agreement(results)
     card_weight = load_scoring()["fill"]["card_weight"]
     lines = [
-        "# Gallery scores (specimen v4, Step 2c.1)",
+        "# Gallery scores (specimen v4, Step 2d)",
         "",
         "Written by `design/templates/src/qa.py`. Beauty = mean chosen-candidate score over the content slides (0-1);",
         "it shows the system beats arbitrary choices, it is not an absolute measure of beauty. Hard = geometry",

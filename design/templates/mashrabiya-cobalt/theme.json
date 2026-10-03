@@ -1,0 +1,71 @@
+{
+  "id": "mashrabiya-cobalt",
+  "name_ar": "مشربية كوبالت",
+  "name_en": "Mashrabiya Cobalt",
+  "fonts": {
+    "heading": "Bahnschrift",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "design/creative/mashrabiya-cobalt/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "042F61"
+    ],
+    "text": "E29B1F",
+    "contrast": 5.64,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": "mashrabiya",
+  "glow": false,
+  "family": "creative",
+  "mood": "Crisp technical blue with a focused amber signal",
+  "audience": "Technical teams and data leaders",
+  "roles": {
+    "primary": "1555A2",
+    "accent": "976716",
+    "surface": "F4F5F6",
+    "on_surface": "1555A2",
+    "muted": "455161",
+    "card": "E7E8E8",
+    "divider_background": "042F61",
+    "on_divider": "E29B1F"
+  },
+  "card_style": {
+    "fill_alpha": 0.07,
+    "corner_radius_pt": 10.0,
+    "shadow": {
+      "enabled": true,
+      "alpha": 0.12,
+      "blur_pt": 9.0,
+      "distance_pt": 2.0
+    }
+  },
+  "divider_style": {
+    "type": "color_block",
+    "secondary": null,
+    "thin_rules": false,
+    "outline_color": "E29B1F"
+  },
+  "background": {
+    "generator": "mashrabiya",
+    "parameters": {
+      "band_width": 0.15,
+      "step": 60
+    },
+    "fixed_seed": 4104,
+    "asset": "embedded:creative_background",
+    "content_variance": 0.0
+  }
+}

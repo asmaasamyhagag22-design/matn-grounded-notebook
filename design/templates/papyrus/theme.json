@@ -1,0 +1,70 @@
+{
+  "id": "papyrus",
+  "name_ar": "بردي",
+  "name_en": "Papyrus",
+  "fonts": {
+    "heading": "Georgia",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "design/creative/papyrus/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "1D3247"
+    ],
+    "text": "5E99EB",
+    "contrast": 4.52,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Elegant scientific magazine, calm and highly readable",
+  "audience": "Researchers and report authors",
+  "roles": {
+    "primary": "17324D",
+    "accent": "1E59A5",
+    "surface": "F7F5F0",
+    "on_surface": "17324D",
+    "muted": "4B5057",
+    "card": "E9E8E5",
+    "divider_background": "1D3247",
+    "on_divider": "5E99EB"
+  },
+  "card_style": {
+    "fill_alpha": 0.055,
+    "corner_radius_pt": 5.0,
+    "shadow": {
+      "enabled": false,
+      "alpha": 0.12,
+      "blur_pt": 8.0,
+      "distance_pt": 1.0
+    }
+  },
+  "divider_style": {
+    "type": "outline_number",
+    "secondary": null,
+    "thin_rules": true,
+    "outline_color": "5E99EB"
+  },
+  "background": {
+    "generator": "paper",
+    "parameters": {
+      "grain": 1.25
+    },
+    "fixed_seed": 3103,
+    "asset": "embedded:creative_background",
+    "content_variance": 0.897
+  }
+}

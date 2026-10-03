@@ -1,0 +1,71 @@
+{
+  "id": "nile-night-royal",
+  "name_ar": "ليل النيل الملكي",
+  "name_en": "Nile Night Royal",
+  "fonts": {
+    "heading": "Bahnschrift",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "design/creative/nile-night-royal/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "121057",
+      "240851"
+    ],
+    "text": "E0B85B",
+    "contrast": 9.03,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Ceremonial navy with a restrained violet glow",
+  "audience": "Ministers and executive leadership",
+  "roles": {
+    "primary": "5F70D2",
+    "accent": "E0B85B",
+    "surface": "06070B",
+    "on_surface": "5F70D2",
+    "muted": "9EA4BA",
+    "card": "151619",
+    "divider_background": "121057",
+    "on_divider": "E0B85B"
+  },
+  "card_style": {
+    "fill_alpha": 0.17,
+    "corner_radius_pt": 16.0,
+    "shadow": {
+      "enabled": true,
+      "alpha": 0.22,
+      "blur_pt": 14.0,
+      "distance_pt": 3.0
+    }
+  },
+  "divider_style": {
+    "type": "gradient",
+    "secondary": "#6047A8",
+    "thin_rules": false,
+    "outline_color": "E0B85B"
+  },
+  "background": {
+    "generator": "aurora",
+    "parameters": {
+      "grain": 0.65
+    },
+    "fixed_seed": 2104,
+    "asset": "embedded:creative_background",
+    "content_variance": 6.282
+  }
+}

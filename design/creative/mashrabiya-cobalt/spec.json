@@ -1,0 +1,12 @@
+{
+  "id": "mashrabiya-cobalt", "name_ar": "مشربية كوبالت", "name_en": "Mashrabiya Cobalt",
+  "mood": "Crisp technical blue with a focused amber signal", "recommended_audience": "Technical teams and data leaders",
+  "family": "creative", "mode": "light",
+  "seed_colors": {"primary": "#1555A2", "accent": "#E29B20", "surface": "#E8EDF2"},
+  "fonts": {"title": "Bahnschrift", "body": "Segoe UI"},
+  "background": {"generator": "mashrabiya", "parameters": {"band_width": 0.15, "step": 60}, "fixed_seed": 4104},
+  "card_style": {"fill_alpha": 0.07, "corner_radius_pt": 10,
+    "shadow": {"enabled": true, "alpha": 0.12, "blur_pt": 9, "distance_pt": 2}},
+  "divider_style": {"type": "color_block", "secondary": null, "thin_rules": false},
+  "motif": {"type": "mashrabiya", "placement": "side_band", "opacity": 0.17}, "pattern": true
+}

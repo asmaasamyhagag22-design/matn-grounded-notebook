@@ -1,0 +1,12 @@
+{
+  "id": "papyrus-lapis", "name_ar": "بردي لازوردي", "name_en": "Papyrus Lapis",
+  "mood": "Cool editorial paper with scholarly blue detail", "recommended_audience": "Researchers and report authors",
+  "family": "creative", "mode": "light",
+  "seed_colors": {"primary": "#1A3558", "accent": "#315FA8", "surface": "#DDD8CB"},
+  "fonts": {"title": "Cambria", "body": "Segoe UI"},
+  "background": {"generator": "paper", "parameters": {"grain": 1.2}, "fixed_seed": 3104},
+  "card_style": {"fill_alpha": 0.05, "corner_radius_pt": 5,
+    "shadow": {"enabled": false, "alpha": 0.12, "blur_pt": 8, "distance_pt": 1}},
+  "divider_style": {"type": "outline_number", "secondary": null, "thin_rules": true},
+  "motif": {"type": "lotus", "placement": "corners", "opacity": 0.09}, "pattern": false
+}

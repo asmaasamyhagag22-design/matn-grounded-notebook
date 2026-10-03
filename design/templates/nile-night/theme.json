@@ -1,0 +1,71 @@
+{
+  "id": "nile-night",
+  "name_ar": "ليل النيل",
+  "name_en": "Nile Night",
+  "fonts": {
+    "heading": "Bahnschrift",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "design/creative/nile-night/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "031D46",
+      "022429"
+    ],
+    "text": "D6A84B",
+    "contrast": 7.43,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Premium, calm and confident",
+  "audience": "Ministers and executive leadership",
+  "roles": {
+    "primary": "4077CC",
+    "accent": "D6A84B",
+    "surface": "05070B",
+    "on_surface": "4077CC",
+    "muted": "99A6B9",
+    "card": "141619",
+    "divider_background": "031D46",
+    "on_divider": "D6A84B"
+  },
+  "card_style": {
+    "fill_alpha": 0.16,
+    "corner_radius_pt": 16.0,
+    "shadow": {
+      "enabled": true,
+      "alpha": 0.22,
+      "blur_pt": 14.0,
+      "distance_pt": 3.0
+    }
+  },
+  "divider_style": {
+    "type": "gradient",
+    "secondary": "#087E8B",
+    "thin_rules": false,
+    "outline_color": "D6A84B"
+  },
+  "background": {
+    "generator": "aurora",
+    "parameters": {
+      "grain": 0.7
+    },
+    "fixed_seed": 2103,
+    "asset": "embedded:creative_background",
+    "content_variance": 6.138
+  }
+}

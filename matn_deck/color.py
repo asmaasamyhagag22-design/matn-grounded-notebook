@@ -108,18 +108,20 @@ def _contrasting_tone(seed: RGB, background: RGB, target: float, prefer_light: b
     return min(passing, key=lambda rgb: abs(srgb_to_oklch(rgb)[0] - original_l))
 
 
-def derive_roles(seed: str, accent_seed: str, mode: str) -> dict[str, str]:
+def derive_roles(seed: str, accent_seed: str, mode: str, surface_seed: str | None = None) -> dict[str, str]:
     """Derive accessible theme roles from two seed colors in perceptual OKLCH space."""
     if mode not in {"light", "dark"}:
         raise ValueError(f"MODE_INVALID:{mode}")
     base, accent_base = rgb_from_hex(seed), rgb_from_hex(accent_seed)
+    surface_base = rgb_from_hex(surface_seed) if surface_seed else base
     dark = mode == "dark"
-    surface = _tone(base, 0.13 if dark else 0.97, 0.18)
+    surface = _tone(surface_base, 0.13 if dark else 0.97, 0.18)
     on_surface = _contrasting_tone(base, surface, 4.5, prefer_light=dark)
     muted = _contrasting_tone(_tone(base, 0.72 if dark else 0.43, 0.22), surface, 4.5, prefer_light=dark)
     primary = _contrasting_tone(base, surface, 4.5, prefer_light=dark)
-    accent = _contrasting_tone(accent_base, surface, 3.0, prefer_light=dark)
-    card = _tone(base, 0.20 if dark else 0.93, 0.12)
+    # Aim above the 3:1 display minimum so translucent cards still keep at least 3:1.
+    accent = _contrasting_tone(accent_base, surface, 4.5, prefer_light=dark)
+    card = _tone(surface_base, 0.20 if dark else 0.93, 0.12)
     divider = _tone(base, 0.24 if dark else 0.31, 0.8)
     on_divider = _contrasting_tone(accent_base, divider, 4.5, prefer_light=True)
     roles = {"primary": primary, "accent": accent, "surface": surface, "on_surface": on_surface,

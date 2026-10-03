@@ -25,7 +25,7 @@ def render_background(spec: CreativeSpec, size: tuple[int, int] = SIZE) -> Image
     width, height = size
     rng = np.random.default_rng(spec.background.fixed_seed)
     from matn_deck.color import derive_roles
-    roles = derive_roles(spec.seed_colors.primary, spec.seed_colors.accent, spec.mode)
+    roles = derive_roles(spec.seed_colors.primary, spec.seed_colors.accent, spec.mode, spec.seed_colors.surface)
     base, primary, accent = (_u8(roles[k]) for k in ("surface", "primary", "accent"))
     canvas = np.broadcast_to(base, (height, width, 3)).copy()
     kind = spec.background.generator

@@ -1,0 +1,71 @@
+{
+  "id": "nile-night-teal",
+  "name_ar": "ليل النيل الفيروزي",
+  "name_en": "Nile Night Teal",
+  "fonts": {
+    "heading": "Bahnschrift",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "design/creative/nile-night-teal/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "022429",
+      "032232"
+    ],
+    "text": "D9A441",
+    "contrast": 7.26,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Quiet midnight teal with a warm metal accent",
+  "audience": "Ministers and executive leadership",
+  "roles": {
+    "primary": "188592",
+    "accent": "D9A441",
+    "surface": "050809",
+    "on_surface": "188592",
+    "muted": "97A8AB",
+    "card": "141618",
+    "divider_background": "022429",
+    "on_divider": "D9A441"
+  },
+  "card_style": {
+    "fill_alpha": 0.16,
+    "corner_radius_pt": 18.0,
+    "shadow": {
+      "enabled": true,
+      "alpha": 0.2,
+      "blur_pt": 15.0,
+      "distance_pt": 3.0
+    }
+  },
+  "divider_style": {
+    "type": "gradient",
+    "secondary": "#146C94",
+    "thin_rules": false,
+    "outline_color": "D9A441"
+  },
+  "background": {
+    "generator": "aurora",
+    "parameters": {
+      "grain": 0.75
+    },
+    "fixed_seed": 2105,
+    "asset": "embedded:creative_background",
+    "content_variance": 5.885
+  }
+}

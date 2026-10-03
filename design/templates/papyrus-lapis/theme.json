@@ -1,0 +1,70 @@
+{
+  "id": "papyrus-lapis",
+  "name_ar": "بردي لازوردي",
+  "name_en": "Papyrus Lapis",
+  "fonts": {
+    "heading": "Cambria",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "design/creative/papyrus-lapis/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "1C314C"
+    ],
+    "text": "6798E6",
+    "contrast": 4.53,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Cool editorial paper with scholarly blue detail",
+  "audience": "Researchers and report authors",
+  "roles": {
+    "primary": "1A3558",
+    "accent": "315FA8",
+    "surface": "F6F5F3",
+    "on_surface": "1A3558",
+    "muted": "4A5058",
+    "card": "E8E8E6",
+    "divider_background": "1C314C",
+    "on_divider": "6798E6"
+  },
+  "card_style": {
+    "fill_alpha": 0.05,
+    "corner_radius_pt": 5.0,
+    "shadow": {
+      "enabled": false,
+      "alpha": 0.12,
+      "blur_pt": 8.0,
+      "distance_pt": 1.0
+    }
+  },
+  "divider_style": {
+    "type": "outline_number",
+    "secondary": null,
+    "thin_rules": true,
+    "outline_color": "6798E6"
+  },
+  "background": {
+    "generator": "paper",
+    "parameters": {
+      "grain": 1.2
+    },
+    "fixed_seed": 3104,
+    "asset": "embedded:creative_background",
+    "content_variance": 0.861
+  }
+}

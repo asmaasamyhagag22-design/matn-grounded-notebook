@@ -1,0 +1,12 @@
+{
+  "id": "papyrus-olive", "name_ar": "بردي زيتوني", "name_en": "Papyrus Olive",
+  "mood": "Warm archival paper with an understated botanical tone", "recommended_audience": "Researchers and report authors",
+  "family": "creative", "mode": "light",
+  "seed_colors": {"primary": "#263F3A", "accent": "#8A641F", "surface": "#E5D9BD"},
+  "fonts": {"title": "Georgia", "body": "Segoe UI"},
+  "background": {"generator": "paper", "parameters": {"grain": 1.4}, "fixed_seed": 3105},
+  "card_style": {"fill_alpha": 0.055, "corner_radius_pt": 4,
+    "shadow": {"enabled": false, "alpha": 0.12, "blur_pt": 8, "distance_pt": 1}},
+  "divider_style": {"type": "outline_number", "secondary": null, "thin_rules": true},
+  "motif": {"type": "lotus", "placement": "corners", "opacity": 0.11}, "pattern": false
+}

@@ -1,0 +1,71 @@
+{
+  "id": "mashrabiya",
+  "name_ar": "مشربية",
+  "name_en": "Mashrabiya",
+  "fonts": {
+    "heading": "Bahnschrift",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "design/creative/mashrabiya/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "003838"
+    ],
+    "text": "E1A51B",
+    "contrast": 5.92,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": "mashrabiya",
+  "glow": false,
+  "family": "creative",
+  "mood": "Modern, bold and geometric",
+  "audience": "Technical teams and data leaders",
+  "roles": {
+    "primary": "026C6C",
+    "accent": "926A0B",
+    "surface": "F6F5F3",
+    "on_surface": "026C6C",
+    "muted": "455353",
+    "card": "E8E8E6",
+    "divider_background": "003838",
+    "on_divider": "E1A51B"
+  },
+  "card_style": {
+    "fill_alpha": 0.075,
+    "corner_radius_pt": 10.0,
+    "shadow": {
+      "enabled": true,
+      "alpha": 0.11,
+      "blur_pt": 8.0,
+      "distance_pt": 2.0
+    }
+  },
+  "divider_style": {
+    "type": "color_block",
+    "secondary": null,
+    "thin_rules": false,
+    "outline_color": "E1A51B"
+  },
+  "background": {
+    "generator": "mashrabiya",
+    "parameters": {
+      "band_width": 0.14,
+      "step": 64
+    },
+    "fixed_seed": 4103,
+    "asset": "embedded:creative_background",
+    "content_variance": 0.0
+  }
+}

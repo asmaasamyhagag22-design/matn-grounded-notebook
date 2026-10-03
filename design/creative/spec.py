@@ -17,6 +17,7 @@ class StrictModel(BaseModel):
 class SeedColors(StrictModel):
     primary: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
     accent: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
+    surface: str = Field(pattern=r"^#[0-9A-Fa-f]{6}$")
 
 
 class Fonts(StrictModel):

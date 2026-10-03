@@ -206,6 +206,7 @@ def build(entry: dict) -> None:
                    + (["-TitleAccent"] if entry.get("title_accent") else [])
                    + (["-SubtitleLikeTitle"] if entry.get("subtitle_like_title") else []), check=True, cwd=ROOT)
     meta = {key: entry[key] for key in ("id", "name_ar", "name_en", "fonts", "mode")}
+    meta.update({"family": entry.get("family", "classic"), "mood": entry["mood"], "audience": entry["audience"]})
     meta["source"] = f"Office theme {entry['theme']}" + (f" (variant {entry['variant']})" if entry.get("variant") else "")
     area = json.loads(area_out.read_text(encoding="utf-8-sig"))
     meta["content_area_pt"] = [round(area[k], 2) for k in ("left", "top", "width", "height")]
@@ -223,7 +224,7 @@ def build(entry: dict) -> None:
 def main(ids: list[str]) -> int:
     entries = json.loads((SRC / "gallery.json").read_text(encoding="utf-8"))["templates"]
     for entry in entries:
-        if entry.get("excluded"):
+        if entry.get("excluded") or entry.get("family", "classic") != "classic":
             continue
         if not ids or entry["id"] in ids:
             build(entry)

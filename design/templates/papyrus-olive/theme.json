@@ -1,0 +1,70 @@
+{
+  "id": "papyrus-olive",
+  "name_ar": "بردي زيتوني",
+  "name_en": "Papyrus Olive",
+  "fonts": {
+    "heading": "Georgia",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "design/creative/papyrus-olive/spec.json",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "223531"
+    ],
+    "text": "BA9251",
+    "contrast": 4.51,
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false,
+  "family": "creative",
+  "mood": "Warm archival paper with an understated botanical tone",
+  "audience": "Researchers and report authors",
+  "roles": {
+    "primary": "263F3A",
+    "accent": "8A641F",
+    "surface": "F7F5F0",
+    "on_surface": "263F3A",
+    "muted": "4C5150",
+    "card": "E9E8E4",
+    "divider_background": "223531",
+    "on_divider": "BA9251"
+  },
+  "card_style": {
+    "fill_alpha": 0.055,
+    "corner_radius_pt": 4.0,
+    "shadow": {
+      "enabled": false,
+      "alpha": 0.12,
+      "blur_pt": 8.0,
+      "distance_pt": 1.0
+    }
+  },
+  "divider_style": {
+    "type": "outline_number",
+    "secondary": null,
+    "thin_rules": true,
+    "outline_color": "BA9251"
+  },
+  "background": {
+    "generator": "paper",
+    "parameters": {
+      "grain": 1.4
+    },
+    "fixed_seed": 3105,
+    "asset": "embedded:creative_background",
+    "content_variance": 1.004
+  }
+}

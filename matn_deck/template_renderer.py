@@ -410,6 +410,9 @@ class _DeckBuilder:
         attempts = self._attempts(content, previous)
         good = [a for a in attempts if a.ok and a.fits]
         if good:
+            varied = [a for a in good if a.layout.name != previous]
+            if varied:
+                good = varied  # deck variety is a contract invariant when another valid layout exists
             top = max(a.score.total for a in good)
             tied = [a for a in good if a.score.total >= top - self.cfg["tie_margin"]]
             return [self._remember(min(tied, key=lambda a: a.order), attempts)]

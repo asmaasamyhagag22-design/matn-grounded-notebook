@@ -54,10 +54,16 @@ def test_every_gallery_template_passes_and_carries_its_metadata():
         assert template.path.stat().st_size < 5 * 1024 * 1024
         assert template.thumbnail.is_file()
         meta = template.meta
-        assert set(meta) == {"id", "name_ar", "name_en", "fonts", "mode", "source", "content_area_pt", "divider",
-                             "pattern", "glow"}
+        required = {"id", "name_ar", "name_en", "fonts", "mode", "source", "content_area_pt", "divider",
+                    "pattern", "glow", "family", "mood", "audience"}
+        assert required <= set(meta)
         assert meta["id"] == template_id and meta["mode"] in {"dark", "light"}
-        assert meta["source"].startswith("Office theme ")
+        assert meta["family"] in {"classic", "creative"} and meta["mood"] and meta["audience"]
+        if meta["family"] == "classic":
+            assert meta["source"].startswith("Office theme ")
+        else:
+            assert meta["source"] == f"design/creative/{template_id}/spec.json"
+            assert {"roles", "card_style", "divider_style", "background"} <= set(meta)
         assert all(is_standard_font(face) for face in meta["fonts"].values())
 
 
@@ -77,8 +83,15 @@ def test_dividers_are_full_bleed_theme_color_with_checked_contrast():
         bg = layout._element.find(".//{http://schemas.openxmlformats.org/presentationml/2006/main}bgPr")
         fills = [hex_rgb(c.get("val")) for c in bg.iter(f"{a}srgbClr")]
         assert fills, template.id
-        texts = {ph.name: hex_rgb(ph._element.find(f".//{a}defRPr/{a}solidFill/{a}srgbClr").get("val"))
-                 for ph in layout.placeholders if ph.name in ("title", "section_number", "subtitle")}
+        texts = {}
+        for ph in layout.placeholders:
+            if ph.name not in ("title", "section_number", "subtitle"):
+                continue
+            color = ph._element.find(f".//{a}defRPr/{a}solidFill/{a}srgbClr")
+            if color is None:
+                color = ph._element.find(f".//{a}defRPr/{a}ln/{a}solidFill/{a}srgbClr")
+            assert color is not None, (template.id, ph.name)
+            texts[ph.name] = hex_rgb(color.get("val"))
         assert set(texts) == {"title", "section_number", "subtitle"}, template.id
         worst = min(contrast(text, fill) for text in texts.values() for fill in fills)
         assert worst >= 4.5, (template.id, worst)

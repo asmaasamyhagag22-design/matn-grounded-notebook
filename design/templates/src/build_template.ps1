@@ -20,8 +20,13 @@ param(
     [string]$DividerFill2 = "",      # optional second color: a diagonal gradient from DividerFill
     [string]$DividerText = "FFFFFF", # divider text color
     [string]$DividerSafe = "",       # "x,y,w,h" fractions of the slide; empty = layouts.json divider.safe
-    [ValidateSet("", "dots", "lines")][string]$Pattern = "",  # optional pattern band on dividers
-    [switch]$Glow                    # a subtle accent glow on content slides (from the cover gradient)
+    [ValidateSet("", "dots", "lines", "mashrabiya")][string]$Pattern = "",  # optional divider pattern
+    [switch]$Glow,                   # a subtle accent glow on content slides (from the cover gradient)
+    [string]$BackgroundImage = "",  # optional deterministic 16:9 asset placed behind content layouts
+    [switch]$CleanThemeArt,          # remove the donor Office theme's non-placeholder art
+    [ValidateSet("color_block", "gradient", "outline_number")][string]$DividerStyle = "color_block",
+    [string]$DividerNumberColor = "",
+    [switch]$ThinRules
 )
 $ErrorActionPreference = "Stop"
 
@@ -130,6 +135,20 @@ function Add-Divider($layout, $title, $area) {
     Set-TextStyle $subtitle @{ size = $d.subtitle_size; bullets = $false } "subtitle"
     $subtitle.TextFrame.MarginLeft = 0
     foreach ($shape in @($number, $title, $subtitle)) { $shape.TextFrame.TextRange.Font.Color.RGB = Rgb $DividerText }
+    if ($DividerNumberColor) { $number.TextFrame.TextRange.Font.Color.RGB = Rgb $DividerNumberColor }
+    if ($DividerStyle -eq "outline_number") {
+        $number.TextFrame2.TextRange.Font.Fill.Visible = 0
+        $number.TextFrame2.TextRange.Font.Line.Visible = -1
+        $number.TextFrame2.TextRange.Font.Line.Weight = 1.5
+        $number.TextFrame2.TextRange.Font.Line.ForeColor.RGB = Rgb $(if ($DividerNumberColor) { $DividerNumberColor } else { $DividerText })
+    }
+    if ($ThinRules) {
+        foreach ($y in @($sy, $sy + $sh)) {
+            $rule = $layout.Shapes.AddLine($sx, $y, $sx + $sw, $y)
+            $rule.Name = "divider_rule"; $rule.Line.ForeColor.RGB = Rgb $DividerText
+            $rule.Line.Transparency = 0.45; $rule.Line.Weight = 1
+        }
+    }
     if ($Pattern) {
         # A subtle band of native shapes along the bottom edge, below the safe zone.
         $top = $sy + $sh + 8; $rows = [Math]::Max(1, [Math]::Floor(($H - $top - 10) / 14))
@@ -137,9 +156,16 @@ function Add-Divider($layout, $title, $area) {
             for ($c = 0; $c -lt 64; $c++) {
                 $x = 12 + $c * 15 + ($r % 2) * 7.5; $y = $top + $r * 14
                 if ($Pattern -eq "dots") { $dot = $layout.Shapes.AddShape($msoOval, $x, $y, 4, 4) }
-                else { $dot = $layout.Shapes.AddShape($msoRectangle, $x, $y, 9, 2) }
+                elseif ($Pattern -eq "mashrabiya") {
+                    $dot = $layout.Shapes.AddShape(4, $x, $y, 8, 8) # diamond
+                    $dot.Fill.Visible = 0; $dot.Line.Visible = -1
+                } else { $dot = $layout.Shapes.AddShape($msoRectangle, $x, $y, 9, 2) }
                 $dot.Name = "pattern"; $dot.Line.Visible = 0
-                $dot.Fill.ForeColor.RGB = Rgb $DividerText; $dot.Fill.Transparency = 0.8
+                if ($Pattern -eq "mashrabiya") {
+                    $dot.Line.Visible = -1; $dot.Line.ForeColor.RGB = Rgb $DividerText; $dot.Line.Transparency = 0.78
+                } else {
+                    $dot.Fill.ForeColor.RGB = Rgb $DividerText; $dot.Fill.Transparency = 0.8
+                }
             }
         }
     }
@@ -164,6 +190,15 @@ try {
     $pres.PageSetup.SlideHeight = 540
     $pres.ApplyTheme((Resolve-Path $Thmx).Path)
     $master = $pres.SlideMaster
+    if ($CleanThemeArt) {
+        foreach ($shape in @($master.Shapes | ForEach-Object { $_ })) {
+            if ($shape.Type -ne 14) { $shape.Delete() }
+        }
+    }
+    if ($BackgroundImage) {
+        $masterBg = $master.Shapes.AddPicture((Resolve-Path $BackgroundImage).Path, 0, -1, 0, 0, 960, 540)
+        $masterBg.Name = "creative_background_master"; $masterBg.ZOrder(1)
+    }
     $fonts = $master.Theme.ThemeFontScheme
     $fonts.MajorFont.Item(1).Name = $HeadingFont
     $fonts.MinorFont.Item(1).Name = $BodyFont
@@ -201,6 +236,15 @@ try {
         $layout = $bases[$(if ($base -eq "divider") { "title_only" } else { $base })].Duplicate()
         $layout.MoveTo($index); $index++
         $layout.Name = $entry.name
+        if ($CleanThemeArt) {
+            foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
+                if ($shape.Type -ne 14) { $shape.Delete() }
+            }
+        }
+        if ($BackgroundImage -and $base -ne "divider") {
+            $layoutBg = $layout.Shapes.AddPicture((Resolve-Path $BackgroundImage).Path, 0, -1, 0, 0, 960, 540)
+            $layoutBg.Name = "creative_background"; $layoutBg.ZOrder(1)
+        }
         $title = Get-Placeholder $layout @($ppTitle, $ppCenterTitle)
         $title.Name = "title"
         if ($base -eq "title_only") {
