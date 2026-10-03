@@ -8,7 +8,8 @@ highlighted word) is copied or computed by code from a fact or a table cell. Not
 invented. When the data a trick needs is missing, the trick is skipped, never faked.
 
 Status after Step 2c (2026-10-03): tricks 3, 6, 8, 11, 13, 14, 15, 18 and 21 are done (3, 13, 14 and 21 moved
-forward from 2d). Tricks 7 (icons), 16, 17 and 25, marked 2c below, are still open. The tracker sits in the chip band
+forward from 2d). Step 2c.1 added 16 (accent numbers in titles) and 17 (three content sizes, enforced by the
+renderer instead of the validator). Tricks 7 (icons) and 25 are still open. The tracker sits in the chip band
 at the bottom right, not at the top, so it never meets the templates' title art.
 
 Where: **template** = built into `design/templates/<id>/template.pptx`; **renderer** = `matn_deck` code;
@@ -31,8 +32,8 @@ Where: **template** = built into `design/templates/<id>/template.pptx`; **render
 | 13 | A callout annotation on the key chart point. | renderer | Callout text is a cited fact's label and value. | 2c (done) | The callout text equals a cited number fact. |
 | 14 | A pictogram for ratio facts (e.g. 1 in 4), computed from the fact. | renderer | Icon count and filled count come from the fact's numbers. | 2c (done) | A "1 in 4" fact renders 4 icons with 1 filled; other facts render no pictogram. |
 | 15 | Progress bars for percentage facts, with width taken from the value. | renderer | Width = value / 100 of the track, computed by code. | 2c (done) | A 72% fact renders a bar whose width is 72% of its track (±1 EMU rounding). |
-| 16 | Accent color on the number or key phrase inside titles, detected deterministically. | renderer | Only tokens that equal a cited fact's value are colored. | 2c | The accent run in a title equals a cited `value_as_written`; no other run is accented. |
-| 17 | Only 3 type sizes, with strong contrast between them. | template | Not data. | 2c | The validator counts at most 3 text sizes in content layouts (big numbers excepted). |
+| 16 | Accent color on the number or key phrase inside titles, detected deterministically. | renderer | Only tokens that equal a cited fact's value are colored. | 2c.1 (done) | The accent run in a title equals a cited `value_as_written`; no other run is accented. |
+| 17 | Only 3 type sizes, with strong contrast between them. | template | Not data. | 2c.1 (done) | The validator counts at most 3 text sizes in content layouts (big numbers excepted). |
 | 18 | Balanced title line breaks: never one orphan word on the second line. | renderer | Text is never changed, only where it breaks. | 2c (done) | No rendered two-line title has a single word on line 2 when a balanced break fits. |
 | 19 | Shapes and gradients in the template master backgrounds. | template | Not data. | 2b | Gallery templates keep the Office theme's master shapes and backgrounds. |
 | 20 | Dark and light variants of each template. | template | Not data. | 2b | Each chosen theme has a light and a dark gallery entry (where the theme supports it). |

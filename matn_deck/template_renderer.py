@@ -27,6 +27,7 @@ from pptx.enum.shapes import PP_PLACEHOLDER
 from pptx.enum.text import MSO_ANCHOR
 from pptx.util import Pt
 
+from matn_contracts.conversion import numeric_tokens
 from matn_contracts.domain import ChartSpec, DeckPlan, Fact, Slide, SlideItem, Table, validate_deck_plan_against_facts
 from matn_contracts.enums import FactKind, FactStatus, SlideType
 
@@ -62,13 +63,13 @@ _CHART_TYPES = {
     "line": XL_CHART_TYPE.LINE_MARKERS,
     "stacked_bar": XL_CHART_TYPE.BAR_STACKED_100,
 }
-UNIT_SCALE = 0.5  # a KPI unit is a second run at half the value size (template-contract.md §4)
-KPI_STEPS = (1.0, 0.85, 0.7, 0.55)  # all values on a slide step down together until each fits one line
+ACCENT_RUNS_MAX = 2  # trick 16: numbers colored in one title
 TITLE_STEPS = (1.0, 0.9, 0.8, 0.7)  # title slide and divider titles, never below the title minimum
-VALUE_ROLES = frozenset({"kpi_value", "hero", "bento_big", "progress_value"})
+VALUE_ROLES = frozenset({"kpi_value", "hero"})
 CONTENT_TYPES = frozenset({SlideType.EXECUTIVE_SUMMARY, SlideType.KPI, SlideType.FINDING, SlideType.CHART,
                            SlideType.IMPLICATIONS, SlideType.LIMITATIONS, SlideType.CLOSING})
-_FIXED_ROLES = {"body": "body", "quote": "quote", "decisions": "decisions", "decisions_title": "item_title"}
+_FIXED_ROLES = {"body": "body", "quote": "quote", "decisions": "decisions", "decisions_title": "decisions_title",
+                "attribution": "attribution"}
 CHART_MIN_SHARE = 0.55
 
 
@@ -155,6 +156,8 @@ class _Plan:
     score: CandidateScore | None = None
     order: tuple[int, int, int] = (0, 0, 0)  # variant, step, anchor index: the tie-break
     chart: ChartDecision | None = None
+    body_pt: float | None = None  # the step's body size: KPI units and chart text use it (trick 17)
+    title_accents: tuple[tuple[int, int], ...] = ()  # character spans of the title's accent numbers (trick 16)
     record_: dict = field(default_factory=dict)  # the scores.json entry: chosen candidate and every candidate
 
     @property
@@ -248,6 +251,15 @@ class _DeckBuilder:
             raise TemplateInvalidError("TEMPLATE_INVALID: item titles carry no accent color")
         self.accent_xml = etree.tostring(etree.fromstring(self.accent_xml)[0]).decode()  # the color inside solidFill
         self.title_pt = float(self.cfg["title_sizes"][-1])
+        # Trick 17: the template's three content sizes (plus its hero display), read from its own layouts.
+        self.type_sizes = {
+            "display": self._layout_size("matn:kpi:cards", "kpi_value_1"),
+            "hero": self._layout_size("matn:kpi:hero-number", "kpi_value_1"),
+            "body": self._layout_size("matn:finding:cards-3", "item_1"),
+        }
+
+    def _layout_size(self, layout: str, placeholder: str) -> float:
+        return self._style(self.layouts[layout], self._layout_ph(self.layouts[layout], placeholder)).size_pt
 
     # ---- deck ---------------------------------------------------------------------------------------------------
 
@@ -502,15 +514,27 @@ class _DeckBuilder:
         plan = _Plan(layout, fills, content, units={k: v for k, v in units.items() if v and k in fills},
                      step=step.get("name", "-"), anchor=anchor, order=order)
         m = _Measure(self, plan, step, scored)
+        plan.body_pt = m.size_for("body") if scored else None
         elements: list[Element] = [self._title_element(m, scored)]
 
-        fixed_cards = [sub_rect(self.area, c) for c in spec.get("fixed_cards", [])]
-        for k, card in enumerate(fixed_cards, start=1):
-            inside = [n for n, frac in spec.get("fixed", {}).items()
-                      if n in fills and card.contains(sub_rect(self.area, frac), 1)]
-            plan.decor.append(Decor("card", card, f"card_f{k}"))
-            elements.append(Element(f"card_f{k}", "card", card, container=True, empty=not inside))
-        for name, frac in spec.get("fixed", {}).items():
+        fixed = spec.get("fixed", {})
+        region_frac = spec.get("slots", {}).get("region")
+        region_bottom = region_frac[1] + region_frac[3] if region_frac else None
+        below = [n for n, f in fixed.items() if region_bottom is not None and f[1] >= region_bottom - 1e-9]
+        cards = [(sub_rect(self.area, c), c) for c in spec.get("fixed_cards", [])]
+        below_cards = [r for r, c in cards if region_bottom is not None and c[1] >= region_bottom - 1e-9]
+        side_cards = [r for r, c in cards if r not in below_cards]
+
+        # Side placeholders: a card hugs what it holds; free text keeps its rect with the candidate's anchor.
+        in_card: set[str] = set()
+        for k, card in enumerate(side_cards, start=1):
+            names = sorted((n for n, f in fixed.items() if n in fills and card.contains(sub_rect(self.area, f), 1)),
+                           key=lambda n: fixed[n][1])
+            in_card |= set(names)
+            elements += self._hug_fixed(m, spec, card, names, anchor, f"card_f{k}")
+        for name, frac in fixed.items():
+            if name in below or name in in_card:
+                continue
             rect = sub_rect(self.area, frac)
             if name == "chart":
                 if content.chart is not None:
@@ -518,30 +542,42 @@ class _DeckBuilder:
                     elements.append(Element("chart", "chart", rect, ink=0.6))
                     plan.chart = self._decide_chart(content)
                 continue
-            if name not in fills:
-                continue
-            backdrop = None
-            card = next((c for c in fixed_cards if c.contains(rect, 1)), None)
-            if card is not None:
-                rect, backdrop = pad_edges(rect, card, pad_emu(spec)), "card"
-            role = None if spec.get("list") or not scored else _FIXED_ROLES.get(name)
-            elements.append(m.place(name, rect, role, backdrop, anchor, "quote" if name == "quote" else "text"))
+            if name in fills:
+                role = None if spec.get("list") or not scored else _FIXED_ROLES.get(name)
+                elements.append(m.place(name, rect, role, None, anchor, "quote" if name == "quote" else "text"))
 
         panel = spec.get("hero_panel")
         if panel:
             region = sub_rect(self.area, panel["region"])
             names = [n for n in panel["number"] if n in fills] or [n for n in panel["quote"] if n in fills]
-            plan.decor.append(Decor("hero_card", region, "hero_card"))
-            elements.append(Element("hero_card", "card", region, container=True, empty=not names))
-            roles = {"kpi_value_1": "hero", "kpi_label_1": "kpi_label", "quote": "quote", "attribution": None}
+            roles = {"kpi_value_1": "hero", "kpi_label_1": "kpi_label", "quote": "quote", "attribution": "attribution"}
             kinds = {"kpi_value_1": "hero", "quote": "quote"}
             parts = [_Part(n, roles[n], kinds.get(n, "text")) for n in names]
-            inner = region.inset(pad_emu(spec))
-            m.fit_values([(parts, inner)])
-            elements += m.stack(parts, inner, m.offset(parts, inner, anchor), "hero_card")
+            pad = pad_emu(spec)
+            m.fit_values([(parts, region.inset(pad))])
+            need = m.height_of(parts, region.inset(pad)) + 2 * pad
+            top = region.y if anchor == "top" else region.y + max(0.0, (region.h - need) / 2)
+            card = Rect(region.x, top, region.w, min(need, region.h))
+            plan.decor.append(Decor("hero_card", card, "hero_card"))
+            elements.append(Element("hero_card", "card", card, container=True, empty=not names,
+                                    overflow=need > region.h + EMU_PER_PT))
+            elements += m.stack(parts, card.inset(pad), 0.0, "hero_card")
 
         if spec.get("slots"):
-            elements += self._slots(m, spec, content, anchor)
+            height, place_slots = self._slot_group(m, spec, content)
+            below_h, place_below = self._below_block(m, spec, [n for n in below if n in fills], below_cards)
+            gap = gap_emu(spec)
+            total = height + (gap + below_h if below_h else 0.0)
+            top = self.area.y + region_frac[1] * self.area.h
+            room = self.area.bottom - top
+            start = top if anchor == "top" else top + max(0.0, (room - total) / 2)
+            if total > room + EMU_PER_PT:
+                plan.overflows.append(Overflow(0, "slots", int(total), int(room)))
+                elements.append(Element("slots", "text", Rect(self.area.x, top, self.area.w, room), overflow=True,
+                                        container=True))
+            elements += place_slots(start)
+            if below_h:
+                elements += place_below(start + height + gap)
 
         if "source" in fills:
             src = m.by_name["source"]
@@ -571,7 +607,18 @@ class _DeckBuilder:
         chart = plan.rects.get("chart")
         if scored and chart is not None and chart.area / self.area.area < CHART_MIN_SHARE:
             plan.score.hard.append("CHART_TOO_SMALL")
+        if scored:
+            sizes = self.content_sizes(plan)
+            if len(sizes) > self.cfg["max_content_sizes"]:
+                plan.score.hard.append(f"TOO_MANY_SIZES:{len(sizes)}")
         return plan
+
+    def content_sizes(self, plan: _Plan) -> set[float]:
+        """Distinct text sizes a content slide uses (trick 17): title, placeholders, KPI units and chart text."""
+        sizes = {float(v) for k, v in plan.sizes.items()}
+        if plan.units or plan.chart is not None:
+            sizes.add(float(plan.body_pt))
+        return sizes
 
     def _title_element(self, m: "_Measure", scored: bool) -> Element:
         layout, plan = m.layout, m.plan
@@ -591,12 +638,37 @@ class _DeckBuilder:
         if scored or size != self._style(layout, ph).size_pt:
             plan.sizes["title"] = size
         # The template draws the title over its own art (bands, photos), so only a divider title, whose full-bleed
-        # fill is known, is checked here; the gallery QA measures every title from the exported pixels.
-        divider = plan.content.slide_type is SlideType.SECTION_DIVIDER
+        # fill is known, and accent numbers on a title that sits on the slide background are checked here; the
+        # gallery QA measures every title from the exported pixels.
+        ratio = None
+        if plan.content.slide_type is SlideType.SECTION_DIVIDER:
+            ratio = self._contrast(style, layout, None)
+        elif scored:
+            plan.title_accents = self._title_accents(plan.content, text, layout, style)
+            if plan.title_accents:
+                ratio = min(self._contrast(style, layout, None), self._graphic_contrast(None))
         return Element("title", "title", Rect(ph.left, ph.top, width, ph.height), ink=0.6, size_pt=size,
-                       bold=style.bold, contrast=self._contrast(style, layout, None) if divider else None)
+                       bold=style.bold, contrast=ratio)
 
-    def _slots(self, m: "_Measure", spec: dict, content: _Content, anchor: str) -> list[Element]:
+    def _title_accents(self, content: _Content, text: str, layout: Any, style: TextStyle) -> tuple[tuple[int, int], ...]:
+        """Trick 16: character spans of at most two numbers in an assertion title, found by the contracts' number
+        tokenizer; a number equal to a cited fact's value comes first. Only on titles that sit on the slide
+        background (title and accent both readable there), so the text contrast check still holds."""
+        if self._contrast(style, layout, None) < self.cfg["contrast"]["large"] or \
+                self._graphic_contrast(None) < self.cfg["contrast"]["large"]:
+            return ()
+        cited = {self.facts[f].number_value.value_as_written.strip() for f in content.fact_ids
+                 if self.facts[f].number_value}
+        spans = []
+        for match in numeric_tokens(text):
+            end = match.end() + (1 if text[match.end():match.end() + 1] == "%" else 0)
+            spans.append((match.group(0) not in cited, match.start(), end))
+        chosen = sorted(spans)[:ACCENT_RUNS_MAX]
+        return tuple(sorted((start, end) for _, start, end in chosen))
+
+    def _slot_group(self, m: "_Measure", spec: dict, content: _Content):
+        """Measure the slots, hug each card to its content (cards in one row share the tallest height) and return
+        (group height, place(top) -> elements)."""
         slots = spec["slots"]
         stems = slots.get("stack", []) + slots.get("left", []) + slots.get("right", [])
         if "kpi_value" in stems:
@@ -604,56 +676,136 @@ class _DeckBuilder:
         else:
             count = len(self._split_decisions(content)[0]) if "decisions" in m.plan.fills else len(content.items)
         region = sub_rect(self.area, slots["region"])
-        rects = slot_rects(slots["recipe"], region, count, gap_emu(spec))
+        gap = gap_emu(spec)
+        rects = slot_rects(slots["recipe"], region, count, gap)
         pad = pad_emu(spec) if has_inner_pad(spec) else 0.0
-        roles, first = spec.get("roles", {}), spec.get("first_role", {})
-        backdrop = "card" if spec.get("cards") else None
-        elements: list[Element] = []
-        columns = []  # (slot rect, parts, column rect, left parts, left rect)
+        roles = spec.get("roles", {})
+        side = slots.get("arrange") == "side"
+        half_gap = self.geo["gap_pt"] * EMU_PER_PT / 2
+        entries = []  # (slot, parts, left parts, left width)
         for k, slot in enumerate(rects, start=1):
-            inner = slot.inset(pad)
-            if slots.get("arrange") == "side":
-                split = slots["split"]
-                half_gap = self.geo["gap_pt"] * EMU_PER_PT / 2
-                left_w = self.geo["marker_pt"] * EMU_PER_PT if split == "marker" else inner.w * split
-                right = Rect(inner.x + left_w + half_gap, inner.y, inner.w - left_w - half_gap, inner.h)
-                columns.append((slot, self._parts(m, slots["right"], k, roles, first), right,
-                                self._parts(m, slots["left"], k, roles, first), Rect(inner.x, inner.y, left_w, inner.h)))
+            inner_w = slot.w - 2 * pad
+            if side:
+                left_w = self.geo["marker_pt"] * EMU_PER_PT if slots["split"] == "marker" else inner_w * slots["split"]
+                entries.append((slot, self._parts(m, slots["right"], k, roles), self._parts(m, slots["left"], k, roles),
+                                left_w))
             else:
-                columns.append((slot, self._parts(m, slots["stack"], k, roles, first), inner, [], None))
-        m.fit_values([(parts, column) for _, parts, column, _, _ in columns])
-        # Centering: columns that share a row get one offset, so their tops stay aligned.
-        rows: dict[int, float] = {}
-        for slot, parts, column, left, left_rect in columns:
-            total = m.height_of(parts, column)
+                entries.append((slot, self._parts(m, slots["stack"], k, roles), [], 0.0))
+
+        def columns(slot: Rect, left_w: float) -> tuple[Rect, Rect | None]:
+            inner = slot.inset(pad) if pad else slot
+            if not side:
+                return inner, None
+            return (Rect(inner.x + left_w + half_gap, inner.y, inner.w - left_w - half_gap, inner.h),
+                    Rect(inner.x, inner.y, left_w, inner.h))
+
+        m.fit_values([(parts, columns(slot, lw)[0]) for slot, parts, _, lw in entries])
+        needs = []
+        for slot, parts, left, lw in entries:
+            column, left_col = columns(slot, lw)
+            need = m.height_of(parts, column)
             if left:
-                total = max(total, m.height_of(left, left_rect))
-            rows[round(slot.y)] = max(rows.get(round(slot.y), 0.0), total)
-        for k, (slot, parts, column, left, left_rect) in enumerate(columns, start=1):
-            if spec.get("cards"):
-                m.plan.decor.append(Decor("card", slot, f"card_{k}"))
-                elements.append(Element(f"card_{k}", "card", slot, container=True, empty=not (parts or left)))
-                if spec.get("strip"):
-                    inset = 10 * EMU_PER_PT
-                    m.plan.decor.append(Decor("strip", Rect(slot.x + inset, slot.y, slot.w - 2 * inset,
-                                                            self.geo["strip_pt"] * EMU_PER_PT), f"strip_{k}"))
-            offset = 0.0 if anchor == "top" else max(0.0, (column.h - rows[round(slot.y)]) / 2)
-            elements += m.stack(parts, column, offset, backdrop)
-            if left:
-                elements += m.stack(left, left_rect, offset, backdrop)
-        dots = [d for d in m.plan.decor if d.kind == "timeline_dot"]
-        if spec.get("timeline") and len(dots) >= 2:
-            cy = dots[0].rect.y + dots[0].rect.h / 2
-            thick = 3 * EMU_PER_PT
-            x0, x1 = dots[0].rect.x + dots[0].rect.w / 2, dots[-1].rect.x + dots[-1].rect.w / 2
-            m.plan.decor.append(Decor("timeline_line", Rect(x0, cy - thick / 2, x1 - x0, thick), "timeline_line"))
-            elements.append(Element("timeline", "timeline", Rect(dots[0].rect.x, dots[0].rect.y,
-                                                                 dots[-1].rect.right - dots[0].rect.x, dots[0].rect.h),
-                                    ink=0.7, contrast=self._graphic_contrast(None)))
+                need = max(need, m.height_of(left, left_col))
+            needs.append(need + 2 * pad)
+        # Hug: rows of the recipe become bands as tall as their tallest single-band card.
+        bands = sorted({round(slot.y) for slot, *_ in entries})
+        covers = [[b for b, y in enumerate(bands) if slot.y - 1 <= y < slot.bottom - 1] for slot, *_ in entries]
+        band_h = [0.0] * len(bands)
+        for cover, need in zip(covers, needs):
+            if len(cover) == 1:
+                band_h[cover[0]] = max(band_h[cover[0]], need)
+        for cover, need in zip(covers, needs):
+            if len(cover) > 1:
+                spanned = sum(band_h[b] for b in cover) + gap * (len(cover) - 1)
+                band_h[cover[-1]] += max(0.0, need - spanned)
+        offsets = [sum(band_h[:b]) + gap * b for b in range(len(bands))]
+        height = sum(band_h) + gap * (len(bands) - 1)
+
+        def place(top: float) -> list[Element]:
+            elements: list[Element] = []
+            backdrop = "card" if spec.get("cards") else None
+            for k, ((slot, parts, left, lw), cover) in enumerate(zip(entries, covers), start=1):
+                h = sum(band_h[b] for b in cover) + gap * (len(cover) - 1)
+                card = Rect(slot.x, top + offsets[cover[0]], slot.w, h)
+                if spec.get("cards"):
+                    m.plan.decor.append(Decor("card", card, f"card_{k}"))
+                    elements.append(Element(f"card_{k}", "card", card, container=True, empty=not (parts or left)))
+                    if spec.get("strip"):
+                        inset = 10 * EMU_PER_PT
+                        m.plan.decor.append(Decor("strip", Rect(card.x + inset, card.y, card.w - 2 * inset,
+                                                                self.geo["strip_pt"] * EMU_PER_PT), f"strip_{k}"))
+                column, left_col = columns(card, lw)
+                content_h = max(m.height_of(parts, column), m.height_of(left, left_col) if left else 0.0)
+                offset = 0.0 if m.plan.anchor == "top" else max(0.0, (column.h - content_h) / 2)
+                elements += m.stack(parts, column, offset, backdrop)
+                if left:
+                    elements += m.stack(left, left_col, offset, backdrop)
+            dots = [d for d in m.plan.decor if d.kind == "timeline_dot"]
+            if spec.get("timeline") and len(dots) >= 2:
+                cy = dots[0].rect.y + dots[0].rect.h / 2
+                thick = 3 * EMU_PER_PT
+                x0, x1 = dots[0].rect.x + dots[0].rect.w / 2, dots[-1].rect.x + dots[-1].rect.w / 2
+                m.plan.decor.append(Decor("timeline_line", Rect(x0, cy - thick / 2, x1 - x0, thick), "timeline_line"))
+                box = Rect(dots[0].rect.x, min(d.rect.y for d in dots), dots[-1].rect.right - dots[0].rect.x,
+                           dots[0].rect.h)
+                elements.append(Element("timeline", "timeline", box, ink=0.7, contrast=self._graphic_contrast(None)))
+            return elements
+
+        return height, place
+
+    def _below_block(self, m: "_Measure", spec: dict, names: list[str], cards: list[Rect]):
+        """Placeholders under the slot group (a KPI slide's line, the closing decisions card): measured now, placed
+        right under the group so the whole composition anchors as one."""
+        if not names:
+            return 0.0, None
+        fixed = spec["fixed"]
+        card = cards[0] if cards else None
+        pad = pad_emu(spec) if card else 0.0
+        rects = {}
+        for name in names:
+            rect = sub_rect(self.area, fixed[name])
+            rects[name] = pad_edges(rect, card, pad) if card else rect
+        roles = {n: (None if spec.get("list") else _FIXED_ROLES.get(n)) for n in names}
+        heights = {n: m.part_height(_Part(n, roles[n], "text"), rects[n].w) for n in names}
+        block = max(heights.values()) + 2 * pad
+
+        def place(top: float) -> list[Element]:
+            elements: list[Element] = []
+            if card is not None:
+                box = Rect(card.x, top, card.w, block)
+                m.plan.decor.append(Decor("card", box, "card_below"))
+                elements.append(Element("card_below", "card", box, container=True))
+            for name in names:
+                r = rects[name]
+                elements.append(m.place(name, Rect(r.x, top + pad, r.w, heights[name] + self.geo["slack_pt"] * EMU_PER_PT),
+                                        roles[name], "card" if card else None, "top"))
+            return elements
+
+        return block, place
+
+    def _hug_fixed(self, m: "_Measure", spec: dict, card: Rect, names: list[str], anchor: str, label: str
+                   ) -> list[Element]:
+        """A fixed card (the split slide's quote card) hugs its stacked placeholders and anchors in its own rect."""
+        pad = pad_emu(spec)
+        gap = self.geo["stack_gap_pt"] * EMU_PER_PT
+        roles = {n: _FIXED_ROLES.get(n) for n in names}
+        heights = [m.part_height(_Part(n, roles[n], "text"), card.w - 2 * pad) for n in names]
+        need = sum(heights) + gap * max(0, len(names) - 1) + 2 * pad
+        top = card.y if anchor == "top" else card.y + max(0.0, (card.h - need) / 2)
+        box = Rect(card.x, top, card.w, min(need, card.h))
+        m.plan.decor.append(Decor("card", box, label))
+        elements = [Element(label, "card", box, container=True, empty=not names, overflow=need > card.h + EMU_PER_PT)]
+        y = top + pad
+        slack = self.geo["slack_pt"] * EMU_PER_PT
+        for name, h in zip(names, heights):
+            kind = "quote" if name == "quote" else "text"
+            elements.append(m.place(name, Rect(card.x + pad, y, card.w - 2 * pad, h + slack), roles[name], "card", "top",
+                                    kind))
+            y += h + gap
         return elements
 
     @staticmethod
-    def _parts(m: "_Measure", stems: list[str], k: int, roles: dict, first: dict) -> list["_Part"]:
+    def _parts(m: "_Measure", stems: list[str], k: int, roles: dict) -> list["_Part"]:
         out = []
         for stem in stems:
             if stem in BLOCKS:
@@ -662,7 +814,7 @@ class _DeckBuilder:
             name = placeholder_name(stem, k)
             if name not in m.plan.fills:
                 continue
-            role = (first.get(stem) if k == 1 else None) or roles.get(stem, stem)
+            role = roles.get(stem, stem)
             kind = {"kpi_value": "hero" if role == "hero" else "kpi", "marker": "marker"}.get(stem, "text")
             out.append(_Part(name, role, kind, k))
         return out
@@ -792,9 +944,25 @@ class _DeckBuilder:
             fills["source"] = [self._pages_text(content) or self.labels["no_pages"]]
         return fills
 
-    def _kpi_width(self, value: str, unit: str, style: TextStyle) -> float:
-        small = replace(style, size_pt=style.size_pt * UNIT_SCALE)
-        return self.fitter.width(value, style) + self.fitter.width(unit, small)
+    def _kpi_width(self, value: str, unit: str, style: TextStyle, unit_pt: float | None) -> float:
+        """Width of a KPI value with its unit run (units are body size, trick 17)."""
+        small = replace(style, size_pt=unit_pt or style.size_pt / 2)
+        return self.fitter.width(value, style) + (self.fitter.width(unit, small) if unit else 0.0)
+
+    def _line_boxes(self, paragraphs: list[str], style: TextStyle, rect: Rect, top: float) -> tuple[Rect, ...]:
+        """Ink of a text box: one rectangle per wrapped line, at its measured width (paragraph spacing ignored)."""
+        inner = (rect.w - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
+        line_h = self.fitter.line_height(style)
+        boxes, y = [], top + style.insets[1]
+        x0 = rect.x + style.insets[0] + style.indent_emu
+        for text in paragraphs:
+            for line in self.fitter.wrap(text, inner, style):
+                w = min(inner / WIDTH_SAFETY, self.fitter.width(line, style) / WIDTH_SAFETY)
+                x = rect.x + (rect.w - w) / 2 if style.align == "ctr" else x0
+                if w > 0:
+                    boxes.append(Rect(x, y, w, line_h))
+                y += line_h
+        return tuple(boxes)
 
     def _unit(self, fact_id: str) -> str:
         unit = self.facts[fact_id].number_value.unit
@@ -885,7 +1053,7 @@ class _DeckBuilder:
         frame = placeholder.insert_chart(_CHART_TYPES[decision.kind], chart_data)
         frame.name = "chart"
         chart = frame.chart
-        chart.font.size = Pt(rules["font_pt"])
+        chart.font.size = Pt(plan.body_pt or rules["font_pt"])  # chart text is body size (trick 17)
         chart.has_title = False
         chart.has_legend = len(decision.series) >= rules["labels"]["legend_min_series"] and not stacked
         if chart.has_legend:
@@ -914,7 +1082,7 @@ class _DeckBuilder:
         if stacked:
             chart.category_axis.visible = False
         self._chart_colors(chart, decision, rules, stacked)
-        self._callout(chart, decision, rules, stacked)
+        self._callout(chart, decision, rules, stacked, plan.body_pt or rules["callout_pt"])
 
     def _chart_colors(self, chart: Any, decision: ChartDecision, rules: dict, stacked: bool) -> None:
         """Trick 11: the key point in the accent, the rest muted; several series take a colorblind-safe order that
@@ -942,7 +1110,7 @@ class _DeckBuilder:
                 for p in range(len(decision.categories)):
                     _set_fill(series.points[p].format, self.accent_xml if p == key_point else muted)
 
-    def _callout(self, chart: Any, decision: ChartDecision, rules: dict, stacked: bool) -> None:
+    def _callout(self, chart: Any, decision: ChartDecision, rules: dict, stacked: bool, size_pt: float) -> None:
         """Trick 13: one annotation on the key point, copied from the cited fact (its value, plus its label when the
         label is short enough to sit on a chart), otherwise naming the maximum's value as the table writes it."""
         s_index, p_index = decision.key
@@ -960,7 +1128,7 @@ class _DeckBuilder:
         label.text_frame.text = text
         run = label.text_frame.paragraphs[0].runs[0]
         run.font.bold = True
-        run.font.size = Pt(rules["callout_pt"])
+        run.font.size = Pt(size_pt)
         _set_run_color(run, self.accent_xml)
         label.position = (XL_LABEL_POSITION.ABOVE if decision.kind == "line" else XL_LABEL_POSITION.CENTER
                           if stacked else XL_LABEL_POSITION.OUTSIDE_END)
@@ -994,10 +1162,10 @@ class _DeckBuilder:
                     shape.text_frame.vertical_anchor = (MSO_ANCHOR.MIDDLE if plan.anchors[name] == "center"
                                                         else MSO_ANCHOR.TOP)
                 if name in plan.units:
-                    size = plan.sizes.get(name) or self._style(plan.layout, self._layout_ph(plan.layout, name)).size_pt
+                    value = plan.sizes.get(name) or self._style(plan.layout, self._layout_ph(plan.layout, name)).size_pt
                     run = shape.text_frame.paragraphs[0].add_run()
                     run.text = plan.units[name]
-                    run.font.size = int(size * UNIT_SCALE * EMU_PER_PT)
+                    run.font.size = int((plan.body_pt or value / 2) * EMU_PER_PT)
                 if name == "source":
                     self._fit_chip(shape, plan)
             else:
@@ -1014,15 +1182,30 @@ class _DeckBuilder:
         inner = (ph.width - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
         lines = balanced_lines(text, inner, lambda t: self.fitter.width(t, style), self.fitter.wrap(text, inner, style))
         paragraph = shape.text_frame.paragraphs[0]
+        offset = 0
         for index, line in enumerate(lines):
             if index:
                 paragraph.add_line_break()
-            run = paragraph.add_run()
-            run.text = line
-            if "title" in plan.sizes:
-                run.font.size = int(plan.sizes["title"] * EMU_PER_PT)
-            if base.caps and not style.caps:
-                run.font._rPr.set("cap", "none")
+                offset += 1  # the space the break replaces
+            pieces, cursor = [], 0
+            for start, end in plan.title_accents:  # trick 16: split the line into plain and accent runs
+                a, b = start - offset, end - offset
+                if 0 <= a and b <= len(line):
+                    pieces += [(line[cursor:a], False), (line[a:b], True)]
+                    cursor = b
+            pieces.append((line[cursor:], False))
+            for text_piece, accent in pieces:
+                if not text_piece:
+                    continue
+                run = paragraph.add_run()
+                run.text = text_piece
+                if "title" in plan.sizes:
+                    run.font.size = int(plan.sizes["title"] * EMU_PER_PT)
+                if base.caps and not style.caps:
+                    run.font._rPr.set("cap", "none")
+                if accent:
+                    _set_run_color(run, self.accent_xml)
+            offset += len(line)
 
     def _fill_text(self, shape: Any, paragraphs: list[str], size: float | None) -> None:
         frame = shape.text_frame
@@ -1080,27 +1263,38 @@ class _Measure:
         self.by_name = {ph.name: ph for ph in plan.layout.placeholders}
         self.step = step
         self.scored = scored
-        self.kpi_scale = 1.0
+        self.snap_values = False
+
+    def size_for(self, role: str | None) -> float | None:
+        """The candidate's size for a role, snapped to the template's three content sizes (trick 17)."""
+        if not self.scored or role is None:
+            return None
+        factor = self.step["factor"]
+        sizes = self.b.type_sizes
+        if role == "hero":
+            return float(max(self.b.cfg["hero_min_pt"], round(sizes["hero"] * factor)))
+        if role in VALUE_ROLES:
+            return float(self.b.title_pt) if self.snap_values else float(round(sizes["display"] * factor))
+        return float(round(sizes["body"] * factor))
 
     def style(self, name: str, role: str | None) -> TextStyle:
         style = self.b._style(self.layout, self.by_name[name])
-        size = self.step.get(role) if self.scored and role else None
-        if size and role in VALUE_ROLES:
-            size = round(size * self.kpi_scale, 1)
+        size = self.size_for(role)
         return replace(style, size_pt=size) if size else style
 
     def fit_values(self, columns: list[tuple[list[_Part], Rect]]) -> None:
-        """Largest KPI_STEPS factor at which every value (with its unit) on the slide fits its column on one line."""
-        values = [(p, column) for parts, column in columns for p in parts if p.role in VALUE_ROLES]
-        for factor in KPI_STEPS:
-            self.kpi_scale = factor
-            if all(self._value_fits(p, column) for p, column in values):
-                return
+        """KPI values keep the display size when every one (with its unit) fits its column on one line; otherwise
+        all of them snap to the title size, so the slide still uses three sizes."""
+        values = [(p, column) for parts, column in columns for p in parts if p.role == "kpi_value"]
+        self.snap_values = False
+        if not all(self._value_fits(p, column) for p, column in values):
+            self.snap_values = True
 
     def _value_fits(self, part: _Part, column: Rect) -> bool:
         style = self.style(part.name, part.role)
         inner = (column.w - style.insets[0] - style.insets[2]) * WIDTH_SAFETY
-        return self.b._kpi_width(self.plan.fills[part.name][0], self.plan.units.get(part.name, ""), style) <= inner
+        unit = self.plan.units.get(part.name, "")
+        return self.b._kpi_width(self.plan.fills[part.name][0], unit, style, self.plan.body_pt) <= inner
 
     def part_height(self, part: _Part, width: float) -> float:
         if part.kind == "block":
@@ -1150,7 +1344,7 @@ class _Measure:
     def place(self, name: str, rect: Rect, role: str | None, backdrop: str | None, anchor: str = "top",
               kind: str = "text") -> Element:
         style = self.style(name, role)
-        if self.scored and role and self.step.get(role):
+        if self.size_for(role):
             self.plan.sizes[name] = style.size_pt
         paragraphs = self.plan.fills[name]
         height, width = self.b._extent(paragraphs, style, rect.w)
@@ -1159,13 +1353,18 @@ class _Measure:
             self.plan.overflows.append(Overflow(0, name, int(height), int(rect.h)))
         unit = self.plan.units.get(name)
         if unit is not None:  # value and unit stay on one line
-            value_w = self.b._kpi_width(paragraphs[0], unit, style)
+            value_w = self.b._kpi_width(paragraphs[0], unit, style, self.plan.body_pt)
             inner = (rect.w - style.insets[0] - style.insets[2]) * WIDTH_SAFETY
             width = min(rect.w, value_w / WIDTH_SAFETY + style.insets[0] + style.insets[2])
             if value_w > inner:
                 overflow = True
                 self.plan.overflows.append(Overflow(0, name, int(value_w), int(inner)))
         top = rect.y + max(0.0, (rect.h - height) / 2) if anchor == "center" else rect.y
+        if unit is not None:
+            ink = (Rect(rect.x + style.insets[0], top + style.insets[1], width - style.insets[0] - style.insets[2],
+                        self.b.fitter.line_height(style)),)
+        else:
+            ink = self.b._line_boxes(paragraphs, style, rect, top)
         x = rect.x + (rect.w - width) / 2 if style.align == "ctr" else rect.x
         self.plan.rects[name] = rect
         self.plan.anchors[name] = anchor
@@ -1174,7 +1373,8 @@ class _Measure:
         else:
             ratio = self.b._contrast(style, self.layout, backdrop)
         return Element(name, kind, Rect(x, top, width, min(height, rect.h)), ink=0.5 if kind == "text" else 0.85,
-                       role=role, size_pt=style.size_pt, bold=style.bold, overflow=overflow, contrast=ratio)
+                       role=role, size_pt=style.size_pt, bold=style.bold, overflow=overflow, contrast=ratio,
+                       ink_rects=ink)
 
 
 def _set_fill(fmt: Any, color_xml: str) -> None:

@@ -1,7 +1,7 @@
 {
   "_comment": "Generate-and-score settings (Step 2c, docs/design/template-contract.md §5). Each slide's candidates are (valid variants) x (type_scale steps) x (anchors); hard constraints reject a candidate, soft scores (0-1) are combined with 'weights'. Candidates within 'tie_margin' of the best total are a tie, broken by variant order (data-specific variants first), then step, then anchor. Sizes are points. The beauty gate is calibrated from the first gallery run (see 'beauty_gate.calibration').",
   "weights": {"fill": 3.0, "balance": 1.5, "vertical": 2.0, "hierarchy": 1.5, "density": 1.0, "variety": 2.0},
-  "fill": {"band": [0.45, 0.75], "falloff": 0.3, "card_weight": 0.5},
+  "fill": {"band": [0.3, 0.8], "falloff": 0.3, "card_weight": 0.15},
   "balance": {"max_offset": 0.35, "card_ink": 0.12},
   "vertical": {"floor": 0.45, "reach": 0.8},
   "hierarchy": {"title_body": 1.5, "kpi_value_label": 3.0},
@@ -12,15 +12,14 @@
   "tie_margin": 0.01,
   "title_sizes": [32, 30, 28],
   "type_scale": [
-    {"name": "L", "body": 22, "item": 22, "item_title": 24, "kpi_value": 66, "kpi_label": 20, "hero": 120,
-     "bento_big": 96, "quote": 26, "marker": 26, "decisions": 20, "progress_value": 44},
-    {"name": "M", "body": 20, "item": 20, "item_title": 22, "kpi_value": 60, "kpi_label": 18, "hero": 108,
-     "bento_big": 84, "quote": 24, "marker": 24, "decisions": 18, "progress_value": 40},
-    {"name": "S", "body": 18, "item": 18, "item_title": 20, "kpi_value": 54, "kpi_label": 16, "hero": 96,
-     "bento_big": 72, "quote": 22, "marker": 22, "decisions": 16, "progress_value": 36}
+    {"name": "L", "factor": 1.3},
+    {"name": "M", "factor": 1.1},
+    {"name": "S", "factor": 0.9}
   ],
-  "body_roles": ["body", "item", "kpi_label", "quote", "decisions", "subtitle"],
-  "label_roles": ["source", "attribution", "decisions_title"],
+  "_type_scale": "Trick 17: each template defines three content sizes in its layouts: display (kpi_value_1 of matn:kpi:cards; hero-number values use matn:kpi:hero-number's own display), title (the deck's title size, from title_sizes) and body (item_1 of matn:finding:cards-3). A step scales display and body by its factor, rounded to whole points (hero values never below 96 pt). Every content text uses one of the three: card headings, labels, quotes, markers, units and chart text are body size. A KPI value that does not fit at display size snaps to the title size. Chrome (source chip, tracker) is a fixed meta size and does not count.",
+  "body_roles": ["body", "item", "item_title", "kpi_label", "quote", "decisions", "decisions_title", "marker", "attribution", "subtitle"],
+  "max_content_sizes": 3,
+  "hero_min_pt": 96,
   "beauty_gate": {
     "threshold": 0.9,
     "max_hard_violations": 0,

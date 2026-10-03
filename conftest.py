@@ -75,6 +75,8 @@ SLOW = frozenset({
     "tests/test_template_renderer.py::test_split_slides_never_show_an_empty_card",
     "tests/test_template_renderer.py::test_rejected_facts_unknown_tables_and_invalid_templates_stop_the_render",
     "tests/test_template_renderer.py::test_titles_use_sentence_case_and_balanced_breaks",
+    "tests/test_template_renderer.py::test_no_content_slide_uses_more_than_three_content_sizes",
+    "tests/test_template_renderer.py::test_cards_hug_their_content_and_share_a_row_height",
     "tests/test_templates.py::test_every_gallery_template_passes_and_carries_its_metadata",
     "tests/test_templates.py::test_dividers_are_full_bleed_theme_color_with_checked_contrast",
     "tests/test_templates.py::test_pattern_and_glow_follow_the_theme_flags",

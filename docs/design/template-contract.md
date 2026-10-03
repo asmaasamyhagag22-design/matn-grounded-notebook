@@ -112,26 +112,40 @@ another keeps `design/variants.json` covering exactly these layouts.
 5. **Item lead.** "Lead: rest" with a lead of at most 40 characters puts the lead in `item_N_title` and the rest in
    `item_N` when the layout has the title slot; otherwise the full text goes in `item_N`.
 
-## 5. Generate-and-score (Step 2c)
+## 5. Generate-and-score (Step 2c, polished in 2c.1)
 
 - **Content area.** The `body` placeholder of `matn:limitations:default` defines it; the source chip sits in the band
   below it. Dividers use the safe zone in the template's `theme.json` (`divider.safe`).
 - **Candidates.** (valid variants) x (type-scale steps L, M, S in `design/scoring.json`) x (anchor: top or
   centered). Content titles use one size for the whole deck: the largest of `title_sizes` at which every title fits.
 - **Geometry.** Slots are recomputed for the actual item count from the variant's recipe (rows, columns, 2x2 grid,
-  bento, single); each slot stacks its parts at their measured heights (real font files). No PowerPoint export.
+  bento, single); each slot stacks its parts at their measured heights (real font files; PowerPoint's 1.2 em line
+  height). No PowerPoint export.
+- **Cards hug their content (2c.1).** A card is as tall as its content plus padding; cards in one row share the
+  tallest height; the card group (with any line or decisions card under it) anchors as one block, top or centered.
+  The split slide's quote card and the single-hero card hug their content the same way.
+- **Three sizes (2c.1, trick 17).** The template defines display (`kpi_value_1` of `matn:kpi:cards`; hero values
+  use `matn:kpi:hero-number`, never under 96 pt), title (the deck's title size) and body (`item_1` of
+  `matn:finding:cards-3`). A step scales display and body (L 1.3, M 1.1, S 0.9). Every other content text is body
+  size: card headings, labels, quotes, markers, KPI units and chart text. A KPI value that does not fit at display
+  size snaps to the title size. A content slide using more than three sizes is rejected; chrome (source chip,
+  tracker) does not count.
 - **Hard constraints** (candidate rejected): text overflow; collision; out of the content area or safe zone;
   contrast below 4.5 (3.0 for large text and graphics) from the theme colors; body text under 16 pt or a content
   title under 28 pt; an empty slot or card; no visual element on a content slide (the evidence rule: a KPI value,
-  chart, pictogram, progress bar, cards, timeline or quote block); a chart under 55% of the content area.
-- **Soft scores** (0-1, weights in `design/scoring.json`): fill (target band; card area counts at half weight),
+  chart, pictogram, progress bar, cards, timeline or quote block); a chart under 55% of the content area; more than
+  three content text sizes.
+- **Soft scores** (0-1, weights in `design/scoring.json`): fill measured from ink (text line boxes, chart plot area,
+  KPI values, pictograms, bars, timeline marks, quotes; plain card background at a low weight; target band),
   balance, vertical distribution, hierarchy (title/body >= 1.5, KPI value/label >= 3), density, deck variety (the
   previous content slide's variant scores 0).
 - **Choice.** Highest total; candidates within `tie_margin` of it are a tie, broken by variant order (data-specific
   variants first), then step, then anchor. When none passes, the slide splits; when it cannot split, the least-bad
   candidate is kept and its violations are reported (`HARD_VIOLATION:` warnings).
 - **Typography.** Titles longer than 30 characters override a theme's `cap="all"`; title line breaks are balanced by
-  measured width with no single-word last line.
+  measured width with no single-word last line. Trick 16 (2c.1): up to two numbers in a content title, found by the
+  contracts' number tokenizer (a cited fact's value first), are separate runs in the accent color, text unchanged;
+  only when the title sits on the slide background and the accent keeps 3:1 there.
 - **Charts.** `design/chart_rules.json`: the type follows the data shape, the key point (the cited number, else the
   maximum) takes the accent and one callout, the rest is muted; direct labels, no gridlines, no legend for one series.
 - **Records.** Every slide's candidates and scores are in `RenderReport.scores` (the gallery QA writes them to

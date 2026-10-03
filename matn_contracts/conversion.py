@@ -27,6 +27,11 @@ _NUMERIC_TOKEN = re.compile(
 )
 
 
+def numeric_tokens(text: str) -> list[re.Match[str]]:
+    """Every whole number as written in `text` (the same tokenizer that verifies number facts against quotes)."""
+    return list(_NUMERIC_TOKEN.finditer(text))
+
+
 def fact_from_draft(
     draft: FactDraft,
     block_ref_map: Mapping[str, Block],

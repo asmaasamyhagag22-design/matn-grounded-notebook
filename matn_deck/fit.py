@@ -22,6 +22,7 @@ _TITLE_TYPES = {PP_PLACEHOLDER.TITLE, PP_PLACEHOLDER.CENTER_TITLE, PP_PLACEHOLDE
 _BODY_TYPES = {PP_PLACEHOLDER.BODY, PP_PLACEHOLDER.SUBTITLE, PP_PLACEHOLDER.OBJECT}
 _DEFAULT_INSETS = (91440, 45720, 91440, 45720)  # left, top, right, bottom (OOXML defaults)
 WIDTH_SAFETY = 0.95  # kerning and renderer differences; errs toward reporting overflow
+LINE_HEIGHT_EM = 1.2  # PowerPoint's single line spacing, in font sizes
 
 
 @dataclass(frozen=True)
@@ -136,8 +137,9 @@ class Fitter:
         return total / 1000 * style.size_pt * EMU_PER_PT + len(text) * style.spacing_pt * EMU_PER_PT
 
     def line_height(self, style: TextStyle) -> float:
-        ascent, descent = load_face(style.face, style.bold, style.italic).getmetrics()
-        return (ascent + descent) / 1000 * style.size_pt * EMU_PER_PT * style.line_spacing
+        """PowerPoint lays out a single-spaced line at 1.2 x the font size, whatever the font's own metrics
+        (measured through PowerPoint's BoundHeight for Bahnschrift SemiBold, Segoe UI and Segoe UI Semibold)."""
+        return LINE_HEIGHT_EM * style.size_pt * EMU_PER_PT * style.line_spacing
 
     def wrap(self, text: str, width: float, style: TextStyle) -> list[str]:
         """Greedy word wrap like PowerPoint's; a word longer than the line is broken between characters."""

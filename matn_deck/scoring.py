@@ -92,6 +92,11 @@ class Element:
     contrast: float | None = None  # foreground/background ratio as the template's colors give it
     empty: bool = False
     overflow: bool = False
+    ink_rects: tuple[Rect, ...] = ()  # where ink actually is (text line boxes); empty = the whole rect
+
+    @property
+    def ink_area(self) -> tuple[Rect, ...]:
+        return self.ink_rects or (self.rect,)
 
 
 @dataclass(frozen=True)
@@ -189,13 +194,14 @@ def coverage(rects: list[Rect], area: Rect, cells: tuple[int, int] = (96, 54)) -
     return float(_mask(rects, area, cells).mean())
 
 
-def fill_ratio(elements: list[Element], area: Rect, card_weight: float = 0.5, cells: tuple[int, int] = (96, 54)
+def fill_ratio(elements: list[Element], area: Rect, card_weight: float = 0.15, cells: tuple[int, int] = (96, 54)
                ) -> float:
-    """Occupied share of the content area: content ink counts fully, card area not covered by ink counts at
-    `card_weight` (a card is a deliberate block, but a flat one)."""
+    """Occupied share of the content area, measured from ink: text line boxes, chart plot areas, KPI values,
+    pictograms, bars, timeline marks and quotes count fully; card background not covered by ink counts at
+    `card_weight` (a plain card reads as empty to the eye too)."""
     if area.area <= 0:
         return 0.0
-    ink = _mask([e.rect for e in _content(elements)], area, cells)
+    ink = _mask([r for e in _content(elements) for r in e.ink_area], area, cells)
     cards = _mask([e.rect for e in _content(elements, containers=True) if e.container], area, cells)
     return float((ink | cards).mean() - (1 - card_weight) * (cards & ~ink).mean())
 

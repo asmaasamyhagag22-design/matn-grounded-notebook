@@ -54,9 +54,9 @@ def test_fill_counts_union_of_content_and_scores_the_target_band():
     assert abs(fill_ratio([card], AREA, 0.5) - 0.5) < 1e-9  # a flat card counts at half weight
     assert abs(fill_ratio([card, *half], AREA, 0.5) - 0.75) < 0.02  # ink inside it counts fully
     low, high = CFG["fill"]["band"]
-    assert fill_score(0.6, CFG) == 1.0 and fill_score(low, CFG) == 1.0 and fill_score(high, CFG) == 1.0
-    assert fill_score(0.15, CFG) < fill_score(0.3, CFG) < 1.0
-    assert fill_score(0.98, CFG) < 1.0
+    assert fill_score((low + high) / 2, CFG) == 1.0 and fill_score(low, CFG) == 1.0 and fill_score(high, CFG) == 1.0
+    assert fill_score(low - 0.2, CFG) < fill_score(low - 0.05, CFG) < 1.0
+    assert fill_score(min(1.0, high + 0.15), CFG) < 1.0
 
 
 def test_balance_is_best_when_the_weight_sits_at_the_center():
@@ -240,3 +240,18 @@ def test_png_whitespace_counts_flat_windows_only(tmp_path):
     half[:, :480:4] = 20  # strokes on the left half only
     Image.fromarray(half).save(tmp_path / "half.png")
     assert abs(qa.whitespace(tmp_path / "half.png", [0, 0, 960, 540]) - 0.5) < 0.03
+
+
+def test_ink_fill_counts_line_boxes_charts_and_light_cards():
+    cfg = load_scoring()
+    weight = cfg["fill"]["card_weight"]
+    lines = tuple(box(0, 30 * i, 700 if i < 9 else 300, 24) for i in range(10))  # ten lines in a text box
+    text_heavy = [Element("body", "text", box(0, 0, 800, 300), role="body", size_pt=20, ink_rects=lines)]
+    ratio = fill_ratio(text_heavy, AREA, weight)
+    assert 0.45 < ratio < 0.6  # the line boxes, not the whole 800 x 300 box (0.75)
+    card_only = [Element("card_1", "card", box(0, 0, 800, 400), container=True)]
+    assert abs(fill_ratio(card_only, AREA, weight) - weight) < 1e-9  # a plain card reads as nearly empty
+    chart = [Element("chart", "chart", box(0, 0, 560, 400))]
+    assert abs(fill_ratio(chart, AREA, weight) - 0.7) < 0.02  # the plot area counts fully
+    carded = [*card_only, Element("item_1", "text", box(40, 40, 300, 30), ink_rects=(box(40, 40, 300, 30),))]
+    assert fill_ratio(carded, AREA, weight) < 0.25

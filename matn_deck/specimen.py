@@ -1,6 +1,7 @@
-"""Specimen deck v3: fictional content that exercises the Step 2c layout variants and every slide type, in any
-template. v3 adds a ratio fact (pictogram), percentage facts (progress bars), ordered steps (timeline), a comparison,
-slides with 1 to 4 items, a time-series table and a closing slide with decisions.
+"""Specimen deck v4: fictional content that exercises the Step 2c layout variants and every slide type, in any
+template. v3 added a ratio fact (pictogram), percentage facts (progress bars), ordered steps (timeline), a comparison,
+slides with 1 to 4 items, a time-series table and a closing slide with decisions; v4 (Step 2c.1) adds a one-value KPI
+slide (kpi:hero-number).
 
 Nothing here comes from a real document; the title slide says so and every quote starts with "Sample text".
 `python -m matn_deck.specimen <template.pptx> <out.pptx>` renders it through one gallery template.
@@ -191,6 +192,8 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
               chart=ChartSpec(table_id=table.table_id, x_column=0, y_columns=(1, 2), chart_type=ChartType.COLUMN),
               items=(item("Region A grew the most.", urban), item("Region D is still the smallest.", rural)),
               notes=None),
+        Slide(slide_type=S.KPI, title="The sample service now reaches 1,240 offices",  # one value (contract v3)
+              kpi_fact_ids=(offices.fact_id,), notes=None),
         Slide(slide_type=S.FINDING, title="The sample adoption gap has one main cause",
               items=(item("Rural offices adopted the sample service more slowly than urban offices.", rural),
                      item("Training was the barrier respondents cited most often.", training),

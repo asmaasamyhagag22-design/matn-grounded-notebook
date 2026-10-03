@@ -53,13 +53,11 @@ def fill_slot(shape) -> str | None:
 def test_specimen_exercises_every_variant_and_slide_type(specimen, tmp_path):
     plan, facts, tables, prs, report = specimen
     assert {slide.slide_type for slide in plan.slides} == set(SlideType)
-    # kpi:hero-number holds one value; a KPI slide plan has 2-4 (Slide contract), so it is reached only by a split.
     # The 1-3 item implications variants are split fallbacks (test_split_slides_never_show_an_empty_card).
-    fallbacks = {"matn:kpi:hero-number", "matn:implications:single-hero", "matn:implications:cards-3",
-                 "matn:implications:two-split"}
+    fallbacks = {"matn:implications:single-hero", "matn:implications:cards-3", "matn:implications:two-split"}
     assert set(LAYOUTS) - fallbacks <= candidates(report)
     chosen = set(report.layouts)
-    for name in ("matn:finding:timeline", "matn:finding:two-col", "matn:finding:single-hero", "matn:kpi:pictogram",
+    for name in ("matn:kpi:hero-number", "matn:finding:single-hero", "matn:kpi:pictogram",
                  "matn:closing:takeaways", "matn:limitations:numbered", "matn:chart:hero"):
         assert name in chosen, name
     assert report.overflows == ()
@@ -227,7 +225,7 @@ def test_the_tracker_marks_the_current_section(specimen):
         if entry["slide_type"] not in {t.value for t in CONTENT_TYPES} or entry["plan_index"] < 2:
             assert not dots, entry["slide"]
             continue
-        section = 1 if entry["plan_index"] < 13 else 2
+        section = 1 if entry["plan_index"] < 14 else 2  # plan slide 14 is the second divider
         assert [fill_slot(d) == "accent1" for d in dots] == [k == section for k in (1, 2)], entry["slide"]
 
 
@@ -315,3 +313,79 @@ def test_rejected_facts_unknown_tables_and_invalid_templates_stop_the_render(tmp
         build_presentation(DeckPlan(doc_id=SPECIMEN_DOC_ID, slides=(chart,)), (fact,), (broken,), DEFAULT)
     with pytest.raises(TemplateInvalidError, match="TEMPLATE_INVALID"):
         build_presentation(plan, (fact,), (), tmp_path / "missing.pptx")
+
+
+def _slides_by_layout(prs, prefix):
+    return [slide for slide in prs.slides if slide.slide_layout.name.startswith(prefix)]
+
+
+def test_cards_hug_their_content_and_share_a_row_height():
+    plan, facts, tables = specimen_inputs()
+    builder = _builder(plan, facts, tables)
+    s = plan.slides[7]  # three items
+    content = _Content(s.slide_type, s.title, s.items, section=1)
+    for anchor in (0, 1):
+        attempt = builder._evaluate(builder.layouts["matn:finding:cards-3"], content, (1, 1, anchor), None)
+        cards = [d.rect for d in attempt.decor if d.name.startswith("card_")]
+        assert len(cards) == 3 and len({round(c.h) for c in cards}) == 1 and len({round(c.y) for c in cards}) == 1
+        texts = [attempt.rects[n] for n in attempt.fills if n.startswith("item_")]
+        tallest = max(e.rect.bottom for e in attempt.elements if e.name.startswith("item_")) -             min(e.rect.y for e in attempt.elements if e.name.startswith("item_"))
+        pad = 14 * 12700
+        assert abs(cards[0].h - (tallest + 2 * pad)) < 12700 * 3  # content + padding, not the slot height
+        assert cards[0].h < 0.8 * builder.area.h
+        assert all(any(c.contains(t, 12700) for c in cards) for t in texts)
+    top = builder._evaluate(builder.layouts["matn:finding:cards-3"], content, (1, 1, 0), None)
+    centered = builder._evaluate(builder.layouts["matn:finding:cards-3"], content, (1, 1, 1), None)
+    card_top = next(d.rect for d in top.decor if d.name == "card_1")
+    card_mid = next(d.rect for d in centered.decor if d.name == "card_1")
+    assert abs(card_top.y - builder.area.y) < 12700 and card_mid.y > card_top.y  # the group anchors as one
+
+
+def test_one_value_kpi_slides_render_as_a_hero_number(specimen):
+    plan, facts, _, prs, report = specimen
+    entry = next(e for e in report.scores if e["plan_index"] == 11)
+    assert entry["chosen"]["layout"] == "matn:kpi:hero-number"
+    slide = prs.slides[entry["slide"] - 1]
+    runs = by_name(slide, "kpi_value_1").text_frame.paragraphs[0].runs
+    assert runs[0].text == "1,240" and runs[0].font.size.pt >= 96
+
+
+def test_title_accents_color_only_real_numbers_at_most_two(specimen):
+    plan, facts, _, prs, report = specimen
+    seen = 0
+    for entry in report.scores:
+        slide = prs.slides[entry["slide"] - 1]
+        title = by_name(slide, "title")
+        plain = title.text_frame.text.replace("", " ")
+        assert plain == plan.slides[entry["plan_index"]].title or entry["part"] is not None
+        runs = [r for r in title.text_frame.paragraphs[0].runs]
+        accent = [r.text for r in runs if r.font._rPr.find(f"{_A}solidFill") is not None]
+        assert len(accent) <= 2, plain
+        for text in accent:
+            assert re.fullmatch(r"[+-]?(\d{1,3}(,\d{3})+|\d+)(\.\d+)?%?", text), text
+        if entry["slide_type"] not in {t.value for t in CONTENT_TYPES}:
+            assert not accent
+        seen += bool(accent)
+    assert seen >= 3
+    summary = by_name(prs.slides[1], "title")
+    accents = [r.text for r in summary.text_frame.paragraphs[0].runs if r.font._rPr.find(f"{_A}solidFill") is not None]
+    assert accents == ["18%", "2025"]  # "18%" equals the cited growth fact; 2025 is the next number
+
+
+def test_no_content_slide_uses_more_than_three_content_sizes():
+    plan, facts, tables = specimen_inputs()
+    for template in gallery():
+        prs, report = build_presentation(plan, facts, tables, template.path, strict=True)
+        for entry in report.scores:
+            if entry["slide_type"] not in {t.value for t in CONTENT_TYPES}:
+                continue
+            slide = prs.slides[entry["slide"] - 1]
+            sizes = set()
+            for shape in slide.placeholders:
+                if shape.name == "source":
+                    continue  # chrome: a fixed meta size
+                if shape.has_chart:
+                    sizes.add(shape.chart.font.size.pt)
+                    continue
+                sizes |= {r.font.size.pt for p in shape.text_frame.paragraphs for r in p.runs if r.font.size}
+            assert len(sizes) <= 3, (template.id, entry["slide"], sorted(sizes))
