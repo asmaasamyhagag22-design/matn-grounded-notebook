@@ -1,7 +1,8 @@
 """Matn pre-commit checks (see CLAUDE.md).
 
-G1  reject staged paths in a forbidden category (venvs, node_modules, model files, caches, run outputs, PDFs/PPTX,
-    eval page text, audit working files, the commercial book or anything derived from it) and files over 5 MB.
+G1  reject staged paths in a forbidden category (venvs, node_modules, model files, caches, run outputs, PDFs, PPTX
+    outside the gallery templates in design/templates/, eval page text, audit working files, the commercial book or
+    anything derived from it) and files over 5 MB.
 G2  when any staged file is Python, run the FAST tests (pytest -m "not slow") of the suites that exist in this
     repository; reject on failure. Slow tests are listed in the root conftest.py and run on push (G4, pre_push.py).
 Exit code != 0 aborts the commit; the reason goes to stderr.
@@ -21,7 +22,8 @@ FORBIDDEN = [
     (r"(^|/)(__pycache__|\.pytest_cache|\.mypy_cache|\.ruff_cache|\.cache)/|\.py[cod]$|(^|/)[^/]*-cache/", "cache"),
     (r"^(output|outputs|runs|tmp)/", "run output"),
     (r"^(data|documents|wheelhouse)/", "local data directory"),
-    (r"\.(pdf|pptx)$", "PDF/PPTX (documents and generated decks stay local)"),
+    # Gallery templates (design/templates/**.pptx) are source files, so they are the one PPTX exception.
+    (r"\.pdf$|^(?!design/templates/).*\.pptx$", "PDF/PPTX (documents and generated decks stay local)"),
     (r"^eval/pages/", "extracted page text (regenerated from pinned PDFs)"),
     (r"^audit/(scratch|logs)/", "audit working files"),
     (r"z-library|raschka|build a large language model|book-demo|pre-demo-backup|(^|/)_quarantine|(^|/)\.codex-",

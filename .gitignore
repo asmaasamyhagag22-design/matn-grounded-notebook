@@ -69,3 +69,8 @@ eval/pages/
 # Generated design specimen (regenerate: python -m matn_deck.specimen)
 design/specimen/*.pptx
 design/specimen/png/
+# Gallery templates are source files: their .pptx and thumbnail are committed (G1 allows .pptx only here)
+!design/templates/**/*.pptx
+!design/templates/**/thumbnail.png
+# Generated gallery previews and contact sheets
+out/

@@ -50,6 +50,9 @@ def commit(repo: Path, rel: str, content: bytes | str = "x\n", msg: str = GOOD_M
     "weights.safetensors",
     "eval/incoming/doc.pdf",
     "deck.pptx",
+    "design/specimen/specimen.pptx",
+    "design/templates.pptx",
+    "design/templates/x/deck.pdf",
     "eval/pages/doc/p0000.txt",
     "audit/scratch/x.txt",
     "documents/Build a Large Language Model (Z-Library).pdf",
@@ -63,6 +66,13 @@ def test_g1_blocks_forbidden_paths(repo, rel):
 
 def test_g1_blocks_files_over_5_mb(repo):
     result = commit(repo, "data.json", b"0" * (5 * 1024 * 1024 + 1))
+    assert result.returncode != 0 and "[G1]" in result.stderr
+
+
+def test_g1_allows_pptx_templates_under_design_templates_only(repo):
+    assert commit(repo, "design/templates/office/template.pptx", b"PK").returncode == 0
+    assert commit(repo, "design/templates/office/dark/template.pptx", b"PK").returncode == 0
+    result = commit(repo, "out/design/templates/x.pptx", b"PK")
     assert result.returncode != 0 and "[G1]" in result.stderr
 
 
