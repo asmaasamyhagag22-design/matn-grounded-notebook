@@ -1,28 +1,34 @@
 # Build one Matn gallery template from an installed Office theme, through PowerPoint (no downloads).
-# Called by design/templates/src/build.py, which prepares the theme (or variant) .thmx and writes theme.json.
-# The contract is docs/design/template-contract.md; layout geometry is design/templates/src/layouts.json.
+# Called by design/templates/src/build.py, which prepares the theme (or variant) .thmx, expands the layout geometry
+# from design/variants.json into -LayoutsJson, computes the divider colors, and writes theme.json.
+# The contract is docs/design/template-contract.md.
 param(
     [Parameter(Mandatory = $true)][string]$Thmx,
     [Parameter(Mandatory = $true)][string]$OutPptx,
     [Parameter(Mandatory = $true)][string]$Thumbnail,
     [Parameter(Mandatory = $true)][string]$HeadingFont,
     [Parameter(Mandatory = $true)][string]$BodyFont,
+    [Parameter(Mandatory = $true)][string]$LayoutsJson,
+    [Parameter(Mandatory = $true)][string]$AreaOut,    # writes the content area (pt) as JSON
     [string]$ComplexFont = "Segoe UI",
     [string]$Label = "Matn template",
-    [string]$LayoutsJson = "",
     [double]$AccentBrightness = 0,   # shade of accent1 for accent text and the chip (-0.5 darker .. +0.5 lighter)
     [switch]$TitleAccent,            # titles use the shaded accent (for themes whose own title color is too light)
-    [ValidateSet("section", "plain")][string]$Divider = "section",
     [double]$TitleSlideSize = 0,     # 0 = title_slide_title_size from layouts.json
-    [switch]$SubtitleLikeTitle       # title slide: the subtitle takes the title's color (theme subtitle too faint)
+    [switch]$SubtitleLikeTitle,      # title slide: the subtitle takes the title's color (theme subtitle too faint)
+    [string]$DividerFill = "",       # divider background "RRGGBB" (full bleed)
+    [string]$DividerFill2 = "",      # optional second color: a diagonal gradient from DividerFill
+    [string]$DividerText = "FFFFFF", # divider text color
+    [string]$DividerSafe = "",       # "x,y,w,h" fractions of the slide; empty = layouts.json divider.safe
+    [ValidateSet("", "dots", "lines")][string]$Pattern = "",  # optional pattern band on dividers
+    [switch]$Glow                    # a subtle accent glow on content slides (from the cover gradient)
 )
 $ErrorActionPreference = "Stop"
-if (-not $LayoutsJson) { $LayoutsJson = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "layouts.json" }
 
 # PowerPoint constants
 $ppTitle = 1; $ppBody = 2; $ppCenterTitle = 3; $ppSubtitle = 4; $ppChart = 8; $ppObject = 7
-$msoAccent1 = 5; $msoText1 = 13
-$msoRoundedRectangle = 5
+$msoAccent1 = 5; $msoBackground1 = 14
+$msoRoundedRectangle = 5; $msoOval = 9; $msoRectangle = 1
 $anchors = @{ top = 1; middle = 3; bottom = 4 }
 $ppSaveAsOpenXMLPresentation = 24
 
@@ -43,6 +49,13 @@ function Get-Placeholder($layout, [int[]]$types) {
 function Set-Accent($color) {
     $color.ObjectThemeColor = $msoAccent1
     if ($AccentBrightness -ne 0) { $color.Brightness = $AccentBrightness }
+}
+
+function Rgb([string]$hex) {
+    # PowerPoint RGB is BGR-packed
+    $r = [Convert]::ToInt32($hex.Substring(0, 2), 16); $g = [Convert]::ToInt32($hex.Substring(2, 2), 16)
+    $b = [Convert]::ToInt32($hex.Substring(4, 2), 16)
+    return $r + 256 * $g + 65536 * $b
 }
 
 function Grow-Title($title, [double]$size, [int]$lines) {
@@ -71,8 +84,77 @@ function Set-TextStyle($shape, $style, [string]$prompt) {
     if ($style.italic) { $range.Font.Italic = -1 }
     if ($style.heading) { $frame.TextRange.Font.Name = "+mj-lt" }
     if ($style.color -eq "accent1") { Set-Accent $range.Font.Color }
-    if ($style.anchor) { $shape.TextFrame.VerticalAnchor = $anchors[$style.anchor] }
-    else { $shape.TextFrame.VerticalAnchor = $anchors["top"] }
+    if ($style.color -eq "bg1") { $range.Font.Color.ObjectThemeColor = $msoBackground1 }
+    if ($style.align -eq "center") { $range.ParagraphFormat.Alignment = 2 }
+    $shape.TextFrame.VerticalAnchor = $anchors[$(if ($style.anchor) { $style.anchor } else { "top" })]
+    if ($style.shape -eq "oval") {
+        $shape.AutoShapeType = $msoOval
+        $shape.Fill.Visible = -1; $shape.Fill.Solid(); Set-Accent $shape.Fill.ForeColor
+        $shape.Line.Visible = 0
+        $shape.TextFrame.MarginLeft = 0; $shape.TextFrame.MarginRight = 0
+        $shape.TextFrame.MarginTop = 0; $shape.TextFrame.MarginBottom = 0
+    }
+}
+
+function Add-Divider($layout, $title, $area) {
+    # Full-bleed theme color (or gradient), giant number, the title and the one-line question in the safe zone.
+    $layout.FollowMasterBackground = 0
+    $fill = $layout.Background.Fill
+    if ($DividerFill2) {
+        $fill.TwoColorGradient(3, 1)  # msoGradientDiagonalUp
+        $fill.ForeColor.RGB = Rgb $DividerFill; $fill.BackColor.RGB = Rgb $DividerFill2
+    } else {
+        $fill.Solid(); $fill.ForeColor.RGB = Rgb $DividerFill
+    }
+    $layout.DisplayMasterShapes = 0
+    foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
+        if ($shape.Type -eq 14 -and $shape.PlaceholderFormat.Type -notin @($ppTitle, $ppCenterTitle)) { $shape.Delete() }
+    }
+    $d = $spec.divider
+    $safe = $(if ($DividerSafe) { $DividerSafe -split "," | ForEach-Object { [double]$_ } } else { $d.safe })
+    $W = 960; $H = 540
+    $sx = $safe[0] * $W; $sy = $safe[1] * $H; $sw = $safe[2] * $W; $sh = $safe[3] * $H
+    $number = $layout.Shapes.AddPlaceholder($ppBody, $sx, $sy, $sw * 0.6, $sh * $d.number_h)
+    $number.Name = "section_number"
+    Set-TextStyle $number @{ size = $d.number_size; bullets = $false; bold = $true; heading = $true; anchor = "bottom" } "01"
+    $number.TextFrame.MarginLeft = 0; $number.TextFrame.MarginTop = 0; $number.TextFrame.MarginBottom = 0
+    $number.TextFrame.TextRange.ParagraphFormat.SpaceWithin = 0.85
+    $title.Left = [single]$sx; $title.Width = [single]$sw
+    $title.Top = [single]($sy + $sh * ($d.number_h + 0.02)); $title.Height = [single]($sh * $d.title_h)
+    $title.TextFrame.TextRange.Font.Size = $d.title_size
+    $title.TextFrame.VerticalAnchor = $anchors["top"]
+    $title.TextFrame.MarginLeft = 0
+    $subtitle = $layout.Shapes.AddPlaceholder($ppBody, $sx, $sy + $sh * ($d.number_h + $d.title_h + 0.04), $sw,
+                                              $sh * (1 - $d.number_h - $d.title_h - 0.04))
+    $subtitle.Name = "subtitle"
+    Set-TextStyle $subtitle @{ size = $d.subtitle_size; bullets = $false } "subtitle"
+    $subtitle.TextFrame.MarginLeft = 0
+    foreach ($shape in @($number, $title, $subtitle)) { $shape.TextFrame.TextRange.Font.Color.RGB = Rgb $DividerText }
+    if ($Pattern) {
+        # A subtle band of native shapes along the bottom edge, below the safe zone.
+        $top = $sy + $sh + 8; $rows = [Math]::Max(1, [Math]::Floor(($H - $top - 10) / 14))
+        for ($r = 0; $r -lt [Math]::Min($rows, 3); $r++) {
+            for ($c = 0; $c -lt 64; $c++) {
+                $x = 12 + $c * 15 + ($r % 2) * 7.5; $y = $top + $r * 14
+                if ($Pattern -eq "dots") { $dot = $layout.Shapes.AddShape($msoOval, $x, $y, 4, 4) }
+                else { $dot = $layout.Shapes.AddShape($msoRectangle, $x, $y, 9, 2) }
+                $dot.Name = "pattern"; $dot.Line.Visible = 0
+                $dot.Fill.ForeColor.RGB = Rgb $DividerText; $dot.Fill.Transparency = 0.8
+            }
+        }
+    }
+}
+
+function Add-Glow($layout) {
+    # A soft accent glow in the lower-right corner, behind everything (radial gradient to transparent).
+    $glow = $layout.Shapes.AddShape($msoOval, 600, 250, 560, 460)
+    $glow.Name = "glow"; $glow.Line.Visible = 0
+    $glow.Fill.OneColorGradient(7, 1, 1)  # msoGradientFromCenter
+    Set-Accent $glow.Fill.GradientStops.Item(1).Color
+    Set-Accent $glow.Fill.GradientStops.Item(2).Color
+    $glow.Fill.GradientStops.Item(1).Transparency = 0.72
+    $glow.Fill.GradientStops.Item(2).Transparency = 1.0
+    $glow.ZOrder(1)  # msoSendToBack
 }
 
 $app = New-Object -ComObject PowerPoint.Application
@@ -102,18 +184,21 @@ try {
     $bases = @{
         title      = Find-Layout $master @("Title Slide") 1
         content    = Find-Layout $master @("Title and Content") 2
-        section    = Find-Layout $master @("Section Header") 3
         title_only = Find-Layout $master @("Title Only") 6
     }
     $body = Get-Placeholder $bases.content @($ppBody, $ppObject)
+    $titleOnly = Get-Placeholder $bases.title_only @($ppTitle, $ppCenterTitle)
     $chipBand = $spec.chip.band_pt
-    $area = @{ L = $body.Left; T = $body.Top; W = $body.Width; H = $body.Height - $chipBand }
+    # The content area starts below the title box (some themes let the body overlap it).
+    $areaTop = [Math]::Max($body.Top, $titleOnly.Top + $titleOnly.Height + 8)
+    $area = @{ L = $body.Left; T = $areaTop; W = $body.Width; H = $body.Top + $body.Height - $areaTop - $chipBand }
+    @{ left = $area.L; top = $area.T; width = $area.W; height = $area.H; chip_band = $chipBand } |
+        ConvertTo-Json | Set-Content -Encoding UTF8 $AreaOut
 
     $index = $master.CustomLayouts.Count + 1
     foreach ($entry in $spec.layouts) {
         $base = $entry.base
-        if ($base -eq "section" -and $Divider -eq "plain") { $base = "title_only" }
-        $layout = $bases[$base].Duplicate()
+        $layout = $bases[$(if ($base -eq "divider") { "title_only" } else { $base })].Duplicate()
         $layout.MoveTo($index); $index++
         $layout.Name = $entry.name
         $title = Get-Placeholder $layout @($ppTitle, $ppCenterTitle)
@@ -121,60 +206,22 @@ try {
         if ($base -eq "title_only") {
             $title.TextFrame.TextRange.Font.Size = $spec.content_title_size
             Grow-Title $title $spec.content_title_size 2
+            if ($Glow) { Add-Glow $layout }
         }
         if ($base -eq "title") {
             $title.TextFrame.TextRange.Font.Size = [single]$(if ($TitleSlideSize) { $TitleSlideSize } else { $spec.title_slide_title_size })
-        }
-        if ($base -eq "section") { $title.TextFrame.TextRange.Font.Size = $spec.divider_title_size }
-        if ($TitleAccent) { Set-Accent $title.TextFrame.TextRange.Font.Color }
-        foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
-            if ($shape.Type -ne 14) { continue }
-            $type = $shape.PlaceholderFormat.Type
-            if ($type -in @($ppBody, $ppSubtitle, $ppObject) -and $entry.base -in @("title", "section")) {
-                $shape.Name = "subtitle"
+            foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
+                if ($shape.Type -eq 14 -and $shape.PlaceholderFormat.Type -in @($ppBody, $ppSubtitle, $ppObject)) {
+                    $shape.Name = "subtitle"
+                }
+            }
+            if ($SubtitleLikeTitle) {
+                $sub = $layout.Shapes | Where-Object { $_.Name -eq "subtitle" }
+                $sub.TextFrame.TextRange.Font.Color.RGB = $title.TextFrame.TextRange.Font.Color.RGB
             }
         }
-        if ($base -eq "title" -and $SubtitleLikeTitle) {
-            $sub = $layout.Shapes | Where-Object { $_.Name -eq "subtitle" }
-            $sub.TextFrame.TextRange.Font.Color.RGB = $title.TextFrame.TextRange.Font.Color.RGB
-        }
-        if ($base -eq "title_only" -and $entry.base -eq "section") {
-            # Plain divider on the content background: number, title and question stacked in the content area.
-            $title.Left = [single]$area.L; $title.Width = [single]$area.W
-            $full = $area.H + $chipBand  # dividers have no source chip
-            $title.Top = [single]($area.T + 0.38 * $full); $title.Height = [single](0.36 * $full)
-            $title.TextFrame.TextRange.Font.Size = $spec.divider_title_size
-            $title.TextFrame.VerticalAnchor = $anchors["top"]
-            $number = $layout.Shapes.AddPlaceholder($ppBody, $area.L, $area.T, 360, 0.36 * $full)
-            $number.Name = "section_number"
-            Set-TextStyle $number $spec.styles.number_plain "01"
-            $subtitle = $layout.Shapes.AddPlaceholder($ppBody, $area.L, $area.T + 0.76 * $full, $area.W, 0.24 * $full)
-            $subtitle.Name = "subtitle"
-            Set-TextStyle $subtitle $spec.styles.subtitle "subtitle"
-        }
-        if ($base -eq "section") {
-            $numberTop = [Math]::Max(24, $title.Top - 156)
-            $number = $layout.Shapes.AddPlaceholder($ppBody, $title.Left, $numberTop, 320, 150)
-            $number.Name = "section_number"
-            Set-TextStyle $number $spec.styles.number "01"
-            if (-not ($layout.Shapes | Where-Object { $_.Name -eq "subtitle" })) {
-                # The theme's section header has no text box: the divider's question goes under the title.
-                $subtitle = $layout.Shapes.AddPlaceholder($ppBody, $title.Left, $title.Top + $title.Height + 6,
-                                                          $title.Width, 64)
-                $subtitle.Name = "subtitle"
-                Set-TextStyle $subtitle $spec.styles.subtitle "subtitle"
-            }
-        }
-        foreach ($card in $entry.cards) {
-            $shape = $layout.Shapes.AddShape($msoRoundedRectangle, $area.L + $card[0] * $area.W, $area.T + $card[1] * $area.H,
-                                             $card[2] * $area.W, $card[3] * $area.H)
-            $shape.Name = "card"
-            $shape.Adjustments.Item(1) = 0.06
-            $shape.Line.Visible = 0
-            $shape.Fill.ForeColor.ObjectThemeColor = $msoText1  # a tint of the text color reads on light and dark
-            $shape.Fill.Transparency = 0.93
-            $shape.Shadow.Visible = 0
-        }
+        if ($TitleAccent -and $base -ne "divider") { Set-Accent $title.TextFrame.TextRange.Font.Color }
+        if ($base -eq "divider") { Add-Divider $layout $title $area }
         foreach ($p in $entry.placeholders) {
             $name, $styleName, $x, $y, $w, $h = $p
             $left = $area.L + $x * $area.W; $top = $area.T + $y * $area.H
@@ -202,7 +249,7 @@ try {
             Set-TextStyle $chip $spec.styles.small "p. 1"
             $chip.TextFrame.VerticalAnchor = $anchors["middle"]
             $chip.TextFrame.TextRange.Font.Bold = -1
-            $chip.TextFrame.TextRange.Font.Color.ObjectThemeColor = 14  # msoThemeColorBackground1
+            $chip.TextFrame.TextRange.Font.Color.ObjectThemeColor = $msoBackground1
         }
     }
     foreach ($layout in $original) { $layout.Delete() }

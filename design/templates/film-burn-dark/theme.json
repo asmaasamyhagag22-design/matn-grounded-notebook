@@ -7,5 +7,31 @@
     "body": "Segoe UI"
   },
   "mode": "dark",
-  "source": "Office theme Film Burn"
+  "source": "Office theme Film Burn",
+  "content_area_pt": [
+    33.81,
+    168,
+    782.87,
+    305
+  ],
+  "divider": {
+    "fill": [
+      "C338A8",
+      "7C3191"
+    ],
+    "text": "FFFFFF",
+    "contrast": 4.73,
+    "from": [
+      "accent1",
+      "accent2"
+    ],
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": true
 }

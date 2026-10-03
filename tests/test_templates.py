@@ -9,6 +9,7 @@ from pathlib import Path
 import pytest
 from pptx import Presentation
 
+from matn_deck.colors import contrast, hex_rgb
 from matn_deck.templates import (
     GALLERY_DIR,
     LAYOUTS,
@@ -53,10 +54,52 @@ def test_every_gallery_template_passes_and_carries_its_metadata():
         assert template.path.stat().st_size < 5 * 1024 * 1024
         assert template.thumbnail.is_file()
         meta = template.meta
-        assert set(meta) == {"id", "name_ar", "name_en", "fonts", "mode", "source"}
+        assert set(meta) == {"id", "name_ar", "name_en", "fonts", "mode", "source", "content_area_pt", "divider",
+                             "pattern", "glow"}
         assert meta["id"] == template_id and meta["mode"] in {"dark", "light"}
         assert meta["source"].startswith("Office theme ")
         assert all(is_standard_font(face) for face in meta["fonts"].values())
+
+
+def test_variant_geometry_covers_exactly_the_contract_layouts():
+    from matn_deck.variants import load_variants
+    assert set(load_variants()["variants"]) == set(LAYOUTS)
+
+
+def _layout(template_path: Path, name: str):
+    return next(layout for layout in Presentation(str(template_path)).slide_layouts if layout.name == name)
+
+
+def test_dividers_are_full_bleed_theme_color_with_checked_contrast():
+    a = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+    for template in gallery():
+        layout = _layout(template.path, "matn:section_divider:default")
+        bg = layout._element.find(".//{http://schemas.openxmlformats.org/presentationml/2006/main}bgPr")
+        fills = [hex_rgb(c.get("val")) for c in bg.iter(f"{a}srgbClr")]
+        assert fills, template.id
+        texts = {ph.name: hex_rgb(ph._element.find(f".//{a}defRPr/{a}solidFill/{a}srgbClr").get("val"))
+                 for ph in layout.placeholders if ph.name in ("title", "section_number", "subtitle")}
+        assert set(texts) == {"title", "section_number", "subtitle"}, template.id
+        worst = min(contrast(text, fill) for text in texts.values() for fill in fills)
+        assert worst >= 4.5, (template.id, worst)
+        assert template.meta["divider"]["contrast"] >= 4.5
+        number = next(ph for ph in layout.placeholders if ph.name == "section_number")
+        size = int(number._element.find(f".//{a}defRPr").get("sz")) / 100
+        assert 160 <= size <= 200, (template.id, size)
+
+
+def test_pattern_and_glow_follow_the_theme_flags():
+    for template in gallery():
+        divider = _layout(template.path, "matn:section_divider:default")
+        content = _layout(template.path, "matn:finding:cards-3")
+        patterned = [s for s in divider.shapes if s.name == "pattern"]
+        assert bool(patterned) == bool(template.meta["pattern"]), template.id
+        assert not [s for s in content.shapes if s.name == "pattern"]
+        glow = [s for s in content.shapes if s.name == "glow"]
+        assert bool(glow) == template.meta["glow"], template.id
+        # no layout carries card shapes any more: the renderer draws cards for filled slots only
+        assert not [s for layout in Presentation(str(template.path)).slide_layouts for s in layout.shapes
+                    if s.name == "card"]
 
 
 def _broken_copy(tmp_path: Path, mutate) -> Path:

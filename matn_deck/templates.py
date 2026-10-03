@@ -33,6 +33,12 @@ _ITEMS_4, _TITLES_4 = _items(4)
 _ITEMS_3, _TITLES_3 = _items(3)
 _ITEMS_2, _TITLES_2 = _items(2)
 
+def _markers(n: int) -> tuple[str, ...]:
+    return tuple(f"marker_{i}" for i in range(1, n + 1))
+
+
+_HERO_PANEL = ("kpi_value_1", "kpi_label_1", "quote", "attribution")
+
 # layout name -> (required placeholders, optional placeholders), in contract order (template-contract.md §3).
 LAYOUTS: dict[str, tuple[tuple[str, ...], tuple[str, ...]]] = {
     "matn:title:default": (("title",), ("subtitle",)),
@@ -49,6 +55,21 @@ LAYOUTS: dict[str, tuple[tuple[str, ...], tuple[str, ...]]] = {
     "matn:section_divider:default": (("title", "section_number"), ("subtitle",)),
     "matn:closing:default": (("title", *_ITEMS_4, "source"), _TITLES_4),
     "matn:evidence_appendix:default": (("title", "body", "source"), ()),
+    # Step 2c variants (template-contract.md §3, second table)
+    "matn:executive_summary:grid-2x2": (("title", *_ITEMS_4, "source"), _TITLES_4),
+    "matn:kpi:hero-number": (("title", *_kpis(1), "source"), ("body",)),
+    "matn:kpi:bento": (("title", *_kpis(4), "source"), ("body",)),
+    "matn:kpi:pictogram": (("title", *_kpis(2), "source"), ("body",)),
+    "matn:kpi:progress": (("title", *_kpis(4), "source"), ("body",)),
+    "matn:finding:two-split": (("title", *_ITEMS_2, *_markers(2), "source"), _TITLES_2),
+    "matn:finding:grid-2x2": (("title", *_ITEMS_4, "source"), _TITLES_4),
+    "matn:finding:timeline": (("title", *_ITEMS_4, "source"), _TITLES_4),
+    "matn:finding:single-hero": (("title", "item_1", "source"), ("item_1_title", *_HERO_PANEL)),
+    "matn:implications:cards-3": (("title", *_ITEMS_3, "source"), _TITLES_3),
+    "matn:implications:two-split": (("title", *_ITEMS_2, *_markers(2), "source"), _TITLES_2),
+    "matn:implications:single-hero": (("title", "item_1", "source"), ("item_1_title", *_HERO_PANEL)),
+    "matn:limitations:numbered": (("title", *_ITEMS_4, *_markers(4), "source"), ()),
+    "matn:closing:takeaways": (("title", *_ITEMS_3, "decisions_title", "decisions", "source"), _TITLES_3),
 }
 CHART_PLACEHOLDERS = {"chart"}
 TITLE_PLACEHOLDERS = {"title"}

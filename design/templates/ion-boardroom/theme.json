@@ -7,5 +7,29 @@
     "body": "Segoe UI"
   },
   "mode": "light",
-  "source": "Office theme Ion Boardroom"
+  "source": "Office theme Ion Boardroom",
+  "content_area_pt": [
+    90.94,
+    205,
+    694.93,
+    235
+  ],
+  "divider": {
+    "fill": [
+      "B31166"
+    ],
+    "text": "FFFFFF",
+    "contrast": 6.59,
+    "from": [
+      "accent1"
+    ],
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": null,
+  "glow": false
 }

@@ -1,0 +1,101 @@
+{
+  "_comment": "Variant geometry (Step 2c, docs/design/template-contract.md §5). Rects are [x, y, w, h] fractions of the template's content area. 'slots' are recomputed by the renderer for the actual item count (recipe rows, columns, grid, bento or single); each slot stacks its parts top-down ('stack') or puts 'left' parts beside 'right' parts ('side'). Parts are placeholder stems (item_title, item, kpi_value, kpi_label, marker) or native blocks (bar, pictogram, dot). 'roles' map stems to type-scale roles (design/scoring.json). 'fixed' placeholders keep their rect; 'fixed_cards' are cards drawn behind fixed placeholders. 'specific' variants (they need a data shape: ordered steps, a comparison, a ratio, percentages, one number, decisions) come first in the tie-break order. The template builder places the default layout geometry from this file; the renderer recomputes it per candidate.",
+  "geometry": {
+    "gap_pt": 16, "row_gap_pt": 10, "card_pad_pt": 14, "row_pad_pt": 10, "stack_gap_pt": 6,
+    "marker_pt": 44, "bar_pt": 14, "icon_max_pt": 30, "icon_gap_pt": 6, "dot_pt": 18, "strip_pt": 6,
+    "tracker_dot_pt": 8, "tracker_gap_pt": 7, "slack_pt": 2
+  },
+  "variants": {
+    "matn:title:default": {"base": "title"},
+    "matn:section_divider:default": {"base": "divider"},
+    "matn:executive_summary:default": {
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 1], "max": 4, "arrange": "side", "split": 0.3,
+                "left": ["item_title"], "right": ["item"]},
+      "cards": true, "pad": "row", "valid": {"items": [1, 4]}},
+    "matn:executive_summary:grid-2x2": {
+      "slots": {"recipe": "grid", "region": [0, 0, 1, 1], "max": 4, "stack": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [4, 4]}},
+    "matn:kpi:big-number": {
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 0.76], "max": 2, "stack": ["kpi_value", "kpi_label"]},
+      "roles": {"kpi_value": "bento_big"}, "cards": true,
+      "fixed": {"body": [0, 0.8, 1, 0.2]}, "valid": {"kpis": [2, 2]}},
+    "matn:kpi:cards": {
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 0.76], "max": 4, "stack": ["kpi_value", "kpi_label"]},
+      "cards": true, "fixed": {"body": [0, 0.8, 1, 0.2]}, "valid": {"kpis": [2, 4]}},
+    "matn:kpi:hero-number": {"specific": true,
+      "slots": {"recipe": "single", "region": [0, 0, 0.6, 1], "max": 1, "stack": ["kpi_value", "kpi_label"]},
+      "roles": {"kpi_value": "hero"}, "hero": true,
+      "fixed": {"body": [0.64, 0.15, 0.36, 0.7]}, "valid": {"kpis": [1, 1]}},
+    "matn:kpi:bento": {
+      "slots": {"recipe": "bento", "region": [0, 0, 1, 0.78], "max": 4, "stack": ["kpi_value", "kpi_label"]},
+      "first_role": {"kpi_value": "bento_big"}, "cards": true,
+      "fixed": {"body": [0, 0.82, 1, 0.18]}, "valid": {"kpis": [2, 4]}},
+    "matn:kpi:pictogram": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 0.78], "max": 2,
+                "stack": ["kpi_value", "kpi_label", "pictogram"]},
+      "cards": true, "fixed": {"body": [0, 0.82, 1, 0.18]}, "valid": {"kpis": [1, 2], "requires": "pictogram"}},
+    "matn:kpi:progress": {"specific": true,
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 0.78], "max": 4, "arrange": "side", "split": 0.26,
+                "left": ["kpi_value"], "right": ["kpi_label", "bar"]},
+      "roles": {"kpi_value": "progress_value"}, "pad": "row",
+      "fixed": {"body": [0, 0.82, 1, 0.18]}, "valid": {"kpis": [1, 4], "requires": "progress"}},
+    "matn:finding:split-60-40": {
+      "fixed": {"body": [0, 0, 0.56, 1], "quote": [0.6, 0, 0.4, 0.8], "attribution": [0.6, 0.8, 0.4, 0.2]},
+      "fixed_cards": [[0.6, 0, 0.4, 1]], "valid": {"items": [1, 4]}},
+    "matn:finding:cards-3": {
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 1], "max": 3, "stack": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [3, 3]}},
+    "matn:finding:two-col": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 1], "max": 2, "stack": ["item_title", "item"]},
+      "cards": true, "strip": true, "valid": {"items": [2, 2], "requires": "leads"}},
+    "matn:finding:two-split": {
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 1], "max": 2, "arrange": "side", "split": "marker",
+                "left": ["marker"], "right": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [2, 2]}},
+    "matn:finding:grid-2x2": {
+      "slots": {"recipe": "grid", "region": [0, 0, 1, 1], "max": 4, "stack": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [4, 4]}},
+    "matn:finding:timeline": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 1], "max": 4, "stack": ["dot", "item_title", "item"],
+                "align_tops": true},
+      "cards": true, "timeline": true, "valid": {"items": [2, 4], "requires": "ordered"}},
+    "matn:finding:single-hero": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0.56, 0, 0.44, 1], "max": 1, "stack": ["item_title", "item"]},
+      "hero_panel": {"region": [0, 0, 0.52, 1], "number": ["kpi_value_1", "kpi_label_1"],
+                     "quote": ["quote", "attribution"]},
+      "roles": {"kpi_value": "hero"}, "valid": {"items": [1, 1]}},
+    "matn:chart:hero": {
+      "fixed": {"chart": [0, 0, 0.7, 1], "body": [0.74, 0.04, 0.26, 0.92]}, "valid": {"items": [0, 4]}},
+    "matn:implications:default": {
+      "slots": {"recipe": "grid", "region": [0, 0, 1, 1], "max": 4, "stack": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [4, 4]}},
+    "matn:implications:cards-3": {
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 1], "max": 3, "stack": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [3, 3]}},
+    "matn:implications:two-split": {
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 1], "max": 2, "arrange": "side", "split": "marker",
+                "left": ["marker"], "right": ["item_title", "item"]},
+      "cards": true, "valid": {"items": [2, 2]}},
+    "matn:implications:single-hero": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0.56, 0, 0.44, 1], "max": 1, "stack": ["item_title", "item"]},
+      "hero_panel": {"region": [0, 0, 0.52, 1], "number": ["kpi_value_1", "kpi_label_1"],
+                     "quote": ["quote", "attribution"]},
+      "roles": {"kpi_value": "hero"}, "valid": {"items": [1, 1]}},
+    "matn:limitations:default": {"fixed": {"body": [0, 0, 1, 1]}, "valid": {"items": [0, 4]}},
+    "matn:limitations:numbered": {
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 1], "max": 4, "arrange": "side", "split": "marker",
+                "left": ["marker"], "right": ["item"]},
+      "cards": true, "pad": "row", "valid": {"items": [1, 4]}},
+    "matn:sources:default": {"fixed": {"body": [0, 0, 1, 1]}, "list": true},
+    "matn:closing:default": {
+      "slots": {"recipe": "rows", "region": [0, 0, 1, 1], "max": 4, "arrange": "side", "split": 0.3,
+                "left": ["item_title"], "right": ["item"]},
+      "cards": true, "pad": "row", "valid": {"items": [1, 4]}},
+    "matn:closing:takeaways": {"specific": true,
+      "slots": {"recipe": "columns", "region": [0, 0, 1, 0.6], "max": 3, "stack": ["item_title", "item"]},
+      "cards": true,
+      "fixed": {"decisions_title": [0, 0.66, 0.26, 0.34], "decisions": [0.27, 0.66, 0.73, 0.34]},
+      "fixed_cards": [[0, 0.66, 1, 0.34]], "valid": {"takeaways": [1, 3], "requires": "decisions"}},
+    "matn:evidence_appendix:default": {"fixed": {"body": [0, 0, 1, 1]}, "list": true}
+  }
+}

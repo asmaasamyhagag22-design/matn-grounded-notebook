@@ -7,5 +7,29 @@
     "body": "Segoe UI"
   },
   "mode": "light",
-  "source": "Office theme Modulo"
+  "source": "Office theme Modulo",
+  "content_area_pt": [
+    42.0,
+    175.68,
+    876.0,
+    300.32
+  ],
+  "divider": {
+    "fill": [
+      "AF5E40"
+    ],
+    "text": "FFFFFF",
+    "contrast": 4.66,
+    "from": [
+      "accent1"
+    ],
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": "lines",
+  "glow": false
 }

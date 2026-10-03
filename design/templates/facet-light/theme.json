@@ -7,5 +7,29 @@
     "body": "Segoe UI"
   },
   "mode": "light",
-  "source": "Office theme Facet (variant 1)"
+  "source": "Office theme Facet (variant 1)",
+  "content_area_pt": [
+    53.33,
+    170.13,
+    676.9,
+    271.57
+  ],
+  "divider": {
+    "fill": [
+      "107CA0"
+    ],
+    "text": "FFFFFF",
+    "contrast": 4.76,
+    "from": [
+      "accent1"
+    ],
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": "dots",
+  "glow": false
 }

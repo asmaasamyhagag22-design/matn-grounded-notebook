@@ -7,5 +7,29 @@
     "body": "Segoe UI"
   },
   "mode": "dark",
-  "source": "Office theme Integral (variant 3)"
+  "source": "Office theme Integral (variant 3)",
+  "content_area_pt": [
+    80.64,
+    180,
+    765.36,
+    282.8
+  ],
+  "divider": {
+    "fill": [
+      "797650"
+    ],
+    "text": "FFFFFF",
+    "contrast": 4.65,
+    "from": [
+      "accent1"
+    ],
+    "safe": [
+      0.08,
+      0.1,
+      0.84,
+      0.8
+    ]
+  },
+  "pattern": "lines",
+  "glow": false
 }
