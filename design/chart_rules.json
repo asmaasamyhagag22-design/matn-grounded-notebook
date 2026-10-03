@@ -13,5 +13,6 @@
   "palette": ["accent1", "muted", "accent2", "accent4", "accent6"],
   "labels": {"data_labels": true, "gridlines": false, "legend_min_series": 2},
   "font_pt": 16,
-  "callout_pt": 18
+  "callout_pt": 18,
+  "callout_label_max": 22
 }

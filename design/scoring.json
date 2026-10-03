@@ -1,7 +1,7 @@
 {
-  "_comment": "Generate-and-score settings (Step 2c, docs/design/template-contract.md §5). Each slide's candidates are (valid variants) x (type_scale steps) x (anchors); hard constraints reject a candidate, soft scores (0-1) are combined with 'weights'. Sizes are points. The beauty gate is calibrated from the first gallery run (see 'beauty_gate.calibration').",
+  "_comment": "Generate-and-score settings (Step 2c, docs/design/template-contract.md §5). Each slide's candidates are (valid variants) x (type_scale steps) x (anchors); hard constraints reject a candidate, soft scores (0-1) are combined with 'weights'. Candidates within 'tie_margin' of the best total are a tie, broken by variant order (data-specific variants first), then step, then anchor. Sizes are points. The beauty gate is calibrated from the first gallery run (see 'beauty_gate.calibration').",
   "weights": {"fill": 3.0, "balance": 1.5, "vertical": 2.0, "hierarchy": 1.5, "density": 1.0, "variety": 2.0},
-  "fill": {"band": [0.45, 0.75], "falloff": 0.3},
+  "fill": {"band": [0.45, 0.75], "falloff": 0.3, "card_weight": 0.5},
   "balance": {"max_offset": 0.35, "card_ink": 0.12},
   "vertical": {"floor": 0.45, "reach": 0.8},
   "hierarchy": {"title_body": 1.5, "kpi_value_label": 3.0},
@@ -9,6 +9,7 @@
   "minimums": {"body_pt": 16, "title_pt": 28},
   "contrast": {"text": 4.5, "large": 3.0, "graphics": 3.0},
   "anchors": ["top", "center"],
+  "tie_margin": 0.01,
   "title_sizes": [32, 30, 28],
   "type_scale": [
     {"name": "L", "body": 22, "item": 22, "item_title": 24, "kpi_value": 66, "kpi_label": 20, "hero": 120,

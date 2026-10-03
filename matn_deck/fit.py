@@ -35,6 +35,10 @@ class TextStyle:
     space_after_pt: float
     indent_emu: int  # widest of marL and marL + indent, taken off the line width
     insets: tuple[int, int, int, int]
+    caps: bool = False  # cap="all": measured in upper case
+    spacing_pt: float = 0.0  # character spacing (spc), added after every character
+    align: str = "l"
+    color_xml: str | None = None  # the solidFill the text inherits, for contrast checks
 
 
 @dataclass(frozen=True)
@@ -96,6 +100,11 @@ def placeholder_style(layout_placeholder: Any) -> TextStyle:
         face = "+mj-lt" if kind in _TITLE_TYPES else "+mn-lt"
     face = {"+mj-lt": major, "+mn-lt": minor}.get(face, face)
     line = _first(chain, "./a:lnSpc/a:spcPct", "val")
+    caps = _first(chain, "./a:defRPr", "cap") == "all"
+    spacing = int(_first(chain, "./a:defRPr", "spc") or 0) / 100
+    align = _first(chain, ".", "algn") or "l"
+    color = _first(chain, "./a:defRPr/a:solidFill")
+    color_xml = etree.tostring(color).decode() if color is not None else None
     mar_l = int(_first(chain, ".", "marL") or 0)
     indent = int(_first(chain, ".", "indent") or 0)
 
@@ -106,7 +115,8 @@ def placeholder_style(layout_placeholder: Any) -> TextStyle:
     return TextStyle(face=face, bold=bold, italic=italic, size_pt=size,
                      line_spacing=int(line) / 100000 if line else 1.0,
                      space_before_pt=_spacing_pt(chain, "spcBef", size), space_after_pt=_spacing_pt(chain, "spcAft", size),
-                     indent_emu=max(mar_l, mar_l + indent), insets=insets)
+                     indent_emu=max(mar_l, mar_l + indent), insets=insets, caps=caps, spacing_pt=spacing,
+                     align=align, color_xml=color_xml)
 
 
 class Fitter:
@@ -115,13 +125,15 @@ class Fitter:
 
     def width(self, text: str, style: TextStyle) -> float:
         face = load_face(style.face, style.bold, style.italic)
+        if style.caps:
+            text = text.upper()
         total = 0.0
         for char in text:
             key = (style.face, style.bold, style.italic, char)
             if key not in self._advances:
                 self._advances[key] = face.getlength(char)
             total += self._advances[key]
-        return total / 1000 * style.size_pt * EMU_PER_PT
+        return total / 1000 * style.size_pt * EMU_PER_PT + len(text) * style.spacing_pt * EMU_PER_PT
 
     def line_height(self, style: TextStyle) -> float:
         ascent, descent = load_face(style.face, style.bold, style.italic).getmetrics()

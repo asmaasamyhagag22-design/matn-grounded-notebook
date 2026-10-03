@@ -1,4 +1,6 @@
-"""Specimen deck: fictional content that exercises every Step 2b layout variant and slide type, in any template.
+"""Specimen deck v3: fictional content that exercises the Step 2c layout variants and every slide type, in any
+template. v3 adds a ratio fact (pictogram), percentage facts (progress bars), ordered steps (timeline), a comparison,
+slides with 1 to 4 items, a time-series table and a closing slide with decisions.
 
 Nothing here comes from a real document; the title slide says so and every quote starts with "Sample text".
 `python -m matn_deck.specimen <template.pptx> <out.pptx>` renders it through one gallery template.
@@ -112,6 +114,21 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
                          "Sample text: the survey covered four sample regions only.", 13, kind=FactKind.CAVEAT)
     provisional = sample_fact("Sample: figures for 2025 are provisional.",
                               "Sample text: all 2025 figures are provisional.", 13, kind=FactKind.CAVEAT)
+    ratio = sample_fact("Sample: 3 in 10 offices share a trainer.",
+                        "Sample text: 3 in 10 sample offices share a trainer with another office.", 8,
+                        number=("Sample offices sharing a trainer", "3 in 10", None))
+    trained = sample_fact("Sample: 40% of staff finished training.",
+                          "Sample text: 40% of sample staff finished the training course.", 8,
+                          number=("Sample staff who finished training", "40", "%"))
+    users = sample_fact("Sample: the service reached 18.0 thousand users in 2025.",
+                        "Sample text: the service reached 18.0 thousand users in 2025.", 9,
+                        number=("Sample users in 2025, thousands", "18.0", None))
+    pilot = sample_fact("Sample: the pilot ran in two regions in 2023.",
+                        "Sample text: in 2023 the pilot ran in two sample regions.", 3)
+    rollout = sample_fact("Sample: all urban offices joined in 2024.",
+                          "Sample text: in 2024 every urban office joined the service.", 3)
+    extension = sample_fact("Sample: the rural extension started in 2025.",
+                            "Sample text: the rural extension started in 2025.", 4)
     table = sample_table([
         ["Sample region", "2024", "2025"],
         ["Region A", "12.5", "18.0"],
@@ -119,9 +136,17 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
         ["Region C", "6.5", "8.0"],
         ["Region D", "4.0", "7.5"],
     ], 9)
+    yearly = sample_table([
+        ["Year", "Sample users (thousands)"],
+        ["2021", "4.0"],
+        ["2022", "6.5"],
+        ["2023", "9.0"],
+        ["2024", "12.5"],
+        ["2025", "18.0"],
+    ], 11)
 
     facts = (adoption, growth, offices, days, satisfaction, rural, training, urban, support, rec_training,
-             rec_measure, survey, provisional)
+             rec_measure, survey, provisional, ratio, trained, users, pilot, rollout, extension)
     S = SlideType
     slides = (
         Slide(slide_type=S.TITLE, title="Sample deck: the sample service reaches more offices, but rural adoption lags",
@@ -140,17 +165,31 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
               kpi_fact_ids=(growth.fact_id, offices.fact_id, days.fact_id, satisfaction.fact_id),
               items=(item("Each value above is copied by code from a verified number fact.", growth),),
               notes=None),
-        Slide(slide_type=S.KPI, title="Two sample numbers carry the adoption story",
-              kpi_fact_ids=(growth.fact_id, offices.fact_id), notes=None),
+        Slide(slide_type=S.FINDING, title="The sample service grew in three ordered steps",
+              items=(item("2023: the pilot ran in two sample regions.", pilot),
+                     item("2024: every urban office joined the service.", rollout),
+                     item("2025: the rural extension started.", extension)),
+              notes=None),
+        Slide(slide_type=S.KPI, title="Two sample shares show where the service stands",
+              kpi_fact_ids=(growth.fact_id, satisfaction.fact_id), notes=None),
+        Slide(slide_type=S.CHART, title="Sample users more than quadrupled between 2021 and 2025",
+              chart=ChartSpec(table_id=yearly.table_id, x_column=0, y_columns=(1,), chart_type=ChartType.LINE),
+              items=(item("Growth was fastest in the latest year.", users),), notes=None),
         Slide(slide_type=S.FINDING,  # a 90-character title, the contract maximum
               title="Rural offices adopt the sample service more slowly than urban ones, mainly due to training",
               items=(item("Rural gap: rural offices adopted the service more slowly.", rural),
                      item("Training: staff named training as the most cited barrier.", training),
                      item("Urban lead: urban offices led adoption in every sample region.", urban)),
               notes=None),
+        Slide(slide_type=S.KPI, title="Training reaches only part of the sample workforce",
+              kpi_fact_ids=(ratio.fact_id, trained.fact_id), notes=None),
         Slide(slide_type=S.FINDING, title="Training and support are the two sample barriers",
               items=(item("Training: staff named training as the most cited barrier.", training),
                      item("Support: small offices asked for a dedicated support line.", support)),
+              notes=None),
+        Slide(slide_type=S.CHART, title="Every sample region grew between 2024 and 2025",
+              chart=ChartSpec(table_id=table.table_id, x_column=0, y_columns=(1, 2), chart_type=ChartType.COLUMN),
+              items=(item("Region A grew the most.", urban), item("Region D is still the smallest.", rural)),
               notes=None),
         Slide(slide_type=S.FINDING, title="The sample adoption gap has one main cause",
               items=(item("Rural offices adopted the sample service more slowly than urban offices.", rural),
@@ -158,10 +197,8 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
                      item("Urban offices led adoption in every sample region.", urban),
                      item("Small offices asked for a dedicated support line.", support)),
               notes=None),
-        Slide(slide_type=S.CHART, title="Every sample region grew between 2024 and 2025",
-              chart=ChartSpec(table_id=table.table_id, x_column=0, y_columns=(1, 2), chart_type=ChartType.COLUMN),
-              items=(item("Region A grew the most.", urban), item("Region D is still the smallest.", rural)),
-              notes=None),
+        Slide(slide_type=S.FINDING, title="Processing is fast enough for most sample users",
+              items=(item("Speed: average processing took a few days.", days),), notes=None),
         Slide(slide_type=S.SECTION_DIVIDER, title="What should the sample programme do next?",
               items=(item("Which actions follow from these findings?", rec_training),), notes=None),
         Slide(slide_type=S.IMPLICATIONS, title="Four sample actions follow from these findings",
@@ -174,17 +211,18 @@ def specimen_inputs() -> tuple[DeckPlan, tuple[Fact, ...], tuple[Table, ...]]:
               items=(item("The survey covered four sample regions only.", survey),
                      item("Figures for the latest year are provisional.", provisional)),
               notes=None),
-        Slide(slide_type=S.CLOSING, title="Three sample takeaways",
+        Slide(slide_type=S.CLOSING, title="Two sample takeaways and the decisions they need",
               items=(item("Growth: the sample service is scaling.", adoption),
                      item("Gap: rural offices lag because of training.", rural, training),
-                     item("Action: train rural offices first.", rec_training)),
+                     item("Train rural offices first.", rec_training),
+                     item("Publish processing times every quarter.", rec_measure)),
               notes=None),
         Slide(slide_type=S.EVIDENCE_APPENDIX, title="Evidence appendix: every sample number and its quote",
               notes=None),
         Slide(slide_type=S.SOURCES, title="Sources and verification: every sample claim traces to a page",
               notes=None),
     )
-    return DeckPlan(doc_id=SPECIMEN_DOC_ID, slides=slides), facts, (table,)
+    return DeckPlan(doc_id=SPECIMEN_DOC_ID, slides=slides), facts, (table, yearly)
 
 
 def main(template: Path, out_path: Path) -> RenderReport:

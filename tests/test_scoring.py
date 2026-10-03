@@ -50,7 +50,8 @@ def test_fill_counts_union_of_content_and_scores_the_target_band():
     half = [text("a", box(0, 0, 400, 400)), text("b", box(200, 0, 200, 400))]  # b lies inside a: counted once
     assert abs(fill_ratio(half, AREA) - 0.5) < 0.02
     card = Element("card", "card", box(0, 0, 800, 400), container=True)
-    assert fill_ratio([card], AREA) == 0  # containers are not fill
+    assert abs(fill_ratio([card], AREA, 0.5) - 0.5) < 1e-9  # a flat card counts at half weight
+    assert abs(fill_ratio([card, *half], AREA, 0.5) - 0.75) < 0.02  # ink inside it counts fully
     low, high = CFG["fill"]["band"]
     assert fill_score(0.6, CFG) == 1.0 and fill_score(low, CFG) == 1.0 and fill_score(high, CFG) == 1.0
     assert fill_score(0.15, CFG) < fill_score(0.3, CFG) < 1.0

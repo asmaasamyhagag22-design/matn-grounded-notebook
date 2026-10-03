@@ -6,7 +6,7 @@ geometry, so it runs on hand-built rectangles in tests and on thousands of candi
 """
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from functools import lru_cache
 import json
 import math
@@ -168,10 +168,7 @@ def _content(elements: list[Element], containers: bool = False) -> list[Element]
     return [e for e in elements if e.kind not in _OUTSIDE_CONTENT and (containers or not e.container)]
 
 
-def coverage(rects: list[Rect], area: Rect, cells: tuple[int, int] = (96, 54)) -> float:
-    """Share of `area` covered by the union of `rects` (raster of cell centers, so overlaps count once)."""
-    if area.area <= 0:
-        return 0.0
+def _mask(rects: list[Rect], area: Rect, cells: tuple[int, int]) -> np.ndarray:
     nx, ny = cells
     mask = np.zeros((ny, nx), dtype=bool)
     for r in rects:
@@ -182,11 +179,25 @@ def coverage(rects: list[Rect], area: Rect, cells: tuple[int, int] = (96, 54)) -
         j1 = min(ny, math.floor((r.bottom - area.y) * ny / area.h - 0.5) + 1)
         if i0 < i1 and j0 < j1:
             mask[j0:j1, i0:i1] = True
-    return float(mask.mean())
+    return mask
 
 
-def fill_ratio(elements: list[Element], area: Rect) -> float:
-    return coverage([e.rect for e in _content(elements)], area)
+def coverage(rects: list[Rect], area: Rect, cells: tuple[int, int] = (96, 54)) -> float:
+    """Share of `area` covered by the union of `rects` (raster of cell centers, so overlaps count once)."""
+    if area.area <= 0:
+        return 0.0
+    return float(_mask(rects, area, cells).mean())
+
+
+def fill_ratio(elements: list[Element], area: Rect, card_weight: float = 0.5, cells: tuple[int, int] = (96, 54)
+               ) -> float:
+    """Occupied share of the content area: content ink counts fully, card area not covered by ink counts at
+    `card_weight` (a card is a deliberate block, but a flat one)."""
+    if area.area <= 0:
+        return 0.0
+    ink = _mask([e.rect for e in _content(elements)], area, cells)
+    cards = _mask([e.rect for e in _content(elements, containers=True) if e.container], area, cells)
+    return float((ink | cards).mean() - (1 - card_weight) * (cards & ~ink).mean())
 
 
 def fill_score(ratio: float, cfg: dict) -> float:
@@ -220,7 +231,7 @@ def vertical_score(elements: list[Element], ctx: SlideContext, cfg: dict) -> flo
     """Content must reach the lower part of the content area, unless the slide is a single centered hero."""
     if ctx.centered_hero:
         return 1.0
-    content = _content(elements)
+    content = _content(elements, containers=True)
     if not content:
         return 0.0
     reach = (max(e.rect.bottom for e in content) - ctx.area.y) / ctx.area.h
@@ -270,7 +281,7 @@ def density_score(elements: list[Element], area: Rect, cfg: dict) -> float:
 def score(elements: list[Element], ctx: SlideContext, *, variety: float = 1.0, cfg: dict | None = None
           ) -> CandidateScore:
     cfg = cfg or load_scoring()
-    ratio = fill_ratio(elements, ctx.area)
+    ratio = fill_ratio(elements, ctx.area, cfg["fill"]["card_weight"])
     soft = {
         "fill": fill_score(ratio, cfg),
         "balance": balance_score(elements, ctx.area, cfg),
@@ -285,14 +296,3 @@ def score(elements: list[Element], ctx: SlideContext, *, variety: float = 1.0, c
                             round(total, 6))
     result.soft["fill_ratio"] = round(ratio, 4)
     return result
-
-
-@dataclass
-class Choice:
-    """Deterministic pick: best total, then variant order, then type-scale step, then anchor order."""
-    key: tuple
-    payload: object = field(compare=False)
-
-
-def best(choices: list[Choice]) -> Choice | None:
-    return min(choices, key=lambda c: c.key) if choices else None
