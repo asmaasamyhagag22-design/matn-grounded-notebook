@@ -59,3 +59,19 @@ def test_every_dashboard_page_loads_from_the_cache():
     for page in PAGES:
         app.sidebar.radio(key="page").set_value(page).run()
         assert not app.exception, (page, [e.value for e in app.exception])
+
+
+def test_deck_numbers_compare_claims_not_the_layout_only_quote_box(tmp_path):
+    from pptx import Presentation
+    from pptx.util import Pt
+
+    prs = Presentation()
+    slide = prs.slides.add_slide(prs.slide_layouts[6])
+    for name, text in (("item_1", "Growth reached 9.8% (1/2)"), ("quote", "“since Q4-FY2020/21 it rose 99 points”"),
+                       ("source", "p. 7, 8"), ("marker_1", "1")):
+        box = slide.shapes.add_textbox(Pt(10), Pt(10), Pt(200), Pt(40))
+        box.name = name
+        box.text_frame.text = text
+    path = tmp_path / "deck.pptx"
+    prs.save(str(path))
+    assert demo_data.deck_numbers(path) == ["9.8"]

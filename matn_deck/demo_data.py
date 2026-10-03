@@ -82,6 +82,7 @@ class SlideInfo:
     texts: tuple[str, ...]
     fact_ids: tuple[str, ...]
     layout: str
+    named: tuple[tuple[str, str], ...] = ()  # (shape name, text) for every text shape
 
 
 def deck_slides(pptx: Path) -> list[SlideInfo]:
@@ -89,23 +90,33 @@ def deck_slides(pptx: Path) -> list[SlideInfo]:
     prs = Presentation(str(pptx))
     out = []
     for number, slide in enumerate(prs.slides, start=1):
-        texts = [shape.text_frame.text for shape in slide.shapes if shape.has_text_frame and shape.text_frame.text]
+        named = [(shape.name, shape.text_frame.text) for shape in slide.shapes
+                 if shape.has_text_frame and shape.text_frame.text]
+        texts = [text for _, text in named]
         title = slide.shapes.title.text_frame.text if slide.shapes.title is not None else ""
         title = " ".join(title.replace("", " ").split())
         notes = slide.notes_slide.notes_text_frame.text if slide.has_notes_slide else ""
         out.append(SlideInfo(number, title, tuple(texts), tuple(dict.fromkeys(_FACT_ID.findall(notes))),
-                             slide.slide_layout.name))
+                             slide.slide_layout.name, tuple(named)))
     return out
 
 
+LAYOUT_ONLY_SHAPES = frozenset({"quote", "attribution", "source", "section_number"})
+
+
 def deck_numbers(pptx: Path) -> list[str]:
-    """Every number shown on the content slides, as written, sorted (sources slides, page chips and "(1/2)" part
-    markers are left out: they depend on how a template splits slides, not on the content)."""
+    """Every number in the claims, titles and KPI values of the content slides, as written, sorted.
+
+    Left out because they depend on the layout a template picks, not on the content: sources slides, page chips,
+    "(1/2)" part markers, ordinals, and the evidence quote box (only some layouts, such as split-60-40, show the
+    first cited fact's verbatim quote, and quotes carry their own numbers)."""
     numbers = []
     for slide in deck_slides(pptx):
         if slide.layout.startswith("matn:sources"):
             continue
-        for text in slide.texts:
+        for name, text in slide.named:
+            if name in LAYOUT_ONLY_SHAPES:
+                continue
             if re.fullmatch(r"p\.\s[\d,\s]+(\(table\))?", text.strip()) or re.fullmatch(r"\d{1,2}", text.strip()):
                 continue  # source chip, ordinal or marker
             text = _PART.sub("", text.strip())

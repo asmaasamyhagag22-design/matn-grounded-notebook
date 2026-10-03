@@ -268,10 +268,13 @@ def page_same() -> None:
     na, nb = numbers_of(pa), numbers_of(pb)
     fa, fb = data.deck_fact_ids(pa), data.deck_fact_ids(pb)
     same_numbers, same_facts = na == nb, fa == fb
-    rtl(f'<p>الأرقام على الشرايح: <span class="{"ok" if same_numbers else "bad"}">'
+    rtl(f'<p>الأرقام في الجمل والعناوين والـ KPIs: <span class="{"ok" if same_numbers else "bad"}">'
         f'{"متطابقة ✔" if same_numbers else "مختلفة ✘"}</span> ({len(na)} رقم) · الحقايق المستشهد بيها: '
         f'<span class="{"ok" if same_facts else "bad"}">{"متطابقة ✔" if same_facts else "مختلفة ✘"}</span> '
-        f'({len(fa)} حقيقة)</p>')
+        f'({len(fa)} حقيقة)</p>'
+        '<p class="small">بعض الـ layouts بتعرض اقتباس الحقيقة الأولى بالحرف في كارت جنبي، فالاقتباس ده مش داخل في '
+        'المقارنة (موجود في الإيصالات). عدد الشرايح ممكن يختلف لأن القالب الأضيق بيقسم الشريحة لاتنين، من غير ما يقص '
+        'أي حقيقة.</p>')
     if not same_numbers:
         st.write({"only in A": sorted(set(na) - set(nb)), "only in B": sorted(set(nb) - set(na))})
     with st.expander("الأرقام اللي اتقارنت"):
