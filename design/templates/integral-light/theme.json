@@ -1,0 +1,11 @@
+{
+  "id": "integral-light",
+  "name_ar": "إنتغرال (فاتح)",
+  "name_en": "Integral (light)",
+  "fonts": {
+    "heading": "Bahnschrift SemiBold",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "Office theme Integral"
+}

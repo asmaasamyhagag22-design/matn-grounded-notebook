@@ -1,0 +1,11 @@
+{
+  "id": "modulo",
+  "name_ar": "مودولو",
+  "name_en": "Modulo",
+  "fonts": {
+    "heading": "Bahnschrift SemiBold",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "Office theme Modulo"
+}

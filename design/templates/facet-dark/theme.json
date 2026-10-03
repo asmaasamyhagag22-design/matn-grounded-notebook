@@ -1,0 +1,11 @@
+{
+  "id": "facet-dark",
+  "name_ar": "فاسِت (داكن)",
+  "name_en": "Facet (dark)",
+  "fonts": {
+    "heading": "Bahnschrift SemiBold",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "Office theme Facet (variant 3)"
+}

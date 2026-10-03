@@ -1,0 +1,11 @@
+{
+  "id": "integral-dark",
+  "name_ar": "إنتغرال (داكن)",
+  "name_en": "Integral (dark)",
+  "fonts": {
+    "heading": "Bahnschrift SemiBold",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "Office theme Integral (variant 3)"
+}

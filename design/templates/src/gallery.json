@@ -1,0 +1,33 @@
+{
+  "_comment": "Gallery templates chosen by the owner on 2026-10-03 from the installed Office themes. 'variant' is a built-in color variant of the .thmx (null = the theme as installed). Options: 'divider' = 'plain' builds dividers on the content background (when the theme's section art hides the number); 'title_accent' shades titles like accent text; 'accent_brightness' overrides the computed accent shade. Rebuild: .venv\\Scripts\\python.exe design/templates/src/build.py",
+  "default": "integral-light",
+  "templates": [
+    {"id": "integral-light", "theme": "Integral", "variant": null, "mode": "light", "divider": "plain",
+     "name_en": "Integral (light)", "name_ar": "إنتغرال (فاتح)",
+     "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},
+    {"id": "integral-dark", "theme": "Integral", "variant": 3, "mode": "dark", "divider": "plain",
+     "name_en": "Integral (dark)", "name_ar": "إنتغرال (داكن)",
+     "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},
+    {"id": "facet-light", "theme": "Facet", "variant": 1, "mode": "light", "title_accent": true,
+     "name_en": "Facet blue (light)", "name_ar": "فاسِت أزرق (فاتح)",
+     "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},
+    {"id": "facet-dark", "theme": "Facet", "variant": 3, "mode": "dark",
+     "name_en": "Facet (dark)", "name_ar": "فاسِت (داكن)",
+     "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},
+    {"id": "film-burn-dark", "theme": "Film Burn", "variant": null, "mode": "dark", "divider": "plain",
+     "title_slide_title_size": 32,
+     "name_en": "Film Burn (dark)", "name_ar": "فيلم بيرن (داكن)",
+     "fonts": {"heading": "Segoe UI Semibold", "body": "Segoe UI"}},
+    {"id": "ion-boardroom", "theme": "Ion Boardroom", "variant": null, "mode": "light", "divider": "plain",
+     "subtitle_like_title": true,
+     "name_en": "Ion Boardroom", "name_ar": "آيون بوردروم",
+     "fonts": {"heading": "Segoe UI Semibold", "body": "Segoe UI"}},
+    {"id": "slice", "theme": "Slice", "variant": null, "mode": "dark", "accent_brightness": 0,
+     "excluded": "QA 2026-10-03: content sits on a light-to-dark blue gradient; neither dark nor light text keeps 4.5:1 across it (body 2.9-4.3, chip 1.6, title-slide text 2.2)",
+     "name_en": "Slice", "name_ar": "سلايس",
+     "fonts": {"heading": "Segoe UI Semibold", "body": "Segoe UI"}},
+    {"id": "modulo", "theme": "Modulo", "variant": null, "mode": "light",
+     "name_en": "Modulo", "name_ar": "مودولو",
+     "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}}
+  ]
+}

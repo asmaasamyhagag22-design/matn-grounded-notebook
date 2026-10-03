@@ -1,0 +1,11 @@
+{
+  "id": "ion-boardroom",
+  "name_ar": "آيون بوردروم",
+  "name_en": "Ion Boardroom",
+  "fonts": {
+    "heading": "Segoe UI Semibold",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "Office theme Ion Boardroom"
+}

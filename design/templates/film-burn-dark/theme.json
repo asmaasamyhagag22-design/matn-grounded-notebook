@@ -1,0 +1,11 @@
+{
+  "id": "film-burn-dark",
+  "name_ar": "فيلم بيرن (داكن)",
+  "name_en": "Film Burn (dark)",
+  "fonts": {
+    "heading": "Segoe UI Semibold",
+    "body": "Segoe UI"
+  },
+  "mode": "dark",
+  "source": "Office theme Film Burn"
+}

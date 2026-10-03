@@ -9,7 +9,12 @@ param(
     [Parameter(Mandatory = $true)][string]$BodyFont,
     [string]$ComplexFont = "Segoe UI",
     [string]$Label = "Matn template",
-    [string]$LayoutsJson = ""
+    [string]$LayoutsJson = "",
+    [double]$AccentBrightness = 0,   # shade of accent1 for accent text and the chip (-0.5 darker .. +0.5 lighter)
+    [switch]$TitleAccent,            # titles use the shaded accent (for themes whose own title color is too light)
+    [ValidateSet("section", "plain")][string]$Divider = "section",
+    [double]$TitleSlideSize = 0,     # 0 = title_slide_title_size from layouts.json
+    [switch]$SubtitleLikeTitle       # title slide: the subtitle takes the title's color (theme subtitle too faint)
 )
 $ErrorActionPreference = "Stop"
 if (-not $LayoutsJson) { $LayoutsJson = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "layouts.json" }
@@ -35,6 +40,20 @@ function Get-Placeholder($layout, [int[]]$types) {
     return $null
 }
 
+function Set-Accent($color) {
+    $color.ObjectThemeColor = $msoAccent1
+    if ($AccentBrightness -ne 0) { $color.Brightness = $AccentBrightness }
+}
+
+function Grow-Title($title, [double]$size, [int]$lines) {
+    # Make room for `lines` lines of `size` pt by growing the title box upward (its bottom edge stays).
+    $need = $lines * 1.36 * $size + 10
+    if ($title.Height -ge $need) { return }
+    $bottom = $title.Top + $title.Height
+    $title.Top = [single][Math]::Max(6, $bottom - $need)
+    $title.Height = [single]($bottom - $title.Top)
+}
+
 function Set-TextStyle($shape, $style, [string]$prompt) {
     $frame = $shape.TextFrame2
     $frame.AutoSize = 0
@@ -51,7 +70,7 @@ function Set-TextStyle($shape, $style, [string]$prompt) {
     if ($style.bold) { $range.Font.Bold = -1 }
     if ($style.italic) { $range.Font.Italic = -1 }
     if ($style.heading) { $frame.TextRange.Font.Name = "+mj-lt" }
-    if ($style.color -eq "accent1") { $range.Font.Color.ObjectThemeColor = $msoAccent1 }
+    if ($style.color -eq "accent1") { Set-Accent $range.Font.Color }
     if ($style.anchor) { $shape.TextFrame.VerticalAnchor = $anchors[$style.anchor] }
     else { $shape.TextFrame.VerticalAnchor = $anchors["top"] }
 }
@@ -68,6 +87,16 @@ try {
     $fonts.MinorFont.Item(1).Name = $BodyFont
     $fonts.MajorFont.Item(2).Name = $ComplexFont
     $fonts.MinorFont.Item(2).Name = $ComplexFont
+    # Some themes name a decorative font for bullets in the master styles; bullets use the body font instead.
+    foreach ($styleIndex in 1..3) {  # ppDefaultStyle, ppTitleStyle, ppBodyStyle
+        $range = $master.TextStyles.Item($styleIndex).TextFrame.TextRange
+        foreach ($paragraph in $range.Paragraphs()) {
+            $bullet = $paragraph.ParagraphFormat.Bullet
+            if ($bullet.Type -eq 1 -and $bullet.Font.Name -notmatch '^(Wingdings|Symbol|Arial|Segoe UI|Calibri)') {
+                $bullet.Font.Name = $BodyFont
+            }
+        }
+    }
 
     $original = @($master.CustomLayouts | ForEach-Object { $_ })
     $bases = @{
@@ -82,13 +111,22 @@ try {
 
     $index = $master.CustomLayouts.Count + 1
     foreach ($entry in $spec.layouts) {
-        $layout = $bases[$entry.base].Duplicate()
+        $base = $entry.base
+        if ($base -eq "section" -and $Divider -eq "plain") { $base = "title_only" }
+        $layout = $bases[$base].Duplicate()
         $layout.MoveTo($index); $index++
         $layout.Name = $entry.name
         $title = Get-Placeholder $layout @($ppTitle, $ppCenterTitle)
         $title.Name = "title"
-        if ($entry.base -eq "title_only") { $title.TextFrame.TextRange.Font.Size = $spec.content_title_size }
-        if ($entry.base -eq "title") { $title.TextFrame.TextRange.Font.Size = $spec.title_slide_title_size }
+        if ($base -eq "title_only") {
+            $title.TextFrame.TextRange.Font.Size = $spec.content_title_size
+            Grow-Title $title $spec.content_title_size 2
+        }
+        if ($base -eq "title") {
+            $title.TextFrame.TextRange.Font.Size = [single]$(if ($TitleSlideSize) { $TitleSlideSize } else { $spec.title_slide_title_size })
+        }
+        if ($base -eq "section") { $title.TextFrame.TextRange.Font.Size = $spec.divider_title_size }
+        if ($TitleAccent) { Set-Accent $title.TextFrame.TextRange.Font.Color }
         foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
             if ($shape.Type -ne 14) { continue }
             $type = $shape.PlaceholderFormat.Type
@@ -96,11 +134,36 @@ try {
                 $shape.Name = "subtitle"
             }
         }
-        if ($entry.base -eq "section") {
-            $numberTop = [Math]::Max(24, $title.Top - 140)
-            $number = $layout.Shapes.AddPlaceholder($ppBody, $title.Left, $numberTop, 320, 136)
+        if ($base -eq "title" -and $SubtitleLikeTitle) {
+            $sub = $layout.Shapes | Where-Object { $_.Name -eq "subtitle" }
+            $sub.TextFrame.TextRange.Font.Color.RGB = $title.TextFrame.TextRange.Font.Color.RGB
+        }
+        if ($base -eq "title_only" -and $entry.base -eq "section") {
+            # Plain divider on the content background: number, title and question stacked in the content area.
+            $title.Left = [single]$area.L; $title.Width = [single]$area.W
+            $full = $area.H + $chipBand  # dividers have no source chip
+            $title.Top = [single]($area.T + 0.38 * $full); $title.Height = [single](0.36 * $full)
+            $title.TextFrame.TextRange.Font.Size = $spec.divider_title_size
+            $title.TextFrame.VerticalAnchor = $anchors["top"]
+            $number = $layout.Shapes.AddPlaceholder($ppBody, $area.L, $area.T, 360, 0.36 * $full)
+            $number.Name = "section_number"
+            Set-TextStyle $number $spec.styles.number_plain "01"
+            $subtitle = $layout.Shapes.AddPlaceholder($ppBody, $area.L, $area.T + 0.76 * $full, $area.W, 0.24 * $full)
+            $subtitle.Name = "subtitle"
+            Set-TextStyle $subtitle $spec.styles.subtitle "subtitle"
+        }
+        if ($base -eq "section") {
+            $numberTop = [Math]::Max(24, $title.Top - 156)
+            $number = $layout.Shapes.AddPlaceholder($ppBody, $title.Left, $numberTop, 320, 150)
             $number.Name = "section_number"
             Set-TextStyle $number $spec.styles.number "01"
+            if (-not ($layout.Shapes | Where-Object { $_.Name -eq "subtitle" })) {
+                # The theme's section header has no text box: the divider's question goes under the title.
+                $subtitle = $layout.Shapes.AddPlaceholder($ppBody, $title.Left, $title.Top + $title.Height + 6,
+                                                          $title.Width, 64)
+                $subtitle.Name = "subtitle"
+                Set-TextStyle $subtitle $spec.styles.subtitle "subtitle"
+            }
         }
         foreach ($card in $entry.cards) {
             $shape = $layout.Shapes.AddShape($msoRoundedRectangle, $area.L + $card[0] * $area.W, $area.T + $card[1] * $area.H,
@@ -132,7 +195,7 @@ try {
             $chip.Adjustments.Item(1) = 0.5
             $chip.Fill.Visible = -1
             $chip.Fill.Solid()
-            $chip.Fill.ForeColor.ObjectThemeColor = $msoAccent1
+            Set-Accent $chip.Fill.ForeColor
             $chip.Line.Visible = 0
             $chip.TextFrame.MarginLeft = 10; $chip.TextFrame.MarginRight = 10
             $chip.TextFrame.MarginTop = 2; $chip.TextFrame.MarginBottom = 2
@@ -152,11 +215,11 @@ try {
         if ($shape.PlaceholderFormat.Type -in @($ppTitle, $ppCenterTitle)) { $shape.TextFrame.TextRange.Text = $Label }
         elseif ($shape.PlaceholderFormat.Type -in @($ppSubtitle, $ppBody)) { $shape.TextFrame.TextRange.Text = "Matn" }
     }
-    $slide.Export((Join-Path (Get-Location) $Thumbnail), "PNG", 640, 360)
+    $slide.Export($ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Thumbnail), "PNG", 640, 360)
     $slide.Delete()
 
     New-Item -ItemType Directory -Force (Split-Path $OutPptx) | Out-Null
-    $pres.SaveAs((Join-Path (Get-Location) $OutPptx), $ppSaveAsOpenXMLPresentation)
+    $pres.SaveAs($ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($OutPptx), $ppSaveAsOpenXMLPresentation)
     $pres.Close()
 } finally {
     $app.Quit()

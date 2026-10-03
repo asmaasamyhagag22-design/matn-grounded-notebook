@@ -8,6 +8,7 @@ Usage: .venv\\Scripts\\python.exe design/templates/src/build.py [template_id ...
 """
 from __future__ import annotations
 
+import colorsys
 import json
 import os
 import re
@@ -59,6 +60,44 @@ def variant_modes(path: Path) -> dict[int, str]:
     return dict(sorted(modes.items()))
 
 
+def _contrast(a: tuple[float, ...], b: tuple[float, ...]) -> float:
+    def lum(rgb: tuple[float, ...]) -> float:
+        lin = [c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4 for c in rgb]
+        return 0.2126 * lin[0] + 0.7152 * lin[1] + 0.0722 * lin[2]
+    high, low = sorted((lum(a), lum(b)), reverse=True)
+    return (high + 0.05) / (low + 0.05)
+
+
+def theme_colors(thmx: Path) -> tuple[tuple[float, ...], tuple[float, ...]]:
+    """(background, accent1) as RGB 0..1: bg1 follows the slide master's color map, as PowerPoint shows it."""
+    with zipfile.ZipFile(thmx) as package:
+        names = package.namelist()
+        theme = package.read(next(n for n in names if re.fullmatch(r"theme/theme/theme\d+\.xml", n))).decode("utf-8")
+        master = package.read(next(n for n in names if re.fullmatch(r"theme/slideMasters/slideMaster1\.xml", n)))
+    bg_slot = re.search(r'<p:clrMap[^>]* bg1="(\w+)"', master.decode("utf-8")).group(1)
+
+    def slot(name: str) -> tuple[float, ...]:
+        block = re.search(rf"<a:{name}>(.*?)</a:{name}>", theme, re.S).group(1)
+        value = re.search(r'(?:lastClr|srgbClr val)="([0-9A-Fa-f]{6})"', block).group(1)
+        return tuple(int(value[i:i + 2], 16) / 255 for i in (0, 2, 4))
+
+    return slot(bg_slot), slot("accent1")
+
+
+def accent_brightness(thmx: Path, minimum: float = 4.6) -> float:
+    """Smallest PowerPoint brightness shift that gives accent1 `minimum` contrast on the background, keeping its hue
+    (negative darkens on light backgrounds, positive lightens on dark ones)."""
+    background, accent = theme_colors(thmx)
+    hue, lightness, saturation = colorsys.rgb_to_hls(*accent)
+    dark_background = colorsys.rgb_to_hls(*background)[1] < 0.5
+    for step in range(0, 16):
+        shift = step * 0.05 * (1 if dark_background else -1)
+        shaded = lightness * (1 - shift) + shift if shift > 0 else lightness * (1 + shift)
+        if _contrast(colorsys.hls_to_rgb(hue, shaded, saturation), background) >= minimum:
+            return round(shift, 2)
+    return round(0.75 * (1 if dark_background else -1), 2)
+
+
 def variant_thmx(path: Path, variant: int, out: Path) -> Path:
     """Unpack themeVariants/variant<N>/ of an installed .thmx into a standalone .thmx PowerPoint can apply."""
     prefix = f"themeVariants/variant{variant}/"
@@ -87,24 +126,31 @@ def build(entry: dict) -> None:
     thmx = source
     if entry.get("variant"):
         thmx = variant_thmx(source, entry["variant"], WORK / f"{entry['id']}.thmx")
+    brightness = entry.get("accent_brightness", accent_brightness(thmx))
     folder = GALLERY / entry["id"]
     folder.mkdir(parents=True, exist_ok=True)
     subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(SRC / "build_template.ps1"),
                     "-Thmx", str(thmx), "-OutPptx", str(folder / "template.pptx"),
                     "-Thumbnail", str(folder / "thumbnail.png"), "-HeadingFont", entry["fonts"]["heading"],
-                    "-BodyFont", entry["fonts"]["body"], "-Label", entry["name_en"]], check=True, cwd=ROOT)
+                    "-BodyFont", entry["fonts"]["body"], "-Label", entry["name_en"],
+                    "-AccentBrightness", str(brightness), "-Divider", entry.get("divider", "section"),
+                    "-TitleSlideSize", str(entry.get("title_slide_title_size", 0))]
+                   + (["-TitleAccent"] if entry.get("title_accent") else [])
+                   + (["-SubtitleLikeTitle"] if entry.get("subtitle_like_title") else []), check=True, cwd=ROOT)
     meta = {key: entry[key] for key in ("id", "name_ar", "name_en", "fonts", "mode")}
     meta["source"] = f"Office theme {entry['theme']}" + (f" (variant {entry['variant']})" if entry.get("variant") else "")
     (folder / "theme.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     report = validate_template(folder / "template.pptx")
     if not report.ok:
         raise SystemExit(f"{entry['id']}: template invalid: {report.errors}")
-    print(f"{entry['id']}: ok ({(folder / 'template.pptx').stat().st_size // 1024} KB)")
+    print(f"{entry['id']}: ok ({(folder / 'template.pptx').stat().st_size // 1024} KB, accent shift {brightness})")
 
 
 def main(ids: list[str]) -> int:
     entries = json.loads((SRC / "gallery.json").read_text(encoding="utf-8"))["templates"]
     for entry in entries:
+        if entry.get("excluded"):
+            continue
         if not ids or entry["id"] in ids:
             build(entry)
     return 0

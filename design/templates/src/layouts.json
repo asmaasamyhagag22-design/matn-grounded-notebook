@@ -3,17 +3,20 @@
   "chip": {"band_pt": 34, "w_pt": 150, "h_pt": 24},
   "content_title_size": 28,
   "title_slide_title_size": 40,
+  "divider_title_size": 32,
   "styles": {
     "body":        {"size": 18, "bullets": true},
     "small":       {"size": 12, "bullets": false},
-    "item_title":  {"size": 20, "bullets": false, "bold": true, "heading": true, "color": "accent1"},
+    "item_title":  {"size": 18, "bullets": false, "bold": true, "heading": true, "color": "accent1"},
     "item":        {"size": 16, "bullets": false},
     "kpi_value":   {"size": 40, "bullets": false, "bold": true, "heading": true, "color": "accent1", "anchor": "bottom"},
     "kpi_big":     {"size": 72, "bullets": false, "bold": true, "heading": true, "color": "accent1", "anchor": "bottom"},
     "kpi_label":   {"size": 14, "bullets": false},
     "quote":       {"size": 20, "bullets": false, "italic": true, "heading": true},
-    "number":      {"size": 120, "bullets": false, "bold": true, "heading": true, "color": "accent1", "anchor": "bottom"},
-    "list":        {"size": 14, "bullets": false}
+    "number_plain": {"size": 60, "bullets": false, "bold": true, "heading": true, "color": "accent1", "anchor": "bottom"},
+    "number":      {"size": 96, "bullets": false, "bold": true, "heading": true, "color": "accent1", "anchor": "bottom"},
+    "list":        {"size": 14, "bullets": false},
+    "subtitle":    {"size": 18, "bullets": false}
   },
   "layouts": [
     {"name": "matn:title:default", "base": "title"},
@@ -42,21 +45,21 @@
       ["attribution", "small", 0.645, 0.82, 0.33, 0.12]]},
     {"name": "matn:finding:cards-3", "base": "title_only", "chip": true,
      "cards": [[0, 0, 0.32, 1], [0.34, 0, 0.32, 1], [0.68, 0, 0.32, 1]], "placeholders": [
-      ["item_1_title", "item_title", 0.02, 0.05, 0.28, 0.14], ["item_1", "item", 0.02, 0.20, 0.28, 0.75],
-      ["item_2_title", "item_title", 0.36, 0.05, 0.28, 0.14], ["item_2", "item", 0.36, 0.20, 0.28, 0.75],
-      ["item_3_title", "item_title", 0.70, 0.05, 0.28, 0.14], ["item_3", "item", 0.70, 0.20, 0.28, 0.75]]},
+      ["item_1_title", "item_title", 0.02, 0.04, 0.28, 0.18], ["item_1", "item", 0.02, 0.23, 0.28, 0.73],
+      ["item_2_title", "item_title", 0.36, 0.04, 0.28, 0.18], ["item_2", "item", 0.36, 0.23, 0.28, 0.73],
+      ["item_3_title", "item_title", 0.70, 0.04, 0.28, 0.18], ["item_3", "item", 0.70, 0.23, 0.28, 0.73]]},
     {"name": "matn:finding:two-col", "base": "title_only", "chip": true, "placeholders": [
-      ["item_1_title", "item_title", 0, 0, 0.47, 0.12], ["item_1", "item", 0, 0.13, 0.47, 0.87],
-      ["item_2_title", "item_title", 0.53, 0, 0.47, 0.12], ["item_2", "item", 0.53, 0.13, 0.47, 0.87]]},
+      ["item_1_title", "item_title", 0, 0, 0.47, 0.18], ["item_1", "item", 0, 0.19, 0.47, 0.81],
+      ["item_2_title", "item_title", 0.53, 0, 0.47, 0.18], ["item_2", "item", 0.53, 0.19, 0.47, 0.81]]},
     {"name": "matn:chart:hero", "base": "title_only", "chip": true, "placeholders": [
       ["chart", "chart", 0, 0, 0.68, 1], ["body", "item", 0.72, 0.05, 0.28, 0.95]]},
     {"name": "matn:implications:default", "base": "title_only", "chip": true,
      "cards": [[0, 0, 0.49, 0.48], [0.51, 0, 0.49, 0.48], [0, 0.52, 0.49, 0.48], [0.51, 0.52, 0.49, 0.48]],
      "placeholders": [
-      ["item_1_title", "item_title", 0.02, 0.03, 0.45, 0.13], ["item_1", "item", 0.02, 0.17, 0.45, 0.29],
-      ["item_2_title", "item_title", 0.53, 0.03, 0.45, 0.13], ["item_2", "item", 0.53, 0.17, 0.45, 0.29],
-      ["item_3_title", "item_title", 0.02, 0.55, 0.45, 0.13], ["item_3", "item", 0.02, 0.69, 0.45, 0.29],
-      ["item_4_title", "item_title", 0.53, 0.55, 0.45, 0.13], ["item_4", "item", 0.53, 0.69, 0.45, 0.29]]},
+      ["item_1_title", "item_title", 0.02, 0.02, 0.45, 0.18], ["item_1", "item", 0.02, 0.20, 0.45, 0.27],
+      ["item_2_title", "item_title", 0.53, 0.02, 0.45, 0.18], ["item_2", "item", 0.53, 0.20, 0.45, 0.27],
+      ["item_3_title", "item_title", 0.02, 0.54, 0.45, 0.18], ["item_3", "item", 0.02, 0.72, 0.45, 0.27],
+      ["item_4_title", "item_title", 0.53, 0.54, 0.45, 0.18], ["item_4", "item", 0.53, 0.72, 0.45, 0.27]]},
     {"name": "matn:limitations:default", "base": "title_only", "chip": true, "placeholders": [
       ["body", "body", 0, 0, 1, 1]]},
     {"name": "matn:sources:default", "base": "title_only", "chip": false, "placeholders": [

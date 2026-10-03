@@ -1,0 +1,11 @@
+{
+  "id": "facet-light",
+  "name_ar": "فاسِت أزرق (فاتح)",
+  "name_en": "Facet blue (light)",
+  "fonts": {
+    "heading": "Bahnschrift SemiBold",
+    "body": "Segoe UI"
+  },
+  "mode": "light",
+  "source": "Office theme Facet (variant 1)"
+}

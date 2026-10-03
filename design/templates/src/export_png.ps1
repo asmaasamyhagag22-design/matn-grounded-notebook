@@ -7,6 +7,8 @@ param(
     [int]$Height = 720
 )
 $ErrorActionPreference = "Stop"
+# -File passes a comma list as one string, so split it here.
+$Pptx = @($Pptx | ForEach-Object { $_ -split "," }); $OutDir = @($OutDir | ForEach-Object { $_ -split "," })
 if ($Pptx.Count -ne $OutDir.Count) { throw "PPTX_AND_OUTDIR_COUNTS_DIFFER" }
 $app = New-Object -ComObject PowerPoint.Application
 try {
