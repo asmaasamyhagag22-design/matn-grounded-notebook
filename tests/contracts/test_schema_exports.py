@@ -253,12 +253,13 @@ def test_every_public_model_survives_json_round_trip() -> None:
         assert type(value).model_validate_json(value.model_dump_json()) == value
 
 
-SCHEMA_V2 = {"Slide", "DeckPlan", "SlideDraft", "DeckPlanDraft"}  # Step 2b added three SlideType values
+# Step 2b added three SlideType values (v2); Step 2c.1 allows KPI slides with one value (v3).
+SCHEMA_V3 = {"Slide", "DeckPlan", "SlideDraft", "DeckPlanDraft"}
 
 
 def test_every_public_model_carries_schema_version() -> None:
     for value in _samples():
-        assert value.schema_version == (2 if type(value).__name__ in SCHEMA_V2 else 1)
+        assert value.schema_version == (3 if type(value).__name__ in SCHEMA_V3 else 1)
 
 
 def test_exported_schema_snapshots_match() -> None:

@@ -4,7 +4,7 @@
 للـ summary أو الـ deck لازم نعرف نرجعه لمكان محدد في الـ PDF، من غير ما نعتمد على إن الـ prompt “أكيد هيلتزم”.
 
 كل model هنا Pydantic v2، `frozen=True` و`extra="forbid"`. يعني القيمة ما تتغيرش بعد ما تتبني، وأي field مش
-معروف يتترفض بدل ما يعدّي بصمت. كل model كمان فيه `schema_version` (`1`، ما عدا `Slide`/`DeckPlan` وdrafts بتوعهم = `2`): السؤال اللي بيجاوبه هو “أنا بقرا أنهي
+معروف يتترفض بدل ما يعدّي بصمت. كل model كمان فيه `schema_version` (`1`، ما عدا `Slide`/`DeckPlan` وdrafts بتوعهم = `3`): السؤال اللي بيجاوبه هو “أنا بقرا أنهي
 نسخة من العقد؟”. لو غاب، consumer قديم ممكن يفسّر shape جديدة غلط. البديل المرفوض كان implicit versioning من
 اسم الملف؛ ده ما ينفعش لما object يتنقل لوحده.
 
@@ -149,13 +149,15 @@ bullet ما نقدرش ندافع عنه.
 علشان chart ما يبقاش مصدر أرقام تاني.
 
 في `Slide`: `slide_type` يختار shape؛ `title` assertion non-empty وبحد أقصى 90؛ `items` tuple بحد أقصى 4؛
-`kpi_fact_ids` بين 2 و4 على KPI فقط؛ `chart` موجود على chart فقط؛ و`notes` nullable. KPI item text ممنوع فيه digits،
+`kpi_fact_ids` بين 1 و4 على KPI فقط (من Step 2c.1؛ قبلها كان 2 لـ4)؛ `chart` موجود على chart فقط؛ و`notes` nullable. KPI item text ممنوع فيه digits،
 والـ cross-object function يتأكد إن كل KPI ID نوعه `number`. كده renderer هو اللي ينسخ القيم المراجَعة.
 
 Step 2b زوّد 3 أنواع، وعلشان كده `Slide` و`DeckPlan` و`SlideDraft` و`DeckPlanDraft` بقوا `schema_version=2`:
 `section_divider` (عنوان + item واحد بالكتير = سؤال السكشن؛ الرقم الكبير بيحسبه الكود من ترتيب الـ dividers)،
 `closing` (takeaways عادية لحد 4)، و`evidence_appendix` (ممنوع فيه items؛ الكود هو اللي يبني “الإيصالات”: كل رقم
 مستشهد بيه مع الـ quote بتاعته). consumer قديم بيقرا v1 هيرفض v2 صراحة بدل ما يقابل type مش عارفه.
+
+Step 2c.1 سمح بـ KPI slide فيها رقم واحد (`kpi:hero-number`: رقم كبير + سطر بيشرحه)، فالأربعة (`Slide` و`DeckPlan` و`SlideDraft` و`DeckPlanDraft`) بقوا `schema_version=3`. صفر أو خمسة أرقام لسه بيترفضوا، و`validate_deck_plan_against_facts` بيعيد نفس فحص العدد (`KPI_FACT_COUNT`) للـ objects اللي اتبنت من غير validation.
 
 `DeckPlan.doc_id` يثبت المصدر و`slides` ordered non-empty tuple. `validate_deck_plan_against_facts` بيرفض unknown
 fact IDs وKPI refs اللي مش numbers؛ القاعدة ما اتحطتش جوه `Slide` لأنها محتاجة objects خارجية.

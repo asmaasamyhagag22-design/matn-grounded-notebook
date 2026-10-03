@@ -310,7 +310,7 @@ class ChartSpec(VersionedContract):
 
 
 class Slide(VersionedContract):
-    schema_version: Literal[2] = 2  # v2: section_divider, closing, evidence_appendix
+    schema_version: Literal[3] = 3  # v2: section_divider, closing, evidence_appendix; v3: 1-4 KPI values
     slide_type: SlideType
     title: Annotated[str, Field(min_length=1, max_length=90)]
     items: Annotated[tuple[SlideItem, ...], Field(max_length=4)] = ()
@@ -321,8 +321,8 @@ class Slide(VersionedContract):
     @model_validator(mode="after")
     def validate_shape(self) -> Self:
         if self.slide_type is SlideType.KPI:
-            if not 2 <= len(self.kpi_fact_ids) <= 4:
-                raise ValueError("KPI slides require two to four kpi_fact_ids")
+            if not 1 <= len(self.kpi_fact_ids) <= 4:
+                raise ValueError("KPI slides require one to four kpi_fact_ids")
             if any(re.search(r"\d", item.text) for item in self.items):
                 raise ValueError("KPI slide item text must not contain digits")
         elif self.kpi_fact_ids:
@@ -340,7 +340,7 @@ class Slide(VersionedContract):
 
 
 class DeckPlan(VersionedContract):
-    schema_version: Literal[2] = 2  # v2: Slide v2
+    schema_version: Literal[3] = 3  # v2: Slide v2; v3: Slide v3
     doc_id: DocId
     slides: Annotated[tuple[Slide, ...], Field(min_length=1)]
 
@@ -355,6 +355,8 @@ def validate_deck_plan_against_facts(
             for fact_id in item.fact_ids:
                 if fact_id not in facts_by_id:
                     raise ValueError(f"UNKNOWN_FACT_ID:{fact_id}")
+        if slide.slide_type is SlideType.KPI and not 1 <= len(slide.kpi_fact_ids) <= 4:
+            raise ValueError(f"KPI_FACT_COUNT:{len(slide.kpi_fact_ids)}")  # also for objects built without validation
         for fact_id in slide.kpi_fact_ids:
             fact = facts_by_id.get(fact_id)
             if fact is None:

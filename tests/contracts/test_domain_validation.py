@@ -26,6 +26,7 @@ from matn_contracts.domain import (
     key_numbers_from_facts,
     validate_deck_plan_against_facts,
 )
+from matn_contracts.drafts import SlideDraft
 from matn_contracts.enums import (
     ChartType,
     FactKind,
@@ -283,7 +284,7 @@ def test_step2b_slide_types_and_their_shapes() -> None:
     backing = fact()
     question = SlideItem(text="Which offices adopt slowest?", fact_ids=(backing.fact_id,))
     divider = Slide(slide_type=SlideType.SECTION_DIVIDER, title="Adoption", items=(question,), notes=None)
-    assert divider.schema_version == 2
+    assert divider.schema_version == 3
     with pytest.raises(ValidationError, match="at most one item"):
         Slide(slide_type=SlideType.SECTION_DIVIDER, title="Adoption", items=(question, question), notes=None)
     Slide(slide_type=SlideType.CLOSING, title="Three takeaways", items=(question,) * 4, notes=None)
@@ -293,3 +294,20 @@ def test_step2b_slide_types_and_their_shapes() -> None:
     for slide_type in (SlideType.SECTION_DIVIDER, SlideType.CLOSING, SlideType.EVIDENCE_APPENDIX):
         with pytest.raises(ValidationError):
             Slide(slide_type=slide_type, title="x", kpi_fact_ids=(backing.fact_id,) * 2, notes=None)
+
+
+def test_kpi_slides_hold_one_to_four_values() -> None:
+    numeric = number_fact()
+    for count in (1, 4):
+        slide = Slide(slide_type=SlideType.KPI, title="Headline", kpi_fact_ids=(numeric.fact_id,) * count, notes=None)
+        validate_deck_plan_against_facts(DeckPlan(doc_id=DOC_ID, slides=(slide,)), (numeric,))
+        SlideDraft(slide_type=SlideType.KPI, title="Headline", kpi_fact_ids=(numeric.fact_id,) * count, notes=None)
+    for count in (0, 5):
+        with pytest.raises(ValidationError, match="one to four"):
+            Slide(slide_type=SlideType.KPI, title="Headline", kpi_fact_ids=(numeric.fact_id,) * count, notes=None)
+        with pytest.raises(ValidationError, match="one to four"):
+            SlideDraft(slide_type=SlideType.KPI, title="Headline", kpi_fact_ids=(numeric.fact_id,) * count, notes=None)
+    unchecked = Slide.model_construct(slide_type=SlideType.KPI, title="Headline", items=(), kpi_fact_ids=(),
+                                      chart=None, notes=None)
+    with pytest.raises(ValueError, match="KPI_FACT_COUNT:0"):
+        validate_deck_plan_against_facts(DeckPlan.model_construct(doc_id=DOC_ID, slides=(unchecked,)), (numeric,))
