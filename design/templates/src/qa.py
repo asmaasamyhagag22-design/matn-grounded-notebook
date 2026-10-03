@@ -29,7 +29,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
 from contact_sheet import build_sheet  # noqa: E402
 from matn_deck.fit import placeholder_style  # noqa: E402
-from matn_deck.specimen_v2 import main as render_specimen  # noqa: E402
+from matn_deck.specimen import main as render_specimen  # noqa: E402
 from matn_deck.template_renderer import DeckOverflowError  # noqa: E402
 
 EXPORT_W, EXPORT_H = 2560, 1440

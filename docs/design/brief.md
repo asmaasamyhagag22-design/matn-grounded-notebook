@@ -1,5 +1,7 @@
 # Design brief — شكل كل الـ decks في Matn
 
+> **اتلغى في Step 2b (2026-10-03):** `design/tokens.json` و`design/layouts.json` والـ renderer v0 اللي كان بيرسم بالكود اتشالوا. التصميم دلوقتي جوه PowerPoint templates (`design/templates/`) والكود بيملا placeholders بالاسم بس: `docs/design/template-contract.md` و`docs/design/tricks.md`. الأجزاء الباقية هنا (الـ assertion titles، الـ contrast، الـ RTL في §11) لسه مرجع للأفكار.
+
 المصدر الوحيد للقيم: `design/tokens.json` (ألوان، خطوط، مقاسات، margins بالـ EMU) و`design/layouts.json`
 (مكان كل slot في كل archetype). الـ renderer (`matn_deck/`) بيملا الـ slots دي بس، ومفيش أي style مكتوب في الكود.
 

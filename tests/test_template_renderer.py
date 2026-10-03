@@ -9,8 +9,7 @@ from pptx.enum.shapes import MSO_SHAPE_TYPE, PP_PLACEHOLDER
 
 from matn_contracts.domain import ChartSpec, DeckPlan, Slide
 from matn_contracts.enums import ChartType, FactStatus, SlideType
-from matn_deck.specimen_v2 import specimen_inputs
-from matn_deck.specimen import SPECIMEN_DOC_ID, item, sample_fact, sample_table
+from matn_deck.specimen import SPECIMEN_DOC_ID, item, sample_fact, sample_table, specimen_inputs
 from matn_deck.template_renderer import (
     DeckRenderError,
     TemplateInvalidError,

@@ -1,17 +1,25 @@
-"""Deck renderer: DeckPlan + facts + tables -> editable .pptx in the Matn design system (docs/design/brief.md)."""
+"""Deck renderer: DeckPlan + facts + tables -> editable .pptx through a gallery template (docs/design/)."""
 
-from .design import Box, Design, contrast_ratio, load_design
-from .render import DeckOverflowError, DeckRenderError, Overflow, RenderReport, build_presentation, render
+from .template_renderer import (
+    DeckOverflowError,
+    DeckRenderError,
+    Overflow,
+    RenderReport,
+    TemplateInvalidError,
+    build_presentation,
+    render,
+)
+from .templates import default_template_id, gallery, validate_template
 
 __all__ = [
-    "Box",
     "DeckOverflowError",
     "DeckRenderError",
-    "Design",
     "Overflow",
     "RenderReport",
+    "TemplateInvalidError",
     "build_presentation",
-    "contrast_ratio",
-    "load_design",
+    "default_template_id",
+    "gallery",
     "render",
+    "validate_template",
 ]
