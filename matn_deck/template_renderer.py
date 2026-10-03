@@ -235,6 +235,10 @@ class _DeckBuilder:
         self.geo = load_variants()["geometry"]
         meta_path = template.with_name("theme.json")
         self.meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.is_file() else {}
+        self.card_style = {**decor_mod.DEFAULT_CARD_STYLE, **self.meta.get("card_style", {})}
+        self.card_style["shadow"] = {**decor_mod.DEFAULT_CARD_STYLE["shadow"],
+                                     **self.card_style.get("shadow", {})}
+        self.divider_style = self.meta.get("divider_style", {"type": "color_block"})
         reference = self.layouts["matn:limitations:default"]
         ref = {ph.name: ph for ph in reference.placeholders}
         self.area = _rect(ref["body"])  # the contract's content area (template-contract.md §5)
@@ -492,8 +496,8 @@ class _DeckBuilder:
     def _contrast(self, style: TextStyle, layout: Any, backdrop: str | None) -> float:
         backgrounds = self.colors.background(layout)
         if backdrop is not None:
-            alpha = decor_mod.HERO_ALPHA if backdrop == "hero_card" else decor_mod.CARD_ALPHA
-            top = self.colors.scheme("accent1" if backdrop == "hero_card" else "tx1")
+            alpha = float(self.card_style["fill_alpha"])
+            top = self.colors.scheme("tx1")
             backgrounds = [blend(top, b, alpha) for b in backgrounds]
         fg = self._fg(style)
         return min(contrast(fg, b) for b in backgrounds)
@@ -823,7 +827,8 @@ class _DeckBuilder:
         accent = self.colors.resolve(self.accent_xml)[0]
         backgrounds = self.colors.background(None)
         if backdrop == "card":
-            backgrounds = [blend(self.colors.scheme("tx1"), b, decor_mod.CARD_ALPHA) for b in backgrounds]
+            backgrounds = [blend(self.colors.scheme("tx1"), b, float(self.card_style["fill_alpha"]))
+                           for b in backgrounds]
         return min(contrast(accent, b) for b in backgrounds)
 
     def _block_height(self, part: "_Part", width: float) -> float:
@@ -1168,9 +1173,11 @@ class _DeckBuilder:
                     run.font.size = int((plan.body_pt or value / 2) * EMU_PER_PT)
                 if name == "source":
                     self._fit_chip(shape, plan)
+                if name == "section_number":
+                    decor_mod.style_divider_number(shape, self.divider_style, self.accent_xml)
             else:
                 shape._element.getparent().remove(shape._element)
-        decor_mod.draw(slide, plan.decor, self.accent_xml)
+        decor_mod.draw(slide, plan.decor, self.accent_xml, self.card_style)
         self._notes(slide, plan.content)
 
     def _fill_title(self, shape: Any, plan: _Plan) -> None:

@@ -3,13 +3,21 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shutil
 
 import pytest
 from pydantic import ValidationError
+from pptx import Presentation
 
 from design.creative.backgrounds import content_zone_variance, render_background
 from design.creative.spec import CreativeSpec
 from matn_deck.color import (contrast_ratio, derive_roles, oklch_to_srgb, rgb_from_hex, srgb_to_oklch)
+from matn_deck.decor import CARD_ALPHA
+from matn_deck.specimen import specimen_inputs
+from matn_deck.template_renderer import build_presentation
+from matn_deck.templates import GALLERY_DIR, default_template_id
+
+_A = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
 
 
 def sample_spec(**changes):
@@ -65,3 +73,34 @@ def test_backgrounds_are_deterministic_and_keep_the_content_zone_calm(kind):
     first, second = render_background(spec, (320, 180)), render_background(spec, (320, 180))
     assert hashlib.sha256(first.tobytes()).digest() == hashlib.sha256(second.tobytes()).digest()
     assert content_zone_variance(first) < 12
+
+
+def _alpha(shape) -> int:
+    return int(shape._element.find(f".//{_A}solidFill/{_A}schemeClr/{_A}alpha").get("val"))
+
+
+def test_card_and_divider_tokens_are_honored_and_classic_defaults_stay_unchanged(tmp_path):
+    source = GALLERY_DIR / default_template_id()
+    classic_plan, facts, tables = specimen_inputs()
+    classic, _ = build_presentation(classic_plan, facts, tables, source / "template.pptx", strict=True)
+    classic_card = next(s for slide in classic.slides for s in slide.shapes if s.name == "card_1")
+    assert _alpha(classic_card) == round(CARD_ALPHA * 100000)
+    assert classic_card._element.find(f".//{_A}outerShdw") is None
+
+    creative = tmp_path / "creative"
+    creative.mkdir()
+    shutil.copy2(source / "template.pptx", creative / "template.pptx")
+    meta = json.loads((source / "theme.json").read_text(encoding="utf-8"))
+    meta["card_style"] = {"fill_alpha": 0.19, "corner_radius_pt": 18,
+                          "shadow": {"enabled": True, "alpha": 0.2, "blur_pt": 14, "distance_pt": 3}}
+    meta["divider_style"] = {"type": "outline_number", "outline_color": "D6A84B"}
+    (creative / "theme.json").write_text(json.dumps(meta), encoding="utf-8")
+    rendered, _ = build_presentation(classic_plan, facts, tables, creative / "template.pptx", strict=True)
+    card = next(s for slide in rendered.slides for s in slide.shapes if s.name == "card_1")
+    assert _alpha(card) == 19000
+    assert card._element.find(f".//{_A}outerShdw") is not None
+    divider = next(slide for slide in rendered.slides if slide.slide_layout.name.startswith("matn:section_divider"))
+    number = next(s for s in divider.placeholders if s.name == "section_number")
+    run = number.text_frame.paragraphs[0].runs[0]
+    assert run.font._rPr.find(f"{_A}noFill") is not None
+    assert run.font._rPr.find(f"{_A}ln/{_A}solidFill/{_A}srgbClr").get("val") == "D6A84B"
