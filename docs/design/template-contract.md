@@ -1,4 +1,4 @@
-# Template contract (v2, Step 2c)
+# Template contract (v3, Step 2d)
 
 A Matn template is a `.pptx` whose **slide layouts** follow the names below. The renderer picks a layout by name and
 fills its placeholders by name. The template owns fonts, colors, backgrounds, master art, the title box, the content
@@ -6,6 +6,9 @@ area and the rounded "p. N" chip. Since Step 2c the renderer also places the con
 it sets placeholder boxes and type sizes, and draws native-shape visuals (cards, bars, icons, timeline, tracker) for
 filled slots only, using theme color slots so every template keeps its palette. Values are still copied from facts and
 tables by code (`docs/design/tricks.md`, data rule).
+
+Step 2d adds spec-generated creative templates. They obey the same layouts and renderer contract; their specs add
+deterministic background art, semantic color roles, card tokens and divider tokens without branching the content.
 
 Later phases add variants and optional placeholders; they never rename or remove what is listed here.
 
@@ -150,3 +153,23 @@ another keeps `design/variants.json` covering exactly these layouts.
   maximum) takes the accent and one callout, the rest is muted; direct labels, no gridlines, no legend for one series.
 - **Records.** Every slide's candidates and scores are in `RenderReport.scores` (the gallery QA writes them to
   `out/gallery/<template>/scores.json`).
+
+## 6. Creative template specs and QA (Step 2d)
+
+- Source specs live at `design/creative/<id>/spec.json`; `design/creative/generate.py` derives the background,
+  Office theme, template, thumbnail and `theme.json`. The nine templates are three variations each of Nile Night,
+  Papyrus and Mashrabiya. Backgrounds use fixed seeds and have no network or runtime dependency.
+- Semantic color roles distinguish text accent from visual focus. `accent` must meet text contrast; on light
+  templates it resolves to the deep primary rather than the vivid/saffron seed. `focus` is the vivid fill/graphic
+  role and must meet 3:1. `on_surface` and `muted` are derived against both the base surface and the composited glass
+  card (`foreground * card_alpha + surface * (1-card_alpha)`) and must meet 4.5:1 on both.
+- Mashrabiya's left art band plus its gutter is excluded from every non-divider placeholder and from the generated
+  content area, source chip and tracker. `theme.json.decor_zone.safe_left_pt` records the boundary; tests reject any
+  text placeholder to its left.
+- Papyrus keeps `outline_number` dividers. The outline color must reach 3:1 against every actual divider fill and its
+  width is recorded as `divider_style.outline_width_pt` (4 pt minimum for the 160-200 pt display number).
+- Creative QA measures the exported blank cover. The content rectangle must have RGB standard deviation below 12;
+  edge art remains perceptible when its deviation exceeds the content by at least 0.5 or its mean RGB differs by at
+  least 6. These values appear per template as `art.content_std`, `art.edge_std` and `art.mean_delta` in
+  `design/templates/qa.json` and `out/gallery/scores.md`. An art failure is a hard violation; fading the art out
+  cannot pass the gate.

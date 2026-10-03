@@ -109,6 +109,14 @@
       "chart": 21.0
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 71.85,
+      "edge_std": 72.59,
+      "mean_delta": 8.24,
+      "calm": false,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.8015,
     "png_nonblank": 0.1985,
     "hard_violations": 0,
@@ -224,6 +232,14 @@
       "chart": 14.15
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 66.2,
+      "edge_std": 63.76,
+      "mean_delta": 12.38,
+      "calm": false,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.8017,
     "png_nonblank": 0.1983,
     "hard_violations": 0,
@@ -339,6 +355,14 @@
       "chart": 21.0
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 50.15,
+      "mean_delta": 63.89,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.7945,
     "png_nonblank": 0.2055,
     "hard_violations": 0,
@@ -454,6 +478,14 @@
       "chart": 11.45
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 32.5,
+      "mean_delta": 40.05,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.7948,
     "png_nonblank": 0.2052,
     "hard_violations": 0,
@@ -569,6 +601,14 @@
       "chart": 19.89
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 52.23,
+      "edge_std": 58.39,
+      "mean_delta": 10.64,
+      "calm": false,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.8294,
     "png_nonblank": 0.1706,
     "hard_violations": 0,
@@ -694,6 +734,14 @@
       "chart": 21.0
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 10.05,
+      "edge_std": 88.17,
+      "mean_delta": 78.71,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.7924,
     "png_nonblank": 0.2076,
     "hard_violations": 0,
@@ -809,6 +857,14 @@
       "chart": 21.0
     },
     "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 20.44,
+      "mean_delta": 4.07,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
     "png_whitespace": 0.8237,
     "png_nonblank": 0.1763,
     "hard_violations": 0,
@@ -902,105 +958,40 @@
       18
     ],
     "slide_png": {
-      "2": 0.3047,
-      "4": 0.2288,
-      "5": 0.1991,
-      "6": 0.1481,
-      "7": 0.1072,
-      "8": 0.2591,
-      "9": 0.1894,
-      "10": 0.2047,
-      "11": 0.1846,
+      "2": 0.3053,
+      "4": 0.2293,
+      "5": 0.1997,
+      "6": 0.1485,
+      "7": 0.1073,
+      "8": 0.2596,
+      "9": 0.1906,
+      "10": 0.2051,
+      "11": 0.1856,
       "12": 0.085,
-      "13": 0.2996,
-      "14": 0.1251,
-      "16": 0.2266,
-      "17": 0.1737,
-      "18": 0.2213
+      "13": 0.3001,
+      "14": 0.1253,
+      "16": 0.2272,
+      "17": 0.174,
+      "18": 0.2219
     },
     "min_contrast": {
-      "body": 3.74,
-      "large": 2.9,
-      "chart": 7.93
+      "body": 4.55,
+      "large": 3.64,
+      "chart": 7.97
     },
-    "contrast_failures": [
-      {
-        "slide": 2,
-        "placeholder": "item_3",
-        "kind": "large",
-        "contrast": 2.95,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "kpi_label_4",
-        "kind": "large",
-        "contrast": 2.95,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "kpi_label_2",
-        "kind": "large",
-        "contrast": 2.95,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "kpi_label_2",
-        "kind": "large",
-        "contrast": 2.95,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_4",
-        "kind": "large",
-        "contrast": 2.9,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "decisions",
-        "kind": "large",
-        "contrast": 2.99,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 19,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.88,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 20,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.86,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 21,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.74,
-        "min": 4.5,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.8029,
-    "png_nonblank": 0.1971,
-    "hard_violations": 9,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 4.11,
+      "edge_std": 7.9,
+      "mean_delta": 6.7,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.8024,
+    "png_nonblank": 0.1976,
+    "hard_violations": 0,
+    "gate": true
   },
   "nile-night-royal": {
     "references": {
@@ -1090,145 +1081,40 @@
       18
     ],
     "slide_png": {
-      "2": 0.3049,
-      "4": 0.229,
-      "5": 0.1993,
-      "6": 0.1483,
-      "7": 0.1072,
-      "8": 0.2592,
-      "9": 0.1895,
-      "10": 0.2048,
-      "11": 0.1854,
-      "12": 0.085,
-      "13": 0.2998,
-      "14": 0.1252,
-      "16": 0.2269,
-      "17": 0.1738,
-      "18": 0.2216
+      "2": 0.3054,
+      "4": 0.2296,
+      "5": 0.1999,
+      "6": 0.1486,
+      "7": 0.1074,
+      "8": 0.2598,
+      "9": 0.1911,
+      "10": 0.2052,
+      "11": 0.1857,
+      "12": 0.0851,
+      "13": 0.3004,
+      "14": 0.1254,
+      "16": 0.2275,
+      "17": 0.1741,
+      "18": 0.2221
     },
     "min_contrast": {
-      "body": 3.66,
-      "large": 2.77,
-      "chart": 9.23
+      "body": 4.62,
+      "large": 3.64,
+      "chart": 9.39
     },
-    "contrast_failures": [
-      {
-        "slide": 2,
-        "placeholder": "item_3",
-        "kind": "large",
-        "contrast": 2.8,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_4",
-        "kind": "large",
-        "contrast": 2.97,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "kpi_label_4",
-        "kind": "large",
-        "contrast": 2.8,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 5,
-        "placeholder": "quote",
-        "kind": "large",
-        "contrast": 2.93,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "kpi_label_2",
-        "kind": "large",
-        "contrast": 2.8,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 8,
-        "placeholder": "quote",
-        "kind": "large",
-        "contrast": 2.86,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "kpi_label_2",
-        "kind": "large",
-        "contrast": 2.8,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 10,
-        "placeholder": "quote",
-        "kind": "large",
-        "contrast": 2.97,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 13,
-        "placeholder": "quote",
-        "kind": "large",
-        "contrast": 2.86,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_4",
-        "kind": "large",
-        "contrast": 2.77,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "decisions",
-        "kind": "large",
-        "contrast": 2.83,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 19,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.83,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 20,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.87,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 21,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.66,
-        "min": 4.5,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.8027,
-    "png_nonblank": 0.1973,
-    "hard_violations": 14,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 4.17,
+      "edge_std": 8.12,
+      "mean_delta": 7.27,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.8022,
+    "png_nonblank": 0.1978,
+    "hard_violations": 0,
+    "gate": true
   },
   "nile-night-teal": {
     "references": {
@@ -1318,65 +1204,40 @@
       18
     ],
     "slide_png": {
-      "2": 0.3047,
-      "4": 0.2281,
-      "5": 0.1988,
-      "6": 0.1479,
-      "7": 0.1071,
-      "8": 0.2587,
-      "9": 0.1883,
-      "10": 0.2045,
-      "11": 0.1841,
-      "12": 0.0849,
-      "13": 0.2992,
-      "14": 0.125,
-      "16": 0.2262,
-      "17": 0.1735,
-      "18": 0.2211
+      "2": 0.3056,
+      "4": 0.229,
+      "5": 0.1995,
+      "6": 0.1484,
+      "7": 0.1073,
+      "8": 0.2594,
+      "9": 0.1902,
+      "10": 0.205,
+      "11": 0.1852,
+      "12": 0.085,
+      "13": 0.2999,
+      "14": 0.1253,
+      "16": 0.2273,
+      "17": 0.174,
+      "18": 0.2219
     },
     "min_contrast": {
-      "body": 3.79,
-      "large": 2.95,
-      "chart": 7.74
+      "body": 4.51,
+      "large": 3.67,
+      "chart": 7.81
     },
-    "contrast_failures": [
-      {
-        "slide": 16,
-        "placeholder": "item_4",
-        "kind": "large",
-        "contrast": 2.95,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 19,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.91,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 20,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.91,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 21,
-        "placeholder": "body",
-        "kind": "body",
-        "contrast": 3.79,
-        "min": 4.5,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.8032,
-    "png_nonblank": 0.1968,
-    "hard_violations": 4,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 3.38,
+      "edge_std": 5.76,
+      "mean_delta": 5.8,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.8025,
+    "png_nonblank": 0.1975,
+    "hard_violations": 0,
+    "gate": true
   },
   "papyrus": {
     "references": {
@@ -1444,10 +1305,7 @@
       "matn:sources:default",
       "matn:sources:default"
     ],
-    "hard_geometry": [
-      "HARD_VIOLATION:slide 3:LOW_CONTRAST:section_number:1.00<3.0",
-      "HARD_VIOLATION:slide 15:LOW_CONTRAST:section_number:1.00<3.0"
-    ],
+    "hard_geometry": [],
     "beauty": 0.9254,
     "mean_fill": 0.3832,
     "mean_balance": 0.7921,
@@ -1469,32 +1327,40 @@
       18
     ],
     "slide_png": {
-      "2": 0.3104,
-      "4": 0.2577,
-      "5": 0.2017,
-      "6": 0.1526,
-      "7": 0.1082,
-      "8": 0.2648,
-      "9": 0.1978,
+      "2": 0.3105,
+      "4": 0.2579,
+      "5": 0.2018,
+      "6": 0.1528,
+      "7": 0.1083,
+      "8": 0.2649,
+      "9": 0.198,
       "10": 0.2074,
-      "11": 0.187,
-      "12": 0.0922,
-      "13": 0.3054,
-      "14": 0.1431,
-      "16": 0.2331,
-      "17": 0.1742,
-      "18": 0.2276
+      "11": 0.1876,
+      "12": 0.0924,
+      "13": 0.3055,
+      "14": 0.1433,
+      "16": 0.2332,
+      "17": 0.1743,
+      "18": 0.2277
     },
     "min_contrast": {
-      "body": 6.37,
+      "body": 11.81,
       "large": 4.52,
       "chart": 11.81
     },
     "contrast_failures": [],
-    "png_whitespace": 0.7958,
-    "png_nonblank": 0.2042,
-    "hard_violations": 2,
-    "gate": false
+    "art": {
+      "content_std": 1.09,
+      "edge_std": 2.59,
+      "mean_delta": 0.21,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7956,
+    "png_nonblank": 0.2044,
+    "hard_violations": 0,
+    "gate": true
   },
   "papyrus-lapis": {
     "references": {
@@ -1562,10 +1428,7 @@
       "matn:sources:default",
       "matn:sources:default"
     ],
-    "hard_geometry": [
-      "HARD_VIOLATION:slide 3:LOW_CONTRAST:section_number:1.06<3.0",
-      "HARD_VIOLATION:slide 15:LOW_CONTRAST:section_number:1.06<3.0"
-    ],
+    "hard_geometry": [],
     "beauty": 0.9239,
     "mean_fill": 0.3769,
     "mean_balance": 0.7904,
@@ -1587,32 +1450,40 @@
       18
     ],
     "slide_png": {
-      "2": 0.305,
-      "4": 0.2566,
+      "2": 0.3051,
+      "4": 0.2568,
       "5": 0.1954,
-      "6": 0.1529,
-      "7": 0.1082,
-      "8": 0.2522,
-      "9": 0.1967,
-      "10": 0.1993,
-      "11": 0.187,
-      "12": 0.0919,
-      "13": 0.2929,
-      "14": 0.1371,
-      "16": 0.2276,
-      "17": 0.1743,
-      "18": 0.2223
+      "6": 0.1531,
+      "7": 0.1083,
+      "8": 0.2523,
+      "9": 0.1969,
+      "10": 0.1994,
+      "11": 0.1876,
+      "12": 0.0921,
+      "13": 0.293,
+      "14": 0.1373,
+      "16": 0.2278,
+      "17": 0.1745,
+      "18": 0.2224
     },
     "min_contrast": {
-      "body": 5.78,
+      "body": 11.18,
       "large": 4.53,
       "chart": 11.18
     },
     "contrast_failures": [],
-    "png_whitespace": 0.8,
-    "png_nonblank": 0.2,
-    "hard_violations": 2,
-    "gate": false
+    "art": {
+      "content_std": 1.03,
+      "edge_std": 2.35,
+      "mean_delta": 0.18,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7999,
+    "png_nonblank": 0.2001,
+    "hard_violations": 0,
+    "gate": true
   },
   "papyrus-olive": {
     "references": {
@@ -1680,10 +1551,7 @@
       "matn:sources:default",
       "matn:sources:default"
     ],
-    "hard_geometry": [
-      "HARD_VIOLATION:slide 3:LOW_CONTRAST:section_number:1.14<3.0",
-      "HARD_VIOLATION:slide 15:LOW_CONTRAST:section_number:1.14<3.0"
-    ],
+    "hard_geometry": [],
     "beauty": 0.9254,
     "mean_fill": 0.3832,
     "mean_balance": 0.7921,
@@ -1705,66 +1573,74 @@
       18
     ],
     "slide_png": {
-      "2": 0.3103,
-      "4": 0.2578,
+      "2": 0.3104,
+      "4": 0.258,
       "5": 0.2017,
-      "6": 0.1526,
-      "7": 0.1082,
-      "8": 0.2648,
-      "9": 0.1977,
+      "6": 0.1528,
+      "7": 0.1083,
+      "8": 0.2649,
+      "9": 0.1979,
       "10": 0.2074,
-      "11": 0.187,
-      "12": 0.0921,
-      "13": 0.3054,
-      "14": 0.1431,
-      "16": 0.2331,
-      "17": 0.1741,
-      "18": 0.2276
+      "11": 0.1876,
+      "12": 0.0923,
+      "13": 0.3055,
+      "14": 0.1433,
+      "16": 0.2332,
+      "17": 0.1742,
+      "18": 0.2277
     },
     "min_contrast": {
-      "body": 4.91,
-      "large": 4.39,
+      "body": 10.19,
+      "large": 4.51,
       "chart": 10.19
     },
     "contrast_failures": [],
-    "png_whitespace": 0.7958,
-    "png_nonblank": 0.2042,
-    "hard_violations": 2,
-    "gate": false
+    "art": {
+      "content_std": 1.17,
+      "edge_std": 2.58,
+      "mean_delta": 0.2,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7956,
+    "png_nonblank": 0.2044,
+    "hard_violations": 0,
+    "gate": true
   },
   "mashrabiya": {
     "references": {
-      "two_b_style": 0.6962,
-      "arbitrary_valid": 0.8195,
-      "chosen": 0.9243
+      "two_b_style": 0.6587,
+      "arbitrary_valid": 0.8302,
+      "chosen": 0.926
     },
     "split_slides": 1,
     "max_content_sizes": 3,
     "slide_fill": {
-      "2": 0.347,
-      "4": 0.3081,
-      "5": 0.2941,
-      "6": 0.2552,
-      "7": 0.7367,
-      "8": 0.3517,
-      "9": 0.33,
-      "10": 0.3051,
-      "11": 0.755,
-      "12": 0.2942,
-      "13": 0.415,
-      "14": 0.3297,
-      "16": 0.3258,
-      "17": 0.1901,
-      "18": 0.3311
+      "2": 0.2767,
+      "4": 0.3492,
+      "5": 0.3292,
+      "6": 0.2913,
+      "7": 0.7392,
+      "8": 0.392,
+      "9": 0.3222,
+      "10": 0.3339,
+      "11": 0.76,
+      "12": 0.3208,
+      "13": 0.4613,
+      "14": 0.3635,
+      "16": 0.3437,
+      "17": 0.2018,
+      "18": 0.3712
     },
     "slide_layout": {
       "2": "matn:executive_summary:default",
       "4": "matn:kpi:cards",
       "5": "matn:finding:split-60-40",
-      "6": "matn:kpi:big-number",
+      "6": "matn:kpi:bento",
       "7": "matn:chart:hero",
       "8": "matn:finding:split-60-40",
-      "9": "matn:kpi:pictogram",
+      "9": "matn:kpi:bento",
       "10": "matn:finding:split-60-40",
       "11": "matn:chart:hero",
       "12": "matn:kpi:hero-number",
@@ -1781,10 +1657,10 @@
       "matn:section_divider:default",
       "matn:kpi:cards",
       "matn:finding:split-60-40",
-      "matn:kpi:big-number",
+      "matn:kpi:bento",
       "matn:chart:hero",
       "matn:finding:split-60-40",
-      "matn:kpi:pictogram",
+      "matn:kpi:bento",
       "matn:finding:split-60-40",
       "matn:chart:hero",
       "matn:kpi:hero-number",
@@ -1799,9 +1675,9 @@
       "matn:sources:default"
     ],
     "hard_geometry": [],
-    "beauty": 0.9243,
-    "mean_fill": 0.3713,
-    "mean_balance": 0.7773,
+    "beauty": 0.926,
+    "mean_fill": 0.3904,
+    "mean_balance": 0.7903,
     "content_slides": [
       2,
       4,
@@ -1820,307 +1696,74 @@
       18
     ],
     "slide_png": {
-      "2": 0.3379,
-      "4": 0.2652,
-      "5": 0.2279,
-      "6": 0.1838,
-      "7": 0.158,
-      "8": 0.288,
-      "9": 0.2335,
-      "10": 0.2408,
-      "11": 0.2203,
-      "12": 0.126,
-      "13": 0.3184,
-      "14": 0.1592,
-      "16": 0.2554,
-      "17": 0.2126,
-      "18": 0.2587
+      "2": 0.3044,
+      "4": 0.2841,
+      "5": 0.2228,
+      "6": 0.1636,
+      "7": 0.1177,
+      "8": 0.2917,
+      "9": 0.172,
+      "10": 0.23,
+      "11": 0.1979,
+      "12": 0.0957,
+      "13": 0.3357,
+      "14": 0.1492,
+      "16": 0.2472,
+      "17": 0.1857,
+      "18": 0.2251
     },
     "min_contrast": {
-      "body": 4.49,
-      "large": 1.25,
-      "chart": 5.7
+      "body": 5.73,
+      "large": 4.38,
+      "chart": 5.73
     },
-    "contrast_failures": [
-      {
-        "slide": 2,
-        "placeholder": "title",
-        "kind": "large",
-        "contrast": 1.32,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_2_title",
-        "kind": "large",
-        "contrast": 1.25,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_4_title",
-        "kind": "large",
-        "contrast": 1.25,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.25,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 5,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 7,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 8,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 10,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 11,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 12,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.27,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 12,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 13,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 14,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.27,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 14,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.27,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 17,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "decisions_title",
-        "kind": "large",
-        "contrast": 1.25,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.26,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 19,
-        "placeholder": "source",
-        "kind": "body",
-        "contrast": 4.49,
-        "min": 4.5,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.7676,
-    "png_nonblank": 0.2324,
-    "hard_violations": 30,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 71.05,
+      "mean_delta": 68.52,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7852,
+    "png_nonblank": 0.2148,
+    "hard_violations": 0,
+    "gate": true
   },
   "mashrabiya-cobalt": {
     "references": {
-      "two_b_style": 0.6962,
-      "arbitrary_valid": 0.8195,
-      "chosen": 0.9243
+      "two_b_style": 0.6633,
+      "arbitrary_valid": 0.8316,
+      "chosen": 0.9271
     },
     "split_slides": 1,
     "max_content_sizes": 3,
     "slide_fill": {
-      "2": 0.347,
-      "4": 0.3081,
-      "5": 0.2941,
-      "6": 0.2552,
-      "7": 0.7367,
-      "8": 0.3517,
-      "9": 0.33,
-      "10": 0.3051,
-      "11": 0.755,
-      "12": 0.2942,
-      "13": 0.415,
-      "14": 0.3297,
-      "16": 0.3258,
-      "17": 0.1901,
-      "18": 0.3311
+      "2": 0.2797,
+      "4": 0.3484,
+      "5": 0.336,
+      "6": 0.2903,
+      "7": 0.74,
+      "8": 0.3978,
+      "9": 0.3204,
+      "10": 0.3358,
+      "11": 0.761,
+      "12": 0.3275,
+      "13": 0.468,
+      "14": 0.3635,
+      "16": 0.3412,
+      "17": 0.2046,
+      "18": 0.3694
     },
     "slide_layout": {
       "2": "matn:executive_summary:default",
       "4": "matn:kpi:cards",
       "5": "matn:finding:split-60-40",
-      "6": "matn:kpi:big-number",
+      "6": "matn:kpi:bento",
       "7": "matn:chart:hero",
       "8": "matn:finding:split-60-40",
-      "9": "matn:kpi:pictogram",
+      "9": "matn:kpi:bento",
       "10": "matn:finding:split-60-40",
       "11": "matn:chart:hero",
       "12": "matn:kpi:hero-number",
@@ -2137,10 +1780,10 @@
       "matn:section_divider:default",
       "matn:kpi:cards",
       "matn:finding:split-60-40",
-      "matn:kpi:big-number",
+      "matn:kpi:bento",
       "matn:chart:hero",
       "matn:finding:split-60-40",
-      "matn:kpi:pictogram",
+      "matn:kpi:bento",
       "matn:finding:split-60-40",
       "matn:chart:hero",
       "matn:kpi:hero-number",
@@ -2155,9 +1798,9 @@
       "matn:sources:default"
     ],
     "hard_geometry": [],
-    "beauty": 0.9243,
-    "mean_fill": 0.3713,
-    "mean_balance": 0.7773,
+    "beauty": 0.9271,
+    "mean_fill": 0.3922,
+    "mean_balance": 0.7922,
     "content_slides": [
       2,
       4,
@@ -2176,179 +1819,74 @@
       18
     ],
     "slide_png": {
-      "2": 0.3486,
-      "4": 0.2774,
-      "5": 0.2389,
-      "6": 0.1938,
-      "7": 0.1719,
-      "8": 0.2973,
-      "9": 0.2436,
-      "10": 0.252,
-      "11": 0.233,
-      "12": 0.1392,
-      "13": 0.3258,
-      "14": 0.17,
-      "16": 0.2649,
-      "17": 0.2247,
-      "18": 0.27
+      "2": 0.307,
+      "4": 0.2876,
+      "5": 0.226,
+      "6": 0.1652,
+      "7": 0.1193,
+      "8": 0.2957,
+      "9": 0.1738,
+      "10": 0.2324,
+      "11": 0.1996,
+      "12": 0.097,
+      "13": 0.3403,
+      "14": 0.151,
+      "16": 0.2497,
+      "17": 0.1869,
+      "18": 0.2277
     },
     "min_contrast": {
-      "body": 4.51,
-      "large": 1.13,
-      "chart": 4.51
+      "body": 6.74,
+      "large": 5.64,
+      "chart": 6.75
     },
-    "contrast_failures": [
-      {
-        "slide": 2,
-        "placeholder": "title",
-        "kind": "large",
-        "contrast": 1.13,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.43,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_2_title",
-        "kind": "large",
-        "contrast": 1.45,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.47,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_4_title",
-        "kind": "large",
-        "contrast": 1.46,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.42,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.43,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.48,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 12,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.48,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 14,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.48,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.47,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.46,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "decisions_title",
-        "kind": "large",
-        "contrast": 1.46,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.46,
-        "min": 3.0,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.7566,
-    "png_nonblank": 0.2434,
-    "hard_violations": 14,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 66.18,
+      "mean_delta": 67.12,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7827,
+    "png_nonblank": 0.2173,
+    "hard_violations": 0,
+    "gate": true
   },
   "mashrabiya-plum": {
     "references": {
-      "two_b_style": 0.6962,
-      "arbitrary_valid": 0.8195,
-      "chosen": 0.9243
+      "two_b_style": 0.6587,
+      "arbitrary_valid": 0.8302,
+      "chosen": 0.926
     },
     "split_slides": 1,
     "max_content_sizes": 3,
     "slide_fill": {
-      "2": 0.347,
-      "4": 0.3081,
-      "5": 0.2941,
-      "6": 0.2552,
-      "7": 0.7367,
-      "8": 0.3517,
-      "9": 0.33,
-      "10": 0.3051,
-      "11": 0.755,
-      "12": 0.2942,
-      "13": 0.415,
-      "14": 0.3297,
-      "16": 0.3258,
-      "17": 0.1901,
-      "18": 0.3311
+      "2": 0.2767,
+      "4": 0.3492,
+      "5": 0.3292,
+      "6": 0.2913,
+      "7": 0.7392,
+      "8": 0.392,
+      "9": 0.3222,
+      "10": 0.3339,
+      "11": 0.76,
+      "12": 0.3208,
+      "13": 0.4613,
+      "14": 0.3635,
+      "16": 0.3437,
+      "17": 0.2018,
+      "18": 0.3712
     },
     "slide_layout": {
       "2": "matn:executive_summary:default",
       "4": "matn:kpi:cards",
       "5": "matn:finding:split-60-40",
-      "6": "matn:kpi:big-number",
+      "6": "matn:kpi:bento",
       "7": "matn:chart:hero",
       "8": "matn:finding:split-60-40",
-      "9": "matn:kpi:pictogram",
+      "9": "matn:kpi:bento",
       "10": "matn:finding:split-60-40",
       "11": "matn:chart:hero",
       "12": "matn:kpi:hero-number",
@@ -2365,10 +1903,10 @@
       "matn:section_divider:default",
       "matn:kpi:cards",
       "matn:finding:split-60-40",
-      "matn:kpi:big-number",
+      "matn:kpi:bento",
       "matn:chart:hero",
       "matn:finding:split-60-40",
-      "matn:kpi:pictogram",
+      "matn:kpi:bento",
       "matn:finding:split-60-40",
       "matn:chart:hero",
       "matn:kpi:hero-number",
@@ -2383,9 +1921,9 @@
       "matn:sources:default"
     ],
     "hard_geometry": [],
-    "beauty": 0.9243,
-    "mean_fill": 0.3713,
-    "mean_balance": 0.7773,
+    "beauty": 0.926,
+    "mean_fill": 0.3904,
+    "mean_balance": 0.7903,
     "content_slides": [
       2,
       4,
@@ -2404,152 +1942,39 @@
       18
     ],
     "slide_png": {
-      "2": 0.3339,
-      "4": 0.2618,
-      "5": 0.2258,
-      "6": 0.1799,
-      "7": 0.1563,
-      "8": 0.2852,
-      "9": 0.2298,
-      "10": 0.2388,
-      "11": 0.2182,
-      "12": 0.126,
-      "13": 0.3156,
-      "14": 0.1563,
-      "16": 0.2512,
-      "17": 0.2103,
-      "18": 0.2547
+      "2": 0.3045,
+      "4": 0.2839,
+      "5": 0.2228,
+      "6": 0.1635,
+      "7": 0.1177,
+      "8": 0.2917,
+      "9": 0.1719,
+      "10": 0.23,
+      "11": 0.1979,
+      "12": 0.0957,
+      "13": 0.3356,
+      "14": 0.1491,
+      "16": 0.2472,
+      "17": 0.1857,
+      "18": 0.2252
     },
     "min_contrast": {
-      "body": 4.51,
-      "large": 1.13,
-      "chart": 4.5
+      "body": 7.71,
+      "large": 5.55,
+      "chart": 7.71
     },
-    "contrast_failures": [
-      {
-        "slide": 2,
-        "placeholder": "title",
-        "kind": "large",
-        "contrast": 1.13,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.46,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_2_title",
-        "kind": "large",
-        "contrast": 1.69,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.66,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 2,
-        "placeholder": "item_4_title",
-        "kind": "large",
-        "contrast": 1.57,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 4,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.48,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 6,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.69,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 9,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.7,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 11,
-        "placeholder": "chart",
-        "kind": "chart",
-        "contrast": 4.5,
-        "min": 4.5,
-        "ok": false
-      },
-      {
-        "slide": 12,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.71,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 14,
-        "placeholder": "kpi_value_1",
-        "kind": "large",
-        "contrast": 1.7,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.68,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 16,
-        "placeholder": "item_3_title",
-        "kind": "large",
-        "contrast": 1.63,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "decisions_title",
-        "kind": "large",
-        "contrast": 1.64,
-        "min": 3.0,
-        "ok": false
-      },
-      {
-        "slide": 18,
-        "placeholder": "item_1_title",
-        "kind": "large",
-        "contrast": 1.61,
-        "min": 3.0,
-        "ok": false
-      }
-    ],
-    "png_whitespace": 0.7704,
-    "png_nonblank": 0.2296,
-    "hard_violations": 15,
-    "gate": false
+    "contrast_failures": [],
+    "art": {
+      "content_std": 0.0,
+      "edge_std": 64.81,
+      "mean_delta": 60.77,
+      "calm": true,
+      "perceptible": true
+    },
+    "art_failures": [],
+    "png_whitespace": 0.7852,
+    "png_nonblank": 0.2148,
+    "hard_violations": 0,
+    "gate": true
   }
 }
