@@ -160,7 +160,8 @@ def abridge(text: str, limit: int = ITEM_MAX) -> tuple[str, bool]:
 
 
 _HEDGES = frozenset({"may", "might", "could", "likely", "unlikely", "not", "no", "only", "without", "cannot",
-                     "significantly", "never", "unless", "however", "but", "less", "more", "most", "least"})
+                     "significantly", "never", "unless", "however", "but", "less", "more", "most", "least",
+                     "would", "should", "must", "can", "need", "needs", "started", "control"})
 _STOP = frozenset({"the", "a", "an", "of", "to", "in", "and", "or", "for", "on", "by", "with", "as", "at", "its",
                    "it", "is", "are", "be", "that", "this", "their", "from", "than", "into", "over", "has", "have"})
 

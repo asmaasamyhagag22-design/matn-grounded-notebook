@@ -1,5 +1,14 @@
 [browser]
 gatherUsageStats = false
+serverAddress = "127.0.0.1"
 
 [server]
 showEmailPrompt = false
+# Loopback only (audit F-15). Setting the address also skips streamlit's internal/external IP lookups
+# (8.8.8.8 UDP connect, checkip.amazonaws.com) in web/bootstrap.py:185-190 (audit F-14).
+address = "127.0.0.1"
+headless = true
+
+[client]
+# Demo: hide the developer toolbar items (Deploy, rerun menu).
+toolbarMode = "viewer"

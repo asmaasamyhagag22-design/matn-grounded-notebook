@@ -10,7 +10,7 @@ Inputs are out/demo/facts/<doc_key>.json (eval/gold_to_facts.py) and the optiona
   decks/<doc_key>/<template>/render.json         layouts, warnings, overflows
   manifest.json                                  what exists, for the dashboard
 
-Usage: .venv\\Scripts\\python.exe -m matn_deck.demo_build [--no-export] [--doc KEY] [--template ID]
+Usage: .venv\\Scripts\\python.exe -m matn_deck.demo_build [--no-export] [--doc KEY] [--template ID] [--model-phrases]
 """
 from __future__ import annotations
 
@@ -49,7 +49,7 @@ def write_json(path: Path, data: object) -> None:
     tmp.replace(path)
 
 
-def build_plan(doc: DemoDoc, *, use_model_phrases: bool = True):
+def build_plan(doc: DemoDoc, *, use_model_phrases: bool = False):
     phrases = load_phrases(doc.doc_key) if use_model_phrases else {}
     demo = plan_deck(doc, phrases)
     write_json(OUT / "decks" / doc.doc_key / "plan.json",
@@ -126,12 +126,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--doc", action="append", choices=sorted(DEMO_MATRIX))
     parser.add_argument("--template", action="append")
     parser.add_argument("--no-export", action="store_true", help="skip the PowerPoint PNG/PDF export")
-    parser.add_argument("--no-model-phrases", action="store_true", help="ignore cached model phrasings")
+    parser.add_argument("--model-phrases", action="store_true",
+                        help="use cached, checked model phrasings (off by default: in the overnight review the model "
+                             "wrote titles whose numbers passed the check but whose meaning was wrong)")
     args = parser.parse_args(argv)
     built: list[Path] = []
     for key in args.doc or list(DEMO_MATRIX):
         doc = load_demo_doc(OUT / "facts" / f"{key}.json")
-        demo = build_plan(doc, use_model_phrases=not args.no_model_phrases)
+        demo = build_plan(doc, use_model_phrases=args.model_phrases)
         sources = [m.title_source for m in demo.meta]
         print(f"{key}: {len(demo.plan.slides)} plan slides; titles {dict((s, sources.count(s)) for s in set(sources))}")
         for template_id in DEMO_MATRIX[key]:

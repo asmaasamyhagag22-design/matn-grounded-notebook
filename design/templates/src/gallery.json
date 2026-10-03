@@ -1,6 +1,6 @@
 {
   "_comment": "Classic templates come from installed Office themes. Creative templates come from design/creative/<id>/spec.json. Every gallery entry carries family, mood and audience. Rebuild classic: .venv\\Scripts\\python.exe design/templates/src/build.py. Rebuild creative and run QA: .venv\\Scripts\\python.exe design/creative/generate.py.",
-  "default": "integral-light",
+  "default": "modulo",
   "templates": [
     {"id": "integral-light", "family": "classic", "mood": "Clear and structured", "audience": "General leadership", "theme": "Integral", "variant": null, "mode": "light", "pattern": "lines", "name_en": "Integral (light)", "name_ar": "إنتغرال (فاتح)", "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},
     {"id": "integral-dark", "family": "classic", "mood": "Formal and high contrast", "audience": "General leadership", "theme": "Integral", "variant": 3, "mode": "dark", "pattern": "lines", "name_en": "Integral (dark)", "name_ar": "إنتغرال (داكن)", "fonts": {"heading": "Bahnschrift SemiBold", "body": "Segoe UI"}},

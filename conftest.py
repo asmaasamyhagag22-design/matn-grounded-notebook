@@ -83,6 +83,7 @@ SLOW = frozenset({
     "tests/test_templates.py::test_validator_fails_with_a_clear_reason_when_a_required_placeholder_is_missing",
     "tests/test_templates.py::test_validator_rejects_sample_slides_wrong_size_and_odd_fonts",
     "tests/contracts/test_ids.py::test_block_id_is_stable_for_repeated_inputs",
+    "tests/test_demo_dashboard.py::test_every_dashboard_page_loads_from_the_cache",
 })
 
 
