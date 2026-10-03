@@ -1,0 +1,17 @@
+{
+  "_comment": "Chart rules (Step 2c, inspired by Draco's constraint approach). The chart type is decided by code from the data's shape, never by the model; the plan's chart_type is only a hint and a differing choice is reported as a warning. Colors are theme slots, so every template keeps its own palette.",
+  "time_series": {
+    "x_patterns": ["^(19|20)\\d{2}$", "^(19|20)\\d{2}[-/](0[1-9]|1[0-2])$", "^Q[1-4] (19|20)\\d{2}$", "^(19|20)\\d{2} Q[1-4]$"],
+    "column_max_points": 5,
+    "type_few": "column",
+    "type_many": "line"
+  },
+  "part_to_whole": {"max_parts": 5, "total": 100, "tolerance": 0.5, "type": "stacked_bar"},
+  "categorical": {"max_categories": 7, "type": "bar", "sort": "descending"},
+  "fallback": "column",
+  "focus": {"key": "cited_number_else_max", "muted_alpha": 0.35},
+  "palette": ["accent1", "muted", "accent2", "accent4", "accent6"],
+  "labels": {"data_labels": true, "gridlines": false, "legend_min_series": 2},
+  "font_pt": 16,
+  "callout_pt": 18
+}
