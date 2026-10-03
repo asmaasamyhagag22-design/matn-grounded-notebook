@@ -6,7 +6,9 @@ design/templates/src/preview_office_themes.ps1 exported.
 from __future__ import annotations
 
 import json
+import os
 import sys
+import tempfile
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -55,7 +57,17 @@ def build_sheet(
             sheet.paste(thumb, (tx, y + label_h))
             draw.rectangle((tx - 1, y + label_h - 1, tx + thumb_w, y + label_h + thumb_h), outline=_FRAME)
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    sheet.save(out_path)
+    # PowerPoint/image previews can briefly retain a read handle on the previous sheet on Windows.  Encode to a
+    # sibling first, then replace the completed image atomically so a transient handle never leaves a partial PNG.
+    handle, temporary = tempfile.mkstemp(prefix=f".{out_path.stem}-", suffix=out_path.suffix,
+                                         dir=out_path.parent)
+    os.close(handle)
+    temporary_path = Path(temporary)
+    try:
+        sheet.save(temporary_path)
+        os.replace(temporary_path, out_path)
+    finally:
+        temporary_path.unlink(missing_ok=True)
     return out_path
 
 
