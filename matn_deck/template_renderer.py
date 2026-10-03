@@ -33,7 +33,7 @@ from matn_contracts.enums import FactKind, FactStatus, SlideType
 
 from . import decor as decor_mod
 from .chart_rules import ChartDataError, ChartDecision, decide, load_rules
-from .colors import ColorResolver, blend, contrast
+from .colors import ColorResolver, blend, contrast, hex_rgb
 from .decor import Decor
 from .fit import WIDTH_SAFETY, Box, Fitter, TextStyle, placeholder_style
 from .number_visuals import pictogram, progress_fraction
@@ -254,6 +254,8 @@ class _DeckBuilder:
         if self.accent_xml is None:
             raise TemplateInvalidError("TEMPLATE_INVALID: item titles carry no accent color")
         self.accent_xml = etree.tostring(etree.fromstring(self.accent_xml)[0]).decode()  # the color inside solidFill
+        self.focus_xml = (decor_mod.tint("accent2", 1.0)
+                          if self.meta.get("family") == "creative" else self.accent_xml)
         self.title_pt = float(self.cfg["title_sizes"][-1])
         # Trick 17: the template's three content sizes (plus its hero display), read from its own layouts.
         self.type_sizes = {
@@ -653,7 +655,7 @@ class _DeckBuilder:
         elif scored:
             plan.title_accents = self._title_accents(plan.content, text, layout, style)
             if plan.title_accents:
-                ratio = min(self._contrast(style, layout, None), self._graphic_contrast(None))
+                ratio = min(self._contrast(style, layout, None), self._text_accent_contrast(None))
         return Element("title", "title", Rect(ph.left, ph.top, width, ph.height), ink=0.6, size_pt=size,
                        bold=style.bold, contrast=ratio)
 
@@ -662,7 +664,7 @@ class _DeckBuilder:
         tokenizer; a number equal to a cited fact's value comes first. Only on titles that sit on the slide
         background (title and accent both readable there), so the text contrast check still holds."""
         if self._contrast(style, layout, None) < self.cfg["contrast"]["large"] or \
-                self._graphic_contrast(None) < self.cfg["contrast"]["large"]:
+                self._text_accent_contrast(None) < self.cfg["contrast"]["large"]:
             return ()
         cited = {self.facts[f].number_value.value_as_written.strip() for f in content.fact_ids
                  if self.facts[f].number_value}
@@ -827,7 +829,13 @@ class _DeckBuilder:
         return out
 
     def _graphic_contrast(self, backdrop: str | None) -> float:
-        accent = self.colors.resolve(self.accent_xml)[0]
+        return self._accent_contrast(self.focus_xml, backdrop)
+
+    def _text_accent_contrast(self, backdrop: str | None) -> float:
+        return self._accent_contrast(self.accent_xml, backdrop)
+
+    def _accent_contrast(self, color_xml: str, backdrop: str | None) -> float:
+        accent = self.colors.resolve(color_xml)[0]
         backgrounds = self.colors.background(None)
         if backdrop == "card":
             backgrounds = [blend(self.colors.scheme("tx1"), b, float(self.card_style["fill_alpha"]))
@@ -1096,14 +1104,14 @@ class _DeckBuilder:
         """Trick 11: the key point in the accent, the rest muted; several series take a colorblind-safe order that
         starts from the accent, with the key series first."""
         muted = decor_mod.tint("tx1", rules["focus"]["muted_alpha"])
-        palette = [self.accent_xml if slot == "accent1" else muted if slot == "muted" else decor_mod.tint(slot, 1.0)
+        palette = [self.focus_xml if slot == "accent1" else muted if slot == "muted" else decor_mod.tint(slot, 1.0)
                    for slot in rules["palette"]]
         plot = chart.plots[0]
         key_series, key_point = decision.key
         if stacked:
             for index, series in enumerate(plot.series):
                 alpha = rules["focus"]["muted_alpha"] + 0.15 * (index % 2)
-                _set_fill(series.format, self.accent_xml if index == key_point else decor_mod.tint("tx1", alpha))
+                _set_fill(series.format, self.focus_xml if index == key_point else decor_mod.tint("tx1", alpha))
                 _set_line(series.format, decor_mod.tint("bg1", 1.0), 1.5)
             return
         order = [key_series] + [i for i in range(len(decision.series)) if i != key_series]
@@ -1116,7 +1124,7 @@ class _DeckBuilder:
             _set_fill(series.format, colors[index])
             if len(decision.series) == 1:
                 for p in range(len(decision.categories)):
-                    _set_fill(series.points[p].format, self.accent_xml if p == key_point else muted)
+                    _set_fill(series.points[p].format, self.focus_xml if p == key_point else muted)
 
     def _callout(self, chart: Any, decision: ChartDecision, rules: dict, stacked: bool, size_pt: float) -> None:
         """Trick 13: one annotation on the key point, copied from the cited fact (its value, plus its label when the
@@ -1180,7 +1188,7 @@ class _DeckBuilder:
                     decor_mod.style_divider_number(shape, self.divider_style, self.accent_xml)
             else:
                 shape._element.getparent().remove(shape._element)
-        decor_mod.draw(slide, plan.decor, self.accent_xml, self.card_style)
+        decor_mod.draw(slide, plan.decor, self.focus_xml, self.card_style)
         self._notes(slide, plan.content)
 
     def _fill_title(self, shape: Any, plan: _Plan) -> None:
@@ -1382,6 +1390,9 @@ class _Measure:
             ratio = contrast(self.b._fg(style), self.b.colors.resolve(self.b.accent_xml)[0])
         else:
             ratio = self.b._contrast(style, self.layout, backdrop)
+        if name == "section_number" and self.b.divider_style.get("type") == "outline_number":
+            foreground = hex_rgb(self.b.divider_style["outline_color"])
+            ratio = min(contrast(foreground, background) for background in self.b.colors.background(self.layout))
         return Element(name, kind, Rect(x, top, width, min(height, rect.h)), ink=0.5 if kind == "text" else 0.85,
                        role=role, size_pt=style.size_pt, bold=style.bold, overflow=overflow, contrast=ratio,
                        ink_rects=ink)

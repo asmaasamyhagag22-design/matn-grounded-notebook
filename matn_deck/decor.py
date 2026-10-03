@@ -123,6 +123,7 @@ def style_divider_number(shape, divider_style: dict, accent_xml: str) -> None:
                 if etree.QName(child).localname in ("solidFill", "noFill", "ln"):
                     rpr.remove(child)
             etree.SubElement(rpr, f"{{{_A}}}noFill")
-            line = etree.SubElement(rpr, f"{{{_A}}}ln", {"w": str(round(1.5 * EMU_PER_PT))})
+            width = float(divider_style.get("outline_width_pt", 4.5))
+            line = etree.SubElement(rpr, f"{{{_A}}}ln", {"w": str(round(width * EMU_PER_PT))})
             fill = etree.SubElement(line, f"{{{_A}}}solidFill")
             fill.append(etree.fromstring(color_xml))

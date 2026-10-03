@@ -9,9 +9,9 @@
   "mode": "light",
   "source": "design/creative/mashrabiya-cobalt/spec.json",
   "content_area_pt": [
-    80.64,
+    172.8,
     180,
-    765.36,
+    673.2,
     282.8
   ],
   "divider": {
@@ -34,7 +34,8 @@
   "audience": "Technical teams and data leaders",
   "roles": {
     "primary": "1555A2",
-    "accent": "976716",
+    "accent": "1555A2",
+    "focus": "BF810F",
     "surface": "F4F5F6",
     "on_surface": "1555A2",
     "muted": "455161",
@@ -56,16 +57,25 @@
     "type": "color_block",
     "secondary": null,
     "thin_rules": false,
-    "outline_color": "E29B1F"
+    "outline_color": "E29B1F",
+    "outline_width_pt": 0.0
   },
   "background": {
     "generator": "mashrabiya",
     "parameters": {
       "band_width": 0.15,
+      "gutter": 0.03,
       "step": 60
     },
     "fixed_seed": 4104,
     "asset": "embedded:creative_background",
-    "content_variance": 0.0
+    "content_variance": 0.0,
+    "edge_variance": 66.179,
+    "edge_mean_delta": 67.117,
+    "art_perceptible": true
+  },
+  "decor_zone": {
+    "safe_left_pt": 172.8,
+    "band_right_pt": 144.0
   }
 }

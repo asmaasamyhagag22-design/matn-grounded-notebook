@@ -73,6 +73,10 @@ def contrast_ratio(a: RGB, b: RGB) -> float:
     return (high + 0.05) / (low + 0.05)
 
 
+def blend(top: RGB, bottom: RGB, alpha: float) -> RGB:
+    return tuple(alpha * t + (1 - alpha) * b for t, b in zip(top, bottom))  # type: ignore[return-value]
+
+
 def rgb_from_hex(value: str) -> RGB:
     value = value.removeprefix("#")
     if len(value) != 6 or any(c not in "0123456789abcdefABCDEF" for c in value):
@@ -108,7 +112,26 @@ def _contrasting_tone(seed: RGB, background: RGB, target: float, prefer_light: b
     return min(passing, key=lambda rgb: abs(srgb_to_oklch(rgb)[0] - original_l))
 
 
-def derive_roles(seed: str, accent_seed: str, mode: str, surface_seed: str | None = None) -> dict[str, str]:
+def _contrasting_glass_tone(seed: RGB, background: RGB, alpha: float, target: float, prefer_light: bool) -> RGB:
+    """Text tone that clears `target` on both the base and its own translucent glass tint."""
+    if alpha <= 0:
+        return _contrasting_tone(seed, background, target, prefer_light)
+    levels = [i / 200 for i in range(201)]
+    original_l = srgb_to_oklch(seed)[0]
+    passing = []
+    for level in levels:
+        foreground = _tone(seed, level)
+        glass = blend(foreground, background, alpha)
+        if contrast_ratio(foreground, background) >= target and contrast_ratio(foreground, glass) >= target:
+            passing.append(foreground)
+    if not passing:
+        return (1.0, 1.0, 1.0) if prefer_light else (0.0, 0.0, 0.0)
+    side = [rgb for rgb in passing if (srgb_to_oklch(rgb)[0] >= 0.5) == prefer_light]
+    return min(side or passing, key=lambda rgb: abs(srgb_to_oklch(rgb)[0] - original_l))
+
+
+def derive_roles(seed: str, accent_seed: str, mode: str, surface_seed: str | None = None,
+                 card_alpha: float = 0.0) -> dict[str, str]:
     """Derive accessible theme roles from two seed colors in perceptual OKLCH space."""
     if mode not in {"light", "dark"}:
         raise ValueError(f"MODE_INVALID:{mode}")
@@ -116,14 +139,16 @@ def derive_roles(seed: str, accent_seed: str, mode: str, surface_seed: str | Non
     surface_base = rgb_from_hex(surface_seed) if surface_seed else base
     dark = mode == "dark"
     surface = _tone(surface_base, 0.13 if dark else 0.97, 0.18)
-    on_surface = _contrasting_tone(base, surface, 4.5, prefer_light=dark)
-    muted = _contrasting_tone(_tone(base, 0.72 if dark else 0.43, 0.22), surface, 4.5, prefer_light=dark)
+    on_surface = _contrasting_glass_tone(base, surface, card_alpha, 4.5, prefer_light=dark)
+    muted = _contrasting_glass_tone(_tone(base, 0.72 if dark else 0.43, 0.22), surface, card_alpha, 4.5,
+                                    prefer_light=dark)
     primary = _contrasting_tone(base, surface, 4.5, prefer_light=dark)
-    # Aim above the 3:1 display minimum so translucent cards still keep at least 3:1.
-    accent = _contrasting_tone(accent_base, surface, 4.5, prefer_light=dark)
+    # On light templates the vivid seed is a focus fill, never text. Text accents stay with the dark primary.
+    accent = _contrasting_tone(accent_base, surface, 4.5, prefer_light=True) if dark else primary
+    focus = _contrasting_tone(accent_base, surface, 3.0, prefer_light=dark)
     card = _tone(surface_base, 0.20 if dark else 0.93, 0.12)
     divider = _tone(base, 0.24 if dark else 0.31, 0.8)
     on_divider = _contrasting_tone(accent_base, divider, 4.5, prefer_light=True)
-    roles = {"primary": primary, "accent": accent, "surface": surface, "on_surface": on_surface,
+    roles = {"primary": primary, "accent": accent, "focus": focus, "surface": surface, "on_surface": on_surface,
              "muted": muted, "card": card, "divider_background": divider, "on_divider": on_divider}
     return {name: rgb_to_hex(value) for name, value in roles.items()}

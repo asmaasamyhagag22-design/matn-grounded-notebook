@@ -4,7 +4,7 @@
   "family": "creative", "mode": "dark",
   "seed_colors": {"primary": "#087E8B", "accent": "#D9A441", "surface": "#061F29"},
   "fonts": {"title": "Bahnschrift", "body": "Segoe UI"},
-  "background": {"generator": "aurora", "parameters": {"grain": 0.75}, "fixed_seed": 2105},
+  "background": {"generator": "aurora", "parameters": {"grain": 0.75, "decor_color": "#146C94"}, "fixed_seed": 2105},
   "card_style": {"fill_alpha": 0.16, "corner_radius_pt": 18,
     "shadow": {"enabled": true, "alpha": 0.2, "blur_pt": 15, "distance_pt": 3}},
   "divider_style": {"type": "gradient", "secondary": "#146C94", "thin_rules": false},

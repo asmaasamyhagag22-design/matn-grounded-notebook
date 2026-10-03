@@ -34,7 +34,8 @@
   "audience": "Researchers and report authors",
   "roles": {
     "primary": "263F3A",
-    "accent": "8A641F",
+    "accent": "263F3A",
+    "focus": "8A641F",
     "surface": "F7F5F0",
     "on_surface": "263F3A",
     "muted": "4C5150",
@@ -56,7 +57,8 @@
     "type": "outline_number",
     "secondary": null,
     "thin_rules": true,
-    "outline_color": "BA9251"
+    "outline_color": "BA9251",
+    "outline_width_pt": 4.5
   },
   "background": {
     "generator": "paper",
@@ -65,6 +67,13 @@
     },
     "fixed_seed": 3105,
     "asset": "embedded:creative_background",
-    "content_variance": 1.004
+    "content_variance": 1.176,
+    "edge_variance": 2.621,
+    "edge_mean_delta": 0.2,
+    "art_perceptible": true
+  },
+  "decor_zone": {
+    "safe_left_pt": 0.0,
+    "band_right_pt": 0.0
   }
 }

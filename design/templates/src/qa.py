@@ -48,6 +48,9 @@ EXPORT_W, EXPORT_H = 2560, 1440
 BODY_MIN, LARGE_MIN = 4.5, 3.0
 WHITE_WINDOW = 15  # px at 2560 wide (about 5.6 pt)
 WHITE_STD = 2.0  # grey levels: below this the window is flat
+ART_CONTENT_STD_MAX = 12.0
+ART_EDGE_STD_DELTA_MIN = 0.5
+ART_MEAN_DELTA_MIN = 6.0
 BEFORE_AFTER = ("integral-light", "film-burn-dark", "modulo")
 SHEET, PAIRS = "contact_sheet_v4.png", "before_after_v4.png"
 CREATIVE_SHEET, FAMILIES_SHEET = "contact_sheet_creative.png", "families.png"
@@ -111,6 +114,23 @@ def whitespace(png: Path, area_pt: list[float]) -> float:
 
     var = box_mean(region ** 2) - box_mean(region) ** 2
     return float((np.sqrt(np.maximum(var, 0)) < WHITE_STD).mean())
+
+
+def decor_zone_metrics(png: Path, area_pt: list[float]) -> dict:
+    """Exported-background personality: calm content area plus visibly different edge/decor area."""
+    data = np.asarray(Image.open(png).convert("RGB"), dtype=float)
+    scale = data.shape[1] / 960
+    x, y, w, h = (round(v * scale) for v in area_pt)
+    content = data[y:y + h, x:x + w]
+    mask = np.ones(data.shape[:2], dtype=bool)
+    mask[y:y + h, x:x + w] = False
+    edge = data[mask]
+    content_std = float(np.std(content, axis=(0, 1)).mean())
+    edge_std = float(np.std(edge, axis=0).mean())
+    mean_delta = float(np.linalg.norm(edge.mean(axis=0) - content.mean(axis=(0, 1))))
+    return {"content_std": round(content_std, 2), "edge_std": round(edge_std, 2),
+            "mean_delta": round(mean_delta, 2), "calm": content_std < ART_CONTENT_STD_MAX,
+            "perceptible": edge_std - content_std >= ART_EDGE_STD_DELTA_MIN or mean_delta >= ART_MEAN_DELTA_MIN}
 
 
 def content_sizes(slide) -> set[float]:
@@ -223,14 +243,24 @@ def main() -> int:
             continue
         rows = measure(OUT / tid / "specimen.pptx", OUT / tid / "png", OUT / tid / "blank_png")
         failures = [r for r in rows if not r["ok"]]
-        area = json.loads((SRC.parent / tid / "theme.json").read_text(encoding="utf-8"))["content_area_pt"]
+        meta = json.loads((SRC.parent / tid / "theme.json").read_text(encoding="utf-8"))
+        area = meta["content_area_pt"]
         blank = [whitespace(OUT / tid / "png" / f"slide_{n:02d}.png", area) for n in result["content_slides"]]
         result["slide_png"] = {n: round(1 - b, 4) for n, b in zip(result["content_slides"], blank)}
-        hard = len(result["hard_geometry"]) + len(failures)
+        art = decor_zone_metrics(OUT / tid / "blank_png" / "slide_01.png", area)
+        art_failures = []
+        if meta.get("family") == "creative":
+            if not art["calm"]:
+                art_failures.append(f"ART_CONTENT_NOT_CALM:{art['content_std']}>={ART_CONTENT_STD_MAX}")
+            if not art["perceptible"]:
+                art_failures.append("ART_NOT_PERCEPTIBLE")
+        hard = len(result["hard_geometry"]) + len(failures) + len(art_failures)
         result.update({
             "min_contrast": {kind: min((r["contrast"] for r in rows if r["kind"] == kind), default=None)
                              for kind in ("body", "large", "chart")},
             "contrast_failures": failures,
+            "art": art,
+            "art_failures": art_failures,
             "png_whitespace": round(sum(blank) / len(blank), 4),
             "png_nonblank": round(1 - sum(blank) / len(blank), 4),
             "hard_violations": hard,
@@ -245,7 +275,7 @@ def main() -> int:
     creative_ids = [entry["id"] for entry in entries if entry.get("family", "classic") == "creative"]
     build_sheet([groups_by_id[tid] for tid in creative_ids if tid in groups_by_id], OUT / CREATIVE_SHEET,
                 per_row=1, thumb_w=240, label_size=20)
-    build_sheet([(groups_by_id[tid][0], [groups_by_id[tid][1][0]]) for tid in FAMILY_COMPARE if tid in groups_by_id],
+    build_sheet([(tid, [groups_by_id[tid][1][0]]) for tid in FAMILY_COMPARE if tid in groups_by_id],
                 OUT / FAMILIES_SHEET, per_row=len(FAMILY_COMPARE), thumb_w=240, label_size=18)
     pairs = []
     folder_before, label_before, label_after = PREVIOUS
@@ -259,11 +289,12 @@ def main() -> int:
     write_scores_md(results, gate)
     for tid, result in results.items():
         bad = result["overflow"] or [f"slide {f['slide']} {f['placeholder']} {f['contrast']}<{f['min']}"
-                                     for f in result.get("contrast_failures", [])] + result.get("hard_geometry", [])
+                                     for f in result.get("contrast_failures", [])] + result.get("hard_geometry", []) + \
+                                    result.get("art_failures", [])
         print(f"{tid}: beauty {result.get('beauty')} hard {result.get('hard_violations')} "
               f"fill {result.get('mean_fill')} png {result.get('png_nonblank')} splits {result.get('split_slides')} "
               f"sizes {result.get('max_content_sizes')} refs {result.get('references')} gate {result.get('gate')} "
-              f"{result.get('min_contrast', '')} {bad[:6]}")
+              f"{result.get('min_contrast', '')} art {result.get('art', '')} {bad[:6]}")
     return 0
 
 
@@ -302,19 +333,21 @@ def write_scores_md(results: dict, gate: dict) -> None:
         "",
         f"Gate: beauty >= {gate['threshold']} and hard <= {gate['max_hard_violations']}. {gate['calibration']}",
         "",
-        "| Template | Beauty | Hard | Ink fill | PNG non-blank | Mean balance | Splits | Sizes | 2b-style | Arbitrary "
-        "| Gate |",
-        "|---|---|---|---|---|---|---|---|---|---|---|",
+        "| Template | Beauty | Hard | Ink fill | PNG non-blank | Edge std | Content std | Mean balance | Splits | Sizes "
+        "| 2b-style | Arbitrary | Gate |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for tid, r in results.items():
         if r["overflow"]:
-            lines.append(f"| {tid} | overflow | {len(r['overflow'])} | | | | | | | | fail |")
+            lines.append(f"| {tid} | overflow | {len(r['overflow'])} | | | | | | | | | | fail |")
             continue
         verdict = "n/a" if r["gate"] is None else "pass" if r["gate"] else "fail"
         ref = r["references"]
+        art = r["art"]
         lines.append(f"| {tid} | {r['beauty']:.3f} | {r['hard_violations']} | {r['mean_fill']:.3f} | "
-                     f"{r['png_nonblank']:.3f} | {r['mean_balance']:.3f} | {r['split_slides']} | "
-                     f"{r['max_content_sizes']} | {ref['two_b_style']:.3f} | {ref['arbitrary_valid']:.3f} | {verdict} |")
+                     f"{r['png_nonblank']:.3f} | {art['edge_std']:.2f} | {art['content_std']:.2f} | "
+                     f"{r['mean_balance']:.3f} | {r['split_slides']} | {r['max_content_sizes']} | "
+                     f"{ref['two_b_style']:.3f} | {ref['arbitrary_valid']:.3f} | {verdict} |")
     lines += [
         "",
         "## Ink fill vs PNG non-blank",

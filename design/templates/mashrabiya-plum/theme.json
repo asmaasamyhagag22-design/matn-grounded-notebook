@@ -9,9 +9,9 @@
   "mode": "light",
   "source": "design/creative/mashrabiya-plum/spec.json",
   "content_area_pt": [
-    80.64,
+    163.2,
     180,
-    765.36,
+    682.8,
     282.8
   ],
   "divider": {
@@ -34,7 +34,8 @@
   "audience": "Technical teams and data leaders",
   "roles": {
     "primary": "69405F",
-    "accent": "936916",
+    "accent": "69405F",
+    "focus": "BB830F",
     "surface": "F6F5F4",
     "on_surface": "69405F",
     "muted": "564D53",
@@ -56,16 +57,25 @@
     "type": "color_block",
     "secondary": null,
     "thin_rules": false,
-    "outline_color": "D99A19"
+    "outline_color": "D99A19",
+    "outline_width_pt": 0.0
   },
   "background": {
     "generator": "mashrabiya",
     "parameters": {
       "band_width": 0.14,
+      "gutter": 0.03,
       "step": 68
     },
     "fixed_seed": 4105,
     "asset": "embedded:creative_background",
-    "content_variance": 0.0
+    "content_variance": 0.0,
+    "edge_variance": 64.81,
+    "edge_mean_delta": 60.77,
+    "art_perceptible": true
+  },
+  "decor_zone": {
+    "safe_left_pt": 163.2,
+    "band_right_pt": 134.4
   }
 }

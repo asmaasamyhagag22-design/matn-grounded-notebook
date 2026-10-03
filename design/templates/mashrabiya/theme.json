@@ -9,9 +9,9 @@
   "mode": "light",
   "source": "design/creative/mashrabiya/spec.json",
   "content_area_pt": [
-    80.64,
+    163.2,
     180,
-    765.36,
+    682.8,
     282.8
   ],
   "divider": {
@@ -34,7 +34,8 @@
   "audience": "Technical teams and data leaders",
   "roles": {
     "primary": "026C6C",
-    "accent": "926A0B",
+    "accent": "026C6C",
+    "focus": "B58623",
     "surface": "F6F5F3",
     "on_surface": "026C6C",
     "muted": "455353",
@@ -56,16 +57,25 @@
     "type": "color_block",
     "secondary": null,
     "thin_rules": false,
-    "outline_color": "E1A51B"
+    "outline_color": "E1A51B",
+    "outline_width_pt": 0.0
   },
   "background": {
     "generator": "mashrabiya",
     "parameters": {
       "band_width": 0.14,
+      "gutter": 0.03,
       "step": 64
     },
     "fixed_seed": 4103,
     "asset": "embedded:creative_background",
-    "content_variance": 0.0
+    "content_variance": 0.0,
+    "edge_variance": 71.048,
+    "edge_mean_delta": 68.517,
+    "art_perceptible": true
+  },
+  "decor_zone": {
+    "safe_left_pt": 163.2,
+    "band_right_pt": 134.4
   }
 }

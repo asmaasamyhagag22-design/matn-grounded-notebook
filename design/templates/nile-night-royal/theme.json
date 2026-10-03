@@ -36,8 +36,9 @@
   "roles": {
     "primary": "5F70D2",
     "accent": "E0B85B",
+    "focus": "E0B85B",
     "surface": "06070B",
-    "on_surface": "5F70D2",
+    "on_surface": "6A7CE0",
     "muted": "9EA4BA",
     "card": "151619",
     "divider_background": "121057",
@@ -57,15 +58,24 @@
     "type": "gradient",
     "secondary": "#6047A8",
     "thin_rules": false,
-    "outline_color": "E0B85B"
+    "outline_color": "E0B85B",
+    "outline_width_pt": 0.0
   },
   "background": {
     "generator": "aurora",
     "parameters": {
-      "grain": 0.65
+      "grain": 0.65,
+      "decor_color": "#6047A8"
     },
     "fixed_seed": 2104,
     "asset": "embedded:creative_background",
-    "content_variance": 6.282
+    "content_variance": 4.167,
+    "edge_variance": 8.123,
+    "edge_mean_delta": 7.265,
+    "art_perceptible": true
+  },
+  "decor_zone": {
+    "safe_left_pt": 0.0,
+    "band_right_pt": 0.0
   }
 }

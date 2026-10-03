@@ -26,6 +26,8 @@ param(
     [switch]$CleanThemeArt,          # remove the donor Office theme's non-placeholder art
     [ValidateSet("color_block", "gradient", "outline_number")][string]$DividerStyle = "color_block",
     [string]$DividerNumberColor = "",
+    [double]$DividerOutlineWidth = 4.5,
+    [double]$SafeLeftPt = 0,
     [switch]$ThinRules
 )
 $ErrorActionPreference = "Stop"
@@ -139,7 +141,7 @@ function Add-Divider($layout, $title, $area) {
     if ($DividerStyle -eq "outline_number") {
         $number.TextFrame2.TextRange.Font.Fill.Visible = 0
         $number.TextFrame2.TextRange.Font.Line.Visible = -1
-        $number.TextFrame2.TextRange.Font.Line.Weight = 1.5
+        $number.TextFrame2.TextRange.Font.Line.Weight = $DividerOutlineWidth
         $number.TextFrame2.TextRange.Font.Line.ForeColor.RGB = Rgb $(if ($DividerNumberColor) { $DividerNumberColor } else { $DividerText })
     }
     if ($ThinRules) {
@@ -226,7 +228,9 @@ try {
     $chipBand = $spec.chip.band_pt
     # The content area starts below the title box (some themes let the body overlap it).
     $areaTop = [Math]::Max($body.Top, $titleOnly.Top + $titleOnly.Height + 8)
-    $area = @{ L = $body.Left; T = $areaTop; W = $body.Width; H = $body.Top + $body.Height - $areaTop - $chipBand }
+    $areaLeft = [Math]::Max($body.Left, $SafeLeftPt)
+    $area = @{ L = $areaLeft; T = $areaTop; W = $body.Left + $body.Width - $areaLeft;
+               H = $body.Top + $body.Height - $areaTop - $chipBand }
     @{ left = $area.L; top = $area.T; width = $area.W; height = $area.H; chip_band = $chipBand } |
         ConvertTo-Json | Set-Content -Encoding UTF8 $AreaOut
 
@@ -262,6 +266,14 @@ try {
             if ($SubtitleLikeTitle) {
                 $sub = $layout.Shapes | Where-Object { $_.Name -eq "subtitle" }
                 $sub.TextFrame.TextRange.Font.Color.RGB = $title.TextFrame.TextRange.Font.Color.RGB
+            }
+        }
+        if ($SafeLeftPt -gt 0 -and $base -ne "divider") {
+            foreach ($shape in @($layout.Shapes | ForEach-Object { $_ })) {
+                if ($shape.Type -ne 14 -or $shape.Left -ge $SafeLeftPt) { continue }
+                $right = $shape.Left + $shape.Width
+                $shape.Left = [single]$SafeLeftPt
+                $shape.Width = [single][Math]::Max(1, $right - $SafeLeftPt)
             }
         }
         if ($TitleAccent -and $base -ne "divider") { Set-Accent $title.TextFrame.TextRange.Font.Color }
