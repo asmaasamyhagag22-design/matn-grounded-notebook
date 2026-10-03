@@ -23,6 +23,6 @@
   "beauty_gate": {
     "threshold": 0.9,
     "max_hard_violations": 0,
-    "calibration": "Calibrated on the first 2c run (2026-10-03, specimen v3, 7 templates). Mean chosen score per template: 0.946-0.951, Ion Boardroom 0.910. Reference points from the same candidates: a 2b-style choice (first valid variant, step S, top) averages 0.753-0.816, and an arbitrary valid candidate 0.829-0.865. 0.90 sits above every template's arbitrary-candidate mean and just under the lowest current template, so a template whose best layouts score no better than arbitrary ones fails."
+    "calibration": "Rechecked for Step 2c.1 (2026-10-03, specimen v4, ink-based fill) the same way as in 2c. Reference points from the same candidates: a 2b-style choice (first valid variant, step S, top) averages 0.639-0.765, an arbitrary valid candidate 0.782-0.857, the chosen candidates 0.901-0.934. The threshold stays 0.90: it is still above every template's arbitrary-candidate mean (by 0.043 or more), so a template whose best layouts score no better than arbitrary ones fails. It was not lowered. Modulo passes by only 0.0007 (0.9007) and is the first template at risk. 2c calibration: 2b-style 0.753-0.816, arbitrary 0.829-0.865, chosen 0.910-0.951."
   }
 }
