@@ -28,6 +28,7 @@ param(
     [string]$DividerNumberColor = "",
     [double]$DividerOutlineWidth = 4.5,
     [double]$SafeLeftPt = 0,
+    [double]$AreaInsetRightPt = 0,   # narrows the content area from the right (a template's own measure, Part 4)
     [switch]$ThinRules
 )
 $ErrorActionPreference = "Stop"
@@ -229,7 +230,7 @@ try {
     # The content area starts below the title box (some themes let the body overlap it).
     $areaTop = [Math]::Max($body.Top, $titleOnly.Top + $titleOnly.Height + 8)
     $areaLeft = [Math]::Max($body.Left, $SafeLeftPt)
-    $area = @{ L = $areaLeft; T = $areaTop; W = $body.Left + $body.Width - $areaLeft;
+    $area = @{ L = $areaLeft; T = $areaTop; W = $body.Left + $body.Width - $areaLeft - $AreaInsetRightPt;
                H = $body.Top + $body.Height - $areaTop - $chipBand }
     @{ left = $area.L; top = $area.T; width = $area.W; height = $area.H; chip_band = $chipBand } |
         ConvertTo-Json | Set-Content -Encoding UTF8 $AreaOut

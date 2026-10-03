@@ -4,9 +4,9 @@
   "family": "creative", "mode": "light",
   "seed_colors": {"primary": "#17324D", "accent": "#1F5AA6", "surface": "#E8DCC3"},
   "fonts": {"title": "Georgia", "body": "Segoe UI"},
-  "background": {"generator": "paper", "parameters": {"grain": 1.25}, "fixed_seed": 3103},
+  "background": {"generator": "paper", "parameters": {"motif_weight": 2.5, "grain": 1.25}, "fixed_seed": 3103},
   "card_style": {"fill_alpha": 0.055, "corner_radius_pt": 5,
     "shadow": {"enabled": false, "alpha": 0.12, "blur_pt": 8, "distance_pt": 1}},
   "divider_style": {"type": "outline_number", "secondary": null, "thin_rules": true},
-  "motif": {"type": "lotus", "placement": "corners", "opacity": 0.22}, "pattern": false
+  "motif": {"type": "lotus", "placement": "corners", "opacity": 0.32}, "pattern": false, "layout_bias": ["split-60-40", "single-hero"]
 }

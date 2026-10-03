@@ -33,11 +33,13 @@ def render_background(spec: CreativeSpec, size: tuple[int, int] = SIZE) -> Image
     kind = spec.background.generator
     if kind == "aurora":
         yy, xx = np.mgrid[0:height, 0:width]
+        glow = float(spec.background.parameters.get("glow_strength", 1.0))  # edge glow only; the centre stays calm
         for color, cx, cy, radius, alpha in ((primary, -0.05, 0.12, 0.32, 0.28),
                                               (decor, 1.04, 0.86, 0.38, 0.22),
                                               (decor, 0.78, -0.12, 0.30, 0.12)):
+            radius = radius / glow ** 0.5 if glow > 1 else radius  # brighter but tighter: the light stays at the edge
             dist = ((xx / width - cx) ** 2 + (yy / height - cy) ** 2) / (2 * radius ** 2)
-            weight = (np.exp(-dist) * alpha)[..., None]
+            weight = (np.exp(-dist) * min(0.9, alpha * glow))[..., None]
             canvas = canvas * (1 - weight) + color * weight
         canvas = _grain(canvas, rng, float(spec.background.parameters.get("grain", 0.8)))
     elif kind == "paper":
@@ -61,15 +63,17 @@ def render_background(spec: CreativeSpec, size: tuple[int, int] = SIZE) -> Image
     if spec.motif.type == "lotus":
         draw = ImageDraw.Draw(image, "RGBA")
         color = tuple(int(v) for v in primary) + (round(255 * spec.motif.opacity),)
+        weight = float(spec.background.parameters.get("motif_weight", 1.0))  # line weight and extra petals
         motif_width = width * 0.09
         motif_height = height * 0.132
+        scales = (0.7, 1.0, 1.35) if weight <= 1 else (0.55, 0.7, 0.85, 1.0, 1.17, 1.35)
         for origin_x, flip in ((0, 1), (width, -1)):
-            for scale in (0.7, 1.0, 1.35):
+            for scale in scales:
                 box = [origin_x, height - motif_height * scale,
                        origin_x + flip * motif_width * scale, height + motif_height * 0.21 * scale]
                 draw.arc([min(box[0], box[2]), box[1], max(box[0], box[2]), box[3]], 195 if flip > 0 else 165,
                          345 if flip > 0 else 315, fill=color,
-                         width=max(2, round(width * 0.00156 * scale)))
+                         width=max(2, round(width * 0.00156 * scale * weight)))
     return image
 
 

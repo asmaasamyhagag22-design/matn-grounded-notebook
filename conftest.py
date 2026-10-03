@@ -84,6 +84,8 @@ SLOW = frozenset({
     "tests/test_templates.py::test_validator_rejects_sample_slides_wrong_size_and_odd_fonts",
     "tests/contracts/test_ids.py::test_block_id_is_stable_for_repeated_inputs",
     "tests/test_demo_dashboard.py::test_every_dashboard_page_loads_from_the_cache",
+    "tests/test_projector_polish.py::test_art_strength_parameters_default_to_the_old_art_and_strengthen_only_the_edges",
+    "tests/test_projector_polish.py::test_layout_bias_prefers_its_variants_among_passing_candidates_and_records_unbiased_totals",
 })
 
 

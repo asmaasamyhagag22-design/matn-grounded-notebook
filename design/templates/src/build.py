@@ -70,13 +70,20 @@ def _contrast(a: tuple[float, ...], b: tuple[float, ...]) -> float:
     return (high + 0.05) / (low + 0.05)
 
 
-def theme_colors(thmx: Path, accent: str = "accent1") -> tuple[tuple[float, ...], tuple[float, ...]]:
-    """(background, accent) as RGB 0..1: bg1 follows the slide master's color map, as PowerPoint shows it."""
+def theme_colors(thmx: Path, accent: str = "accent1", *, master_background: bool = False
+                 ) -> tuple[tuple[float, ...], tuple[float, ...]]:
+    """(background, accent) as RGB 0..1: bg1 follows the slide master's color map, as PowerPoint shows it.
+
+    With `master_background`, the background is the color the master actually paints (its <p:bg> scheme color, e.g.
+    bg2 on Facet), which is what the text sits on; bg1 when the master names none."""
     with zipfile.ZipFile(thmx) as package:
         names = package.namelist()
         theme = package.read(next(n for n in names if re.fullmatch(r"theme/theme/theme\d+\.xml", n))).decode("utf-8")
         master = package.read(next(n for n in names if re.fullmatch(r"theme/slideMasters/slideMaster1\.xml", n)))
-    bg_slot = re.search(r'<p:clrMap[^>]* bg1="(\w+)"', master.decode("utf-8")).group(1)
+    master_xml = master.decode("utf-8")
+    painted = re.search(r'<p:bg>.*?<a:schemeClr val="(bg[12])"', master_xml, re.S) if master_background else None
+    bg_name = painted.group(1) if painted else "bg1"
+    bg_slot = re.search(rf'<p:clrMap[^>]* {bg_name}="(\w+)"', master_xml).group(1)
 
     def slot(name: str) -> tuple[float, ...]:
         block = re.search(rf"<a:{name}>(.*?)</a:{name}>", theme, re.S).group(1)
@@ -86,10 +93,10 @@ def theme_colors(thmx: Path, accent: str = "accent1") -> tuple[tuple[float, ...]
     return slot(bg_slot), slot(accent)
 
 
-def accent_brightness(thmx: Path, minimum: float = 4.6) -> float:
+def accent_brightness(thmx: Path, minimum: float = 4.6, *, master_background: bool = False) -> float:
     """Smallest PowerPoint brightness shift that gives accent1 `minimum` contrast on the background, keeping its hue
     (negative darkens on light backgrounds, positive lightens on dark ones)."""
-    background, accent = theme_colors(thmx)
+    background, accent = theme_colors(thmx, master_background=master_background)
     hue, lightness, saturation = colorsys.rgb_to_hls(*accent)
     dark_background = colorsys.rgb_to_hls(*background)[1] < 0.5
     for step in range(0, 16):
@@ -183,7 +190,9 @@ def build(entry: dict) -> None:
     thmx = source
     if entry.get("variant"):
         thmx = variant_thmx(source, entry["variant"], WORK / f"{entry['id']}.thmx")
-    brightness = entry.get("accent_brightness", accent_brightness(thmx))
+    projector = "accent_min_contrast" in entry  # overnight Part 4: dark templates, measured on the painted background
+    brightness = entry.get("accent_brightness",
+                           accent_brightness(thmx, entry.get("accent_min_contrast", 4.6), master_background=projector))
     folder = GALLERY / entry["id"]
     folder.mkdir(parents=True, exist_ok=True)
     layouts = expanded_layouts(WORK / f"{entry['id']}.layouts.json")
@@ -203,6 +212,7 @@ def build(entry: dict) -> None:
                    + (["-DividerFill2", divider["fill"][1]] if len(divider["fill"]) > 1 else [])
                    + (["-Pattern", entry["pattern"]] if entry.get("pattern") else [])
                    + (["-Glow"] if entry.get("glow") else [])
+                   + (["-AreaInsetRightPt", str(entry["area_inset_right_pt"])] if entry.get("area_inset_right_pt") else [])
                    + (["-TitleAccent"] if entry.get("title_accent") else [])
                    + (["-SubtitleLikeTitle"] if entry.get("subtitle_like_title") else []), check=True, cwd=ROOT)
     meta = {key: entry[key] for key in ("id", "name_ar", "name_en", "fonts", "mode")}
@@ -213,6 +223,7 @@ def build(entry: dict) -> None:
     meta["divider"] = divider
     meta["pattern"] = entry.get("pattern")
     meta["glow"] = bool(entry.get("glow"))
+    meta["layout_bias"] = list(entry.get("layout_bias", []))
     (folder / "theme.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     report = validate_template(folder / "template.pptx")
     if not report.ok:

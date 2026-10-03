@@ -158,20 +158,22 @@ def scores_table() -> list[dict]:
     return rows
 
 
-EVOLUTION = [
+EVOLUTION = [  # paths under out/gallery/; gallery QA overwrites the live sheets, so 2d is read from its snapshot
     ("2b", "contact_sheet_v2.png", "Step 2b: أول gallery، القوالب من Office themes. الأغلفة حلوة والجوّه باهت"),
     ("2c", "contact_sheet_v3.png", "Step 2c: generate-and-score: dividers، KPI، charts، pictograms"),
     ("2c", "before_after.png", "Step 2c: قبل وبعد"),
-    ("2c.1", "contact_sheet_v4.png", "Step 2c.1: fill من الحبر، cards بتحضن المحتوى، 3 مقاسات خط بس"),
-    ("2c.1", "before_after_v4.png", "Step 2c.1: قبل وبعد"),
-    ("2d", "contact_sheet_creative.png", "Step 2d: العيلة الإبداعية (ليل النيل، بردي، مشربية)"),
-    ("2d", "families.png", "Step 2d: العائلات جنب بعض"),
+    ("2c.1", "history/2d/before_after_v4.png", "Step 2c.1: قبل وبعد (fill من الحبر، cards بتحضن المحتوى، 3 مقاسات)"),
+    ("2d", "history/2d/contact_sheet_creative.png", "Step 2d: العيلة الإبداعية (ليل النيل، بردي، مشربية)"),
+    ("2d", "history/2d/families.png", "Step 2d: العائلات جنب بعض"),
+    ("polish", "polish_before_after.png",
+     "تلميع الليلة: contrast للبروجيكتور في القوالب الداكنة، و art أوضح في ليل النيل وبردي، و Modulo"),
+    ("polish", "contact_sheet_creative.png", "بعد التلميع: العيلة الإبداعية"),
 ]
 
 
 def preview(path: Path, width: int = 1600) -> Path:
     """A downscaled JPEG copy under out/demo/previews/ (the contact sheets are up to 5 MB); the original if it fails."""
-    target = OUT / "previews" / (path.stem + f"_{width}.jpg")
+    target = OUT / "previews" / f"{path.parent.name}_{path.stem}_{width}.jpg"
     try:
         if not target.is_file() or target.stat().st_mtime < path.stat().st_mtime:
             from PIL import Image  # noqa: PLC0415

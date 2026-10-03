@@ -14,7 +14,7 @@
   "content_area_pt": [
     42.0,
     175.68,
-    876.0,
+    766.0,
     300.32
   ],
   "divider": {
@@ -34,5 +34,9 @@
     ]
   },
   "pattern": "lines",
-  "glow": false
+  "glow": false,
+  "layout_bias": [
+    "cards-3",
+    "two-col"
+  ]
 }

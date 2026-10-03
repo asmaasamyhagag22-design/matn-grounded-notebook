@@ -346,7 +346,7 @@ def page_quality() -> None:
                      hide_index=True)
     else:
         st.info("out/gallery/scores.md مش موجود.")
-    rtl("<h3>التطور: 2b ← 2c ← 2c.1 ← 2d</h3>")
+    rtl("<h3>التطور: 2b ← 2c ← 2c.1 ← 2d ← تلميع الليلة</h3>")
     for step, path, caption in data.evolution_images():
         rtl(f"<b>{esc(step)}</b> · {esc(caption)}")
         st.image(str(path), width="stretch")
