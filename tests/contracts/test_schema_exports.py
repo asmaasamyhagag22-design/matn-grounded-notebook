@@ -253,9 +253,12 @@ def test_every_public_model_survives_json_round_trip() -> None:
         assert type(value).model_validate_json(value.model_dump_json()) == value
 
 
+SCHEMA_V2 = {"Slide", "DeckPlan", "SlideDraft", "DeckPlanDraft"}  # Step 2b added three SlideType values
+
+
 def test_every_public_model_carries_schema_version() -> None:
     for value in _samples():
-        assert value.schema_version == 1
+        assert value.schema_version == (2 if type(value).__name__ in SCHEMA_V2 else 1)
 
 
 def test_exported_schema_snapshots_match() -> None:

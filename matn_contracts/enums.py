@@ -74,6 +74,9 @@ class SlideType(str, Enum):
     IMPLICATIONS = "implications"
     LIMITATIONS = "limitations"
     SOURCES = "sources"
+    SECTION_DIVIDER = "section_divider"
+    CLOSING = "closing"
+    EVIDENCE_APPENDIX = "evidence_appendix"
 
 
 class ChartType(str, Enum):

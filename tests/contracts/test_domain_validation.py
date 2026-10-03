@@ -277,3 +277,19 @@ def test_key_numbers_are_copied_by_code_from_verified_number_facts_only() -> Non
             page_label="1",
         ),
     )
+
+
+def test_step2b_slide_types_and_their_shapes() -> None:
+    backing = fact()
+    question = SlideItem(text="Which offices adopt slowest?", fact_ids=(backing.fact_id,))
+    divider = Slide(slide_type=SlideType.SECTION_DIVIDER, title="Adoption", items=(question,), notes=None)
+    assert divider.schema_version == 2
+    with pytest.raises(ValidationError, match="at most one item"):
+        Slide(slide_type=SlideType.SECTION_DIVIDER, title="Adoption", items=(question, question), notes=None)
+    Slide(slide_type=SlideType.CLOSING, title="Three takeaways", items=(question,) * 4, notes=None)
+    Slide(slide_type=SlideType.EVIDENCE_APPENDIX, title="Receipts", notes=None)
+    with pytest.raises(ValidationError, match="built by code"):
+        Slide(slide_type=SlideType.EVIDENCE_APPENDIX, title="Receipts", items=(question,), notes=None)
+    for slide_type in (SlideType.SECTION_DIVIDER, SlideType.CLOSING, SlideType.EVIDENCE_APPENDIX):
+        with pytest.raises(ValidationError):
+            Slide(slide_type=slide_type, title="x", kpi_fact_ids=(backing.fact_id,) * 2, notes=None)

@@ -14,6 +14,8 @@ from matn_deck.specimen import item, sample_fact, sample_table, specimen_inputs,
 
 
 ROOT = Path(__file__).resolve().parents[1]
+# Renderer v0 knows the eight Step 2 slide types; the Step 2b types render through templates (renderer v1).
+V0_TYPES = set(SlideType) - {SlideType.SECTION_DIVIDER, SlideType.CLOSING, SlideType.EVIDENCE_APPENDIX}
 
 
 @pytest.fixture(scope="module")
@@ -49,7 +51,7 @@ def signature(prs) -> list:
 
 def test_every_archetype_renders_without_overflow(specimen, tmp_path):
     plan, facts, tables, prs, report = specimen
-    assert {slide.slide_type for slide in plan.slides} == set(SlideType)
+    assert {slide.slide_type for slide in plan.slides} == V0_TYPES
     assert len(prs.slides) == len(plan.slides)
     assert report.overflows == ()
     expected = {
@@ -95,7 +97,7 @@ def test_contract_limits_are_respected_by_layouts_and_renderer(specimen):
     assert len(layouts["executive_summary"]["repeat"]["cells"]) == max_items
     assert len(layouts["implications"]["repeat"]["cells"]) == max_items
     assert set(layouts["kpi"]["repeat"]["cells_by_count"]) == {"2", "3", "4"}
-    assert set(layouts) == {t.value for t in SlideType}
+    assert set(layouts) == {t.value for t in V0_TYPES}
 
     plan, facts, tables, _, _ = specimen
     rejected = sample_fact("Sample: a rejected claim.", "Sample text: a rejected claim.", 1,

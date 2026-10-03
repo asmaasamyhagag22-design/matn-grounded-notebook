@@ -90,7 +90,10 @@
         "chart",
         "implications",
         "limitations",
-        "sources"
+        "sources",
+        "section_divider",
+        "closing",
+        "evidence_appendix"
       ],
       "title": "SlideType",
       "type": "string"
@@ -138,8 +141,8 @@
       "title": "Notes"
     },
     "schema_version": {
-      "const": 1,
-      "default": 1,
+      "const": 2,
+      "default": 2,
       "title": "Schema Version",
       "type": "integer"
     },

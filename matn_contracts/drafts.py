@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import re
-from typing import Annotated, Self
+from typing import Annotated, Literal, Self
 
 from pydantic import Field, model_validator
 
@@ -60,6 +60,7 @@ class ChartSpecDraft(VersionedContract):
 
 
 class SlideDraft(VersionedContract):
+    schema_version: Literal[2] = 2  # v2: section_divider, closing, evidence_appendix
     slide_type: SlideType
     title: Annotated[str, Field(min_length=1, max_length=90)]
     items: Annotated[tuple[SlideItemDraft, ...], Field(max_length=4)] = ()
@@ -81,8 +82,13 @@ class SlideDraft(VersionedContract):
                 raise ValueError("chart is required on chart slides")
         elif self.chart is not None:
             raise ValueError("chart is only allowed on chart slides")
+        if self.slide_type is SlideType.SECTION_DIVIDER and len(self.items) > 1:
+            raise ValueError("section_divider slides hold at most one item (the section question)")
+        if self.slide_type is SlideType.EVIDENCE_APPENDIX and self.items:
+            raise ValueError("evidence_appendix items are built by code from the cited facts")
         return self
 
 
 class DeckPlanDraft(VersionedContract):
+    schema_version: Literal[2] = 2  # v2: Slide v2
     slides: Annotated[tuple[SlideDraft, ...], Field(min_length=1)]
