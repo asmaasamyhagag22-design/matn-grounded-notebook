@@ -1,0 +1,35 @@
+{
+  "en": {
+    "page": "p. {n}",
+    "pages_joiner": ", ",
+    "table_suffix": " (table)",
+    "part_title": "{title} ({k}/{n})",
+    "section_number": "{n:02d}",
+    "item_ordinal": "{n:02d}",
+    "series_fallback": "Series {n}",
+    "no_pages": "no source pages",
+    "sources_line": "Slide {n} · {name} · {pages}",
+    "facts_verified": "Verified facts cited: {verified} of {total}",
+    "pages_cited": "Pages cited: {pages}",
+    "document": "Document: {doc}",
+    "method": "Numbers and chart data are copied by code from the source document, never typed by the model. Fact IDs and quotes for every slide are in the speaker notes.",
+    "appendix_line": "{value} · {label} · {page}: “{quote}”",
+    "appendix_empty": "No number facts are cited in this deck.",
+    "notes_heading": "Provenance",
+    "notes_line": "{fact_id} · {page} · {status} · “{quote}”",
+    "notes_table": "{table_id} · {page} · chart data",
+    "slide_type_names": {
+      "title": "Title",
+      "executive_summary": "Executive summary",
+      "kpi": "Key numbers",
+      "finding": "Finding",
+      "chart": "Chart",
+      "implications": "Implications",
+      "limitations": "Limitations",
+      "sources": "Sources and verification",
+      "section_divider": "Section",
+      "closing": "Closing",
+      "evidence_appendix": "Evidence appendix"
+    }
+  }
+}

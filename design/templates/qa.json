@@ -1,0 +1,191 @@
+{
+  "integral-light": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:big-number",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 4.92,
+      "large": 4.2,
+      "chart": 21.0
+    },
+    "contrast_failures": []
+  },
+  "integral-dark": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:big-number",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 5.63,
+      "large": 4.52,
+      "chart": 14.15
+    },
+    "contrast_failures": []
+  },
+  "facet-light": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:big-number",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 5.17,
+      "large": 4.0,
+      "chart": 21.0
+    },
+    "contrast_failures": []
+  },
+  "facet-dark": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:big-number",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 9.21,
+      "large": 4.35,
+      "chart": 11.45
+    },
+    "contrast_failures": []
+  },
+  "film-burn-dark": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:cards",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 4.86,
+      "large": 4.25,
+      "chart": 19.89
+    },
+    "contrast_failures": []
+  },
+  "ion-boardroom": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:cards",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:two-col",
+      "matn:finding:two-col",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 6.59,
+      "large": 5.63,
+      "chart": 21.0
+    },
+    "contrast_failures": []
+  },
+  "modulo": {
+    "overflow": [],
+    "layouts": [
+      "matn:title:default",
+      "matn:executive_summary:default",
+      "matn:section_divider:default",
+      "matn:kpi:cards",
+      "matn:kpi:big-number",
+      "matn:finding:cards-3",
+      "matn:finding:two-col",
+      "matn:finding:split-60-40",
+      "matn:chart:hero",
+      "matn:section_divider:default",
+      "matn:implications:default",
+      "matn:limitations:default",
+      "matn:closing:default",
+      "matn:evidence_appendix:default",
+      "matn:sources:default"
+    ],
+    "min_contrast": {
+      "body": 4.91,
+      "large": 3.81,
+      "chart": 21.0
+    },
+    "contrast_failures": []
+  }
+}

@@ -80,5 +80,9 @@ The machine-readable copy of this table is `LAYOUTS` in `matn_deck/templates.py`
    and size inherited from layout and master). On overflow the next candidate variant is tried; when none fits, the
    slide's items (or appendix lines, or KPI values) are split over two slides with the same title plus "(1/2)",
    "(2/2)", recursively. A fact is never cut. A title or single item that still overflows is reported, not cut.
-4. **Item lead.** "Lead: rest" with a lead of at most 40 characters puts the lead in `item_N_title` and the rest in
+   A card layout whose decorated cards would stay empty is tried only after every other candidate.
+4. **KPI values.** The value is copied as written; its unit is a second run at half the value size. When the
+   values of a slide do not fit one line at the template's size, all of them step down together to 85%, 70% or 55%
+   of it (the template sets the maximum; code never goes above it).
+5. **Item lead.** "Lead: rest" with a lead of at most 40 characters puts the lead in `item_N_title` and the rest in
    `item_N` when the layout has the title slot; otherwise the full text goes in `item_N`.
