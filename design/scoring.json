@@ -22,8 +22,8 @@
   "body_roles": ["body", "item", "kpi_label", "quote", "decisions", "subtitle"],
   "label_roles": ["source", "attribution", "decisions_title"],
   "beauty_gate": {
-    "threshold": null,
+    "threshold": 0.9,
     "max_hard_violations": 0,
-    "calibration": "set after the first gallery run (Step 2c)"
+    "calibration": "Calibrated on the first 2c run (2026-10-03, specimen v3, 7 templates). Mean chosen score per template: 0.946-0.951, Ion Boardroom 0.910. Reference points from the same candidates: a 2b-style choice (first valid variant, step S, top) averages 0.753-0.816, and an arbitrary valid candidate 0.829-0.865. 0.90 sits above every template's arbitrary-candidate mean and just under the lowest current template, so a template whose best layouts score no better than arbitrary ones fails."
   }
 }

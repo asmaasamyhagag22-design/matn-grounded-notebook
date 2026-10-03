@@ -3,6 +3,7 @@ chart rules."""
 from __future__ import annotations
 
 from decimal import Decimal
+from pathlib import Path
 
 from matn_contracts.domain import ChartSpec, NumberFactValue
 from matn_contracts.enums import ChartType
@@ -215,3 +216,27 @@ def test_the_key_point_is_the_cited_number_otherwise_the_maximum():
         table, ChartSpec(table_id=table.table_id, x_column=0, y_columns=(1,), chart_type=ChartType.BAR), "S{n}")
     assert number_format == "0.0" and series[0].texts == ("9.5", "12.0", "11.0")
     assert data_shape(categories, series, load_rules()) == "time_series"
+
+
+def test_png_whitespace_counts_flat_windows_only(tmp_path):
+    """The gallery QA's AeSlides-style cross-check: blank where the local variance is flat."""
+    import importlib.util
+
+    import numpy as np
+    from PIL import Image
+
+    path = Path(__file__).resolve().parents[1] / "design" / "templates" / "src" / "qa.py"
+    spec = importlib.util.spec_from_file_location("gallery_qa", path)
+    qa = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(qa)
+    flat = np.full((540, 960), 240, dtype=np.uint8)
+    Image.fromarray(flat).save(tmp_path / "flat.png")
+    assert qa.whitespace(tmp_path / "flat.png", [0, 0, 960, 540]) == 1.0
+    busy = flat.copy()
+    busy[:, ::4] = 20  # thin vertical strokes everywhere
+    Image.fromarray(busy).save(tmp_path / "busy.png")
+    assert qa.whitespace(tmp_path / "busy.png", [0, 0, 960, 540]) == 0.0
+    half = flat.copy()
+    half[:, :480:4] = 20  # strokes on the left half only
+    Image.fromarray(half).save(tmp_path / "half.png")
+    assert abs(qa.whitespace(tmp_path / "half.png", [0, 0, 960, 540]) - 0.5) < 0.03
