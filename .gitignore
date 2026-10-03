@@ -66,3 +66,6 @@ audit/scratch/
 audit/logs/
 # Evaluation inputs stay local (sha256 pinned in eval/registry.json); "*.pdf" already ignores the PDFs
 eval/pages/
+# Generated design specimen (regenerate: python -m matn_deck.specimen)
+design/specimen/*.pptx
+design/specimen/png/

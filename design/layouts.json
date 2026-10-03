@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "about": "Archetype geometry as data, one archetype per SlideType. Positions are grid columns (0-11, counted from the reading-start edge) plus EMU offsets from tokens.json. 'repeat' slots are placed once per cell, relative to the cell. Brief: docs/design/brief.md.",
+  "about": "Archetype geometry as data, one archetype per SlideType. Positions are grid columns (0-11, counted from the reading-start edge) plus EMU offsets from tokens.json. 'background' names the slide fill token (archetypes may override it). 'repeat' slots are placed once per cell, relative to the cell. Brief: docs/design/brief.md.",
+  "background": "background",
   "frame": {
     "accent_bar":    {"kind": "rect", "col": 0, "width_emu": 731520, "top": 384048, "height": 45720, "fill": "accent"},
     "title":         {"kind": "text", "col": 0, "span": 12, "top": 548640, "height": 868680, "role": "slide_title"},
@@ -10,10 +11,10 @@
   "archetypes": {
     "title": {
       "frame": false,
+      "background": "dark",
       "slots": {
-        "background": {"kind": "rect", "bleed": true, "fill": "dark"},
-        "accent_bar":  {"kind": "rect", "col": 0, "width_emu": 731520, "top": 2286000, "height": 45720, "fill": "on_dark_muted"},
-        "title":       {"kind": "text", "col": 0, "span": 10, "top": 2468880, "height": 1828800, "role": "deck_title", "anchor": "bottom"},
+        "title":       {"kind": "text", "col": 0, "span": 10, "top": 2286000, "height": 1828800, "role": "deck_title", "anchor": "bottom"},
+        "accent_bar":  {"kind": "rect", "col": 0, "width_emu": 731520, "top": 4297680, "height": 45720, "fill": "on_dark_muted"},
         "subtitle":    {"kind": "text", "col": 0, "span": 10, "top": 4480560, "height": 1097280, "role": "deck_subtitle"}
       }
     },
@@ -29,7 +30,7 @@
         "slots": {
           "rule":   {"kind": "rect", "col": 1, "span": 11, "top": 0, "height": 9525, "fill": "rule"},
           "number": {"kind": "text", "col": 0, "span": 1, "top": 91440, "height": 548640, "role": "item_number"},
-          "text":   {"kind": "text", "col": 1, "span": 11, "top": 91440, "height": 1005840, "role": "lead"}
+          "text":   {"kind": "text", "col": 1, "span": 11, "top": 182880, "height": 914400, "role": "lead"}
         }
       }
     },
@@ -56,9 +57,9 @@
       "frame": true,
       "slots": {
         "items":         {"kind": "text", "col": 0, "span": 7, "top": 1691640, "height": 4480560, "role": "body", "list": "bullet"},
-        "panel":         {"kind": "rect", "col": 7, "span": 5, "top": 1691640, "height": 3291840, "fill": "surface"},
+        "panel":         {"kind": "rect", "col": 7, "span": 5, "top": 1691640, "height": 2743200, "fill": "surface"},
         "panel_heading": {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 1920240, "height": 274320, "role": "panel_heading"},
-        "quote":         {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 2331720, "height": 2423160, "role": "quote"}
+        "quote":         {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 2331720, "height": 1874520, "role": "quote"}
       }
     },
     "chart": {
@@ -95,9 +96,9 @@
       "source_footer": false,
       "slots": {
         "list":          {"kind": "text", "col": 0, "span": 7, "top": 1691640, "height": 4480560, "role": "list_small"},
-        "panel":         {"kind": "rect", "col": 7, "span": 5, "top": 1691640, "height": 3291840, "fill": "surface"},
+        "panel":         {"kind": "rect", "col": 7, "span": 5, "top": 1691640, "height": 2743200, "fill": "surface"},
         "panel_heading": {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 1920240, "height": 274320, "role": "panel_heading"},
-        "panel_body":    {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 2331720, "height": 2423160, "role": "panel_body"}
+        "panel_body":    {"kind": "text", "col": 7, "span": 5, "inset": 228600, "top": 2331720, "height": 1874520, "role": "panel_body"}
       }
     }
   },
@@ -110,6 +111,7 @@
     "verification_heading": "VERIFICATION",
     "sources_line": "Slide {n} · {name} · {pages}",
     "no_pages": "no source pages",
+    "series_fallback": "Series {n}",
     "facts_verified": "Verified facts cited: {verified} of {total}",
     "pages_cited": "Pages cited: {pages}",
     "document": "Document: {doc}",
