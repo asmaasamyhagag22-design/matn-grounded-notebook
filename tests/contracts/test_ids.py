@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from hypothesis import given
+from hypothesis import given, settings
 from hypothesis import strategies as st
 
 from matn_contracts.ids import make_block_id, make_fact_id, make_section_id, make_table_id
@@ -57,6 +57,7 @@ def test_raw_text_is_not_normalized_for_block_identity() -> None:
     )
 
 
+@settings(deadline=None)  # the property holds regardless of speed; a slow machine is not a failure (M-6)
 @given(
     page_index=st.integers(min_value=0, max_value=9999),
     x0=st.integers(min_value=0, max_value=1000).map(lambda value: value / 10),
