@@ -91,7 +91,15 @@ def export(decks: list[Path], *, timeout: float = 1800) -> tuple[bool, str]:
             capture_output=True, text=True, timeout=timeout)
     except (OSError, subprocess.TimeoutExpired) as exc:
         return False, f"EXPORT_FAILED:{type(exc).__name__}"
-    return result.returncode == 0, (result.stdout + result.stderr)[-2000:]
+    log = (result.stdout + result.stderr)[-2000:]
+    if result.returncode != 0:
+        return False, log
+    # PowerPoint can exit 0 and still leave a deck unexported; trust the files, not the exit code.
+    missing = [str(d / "deck.pdf") for d in decks if not (d / "deck.pdf").is_file()]
+    missing += [str(d / "png") for d in decks if not any((d / "png").glob("slide_*.png"))]
+    if missing:
+        return False, log + "\nEXPORT_OUTPUT_MISSING: " + ", ".join(missing)
+    return True, log
 
 
 def manifest() -> dict:
@@ -149,7 +157,7 @@ def main(argv: list[str] | None = None) -> int:
         if not ok:
             print("EXPORT FAILED: the decks are rendered; PNG/PDF are missing or stale")
     write_json(OUT / "manifest.json", manifest())
-    return 0
+    return 0 if args.no_export or ok else 1
 
 
 if __name__ == "__main__":
