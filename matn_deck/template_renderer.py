@@ -415,8 +415,8 @@ class _DeckBuilder:
             varied = [a for a in good if a.layout.name != previous]
             if varied:
                 good = varied  # deck variety is a contract invariant when another valid layout exists
-            top = max(a.score.total for a in good)
-            tied = [a for a in good if a.score.total >= top - self.cfg["tie_margin"]]
+            top = max(self._preference(a) for a in good)
+            tied = [a for a in good if self._preference(a) >= top - self.cfg["tie_margin"]]
             return [self._remember(min(tied, key=lambda a: a.order), attempts)]
         halves = self._split(content)
         if halves is None:
@@ -434,6 +434,14 @@ class _DeckBuilder:
             renumbered.append(redo)
             before = redo.layout.name if content.slide_type in CONTENT_TYPES else None
         return renumbered
+
+    def _preference(self, attempt: _Plan) -> float:
+        """The total used to choose among candidates that pass every hard constraint: the score plus the template's
+        small layout-bias bonus (theme.json "layout_bias": variant names) for its favourite variants. The recorded
+        score, and so the beauty gate, stays the unbiased total; a bias never rescues a failing candidate."""
+        variant = attempt.layout.name.rsplit(":", 1)[-1]
+        bonus = self.cfg.get("layout_bias_bonus", 0.0) if variant in self.meta.get("layout_bias", ()) else 0.0
+        return attempt.score.total + bonus
 
     @staticmethod
     def _remember(chosen: _Plan, attempts: list[_Plan]) -> _Plan:

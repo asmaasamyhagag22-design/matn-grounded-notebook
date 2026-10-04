@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Crisp technical blue with a focused amber signal",
   "audience": "Technical teams and data leaders",
+  "layout_bias": [
+    "bento",
+    "grid-2x2"
+  ],
   "roles": {
     "primary": "1555A2",
     "accent": "1555A2",

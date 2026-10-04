@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Cool editorial paper with scholarly blue detail",
   "audience": "Researchers and report authors",
+  "layout_bias": [
+    "split-60-40",
+    "single-hero"
+  ],
   "roles": {
     "primary": "1A3558",
     "accent": "1A3558",
@@ -63,13 +67,14 @@
   "background": {
     "generator": "paper",
     "parameters": {
+      "motif_weight": 2.5,
       "grain": 1.2
     },
     "fixed_seed": 3104,
     "asset": "embedded:creative_background",
-    "content_variance": 1.03,
-    "edge_variance": 2.388,
-    "edge_mean_delta": 0.178,
+    "content_variance": 1.598,
+    "edge_variance": 7.405,
+    "edge_mean_delta": 1.46,
     "art_perceptible": true
   },
   "decor_zone": {

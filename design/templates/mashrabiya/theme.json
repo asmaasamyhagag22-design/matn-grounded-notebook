@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Modern, bold and geometric",
   "audience": "Technical teams and data leaders",
+  "layout_bias": [
+    "bento",
+    "grid-2x2"
+  ],
   "roles": {
     "primary": "026C6C",
     "accent": "026C6C",

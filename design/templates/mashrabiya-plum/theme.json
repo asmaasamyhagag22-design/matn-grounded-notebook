@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Geometric plum blocks with a precise saffron focus",
   "audience": "Technical teams and data leaders",
+  "layout_bias": [
+    "bento",
+    "grid-2x2"
+  ],
   "roles": {
     "primary": "69405F",
     "accent": "69405F",

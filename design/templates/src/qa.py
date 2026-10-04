@@ -6,7 +6,8 @@ text run emptied and chart text made fully transparent. Both are exported throug
 differ are the text. In each text placeholder and chart, the text color is the median of the most-changed pixels and
 the background is the blank render under those same pixels, so images and gradients are measured as shown.
 Contrast is the 5th percentile over the glyph pixels. Minimums (WCAG 2.x): 4.5 for body text, small text and chart
-labels; 3.0 for large text (at least 18 pt, or 14 pt bold).
+labels; 3.0 for large text (at least 18 pt, or 14 pt bold). Dark templates are held to projector minimums (overnight
+Part 4, owner request): 7.0 for body text and chart labels, 4.5 for large text.
 
 Whitespace (cross-check of the geometry ink fill, after AeSlides): on each content slide's PNG, a pixel is blank when
 the standard deviation of its local window is below WHITE_STD; the PNG non-blank share is 1 - the blank share of the
@@ -46,6 +47,7 @@ from matn_deck.template_renderer import CONTENT_TYPES, DeckOverflowError  # noqa
 
 EXPORT_W, EXPORT_H = 2560, 1440
 BODY_MIN, LARGE_MIN = 4.5, 3.0
+PROJECTOR_BODY_MIN, PROJECTOR_LARGE_MIN = 7.0, 4.5  # dark templates (theme.json mode "dark")
 WHITE_WINDOW = 15  # px at 2560 wide (about 5.6 pt)
 WHITE_STD = 2.0  # grey levels: below this the window is flat
 ART_CONTENT_STD_MAX = 12.0
@@ -167,7 +169,8 @@ def reference_scores(scores: list[dict]) -> dict:
     return {"two_b_style": mean(naive), "arbitrary_valid": mean(arbitrary), "chosen": mean(chosen)}
 
 
-def measure(deck: Path, shown_dir: Path, blank_dir: Path) -> list[dict]:
+def measure(deck: Path, shown_dir: Path, blank_dir: Path, *, dark: bool = False) -> list[dict]:
+    body_min, large_min = (PROJECTOR_BODY_MIN, PROJECTOR_LARGE_MIN) if dark else (BODY_MIN, LARGE_MIN)
     prs = Presentation(str(deck))
     sx, sy = EXPORT_W / prs.slide_width, EXPORT_H / prs.slide_height
     rows = []
@@ -177,13 +180,13 @@ def measure(deck: Path, shown_dir: Path, blank_dir: Path) -> list[dict]:
         layout_ph = {ph.name: ph for ph in slide.slide_layout.placeholders}
         for shape in slide.shapes:
             if shape.has_chart if hasattr(shape, "has_chart") else False:
-                kind, minimum = "chart", BODY_MIN
+                kind, minimum = "chart", body_min
             elif shape.has_text_frame and shape.text_frame.text.strip() and shape.name in layout_ph:
                 style = placeholder_style(layout_ph[shape.name])
                 runs = [r for p in shape.text_frame.paragraphs for r in p.runs if r.text.strip()]
                 size = min((r.font.size.pt for r in runs if r.font.size), default=style.size_pt)
                 large = size >= 18 or (style.bold and size >= 14)
-                kind, minimum = ("large" if large else "body"), (LARGE_MIN if large else BODY_MIN)
+                kind, minimum = ("large" if large else "body"), (large_min if large else body_min)
             else:
                 continue
             x0, y0 = max(0, int(shape.left * sx)), max(0, int(shape.top * sy))
@@ -241,9 +244,10 @@ def main() -> int:
         result = results[tid]
         if result["overflow"]:
             continue
-        rows = measure(OUT / tid / "specimen.pptx", OUT / tid / "png", OUT / tid / "blank_png")
-        failures = [r for r in rows if not r["ok"]]
         meta = json.loads((SRC.parent / tid / "theme.json").read_text(encoding="utf-8"))
+        rows = measure(OUT / tid / "specimen.pptx", OUT / tid / "png", OUT / tid / "blank_png",
+                       dark=meta.get("mode") == "dark")
+        failures = [r for r in rows if not r["ok"]]
         area = meta["content_area_pt"]
         blank = [whitespace(OUT / tid / "png" / f"slide_{n:02d}.png", area) for n in result["content_slides"]]
         result["slide_png"] = {n: round(1 - b, 4) for n, b in zip(result["content_slides"], blank)}

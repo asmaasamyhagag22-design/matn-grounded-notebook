@@ -4,9 +4,9 @@
   "family": "creative", "mode": "dark",
   "seed_colors": {"primary": "#2056A8", "accent": "#D6A84B", "surface": "#07182E"},
   "fonts": {"title": "Bahnschrift", "body": "Segoe UI"},
-  "background": {"generator": "aurora", "parameters": {"grain": 0.7, "decor_color": "#087E8B"}, "fixed_seed": 2103},
+  "background": {"generator": "aurora", "parameters": {"glow_strength": 1.8, "grain": 0.7, "decor_color": "#087E8B"}, "fixed_seed": 2103},
   "card_style": {"fill_alpha": 0.16, "corner_radius_pt": 16,
     "shadow": {"enabled": true, "alpha": 0.22, "blur_pt": 14, "distance_pt": 3}},
   "divider_style": {"type": "gradient", "secondary": "#087E8B", "thin_rules": false},
-  "motif": {"type": "aurora", "placement": "edges", "opacity": 0.18}, "pattern": false
+  "motif": {"type": "aurora", "placement": "edges", "opacity": 0.18}, "pattern": false, "layout_bias": ["hero-number", "single-hero"]
 }

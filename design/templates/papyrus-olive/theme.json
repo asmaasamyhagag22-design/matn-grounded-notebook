@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Warm archival paper with an understated botanical tone",
   "audience": "Researchers and report authors",
+  "layout_bias": [
+    "split-60-40",
+    "single-hero"
+  ],
   "roles": {
     "primary": "263F3A",
     "accent": "263F3A",
@@ -63,13 +67,14 @@
   "background": {
     "generator": "paper",
     "parameters": {
+      "motif_weight": 2.5,
       "grain": 1.4
     },
     "fixed_seed": 3105,
     "asset": "embedded:creative_background",
-    "content_variance": 1.176,
-    "edge_variance": 2.621,
-    "edge_mean_delta": 0.2,
+    "content_variance": 1.685,
+    "edge_variance": 7.469,
+    "edge_mean_delta": 1.469,
     "art_perceptible": true
   },
   "decor_zone": {

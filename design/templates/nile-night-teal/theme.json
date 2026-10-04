@@ -33,13 +33,17 @@
   "family": "creative",
   "mood": "Quiet midnight teal with a warm metal accent",
   "audience": "Ministers and executive leadership",
+  "layout_bias": [
+    "hero-number",
+    "single-hero"
+  ],
   "roles": {
-    "primary": "188592",
+    "primary": "57B6C4",
     "accent": "D9A441",
     "focus": "D9A441",
     "surface": "050809",
-    "on_surface": "298F9C",
-    "muted": "97A8AB",
+    "on_surface": "72D0DE",
+    "muted": "B3C5C8",
     "card": "141618",
     "divider_background": "022429",
     "on_divider": "D9A441"
@@ -64,14 +68,15 @@
   "background": {
     "generator": "aurora",
     "parameters": {
+      "glow_strength": 1.8,
       "grain": 0.75,
       "decor_color": "#146C94"
     },
     "fixed_seed": 2105,
     "asset": "embedded:creative_background",
-    "content_variance": 3.38,
-    "edge_variance": 5.762,
-    "edge_mean_delta": 5.805,
+    "content_variance": 6.142,
+    "edge_variance": 11.028,
+    "edge_mean_delta": 12.636,
     "art_perceptible": true
   },
   "decor_zone": {

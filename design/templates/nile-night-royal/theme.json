@@ -33,13 +33,17 @@
   "family": "creative",
   "mood": "Ceremonial navy with a restrained violet glow",
   "audience": "Ministers and executive leadership",
+  "layout_bias": [
+    "hero-number",
+    "single-hero"
+  ],
   "roles": {
-    "primary": "5F70D2",
+    "primary": "92A5F8",
     "accent": "E0B85B",
     "focus": "E0B85B",
     "surface": "06070B",
-    "on_surface": "6A7CE0",
-    "muted": "9EA4BA",
+    "on_surface": "B5C3FB",
+    "muted": "BDC3DA",
     "card": "151619",
     "divider_background": "121057",
     "on_divider": "E0B85B"
@@ -64,14 +68,15 @@
   "background": {
     "generator": "aurora",
     "parameters": {
+      "glow_strength": 1.8,
       "grain": 0.65,
       "decor_color": "#6047A8"
     },
     "fixed_seed": 2104,
     "asset": "embedded:creative_background",
-    "content_variance": 4.167,
-    "edge_variance": 8.123,
-    "edge_mean_delta": 7.265,
+    "content_variance": 7.657,
+    "edge_variance": 14.991,
+    "edge_mean_delta": 15.882,
     "art_perceptible": true
   },
   "decor_zone": {

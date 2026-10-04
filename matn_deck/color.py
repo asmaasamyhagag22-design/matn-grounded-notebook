@@ -131,21 +131,26 @@ def _contrasting_glass_tone(seed: RGB, background: RGB, alpha: float, target: fl
 
 
 def derive_roles(seed: str, accent_seed: str, mode: str, surface_seed: str | None = None,
-                 card_alpha: float = 0.0) -> dict[str, str]:
-    """Derive accessible theme roles from two seed colors in perceptual OKLCH space."""
+                 card_alpha: float = 0.0, *, text_target: float = 4.5, large_target: float = 3.0) -> dict[str, str]:
+    """Derive accessible theme roles from two seed colors in perceptual OKLCH space.
+
+    `text_target` is the contrast every text role (on_surface, muted, primary, accent) reaches on the surface and,
+    for on_surface and muted, on the glass card; `large_target` is the focus role's (KPI values, graphics). The
+    defaults are WCAG AA; dark creative templates use the projector targets (generate.py, overnight Part 4).
+    """
     if mode not in {"light", "dark"}:
         raise ValueError(f"MODE_INVALID:{mode}")
     base, accent_base = rgb_from_hex(seed), rgb_from_hex(accent_seed)
     surface_base = rgb_from_hex(surface_seed) if surface_seed else base
     dark = mode == "dark"
     surface = _tone(surface_base, 0.13 if dark else 0.97, 0.18)
-    on_surface = _contrasting_glass_tone(base, surface, card_alpha, 4.5, prefer_light=dark)
-    muted = _contrasting_glass_tone(_tone(base, 0.72 if dark else 0.43, 0.22), surface, card_alpha, 4.5,
+    on_surface = _contrasting_glass_tone(base, surface, card_alpha, text_target, prefer_light=dark)
+    muted = _contrasting_glass_tone(_tone(base, 0.72 if dark else 0.43, 0.22), surface, card_alpha, text_target,
                                     prefer_light=dark)
-    primary = _contrasting_tone(base, surface, 4.5, prefer_light=dark)
+    primary = _contrasting_tone(base, surface, text_target, prefer_light=dark)
     # On light templates the vivid seed is a focus fill, never text. Text accents stay with the dark primary.
-    accent = _contrasting_tone(accent_base, surface, 4.5, prefer_light=True) if dark else primary
-    focus = _contrasting_tone(accent_base, surface, 3.0, prefer_light=dark)
+    accent = _contrasting_tone(accent_base, surface, text_target, prefer_light=True) if dark else primary
+    focus = _contrasting_tone(accent_base, surface, large_target, prefer_light=dark)
     card = _tone(surface_base, 0.20 if dark else 0.93, 0.12)
     divider = _tone(base, 0.24 if dark else 0.31, 0.8)
     on_divider = _contrasting_tone(accent_base, divider, 4.5, prefer_light=True)

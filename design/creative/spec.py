@@ -79,6 +79,7 @@ class CreativeSpec(StrictModel):
     divider_style: DividerStyle
     motif: Motif
     pattern: bool
+    layout_bias: tuple[str, ...] = ()  # favourite variant names (scoring.json layout_bias_bonus), overnight Part 4
 
 
 def load_spec(path: Path) -> CreativeSpec:

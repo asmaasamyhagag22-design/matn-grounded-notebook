@@ -1,4 +1,4 @@
-# Template contract (v3, Step 2d)
+# Template contract (v3.1, Step 2d + overnight polish)
 
 A Matn template is a `.pptx` whose **slide layouts** follow the names below. The renderer picks a layout by name and
 fills its placeholders by name. The template owns fonts, colors, backgrounds, master art, the title box, the content
@@ -173,3 +173,21 @@ another keeps `design/variants.json` covering exactly these layouts.
   least 6. These values appear per template as `art.content_std`, `art.edge_std` and `art.mean_delta` in
   `design/templates/qa.json` and `out/gallery/scores.md`. An art failure is a hard violation; fading the art out
   cannot pass the gate.
+
+## 7. Projector contrast, art strength and layout bias (overnight Part 4)
+
+- **Projector contrast (dark templates).** The exported specimen must reach 7:1 for body text and chart labels and
+  4.5:1 for large text (`PROJECTOR_BODY_MIN`, `PROJECTOR_LARGE_MIN` in `design/templates/src/qa.py`; light templates
+  keep 4.5 and 3.0). Creative dark templates derive their text roles for 8.5:1 and the focus role for 5:1
+  (`derive_roles(text_target=, large_target=)`), because anti-aliased glyphs measure about 30% under the derived
+  ratio. Classic dark templates take `accent_min_contrast` in `gallery.json` (7.4), measured against the background
+  the master actually paints (Facet paints `bg2`, not `bg1`). The surface and the art are not changed.
+- **Art strength.** `background.parameters.glow_strength` (aurora: brighter, tighter edge glow) and `motif_weight`
+  (lotus: heavier lines, more petals) default to 1.0, which reproduces the 2d art exactly.
+- **Layout bias.** `theme.json` `layout_bias` lists favourite variant names (creative: from `spec.json`; classic:
+  from `gallery.json`). Among candidates that pass every hard constraint, those variants get
+  `scoring.json` `layout_bias_bonus` (0.015, just above `tie_margin`) when choosing. Recorded totals, and so the beauty
+  gate, use the unbiased score. Papyrus: split-60-40, single-hero; Mashrabiya: bento, grid-2x2; Nile Night:
+  hero-number, single-hero; Modulo: cards-3, two-col.
+- **Modulo measure.** `area_inset_right_pt` (gallery.json, 110 for Modulo) narrows the content area from the right,
+  keeping its left edge on the title, so Modulo uses the same 766 pt measure as Integral.

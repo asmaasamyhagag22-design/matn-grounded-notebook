@@ -32,6 +32,10 @@
   "family": "creative",
   "mood": "Elegant scientific magazine, calm and highly readable",
   "audience": "Researchers and report authors",
+  "layout_bias": [
+    "split-60-40",
+    "single-hero"
+  ],
   "roles": {
     "primary": "17324D",
     "accent": "17324D",
@@ -63,13 +67,14 @@
   "background": {
     "generator": "paper",
     "parameters": {
+      "motif_weight": 2.5,
       "grain": 1.25
     },
     "fixed_seed": 3103,
     "asset": "embedded:creative_background",
-    "content_variance": 1.092,
-    "edge_variance": 2.626,
-    "edge_mean_delta": 0.205,
+    "content_variance": 1.643,
+    "edge_variance": 7.587,
+    "edge_mean_delta": 1.498,
     "art_perceptible": true
   },
   "decor_zone": {

@@ -27,6 +27,11 @@ from matn_deck.color import contrast_ratio, derive_roles, rgb_from_hex  # noqa: 
 from matn_deck.templates import validate_template  # noqa: E402
 
 _A = "http://schemas.openxmlformats.org/drawingml/2006/main"
+# Projector-safe dark templates (overnight Part 4): the exported text must reach 7:1 (body) and 4.5:1 (large) in
+# design/templates/src/qa.py. The export measures anti-aliased glyph pixels, which read about 30% under the derived
+# ratio on glass cards, so the text roles are derived for 8.5:1 and the focus role for 5:1. The art is not faded.
+PROJECTOR_TEXT_TARGET = 8.5
+PROJECTOR_LARGE_TARGET = 5.0
 _NS = {"a": _A}
 
 
@@ -80,8 +85,10 @@ def creative_theme(source: Path, target: Path, roles: dict[str, str], spec: Crea
 
 
 def build(path: Path, spec: CreativeSpec) -> None:
+    targets = ({"text_target": PROJECTOR_TEXT_TARGET, "large_target": PROJECTOR_LARGE_TARGET}
+               if spec.mode == "dark" else {})
     roles = derive_roles(spec.seed_colors.primary, spec.seed_colors.accent, spec.mode, spec.seed_colors.surface,
-                         spec.card_style.fill_alpha)
+                         spec.card_style.fill_alpha, **targets)
     asset = write_background(spec, WORK / spec.id / "background.jpg")
     variance = content_zone_variance(Image.open(asset))
     if variance >= 12:
@@ -140,6 +147,7 @@ def build(path: Path, spec: CreativeSpec) -> None:
         "content_area_pt": [round(area[k], 2) for k in ("left", "top", "width", "height")],
         "divider": divider_meta, "pattern": pattern or None, "glow": False,
         "family": spec.family, "mood": spec.mood, "audience": spec.recommended_audience,
+        "layout_bias": list(spec.layout_bias),
         "roles": roles, "card_style": spec.card_style.model_dump(), "divider_style": divider_style,
         "background": {**spec.background.model_dump(), "asset": "embedded:creative_background",
                        "content_variance": round(float(art["content_std"]), 3),

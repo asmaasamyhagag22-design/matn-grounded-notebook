@@ -8,5 +8,5 @@
   "card_style": {"fill_alpha": 0.075, "corner_radius_pt": 11,
     "shadow": {"enabled": true, "alpha": 0.11, "blur_pt": 9, "distance_pt": 2}},
   "divider_style": {"type": "color_block", "secondary": null, "thin_rules": false},
-  "motif": {"type": "mashrabiya", "placement": "side_band", "opacity": 0.16}, "pattern": true
+  "motif": {"type": "mashrabiya", "placement": "side_band", "opacity": 0.16}, "pattern": true, "layout_bias": ["bento", "grid-2x2"]
 }

@@ -10,6 +10,8 @@
   "contrast": {"text": 4.5, "large": 3.0, "graphics": 3.0},
   "anchors": ["top", "center"],
   "tie_margin": 0.01,
+  "layout_bias_bonus": 0.015,
+  "_layout_bias": "Overnight Part 4: a template may name favourite variants (theme.json layout_bias). Among candidates that pass every hard constraint, those variants get this bonus when choosing; it is just above tie_margin, so it decides close calls only. Recorded totals and the beauty gate use the unbiased score.",
   "title_sizes": [32, 30, 28],
   "type_scale": [
     {"name": "L", "factor": 1.3},
@@ -23,6 +25,6 @@
   "beauty_gate": {
     "threshold": 0.9,
     "max_hard_violations": 0,
-    "calibration": "Rechecked for Step 2c.1 (2026-10-03, specimen v4, ink-based fill) the same way as in 2c. Reference points from the same candidates: a 2b-style choice (first valid variant, step S, top) averages 0.639-0.765, an arbitrary valid candidate 0.782-0.857, the chosen candidates 0.901-0.934. The threshold stays 0.90: it is still above every template's arbitrary-candidate mean (by 0.043 or more), so a template whose best layouts score no better than arbitrary ones fails. It was not lowered. Modulo passes by only 0.0007 (0.9007) and is the first template at risk. 2c calibration: 2b-style 0.753-0.816, arbitrary 0.829-0.865, chosen 0.910-0.951."
+    "calibration": "Rechecked for Step 2c.1 (2026-10-03, specimen v4, ink-based fill) the same way as in 2c. Reference points from the same candidates: a 2b-style choice (first valid variant, step S, top) averages 0.639-0.765, an arbitrary valid candidate 0.782-0.857, the chosen candidates 0.901-0.934. The threshold stays 0.90: it is still above every template's arbitrary-candidate mean (by 0.043 or more), so a template whose best layouts score no better than arbitrary ones fails. It was not lowered. Modulo passes by only 0.0007 (0.9007) and is the first template at risk. Overnight Part 4 (2026-10-04): Modulo reaches 0.9143 through its own measure (gallery.json area_inset_right_pt 110, the same 766 pt as Integral); the threshold is unchanged, and the layout-bias bonus is not counted in any recorded total. 2c calibration: 2b-style 0.753-0.816, arbitrary 0.829-0.865, chosen 0.910-0.951."
   }
 }
