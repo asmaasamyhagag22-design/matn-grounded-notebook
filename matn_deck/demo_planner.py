@@ -164,6 +164,96 @@ _HEDGES = frozenset({"may", "might", "could", "likely", "unlikely", "not", "no",
                      "would", "should", "must", "can", "need", "needs", "started", "control"})
 _STOP = frozenset({"the", "a", "an", "of", "to", "in", "and", "or", "for", "on", "by", "with", "as", "at", "its",
                    "it", "is", "are", "be", "that", "this", "their", "from", "than", "into", "over", "has", "have"})
+_CONNECTORS = frozenset({"while", "versus", "amid", "but", "yet", "however", "shows", "show", "finds",
+                         "describe", "describes", "highlights"})
+_NEGATIONS = frozenset({"not", "no", "never", "without"})
+_MODALITY = frozenset({"would", "could", "may", "might", "should", "expected", "estimated", "likely"})
+_INCREASE = frozenset({"increase", "increased", "increases", "increasing", "rise", "rises", "rose", "risen",
+                       "grow", "grows", "grew", "grown", "growth", "expand", "expands", "expanded", "up"})
+_DECREASE = frozenset({"decrease", "decreased", "decreases", "decreasing", "fall", "falls", "fell", "fallen",
+                       "decline", "declined", "declines", "declining", "drop", "drops", "dropped", "shrink",
+                       "shrinks", "shrank", "shrunk", "down"})
+
+
+def _forms(word: str) -> set[str]:
+    """Small, explicit lowercase suffix stemming; enough for compression checks, not linguistic inference."""
+    word = word.lower()
+    forms = {word}
+    if len(word) > 4 and word.endswith("ies"):
+        forms.add(word[:-3] + "y")
+    for suffix in ("ingly", "edly", "ing", "ed", "es", "s", "ly"):
+        if len(word) - len(suffix) >= 3 and word.endswith(suffix):
+            base = word[:-len(suffix)]
+            forms.add(base)
+            if suffix in {"ing", "ed", "ingly", "edly"}:
+                forms.add(base + "e")
+            if len(base) > 2 and base[-1] == base[-2]:
+                forms.add(base[:-1])
+    return forms
+
+
+def _directions(text: str) -> set[str]:
+    words = {word.lower() for word in _WORD.findall(text)}
+    out = set()
+    if words & _INCREASE:
+        out.add("increase")
+    if words & _DECREASE:
+        out.add("decrease")
+    return out
+
+
+def meaning_problems(text: str, facts: tuple[Fact, ...], *, slide_type: SlideType | str | None = None) -> list[str]:
+    """Deterministic semantic guard for model text, based only on its cited evidence quotes.
+
+    Content words must be deletion-only (case-folded with small suffix stemming); a short explicit connector list is
+    allowed. Direction, negation and modality must agree with the quotes. A KPI phrase may cite exactly one fact.
+    """
+    problems: list[str] = []
+    slide_value = slide_type.value if isinstance(slide_type, SlideType) else slide_type
+    if slide_value == SlideType.KPI.value and len(facts) != 1:
+        problems.append(f"KPI_FACT_COUNT:{len(facts)}")
+
+    quotes = " ".join(evidence.quote for fact in facts for evidence in fact.evidence)
+    source_forms = set().union(*(_forms(word) for word in _WORD.findall(quotes))) if quotes else set()
+    ignored = _STOP | _CONNECTORS | _NEGATIONS | _MODALITY | frozenset({"does", "do", "did"})
+    unknown = []
+    for raw in _WORD.findall(text):
+        word = raw.lower()
+        if word in ignored or _forms(word) & source_forms:
+            continue
+        if word not in unknown:
+            unknown.append(word)
+    if unknown:
+        problems.append("CONTENT_NOT_IN_QUOTES:" + ",".join(unknown))
+
+    source_direction, phrase_direction = _directions(quotes), _directions(text)
+    if len(source_direction) == 1 and len(phrase_direction) == 1 and source_direction != phrase_direction:
+        problems.append(f"DIRECTION_MISMATCH:{next(iter(source_direction))}->{next(iter(phrase_direction))}")
+    for direction in sorted(source_direction - phrase_direction):
+        problems.append(f"DIRECTION_DROPPED:{direction}")
+    for direction in sorted(phrase_direction - source_direction):
+        problems.append(f"DIRECTION_ADDED:{direction}")
+
+    source_words = {word.lower() for word in _WORD.findall(quotes)}
+    phrase_words = {word.lower() for word in _WORD.findall(text)}
+    source_negated, phrase_negated = bool(source_words & _NEGATIONS), bool(phrase_words & _NEGATIONS)
+    if source_negated and not phrase_negated:
+        problems.append("NEGATION_DROPPED")
+    elif phrase_negated and not source_negated:
+        problems.append("NEGATION_ADDED")
+    for modal in sorted((source_words & _MODALITY) - phrase_words):
+        problems.append(f"MODALITY_DROPPED:{modal}")
+    for modal in sorted((phrase_words & _MODALITY) - source_words):
+        problems.append(f"MODALITY_ADDED:{modal}")
+    return list(dict.fromkeys(problems))
+
+
+def model_title_problems(title: str, facts: tuple[Fact, ...], *, slide_type: SlideType | str | None = None) -> list[str]:
+    return list(dict.fromkeys(title_problems(title, facts) + meaning_problems(title, facts, slide_type=slide_type)))
+
+
+def model_item_problems(text: str, fact: Fact, *, slide_type: SlideType | str | None = None) -> list[str]:
+    return list(dict.fromkeys(item_problems(text, fact) + meaning_problems(text, (fact,), slide_type=slide_type)))
 
 
 def item_problems(text: str, fact: Fact, limit: int = ITEM_MAX) -> list[str]:
@@ -248,7 +338,7 @@ class _Builder:
         key = f"item:{fact.fact_id}"
         self.requests[key] = {"kind": "item", "fact_ids": [fact.fact_id], "fallback": text}
         phrased = self.phrases.get(key)
-        problems = item_problems(phrased, fact) if phrased else []
+        problems = model_item_problems(phrased, fact) if phrased else []
         if phrased and not problems:
             return SlideItem(text=phrased, fact_ids=(fact.fact_id,)), "model", []
         return SlideItem(text=text, fact_ids=(fact.fact_id,)), "abridged", [f"{key}:{p}" for p in problems]
@@ -268,7 +358,7 @@ class _Builder:
         self.requests[key] = {"kind": "title", "slide_type": slide_type.value,
                               "fact_ids": [f.fact_id for f in facts], "fallback": fallback}
         model_title = self.phrases.get(key)
-        rejections = title_problems(model_title, cited) if model_title else []
+        rejections = model_title_problems(model_title, cited, slide_type=slide_type) if model_title else []
         if model_title and not rejections:
             return model_title, "model", []
         return fallback, source, [f"{key}:{p}" for p in rejections]

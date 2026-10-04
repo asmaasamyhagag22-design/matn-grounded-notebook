@@ -19,24 +19,34 @@ import urllib.request
 from pathlib import Path
 from urllib.parse import urlparse
 
-from .demo_planner import ITEM_MAX, TITLE_MAX, DemoDoc, item_problems, load_demo_doc, plan_deck, title_problems
+from .demo_planner import (
+    ITEM_MAX,
+    TITLE_MAX,
+    DemoDoc,
+    load_demo_doc,
+    model_item_problems,
+    model_title_problems,
+    plan_deck,
+)
 
 REPO = Path(__file__).resolve().parents[1]
 OUT = REPO / "out" / "demo"
 MODEL = "qwen3.5:9b"
 BASE_URL = "http://127.0.0.1:11434"
-PROMPT_VERSION = "demo-phrasing/1"
+PROMPT_VERSION = "demo-phrasing/3"
 _LOOPBACK_OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))  # ignores HTTP(S)_PROXY and GPO
 
 TITLE_SYSTEM = (
     "You write one slide title for a government briefing deck. The title is a single assertion sentence that states "
-    f"what the facts below show, at most {TITLE_MAX - 10} characters, sentence case, no final period. Use only the "
-    "facts given. Never add a number, year or percentage that is not printed in the facts; copy any number exactly. "
-    "Keep hedges (may, likely, not). Answer with JSON only.")
+    f"what the evidence below shows, at most {TITLE_MAX - 10} characters, sentence case, no final period. Compress "
+    "by deletion only: every content word must be copied from the evidence quotes. Never add a number, predicate or "
+    "causal link. Keep every direction, negation and modality word (would, could, may, might, should, expected, "
+    "estimated, likely). Answer with JSON only.")
 ITEM_SYSTEM = (
-    f"You shorten one statement for a slide bullet to at most {ITEM_MAX - 15} characters. Keep its meaning, its "
-    "subject and every hedge or negation (may, not, only, significantly). Drop attribution such as 'The report "
-    "finds'. Reuse the statement's own words; add no new facts, words of judgement or numbers. Answer with JSON only.")
+    f"You shorten one evidence quote for a slide bullet to at most {ITEM_MAX - 15} characters. Compress by deletion "
+    "only: copy every content word from the evidence quote. Keep its subject, direction, negation and every modality "
+    "word (would, could, may, might, should, expected, estimated, likely). Add no synonym, predicate, causal link, "
+    "judgement or number. Answer with JSON only.")
 
 
 class PhrasingUnavailable(RuntimeError):
@@ -90,17 +100,19 @@ def _save(doc_key: str, data: dict) -> None:
 def _prompt(doc: DemoDoc, request: dict) -> tuple[str, str]:
     facts = [doc.fact(fid) for fid in request["fact_ids"]]
     if request["kind"] == "title":
-        lines = "\n".join(f"- {f.statement}" for f in facts)
-        return TITLE_SYSTEM, f"Facts on this slide:\n{lines}\nWrite the title as {{\"text\": ...}}."
-    return ITEM_SYSTEM, f"Statement:\n{facts[0].statement}\nWrite the short bullet as {{\"text\": ...}}."
+        lines = "\n".join(f"- {evidence.quote}" for fact in facts for evidence in fact.evidence)
+        return TITLE_SYSTEM, f"Evidence quotes for this slide:\n{lines}\nWrite the title as {{\"text\": ...}}."
+    quotes = "\n".join(f"- {evidence.quote}" for evidence in facts[0].evidence)
+    return ITEM_SYSTEM, f"Evidence quote:\n{quotes}\nWrite the short bullet as {{\"text\": ...}}."
 
 
 def phrase_missing(doc: DemoDoc, *, budget_seconds: float, base_url: str = BASE_URL, log=print) -> dict:
     """Ask the model for every requested phrasing not yet cached; keep only answers that pass the checks."""
     path = cache_path(doc.doc_key)
     data = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+    if data.get("prompt_version") != PROMPT_VERSION:
+        data = {"model": MODEL, "prompt_version": PROMPT_VERSION, "accepted": {}, "refused": {}}
     data.setdefault("model", MODEL)
-    data.setdefault("prompt_version", PROMPT_VERSION)
     accepted, refused = data.setdefault("accepted", {}), data.setdefault("refused", {})
     requests = plan_deck(doc).requests
     started = time.monotonic()
@@ -118,7 +130,8 @@ def phrase_missing(doc: DemoDoc, *, budget_seconds: float, base_url: str = BASE_
             break
         facts = tuple(doc.fact(fid) for fid in request["fact_ids"])
         text = text.rstrip(".") if request["kind"] == "title" else text
-        problems = title_problems(text, facts) if request["kind"] == "title" else item_problems(text, facts[0])
+        problems = (model_title_problems(text, facts, slide_type=request.get("slide_type"))
+                    if request["kind"] == "title" else model_item_problems(text, facts[0]))
         entry = {"text": text, "kind": request["kind"], "fact_ids": request["fact_ids"]}
         if problems:
             refused[key] = {**entry, "problems": problems}
