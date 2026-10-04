@@ -14,6 +14,7 @@ from .enums import (
     ExtractionRoute,
     FactKind,
     FactStatus,
+    HiddenReason,
     Importance,
     RejectReason,
     SentenceType,
@@ -38,6 +39,7 @@ class ExtractorInfo(VersionedContract):
 
 
 class Block(VersionedContract):
+    schema_version: Literal[2] = 2  # v2: one visibility state plus one or more explicit hidden reasons
     block_id: str
     doc_id: DocId
     page_index: Annotated[int, Field(ge=0)]
@@ -50,10 +52,21 @@ class Block(VersionedContract):
     extractor: ExtractorInfo
     route: ExtractionRoute
     visibility: Visibility
+    visibility_reasons: tuple[HiddenReason, ...] = ()
+
+    @field_validator("visibility_reasons", mode="before")
+    @classmethod
+    def normalize_visibility_reasons(cls, value: object) -> tuple[HiddenReason, ...]:
+        reasons = {HiddenReason(item) for item in value}  # type: ignore[arg-type]
+        return tuple(reason for reason in HiddenReason if reason in reasons)
 
     @model_validator(mode="after")
     def validate_identity(self) -> Self:
         validate_bbox(self.bbox)
+        if self.visibility is Visibility.VISIBLE and self.visibility_reasons:
+            raise ValueError("visible blocks cannot have visibility_reasons")
+        if self.visibility is not Visibility.VISIBLE and not self.visibility_reasons:
+            raise ValueError("hidden and uncertain blocks need at least one visibility_reason")
         expected = make_block_id(self.doc_id, self.page_index, self.bbox, self.text)
         if self.block_id != expected:
             raise ValueError("block_id does not match the deterministic identity inputs")

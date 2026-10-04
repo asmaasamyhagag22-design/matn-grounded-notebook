@@ -90,12 +90,26 @@
       "title": "ExtractorInfo",
       "type": "object"
     },
+    "HiddenReason": {
+      "enum": [
+        "invisible_render_mode",
+        "covered_by_image",
+        "covered_by_vector",
+        "fill_matches_background",
+        "outside_cropbox",
+        "near_zero_size",
+        "clipped",
+        "partial_ink",
+        "no_ink_unexplained"
+      ],
+      "title": "HiddenReason",
+      "type": "string"
+    },
     "Visibility": {
       "enum": [
         "visible",
-        "hidden_image",
-        "hidden_vector",
-        "hidden_color"
+        "hidden",
+        "uncertain"
       ],
       "title": "Visibility",
       "type": "string"
@@ -163,8 +177,8 @@
       "$ref": "#/$defs/ExtractionRoute"
     },
     "schema_version": {
-      "const": 1,
-      "default": 1,
+      "const": 2,
+      "default": 2,
       "title": "Schema Version",
       "type": "integer"
     },
@@ -177,6 +191,14 @@
     },
     "visibility": {
       "$ref": "#/$defs/Visibility"
+    },
+    "visibility_reasons": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/HiddenReason"
+      },
+      "title": "Visibility Reasons",
+      "type": "array"
     }
   },
   "required": [

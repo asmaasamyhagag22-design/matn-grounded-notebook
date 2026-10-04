@@ -4,7 +4,8 @@
 للـ summary أو الـ deck لازم نعرف نرجعه لمكان محدد في الـ PDF، من غير ما نعتمد على إن الـ prompt “أكيد هيلتزم”.
 
 كل model هنا Pydantic v2، `frozen=True` و`extra="forbid"`. يعني القيمة ما تتغيرش بعد ما تتبني، وأي field مش
-معروف يتترفض بدل ما يعدّي بصمت. كل model كمان فيه `schema_version` (`1`، ما عدا `Slide`/`DeckPlan` وdrafts بتوعهم = `3`): السؤال اللي بيجاوبه هو “أنا بقرا أنهي
+معروف يتترفض بدل ما يعدّي بصمت. كل model كمان فيه `schema_version` (`1`، ما عدا `Block=2`
+و`Slide`/`DeckPlan` وdrafts بتوعهم = `3`): السؤال اللي بيجاوبه هو “أنا بقرا أنهي
 نسخة من العقد؟”. لو غاب، consumer قديم ممكن يفسّر shape جديدة غلط. البديل المرفوض كان implicit versioning من
 اسم الملف؛ ده ما ينفعش لما object يتنقل لوحده.
 
@@ -66,7 +67,11 @@ PDF
 | `style` | إيه إشارات التنسيق؟ | headings تبقى keyword guesses | `BlockStyle` منفصلة |
 | `extractor` | مين أنتجه؟ | provenance ناقصة | `ExtractorInfo` على كل block |
 | `route` | text layer ولا OCR؟ | الجودة والمخاطر ما تتفسرش | `text_layer` أو `ocr` |
-| `visibility` | ظاهر فعلًا؟ | hidden text في Egypt page 11 يدخل كدليل | `visible`, `hidden_image`, `hidden_vector`, `hidden_color` (لون النص زي الخلفية اللي تحته في الـ render); تجاهل الإشارة مرفوض |
+| `visibility` | ظاهر فعلًا؟ | hidden text يدخل كدليل | `visible`, `hidden`, `uncertain`; آخر اتنين برّه الـ prose ومعلّمين |
+| `visibility_reasons` | ليه hidden/uncertain؟ | سبب الإخفاء يضيع أو يتقلب | tuple canonical من `invisible_render_mode`, `covered_by_image`, `covered_by_vector`, `fill_matches_background`, `outside_cropbox`, `near_zero_size`, `clipped`, `partial_ink`, `no_ink_unexplained`; فاضي بس مع `visible` |
+
+تغيير visibility رفع `Block.schema_version` لـ2. الـ gold verifier يحتفظ بالمعنى: `covered_by_image` error
+و`covered_by_vector` warning.
 
 ### `TableCell` و`Table`
 

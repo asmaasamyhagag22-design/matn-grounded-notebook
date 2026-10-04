@@ -22,9 +22,20 @@ class ExtractionRoute(str, Enum):
 
 class Visibility(str, Enum):
     VISIBLE = "visible"
-    HIDDEN_IMAGE = "hidden_image"
-    HIDDEN_VECTOR = "hidden_vector"
-    HIDDEN_COLOR = "hidden_color"  # fill colour matches the rendered background under the glyph (white-on-white)
+    HIDDEN = "hidden"
+    UNCERTAIN = "uncertain"
+
+
+class HiddenReason(str, Enum):
+    INVISIBLE_RENDER_MODE = "invisible_render_mode"
+    COVERED_BY_IMAGE = "covered_by_image"
+    COVERED_BY_VECTOR = "covered_by_vector"
+    FILL_MATCHES_BACKGROUND = "fill_matches_background"
+    OUTSIDE_CROPBOX = "outside_cropbox"
+    NEAR_ZERO_SIZE = "near_zero_size"
+    CLIPPED = "clipped"
+    PARTIAL_INK = "partial_ink"
+    NO_INK_UNEXPLAINED = "no_ink_unexplained"
 
 
 class FactKind(str, Enum):
