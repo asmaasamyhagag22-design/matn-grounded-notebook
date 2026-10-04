@@ -118,6 +118,16 @@ def _all_decks(manifest: dict) -> list[dict]:
     return decks
 
 
+def missing_inputs() -> list[str]:
+    """Every local cache input build_assets needs but cannot find (out/ and output/ are git-ignored)."""
+    if not MANIFEST.is_file():
+        return [str(MANIFEST)]
+    sources = [ROOT / name for deck in _all_decks(load_manifest())
+               for name in (*deck["source"]["pngs"], deck["source"]["pptx"], deck["source"]["pdf"]) if name]
+    sources += [source for step in TIMELINE for source in step["sources"]]
+    return [str(path) for path in sources if not path.is_file()]
+
+
 def build_assets(output: Path = OUTPUT) -> dict:
     """Create all Part 1 assets and return their relative-path inventory."""
     output = Path(output)
