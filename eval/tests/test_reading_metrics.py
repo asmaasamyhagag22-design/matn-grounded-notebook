@@ -196,3 +196,18 @@ def test_number_normalization_folds_minus_but_never_changes_digits():
     assert normalize_for_numbers("1,234 3.20 x²") == "1,234 3.20 x²"
     report = score_numbers([Word("−3.2")], [Word("-3.2")])
     assert report.correct == 1
+
+
+def test_a_missing_number_inside_a_flagged_region_is_not_a_silent_drop():
+    gt = [_w("64", 0), _w("12", 100)]
+    report = score_numbers(gt, [], flagged_regions=[(95.0, -5.0, 120.0, 15.0)])
+    assert report.missing == 2 and report.silent_drops == 1
+    assert report.flagged_total == 1 and report.unflagged_total == 1
+    assert report.unflagged_accuracy == 0.0
+
+
+def test_unflagged_accuracy_ignores_numbers_in_flagged_regions():
+    gt = [_w("64", 0), _w("12", 100)]
+    hyp = [_w("64", 0), _w("99", 100, flagged=True)]
+    report = score_numbers(gt, hyp, flagged_regions=[(95.0, -5.0, 120.0, 15.0)])
+    assert report.unflagged_accuracy == 1.0 and report.silent_errors == 0 and report.flagged_wrong == 1

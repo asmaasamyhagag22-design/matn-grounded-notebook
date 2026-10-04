@@ -109,15 +109,22 @@ class NumberReport:
     silent_errors: int = 0    # wrong or inserted, and not flagged  -> target 0
     silent_drops: int = 0     # missing and not flagged
     flagged_wrong: int = 0    # wrong or inserted, but flagged
+    flagged_total: int = 0    # reference numbers inside a region the reader flagged
+    unflagged_total: int = 0  # reference numbers outside flagged regions (the accuracy denominator, rules section 2)
+    unflagged_correct: int = 0
     details: list[dict] = field(default_factory=list)
 
     @property
     def accuracy(self) -> float:
         return 1.0 if self.total == 0 else self.correct / self.total
 
+    @property
+    def unflagged_accuracy(self) -> float:
+        return 1.0 if self.unflagged_total == 0 else self.unflagged_correct / self.unflagged_total
+
     def add(self, other: "NumberReport") -> None:
         for name in ("total", "correct", "wrong", "missing", "inserted", "silent_errors", "silent_drops",
-                     "flagged_wrong"):
+                     "flagged_wrong", "flagged_total", "unflagged_total", "unflagged_correct"):
             setattr(self, name, getattr(self, name) + getattr(other, name))
         self.details.extend(other.details)
 
@@ -152,13 +159,20 @@ def _record(report: NumberReport, status: str, expected: str | None, got: str | 
                                "where": where})
 
 
-def _compare_tokens(report: NumberReport, expected: list[str], got: list[tuple[str, bool]], where: Any) -> None:
-    """Multiset comparison inside one place (a word): exact matches first, then pair the rest as substitutions."""
+def _compare_tokens(report: NumberReport, expected: list[str], got: list[tuple[str, bool]], where: Any,
+                    region_flagged: bool = False) -> None:
+    """Multiset comparison inside one place (a word): exact matches first, then pair the rest as substitutions.
+    ``region_flagged``: the place lies in a region the reader flagged, so a drop there is not silent."""
     remaining = Counter(token for token, _ in got)
     leftovers_expected = []
+    if region_flagged:
+        report.flagged_total += len(expected)
+    else:
+        report.unflagged_total += len(expected)
     for token in expected:
         if remaining[token] > 0:
             remaining[token] -= 1
+            report.unflagged_correct += not region_flagged
             _record(report, "correct", token, token, False, where)
         else:
             leftovers_expected.append(token)
@@ -171,12 +185,17 @@ def _compare_tokens(report: NumberReport, expected: list[str], got: list[tuple[s
         if index < len(leftovers_got):
             _record(report, "wrong", token, leftovers_got[index][0], leftovers_got[index][1], where)
         else:
-            _record(report, "missing", token, None, False, where)
+            _record(report, "missing", token, None, region_flagged, where)
     for token, flagged in leftovers_got[len(leftovers_expected):]:
         _record(report, "inserted", None, token, flagged, where)
 
 
-def _score_spatial(gt: Sequence[Word], hyp: Sequence[Word]) -> NumberReport:
+def _in_regions(box: BBox, regions: Sequence[BBox]) -> bool:
+    cx, cy = (box[0] + box[2]) / 2, (box[1] + box[3]) / 2
+    return any(r[0] <= cx <= r[2] and r[1] <= cy <= r[3] for r in regions)
+
+
+def _score_spatial(gt: Sequence[Word], hyp: Sequence[Word], flagged_regions: Sequence[BBox] = ()) -> NumberReport:
     report = NumberReport(total=sum(len(_numbers(w.text)) for w in gt))
     assigned: dict[int, list[Word]] = {}
     for word in hyp:
@@ -195,14 +214,15 @@ def _score_spatial(gt: Sequence[Word], hyp: Sequence[Word]) -> NumberReport:
         got = [(token, w.flagged) for w in words for token in _numbers(w.text)]
         expected = _numbers(target.text)
         if expected or got:
-            _compare_tokens(report, expected, got, target.bbox)
+            _compare_tokens(report, expected, got, target.bbox,
+                            _in_regions(target.bbox, flagged_regions))  # type: ignore[arg-type]
     return report
 
 
 def _score_sequence(gt: Sequence[Word], hyp: Sequence[Word]) -> NumberReport:
     expected = [token for w in gt for token in _numbers(w.text)]
     got = [(token, w.flagged) for w in hyp for token in _numbers(w.text)]
-    report = NumberReport(total=len(expected))
+    report = NumberReport(total=len(expected), unflagged_total=len(expected))
     n, m = len(expected), len(got)
     cost = [[0] * (m + 1) for _ in range(n + 1)]
     for i in range(n + 1):
@@ -227,15 +247,18 @@ def _score_sequence(gt: Sequence[Word], hyp: Sequence[Word]) -> NumberReport:
     for status, a, b in reversed(steps):
         token_expected = expected[a] if a is not None else None
         token_got, flagged = got[b] if b is not None else (None, False)
+        report.unflagged_correct += status == "correct"
         _record(report, status, token_expected, token_got, flagged, a if a is not None else b)
     return report
 
 
-def score_numbers(gt: Sequence[Word], hyp: Sequence[Word]) -> NumberReport:
+def score_numbers(gt: Sequence[Word], hyp: Sequence[Word], *, flagged_regions: Sequence[BBox] = ()) -> NumberReport:
     """Exact number accuracy and silent errors. With boxes on every word, numbers are matched by place (so a swap of
-    two numbers is caught); otherwise the two number sequences are aligned in reading order."""
+    two numbers is caught); otherwise the two number sequences are aligned in reading order. ``flagged_regions`` are
+    the regions the reader flagged (figure text, pages not passed as clean): numbers there leave the accuracy
+    denominator and a drop there is not silent (docs/reading_eval_rules.md section 2)."""
     if all(w.bbox is not None for w in (*gt, *hyp)):
-        return _score_spatial(gt, hyp)
+        return _score_spatial(gt, hyp, flagged_regions)
     return _score_sequence(gt, hyp)
 
 
