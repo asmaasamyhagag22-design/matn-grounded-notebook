@@ -203,15 +203,21 @@ On the synthetic scans (`eval/reading/synthetic/`), with exact ground truth:
 
 ## 6. Record (expected values from the hosts; measured values filled in after download)
 
+Measured 2026-10-04 after the owner approved §2-§3 (installs and downloads only; **no OCR has been run**). The
+`.venv-ocr` package set is pinned in `requirements-ocr.lock.txt` (71 packages; it includes `huggingface_hub` and
+`modelscope`, which can download models, so every OCR run stays under the egress guard).
+
+
 | Item | Version / tag / commit | File | Expected sha256 | Measured sha256 |
 |---|---|---|---|---|
-| paddlepaddle | 3.3.1 cp311 win_amd64 | wheel | `9651888c3586e2da4e443a0ee7630b95afbf58e6fbfee6203e6975cb642e615b` | |
-| paddleocr | 3.7.0 | wheel | (from `pip download`) | |
-| PP-OCRv5_mobile_det | `0d63e78e…` | inference.pdiparams | `afa1820cb16c1fd0dad589d0f8b389139061c1ef6d68019685fd07be997dda5b` | |
-| PP-OCRv5_mobile_det | `0d63e78e…` | inference.json / .yml / config.json | (measured) | |
-| PP-OCRv5_mobile_rec | `682f2053…` | inference.pdiparams | `2460da90875937c94db97eba74ae3d9e5d4c4c57c42f1f41531c09a26bcc771a` | |
-| PP-OCRv5_mobile_rec | `682f2053…` | inference.json / .yml / config.json | (measured) | |
-| GLM-OCR | `glm-ocr:bf16`, ID `6effedd0dc8a` | Ollama blob (`FROM` line) | (full digest from `ollama show`) | |
+| paddlepaddle | 3.3.1 cp311 win_amd64 | wheel | `9651888c3586e2da4e443a0ee7630b95afbf58e6fbfee6203e6975cb642e615b` | same (match) |
+| paddleocr | 3.7.0 | wheel | (from `pip download`) | `c0f0a81ad4112727f30c6fcf986ac0ef6a120d31ee0991a01fae0357ee32d338` |
+| paddlex | 3.7.2 (resolved) | wheel | (from `pip download`) | `f1678bf650bbaccfd8f0d4e49d0ae631b4685c829fdae6e802ccd90d4fcb9a7f` |
+| PP-OCRv5_mobile_det | `0d63e78e…` | inference.pdiparams | `afa1820cb16c1fd0dad589d0f8b389139061c1ef6d68019685fd07be997dda5b` | same (match) |
+| PP-OCRv5_mobile_det | `0d63e78e…` | inference.json / .yml / config.json | (measured) | `05feef1acb00aa4cd7362b15f7f501fc4f99d7b1fa73c1c871e0c7b1504b0f5c` / `98069072e1b6b37d727fd9d9f11725faa46d6ea0de012f2ed26caea011c37699` / `7ac1c33f377ba58561f4b89d3180b6add2b7c5c60a4edac90fa4e0ceccdc6665` |
+| PP-OCRv5_mobile_rec | `682f2053…` | inference.pdiparams | `2460da90875937c94db97eba74ae3d9e5d4c4c57c42f1f41531c09a26bcc771a` | same (match) |
+| PP-OCRv5_mobile_rec | `682f2053…` | inference.json / .yml / config.json | (measured) | `24587345250c7332d0fc6f9a44e794d078cdaeb64c302fef906f325619de2569` / `5dfeb2777f6d0db8177d8128a8acfcf6e6276dc4ac73ea3bf0dc06d6a5e85d8e` / `6df1587ae056f0b987125fc894b17f62ae3a12644fa2488d108f19377da9c1a8` |
+| GLM-OCR | `glm-ocr:bf16`, ID `6effedd0dc8a` (match) | Ollama blob (`FROM` line), 2,219,298,752 bytes | (full digest from `ollama show`) | `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` (file hash = blob name) |
 | PaddleOCR-VL-1.6 | `c5630aba…` | model.safetensors | `85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db` | GPU, later |
 | TeleOCR | `e9258535…` | model.safetensors | `9817b18041bd96403f75e38a33b28ed0cd5fb2641f67eead673afabd3c408109` | GPU, later |
 | OvisOCR2 | `1fc9221b…` | model.safetensors | `9270560288656ece5cb3a6989001afcf5af8d223bceed4a423c33a008861d009` | GPU, later |
