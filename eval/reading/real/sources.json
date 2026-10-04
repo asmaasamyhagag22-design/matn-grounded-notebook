@@ -1,0 +1,59 @@
+{
+  "schema": "matn-reading-real-sources/1",
+  "status": "PROPOSED - waiting for the owner's approval; the owner runs the download herself",
+  "folder": "eval/reading/real/incoming/ (PDFs are git-ignored by *.pdf)",
+  "split_note": "Real-scan benchmark only. Not part of eval/registry.json, so the 3 dev / 2 test gates are untouched. Never NIST AI 600-1, never a test-split document.",
+  "documents": [
+    {
+      "doc_key": "nbs_circular_31_e4_1956",
+      "file": "nbs_circular_31_e4_1956.pdf",
+      "title": "Copper Wire Tables (NBS Circular 31, 4th edition), National Bureau of Standards, 1956",
+      "url": "https://nvlpubs.nist.gov/nistpubs/Legacy/circ/nbscircular31e4.pdf",
+      "license": "U.S. Government work (National Bureau of Standards), public domain in the U.S. under 17 U.S.C. 105",
+      "pages": 42,
+      "bytes": 3957621,
+      "sha256_seen_2026_10_04": "8112e7604c97ed652d1b8d9c0e75c5eaa1e617070efc6e082f6bc7ff8d3aafbc",
+      "scan_kind": "page images on every page plus an invisible OCR text layer (expected route: scanned-with-OCR-layer)",
+      "why": "dense numeric wire tables, two-column prose with formulas, aged paper tint",
+      "gt_pages": [
+        {"page_index": 7, "printed_page": "4", "kind": "two-column prose with numbers and units"},
+        {"page_index": 15, "printed_page": "12", "kind": "prose plus a small table"},
+        {"page_index": 32, "printed_page": "29", "kind": "conversion table (Table 19)"}
+      ]
+    },
+    {
+      "doc_key": "gao_cg_annual_report_1990",
+      "file": "gao_cg_annual_report_1990.pdf",
+      "title": "Comptroller General's 1990 Annual Report, U.S. General Accounting Office",
+      "url": "https://www.gao.gov/assets/Comptroller%20General%27s%201990%20Annual%20Report.pdf",
+      "license": "U.S. Government work (GAO), public domain in the U.S. under 17 U.S.C. 105; GAO notes that a product may contain copyrighted images, so the photos are not reused anywhere",
+      "pages": 49,
+      "bytes": 9297136,
+      "sha256_seen_2026_10_04": "71586b0afcd7ff14955e2f5c4dd8645e94809fca99e525761267577805b2b57a",
+      "scan_kind": "page images with a noisy Acrobat Paper Capture OCR layer on some pages and none on others (expected routes: scanned-with-OCR-layer and scanned)",
+      "why": "financial statements with money columns, multi-column prose, photos; the existing OCR layer is visibly wrong, a real test of 'never trust a text layer blindly'",
+      "gt_pages": [
+        {"page_index": 4, "printed_page": null, "kind": "multi-column prose; OCR layer is garbled"},
+        {"page_index": 37, "printed_page": null, "kind": "Statement of Financial Position, 1990 and 1989"},
+        {"page_index": 39, "printed_page": null, "kind": "financial statement with no OCR layer"}
+      ]
+    },
+    {
+      "doc_key": "statab_1951_part04",
+      "file": "statab_1951_part04.pdf",
+      "title": "Statistical Abstract of the United States: 1951 (72nd edition), Part 4 (sections 14 'Federal Government Finances' and 15 'State and Local Government Finances and Employment'), U.S. Census Bureau",
+      "url": "https://www2.census.gov/library/publications/1951/compendia/statab/72ed/1951-04.pdf",
+      "license": "U.S. Government work (Census Bureau), public domain in the U.S. under 17 U.S.C. 105",
+      "pages": 74,
+      "bytes": 5167122,
+      "sha256_seen_2026_10_04": "d4b808d9f8953091ecbd793247d0e224465a88c0af1a4858e280c81805ae9ac1",
+      "scan_kind": "image-only pages, no text layer (expected route: scanned)",
+      "why": "small-type statistical tables with totals (the table-total check applies), rotated tables, charts",
+      "gt_pages": [
+        {"page_index": 0, "printed_page": null, "kind": "section introduction prose"},
+        {"page_index": 8, "printed_page": null, "kind": "dense finance table with totals"},
+        {"page_index": 45, "printed_page": null, "kind": "prose plus a small table"}
+      ]
+    }
+  ]
+}

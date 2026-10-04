@@ -1,0 +1,33 @@
+{
+ "schema": "matn-reading-real-gt/1",
+ "doc_key": "gao_cg_annual_report_1990",
+ "page_index": 4,
+ "printed_page": null,
+ "page_kind": "multi-column prose; OCR layer is garbled",
+ "status": "template",
+ "verified_by": null,
+ "verified_on": null,
+ "instructions": [
+  "Fill this from the page IMAGE, never from the PDF's own OCR layer or from any OCR output without checking every character.",
+  "blocks: one entry per block in reading order; type is one of heading, text, list_item, caption, table, figure, footnote, header, footer.",
+  "text: exactly as printed (keep hyphens, units, commas inside numbers); write [illegible] for anything you cannot read.",
+  "tables: every cell, row by row; use {\"text\": ..., \"colspan\": n} for merged cells.",
+  "numbers: every number on the page as printed, with a few words of context; set verified=true only after checking it on the image.",
+  "When done set status to 'verified', verified_by to your name and verified_on to the date. Silent errors are measured against this file, so an unchecked number here hides a real error."
+ ],
+ "blocks": [
+  {
+   "order": 1,
+   "type": "",
+   "text": ""
+  }
+ ],
+ "tables": [],
+ "numbers": [
+  {
+   "value_as_printed": "",
+   "context": "",
+   "verified": false
+  }
+ ]
+}
