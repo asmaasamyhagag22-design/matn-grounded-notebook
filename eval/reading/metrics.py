@@ -12,6 +12,7 @@ Everything is pure Python with no dependency: the tree edit distance behind TEDS
 """
 from __future__ import annotations
 
+import unicodedata
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
@@ -44,19 +45,45 @@ def _ratio(edits: int, length: int) -> float:
     return edits / length
 
 
+# Frozen normalization table (docs/reading_eval_rules.md section 1). Its sha256 is pinned by
+# eval/tests/test_reading_rules_frozen.py; changing it needs the owner's approval.
+LIGATURES = {"ﬀ": "ff", "ﬁ": "fi", "ﬂ": "fl", "ﬃ": "ffi", "ﬄ": "ffl", "ﬅ": "st",
+             "ﬆ": "st"}                                                                   # N2
+INVISIBLE = {"­": "", "​": "", "‌": "", "‍": "", "⁠": "", "﻿": ""}  # N3
+QUOTES = {"‘": "'", "’": "'", "‚": "'", "‛": "'", "′": "'",
+          "“": '"', "”": '"', "„": '"', "‟": '"', "″": '"', "«": '"',
+          "»": '"'}                                                                      # N4
+DASHES = {"‐": "-", "‑": "-", "‒": "-", "–": "-", "—": "-", "―": "-",
+          "−": "-"}                                                                      # N5
+ELLIPSIS = {"…": "..."}                                                                   # N6
+NORMALIZATION_TABLE = {"N2": LIGATURES, "N3": INVISIBLE, "N4": QUOTES, "N5": DASHES, "N6": ELLIPSIS}
+_CER_MAP = str.maketrans({**LIGATURES, **INVISIBLE, **QUOTES, **DASHES, **ELLIPSIS})
+_NUMBER_MAP = str.maketrans({**INVISIBLE, **DASHES})
+
+
 def normalize_whitespace(text: str) -> str:
-    return " ".join(text.split())
+    return " ".join(text.split())                                                              # N7
+
+
+def normalize_for_cer(text: str) -> str:
+    """N1 NFC, N2-N6 character maps, N7 whitespace; N8 case kept."""
+    return normalize_whitespace(unicodedata.normalize("NFC", text).translate(_CER_MAP))
+
+
+def normalize_for_numbers(text: str) -> str:
+    """Only N1, N3, N5, N7 before number tokenizing: no change ever touches a digit."""
+    return normalize_whitespace(unicodedata.normalize("NFC", text).translate(_NUMBER_MAP))
 
 
 def cer(reference: str, hypothesis: str) -> float:
-    """Character error rate after whitespace normalization: edits / reference characters."""
-    ref, hyp = normalize_whitespace(reference), normalize_whitespace(hypothesis)
+    """Character error rate after the frozen normalization: edits / reference characters."""
+    ref, hyp = normalize_for_cer(reference), normalize_for_cer(hypothesis)
     return _ratio(levenshtein(ref, hyp), len(ref))
 
 
 def wer(reference: str, hypothesis: str) -> float:
-    """Word error rate: edits over whitespace tokens / reference tokens."""
-    ref, hyp = reference.split(), hypothesis.split()
+    """Word error rate after the frozen normalization: edits over tokens / reference tokens."""
+    ref, hyp = normalize_for_cer(reference).split(), normalize_for_cer(hypothesis).split()
     return _ratio(levenshtein(ref, hyp), len(ref))
 
 
@@ -96,7 +123,7 @@ class NumberReport:
 
 
 def _numbers(text: str) -> list[str]:
-    return [match.group(0) for match in numeric_tokens(text)]
+    return [match.group(0) for match in numeric_tokens(normalize_for_numbers(text))]
 
 
 def _overlap(a: BBox, b: BBox) -> float:
@@ -236,7 +263,7 @@ def _table_tree(rows: Sequence[Sequence[Cell | str]], structure_only: bool) -> _
         tr = _Node("tr")
         for cell in row:
             cell = Cell(cell) if isinstance(cell, str) else cell
-            tr.children.append(_Node("td", "" if structure_only else normalize_whitespace(cell.text),
+            tr.children.append(_Node("td", "" if structure_only else normalize_for_cer(cell.text),
                                      cell.colspan, cell.rowspan))
         root.children.append(tr)
     return root
@@ -316,7 +343,8 @@ def teds(gt: Sequence[Sequence[Cell | str]], pred: Sequence[Sequence[Cell | str]
     if not gt or not pred:
         return 1.0 if not gt and not pred else 0.0
     tree_gt, tree_pred = _table_tree(gt, structure_only), _table_tree(pred, structure_only)
-    return 1.0 - tree_edit_distance(tree_gt, tree_pred) / max(_size(tree_gt), _size(tree_pred))
+    # Nodes are counted below the table root, as in the PubTabNet reference (len(table.xpath(".//*"))).
+    return 1.0 - tree_edit_distance(tree_gt, tree_pred) / max(_size(tree_gt) - 1, _size(tree_pred) - 1)
 
 
 # ---- reading order and block types -------------------------------------------------------------------------------

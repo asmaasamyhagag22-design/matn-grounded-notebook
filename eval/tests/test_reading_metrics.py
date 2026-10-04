@@ -167,3 +167,32 @@ def test_aggregate_reports_each_page_type_separately():
     assert table["synthetic_scan"]["cer"] == pytest.approx(0.05)  # micro average: 10 / 200
     assert table["synthetic_scan"]["number_accuracy"] == pytest.approx(0.9)
     assert table["synthetic_scan"]["silent_errors"] == 1
+
+
+# ---- frozen normalization (docs/reading_eval_rules.md section 1) ------------------------------------------------
+
+def test_normalize_for_cer_applies_each_rule():
+    from eval.reading.metrics import normalize_for_cer
+
+    assert normalize_for_cer("é") == "é"                       # N1 NFC
+    assert normalize_for_cer("x²") == "x²"                      # N1 not NFKC: no invented digit
+    assert normalize_for_cer("ﬁnance ﬂow") == "finance flow"     # N2 ligatures
+    assert normalize_for_cer("gov­ern​ment﻿") == "government"  # N3 invisible
+    assert normalize_for_cer("‘a’ “b” «c»") == "'a' \"b\" \"c\""  # N4 quotes
+    assert normalize_for_cer("2019–2021 −3.2 —") == "2019-2021 -3.2 -"  # N5 dashes, minus
+    assert normalize_for_cer("wait…") == "wait..."                    # N6 ellipsis
+    assert normalize_for_cer(" a b c d\n\te ") == "a b c d e"  # N7 whitespace
+    assert normalize_for_cer("GDP") != normalize_for_cer("gdp")            # N8 case kept
+
+
+def test_cer_uses_the_frozen_normalization():
+    assert cer("ﬁscal –3.2", "fiscal -3.2") == 0.0
+
+
+def test_number_normalization_folds_minus_but_never_changes_digits():
+    from eval.reading.metrics import normalize_for_numbers
+
+    assert normalize_for_numbers("−3.2") == "-3.2"
+    assert normalize_for_numbers("1,234 3.20 x²") == "1,234 3.20 x²"
+    report = score_numbers([Word("−3.2")], [Word("-3.2")])
+    assert report.correct == 1
