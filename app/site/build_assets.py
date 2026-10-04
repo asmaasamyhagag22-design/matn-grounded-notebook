@@ -76,6 +76,13 @@ def fit_16_9(source: Path, target: Path, width: int, *, quality: int = 84) -> No
     """Write an exact 16:9 JPEG using padding only; never crop the source."""
     height = round(width * 9 / 16)
     target.parent.mkdir(parents=True, exist_ok=True)
+    if target.is_file() and target.stat().st_mtime >= source.stat().st_mtime:
+        try:
+            with Image.open(target) as cached:
+                if cached.size == (width, height):
+                    return
+        except OSError:
+            pass
     with Image.open(source) as opened:
         image = opened.convert("RGBA")
         contained = ImageOps.contain(image, (width, height), method=Image.Resampling.LANCZOS)
