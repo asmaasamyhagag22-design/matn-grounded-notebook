@@ -116,6 +116,14 @@ def test_section_coverage_ignores_non_prose_and_hidden_blocks() -> None:
     assert result.duplicated_block_ids == ()
 
 
+def test_white_on_white_text_has_its_own_visibility_and_stays_out_of_prose() -> None:
+    assert Visibility("hidden_color") is Visibility.HIDDEN_COLOR
+    visible = block("visible")
+    white_on_white = block("white on white", visibility=Visibility.HIDDEN_COLOR)
+    result = check_section_coverage((visible, white_on_white), (section(visible),))
+    assert result.missing_block_ids == ()
+
+
 def test_domain_models_are_frozen() -> None:
     value = block("text")
     with pytest.raises(ValidationError):

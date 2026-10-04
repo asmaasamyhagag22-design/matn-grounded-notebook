@@ -94,7 +94,8 @@
       "enum": [
         "visible",
         "hidden_image",
-        "hidden_vector"
+        "hidden_vector",
+        "hidden_color"
       ],
       "title": "Visibility",
       "type": "string"

@@ -66,7 +66,7 @@ PDF
 | `style` | إيه إشارات التنسيق؟ | headings تبقى keyword guesses | `BlockStyle` منفصلة |
 | `extractor` | مين أنتجه؟ | provenance ناقصة | `ExtractorInfo` على كل block |
 | `route` | text layer ولا OCR؟ | الجودة والمخاطر ما تتفسرش | `text_layer` أو `ocr` |
-| `visibility` | ظاهر فعلًا؟ | hidden text في Egypt page 11 يدخل كدليل | `visible`, `hidden_image`, `hidden_vector`; تجاهل الإشارة مرفوض |
+| `visibility` | ظاهر فعلًا؟ | hidden text في Egypt page 11 يدخل كدليل | `visible`, `hidden_image`, `hidden_vector`, `hidden_color` (لون النص زي الخلفية اللي تحته في الـ render); تجاهل الإشارة مرفوض |
 
 ### `TableCell` و`Table`
 

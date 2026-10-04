@@ -24,6 +24,7 @@ class Visibility(str, Enum):
     VISIBLE = "visible"
     HIDDEN_IMAGE = "hidden_image"
     HIDDEN_VECTOR = "hidden_vector"
+    HIDDEN_COLOR = "hidden_color"  # fill colour matches the rendered background under the glyph (white-on-white)
 
 
 class FactKind(str, Enum):
