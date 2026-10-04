@@ -37,9 +37,19 @@ So we pin **pdfplumber 0.11.9** (MIT, 2026-01-05; requires `pdfminer.six==202512
 .venv\Scripts\python.exe -m pip download --only-binary=:all: --dest wheelhouse "pdfplumber==0.11.9" "pdfminer.six==20251230" "pypdfium2==5.13.0"; .venv\Scripts\python.exe -m pip install --no-index --find-links wheelhouse "pdfplumber==0.11.9" "pdfminer.six==20251230" "pypdfium2==5.13.0"; .venv\Scripts\python.exe -m pip check
 ```
 
-Expected new packages: pdfplumber, pdfminer.six, pypdfium2, charset-normalizer, cryptography, and cffi/pycparser if
-cryptography needs them. The agent then adds the pins to `requirements.txt` and `requirements.lock.txt`, and the
-hashes to `wheelhouse/SHA256SUMS.txt`.
+**Done 2026-10-04** (the agent ran this command after the owner approved it; `pip check`: no broken requirements).
+Pillow stayed at 11.3.0 and charset-normalizer at 3.5.1. `pip download` also saved `pillow-12.3.0` and
+`charset_normalizer-3.5.2` wheels into the ignored `wheelhouse/`, but they are not installed and not in the lock.
+Installed wheels (sha256 measured; also appended to `wheelhouse/SHA256SUMS.txt`):
+
+| Wheel | sha256 |
+|---|---|
+| `pdfplumber-0.11.9-py3-none-any.whl` | `33ec5580959ba524e9100138746e090879504c42955df1b8a997604dd326c443` |
+| `pdfminer_six-20251230-py3-none-any.whl` | `9ff2e3466a7dfc6de6fd779478850b6b7c2d9e9405aa2a5869376a822771f485` |
+| `pypdfium2-5.13.0-py3-none-win_amd64.whl` | `47dcca2a8d507b5fd24f94c3c9d48fb379430f097bc20f01beff6c963ffbcedb` |
+| `cryptography-50.0.2-cp311-abi3-win_amd64.whl` | `7afa5a6602a9f29af1f3a2965f831bae7c9d5d597b7cbb716d41ab3b7d89879c` |
+| `cffi-2.1.1-cp311-cp311-win_amd64.whl` | `42f6930c31dc7f50732c9ae793c2786c7b6b044195967bbdde40bb9be81c4cc0` |
+| `pycparser-3.0-py3-none-any.whl` | `b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992` |
 
 ## 2. Reader 1: PaddleOCR (CPU, laptop)
 
