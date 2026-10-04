@@ -1,7 +1,8 @@
 # Reading evaluation rules (Step 4): normalization and gate thresholds. FROZEN.
 
-Frozen on 2026-10-04, before the first measurement. `eval/tests/test_reading_rules_frozen.py` holds the sha256 of
-this file and of the normalization table in `eval/reading/metrics.py`. Any change to either fails that test, so a
+Frozen on 2026-10-04, before the first measurement. Step 4b.2 rules and thresholds were re-frozen with the owner's
+approval before its first measurement. `eval/tests/test_reading_rules_frozen.py` holds the sha256 of this file,
+`eval/reading/thresholds.json`, and the normalization table in `eval/reading/metrics.py`. Any change fails that test, so a
 change has to update the frozen hashes in a commit of its own, with the owner's approval (CLAUDE.md rule 6). Rules
 are never changed after a result has been seen in order to move that result.
 
@@ -22,13 +23,17 @@ Applied the same way to the reference and to the hypothesis, in this order. Impl
 | N8 | Case | **kept** | a case error is an error |
 | N9 | Line-end hyphenation | **not joined**: CER/WER compare raw line text (`raw_text`, line breaks → space) | hyphen joining is judged separately in the owner review file, so it cannot hide or cause character errors |
 
-**Order independence.** CER and WER are summed over matched regions: blocks for digital pages, lines for OCR. Regions
+**Order independence.** The primary digital CER/WER and OCR CER/WER are summed over matched **lines**. Regions
 are matched by IoU ≥ 0.5. Reference text with no match counts as deletions, and hypothesis text with no match counts
 as insertions. Reading order is its own metric (§3), so an order error is not also counted as character errors.
+The original digital block-IoU CER/WER is still calculated and reported beside the primary line result.
 
 ## 2. Numbers (exact; the key metric)
 
-- Tokenizer: `matn_contracts.conversion.numeric_tokens`, the same one that verifies number facts against quotes.
+- Tokenizer: `eval.reading.metrics.reader_numeric_tokens`. It starts a token at a digit/non-digit transition and
+  keeps an optional adjacent sign, decimals, correctly grouped thousands separators, and `%`. It therefore finds
+  `48.0%` inside `vs48.0%`. The contract verifier deliberately keeps
+  `matn_contracts.conversion.numeric_tokens` unchanged, including its exact-token boundaries.
   Before tokenizing, only N1, N3, N5 and N7 are applied (minus/dash folding matters for signs). **No other change is
   made to a number.** `1,234` and `1234` are different tokens, and so are `3.2` and `3.20`.
 - Matching is by position: when every word has a box, a reference number is matched to the hypothesis word(s) at the
@@ -41,6 +46,8 @@ as insertions. Reading order is its own metric (§3), so an order error is not a
 - **Accuracy denominator** = reference numbers outside reader-flagged regions. Flagged numbers are reported
   separately per document, as a count and a share. Flagging everything therefore cannot pass the gate unseen, and the
   owner checks the flagged regions on the overlays.
+- A raised superscript no larger than 0.75× its line body size is a `footnote_marker`; it is linked to matching
+  footnote text on the page when possible and excluded from both reader and metric prose-number streams.
 
 ### Reference for each page type
 
@@ -68,7 +75,7 @@ A real-scan PDF is measured only after `eval.reading.real.verify.require_verifie
 
 ## 4. Gate thresholds
 
-### Step 4b (digital reading), all on the 3 dev documents
+### Step 4b (digital reading), separately on dev-tune and dev-check
 
 | Item | Threshold |
 |---|---|
@@ -76,11 +83,28 @@ A real-scan PDF is measured only after `eval.reading.real.verify.require_verifie
 | Silent errors, digital pages | **= 0** |
 | Silent drops, digital pages | **= 0** |
 | Triage reasons | recorded for **100%** of pages |
-| Hidden text | `hidden_image`, `hidden_vector`, `hidden_color` and the render-mode-3 OCR layer each have a test and are reported separately; hidden text never appears in prose |
+| Hidden text | `hidden`/`uncertain` reasons are reported separately; neither state appears in prose. `covered_by_image` is a gold error and `covered_by_vector` a warning |
 | Overlays | one PNG per page exists for the 3 dev documents |
 | Metrics table | reported per page type: digital, synthetic scan, real scan |
 | Synthetic scans | **baseline only, no threshold** (no OCR yet) |
 | CER / WER, digital | reported, no threshold (the reference extractor differs in small ways) |
+
+The gate is 0 silent errors and 0 silent drops on **both** subsets. Rules may be tuned on dev-tune only. If dev-tune
+passes and dev-check does not, the result is overfitting; nothing may be changed after looking at dev-check.
+
+## 5. Frozen Step 4b.2 implementation thresholds
+
+The machine-readable source is `eval/reading/thresholds.json`.
+
+- Words: a geometric gap over 0.28 em breaks a word, independent of font changes. Numeric tracking can bridge up
+  to 0.80 em. Vertical direction comes from the char matrix/upright flag.
+- Footnote markers: size ≤0.75× the line body and baseline raised by ≥0.15 em.
+- Side headings lead when their tops are within 0.50 line height of the paragraph top.
+- Visibility candidates come only from render mode, later image/vector coverage, fill/background match,
+  outside-CropBox, near-zero size, or clipping, plus a deterministic 2% audit of all other text objects (seed 42042).
+  Candidate pages render at 4×. A bbox inset 15% is visible at ≥3 changed pixels and ≥5% changed area, with a
+  grayscale delta ≥24; zero changed pixels in the full bbox is hidden; the middle is uncertain. Fill/background
+  contrast below 1.5 explains `fill_matches_background`.
 
 ### Step 4c (OCR), frozen now so it cannot drift after results
 
