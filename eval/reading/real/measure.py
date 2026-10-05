@@ -25,6 +25,8 @@ def measure():
             pagekey=f"{key}_p{spec['page_index']:04d}"
             try:
                 gt=validated_truth(HERE / "gt" / (pagekey+'.json'))
+                if gt.get("doc_key") != key or gt.get("page_index") != spec["page_index"]:
+                    raise ValueError(f"BLOCKED-ON-OWNER: {pagekey}.json must contain doc_key={key} and page_index={spec['page_index']}; check the matching reviewed template")
             except ValueError as e:
                 blocked.append(str(e));continue
             record=json.loads((OUT / "final/real" / (pagekey+'.json')).read_text(encoding="utf-8"))

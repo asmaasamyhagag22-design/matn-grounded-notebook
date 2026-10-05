@@ -1,6 +1,7 @@
 """The review generator suggests readings but never writes or preselects human GT."""
 import json
 from pathlib import Path
+import pytest
 
 
 def test_review_has_no_selected_answers_and_preserves_template(tmp_path):
@@ -56,3 +57,17 @@ def test_signed_synthetic_fixture_measures_true_false_alarms_per_page(monkeypatc
     assert row['flag_rate']==1/3
     assert row['false_alarm_share_of_flags']==1  # The sole flag is on a correct read.
     assert row['false_positive_rate_on_correct_reads']==1/2  # One of the two correct reads is flagged.
+
+
+@pytest.mark.parametrize('wrong_doc,wrong_page',[('other_document',0),('synthetic_fixture',1)])
+def test_real_metrics_refuse_gt_saved_under_the_wrong_page_filename(monkeypatch, tmp_path, wrong_doc, wrong_page):
+    from eval.reading.real import measure as m
+    here=tmp_path/'fixture';here.mkdir();out=tmp_path/'output';out.mkdir()
+    (here/'sources.json').write_text(json.dumps({'documents':[{'doc_key':'synthetic_fixture','gt_pages':[{'page_index':0}]}]}),encoding='utf-8')
+    monkeypatch.setattr(m,'HERE',here);monkeypatch.setattr(m,'OUT',out)
+    monkeypatch.setattr(m,'verify_sources',lambda:{'synthetic_fixture':{'status':'ok'}})
+    monkeypatch.setattr(m,'require_verified',lambda key:tmp_path/'synthetic.pdf')
+    monkeypatch.setattr(m,'validated_truth',lambda path:{'doc_key':wrong_doc,'page_index':wrong_page,'numbers':[]})
+    with pytest.raises(SystemExit,match='BLOCKED-ON-OWNER.*|BLOCKED-ON-OWNER:'):
+        m.measure()
+    assert not (out/'real-human-metrics.json').exists()
