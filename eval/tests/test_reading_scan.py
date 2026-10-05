@@ -52,3 +52,11 @@ def test_aggregate_rates():
     assert (agg["cer"], agg["accuracy"], agg["flag_rate"], agg["false_alarm_rate"], agg["agreement_rate"]) == (
         "0.0500", "0.9000", "0.2000", "0.5000", "0.7500")
     assert (agg["s_without"], agg["s_with"], agg["silent_drops"]) == ("9.0", "20.0", 1)
+
+
+def test_closeout_calibration_refuses_holdout_and_seen_check():
+    import pytest
+    from eval.reading.closeout import run
+    for subset in ("holdout2", "dev_check", "real"):
+        with pytest.raises(ValueError,match="dev-tune ONLY"):
+            run(subset,mode="adaptive_candidate")

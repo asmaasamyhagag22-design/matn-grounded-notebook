@@ -224,6 +224,7 @@ def run(pdf: Path, out: Path, *, milestone: bool = False, worker_factory=None, g
     seconds = time.perf_counter() - started
     summary = write_report(pages, pdf.name, seconds, ocr_seconds, out / "report.md")
     summary["ocr_pages"] = [pages[i].page_index for i in scanned if pages[i].ocr is not None]
+    summary["ocr_failed_pages"] = [p.page_index for p in pages if any(f["kind"] == "ocr_unavailable" for f in p.flags)]
     return summary
 
 
@@ -237,12 +238,13 @@ def main(argv: list[str] | None = None) -> int:
     read.add_argument("--milestone", action="store_true", help="allow a sealed test-split file (milestones only)")
     args = parser.parse_args(argv)
     try:
-        run(args.pdf, args.out, milestone=args.milestone)
+        summary = run(args.pdf, args.out, milestone=args.milestone)
     except RefusedTestSplit as error:
         print(f"REFUSED: {error}", file=sys.stderr)
         return EXIT_REFUSED
     out = args.out.resolve()
-    print(f"Done. Outputs in {out}")
+    incomplete = bool(summary.get("ocr_failed_pages"))
+    print(f"{'Incomplete' if incomplete else 'Done'}. Outputs in {out}")
     for name in ("reading.md", "blocks.jsonl", "report.md", "overlays"):
         print(f"  {out / name}")
-    return 0
+    return 2 if incomplete else 0

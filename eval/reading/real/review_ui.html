@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Matn — real scan GT review</title>
+<style>
+*{box-sizing:border-box}body{font:16px system-ui;margin:0;background:#f5f2eb;color:#172a2c}
+header{background:#172a2c;color:white;padding:18px 26px;position:sticky;top:0;z-index:2}h1{font-size:24px;margin:0 0 8px}
+button,input,select{font:inherit;padding:8px;margin:4px;border:1px solid #8ca5a3;border-radius:5px}button{cursor:pointer;background:white}
+main{display:grid;grid-template-columns:45% 55%;gap:12px;padding:18px}.viewer{position:sticky;top:155px;height:calc(100vh - 175px);overflow:auto;border:1px solid #8ca5a3}
+#page{width:100%;display:block;cursor:crosshair}article{padding:15px;margin-bottom:12px;background:white;border:1px solid #b8cbc9;border-radius:7px}
+article.done{border-left:5px solid #078471}.crop{max-width:100%;max-height:240px;border:1px solid #ccd5d4}.pick{display:flex;flex-wrap:wrap;gap:4px}
+.muted{color:#526460}.signature{padding:15px;background:#e0ebe7}#status{white-space:pre-wrap}label{display:block;margin:10px 0}
+</style>
+<header><h1>Real scan number review · مراجعة الأرقام من صورة الصفحة</h1>
+<div>Read the image first. OCR readings are suggestions. Nothing is selected automatically.</div>
+<select id="pages"></select><button id="folder">Choose existing gt folder</button><span id="progress"></span></header>
+<main><div><div class="viewer"><img id="page" alt="Full original page — click twice to add a missing number"></div>
+<p>To add a missing number, click its top-left then bottom-right on the full page. Review each printed number, including headers and figures.</p></div>
+<section><div id="items"></div><div class="signature"><label>Your name <input id="owner"></label>
+<label><input type="checkbox" id="complete"> I checked the full page and added every missing number. Unreadable values are marked [illegible].</label>
+<button id="save">Save GT</button><button id="download">Download GT JSON</button><p id="status"></p>
+<p class="muted">Save GT writes the existing filename in the chosen gt folder. If folder access is unavailable, download and replace that same file manually. Drafts stay only in this browser's local storage. Blocks and tables remain untouched; this verifies numbers only.</p></div></section></main>
+<script>
+const pages=__REVIEW_DATA__;
+let active=0,handle=null,first=null;
+const $=id=>document.getElementById(id);
+function elem(tag,text){const e=document.createElement(tag);if(text!==undefined)e.textContent=text;return e}
+function page(){return pages[active]}
+function persist(){try{localStorage.setItem('matn-real-review-v1-'+page().key,JSON.stringify(page().proposals))}catch(e){$('status').textContent='Draft persistence unavailable: '+e.message}}
+function update(){const p=page();$('progress').textContent=p.proposals.filter(x=>x.chosen!==null).length+' / '+p.proposals.length+' candidates reviewed'}
+function choose(p,value,card){p.chosen=value;card.classList.add('done');card.querySelector('.answer').value=value===false?'':value;persist();update()}
+function render(){
+ const p=page();$('items').replaceChildren();$('page').src=p.image;$('complete').checked=false;$('status').textContent='';first=null;
+ p.proposals.forEach((n,i)=>{
+  const card=elem('article');if(n.chosen!==null)card.classList.add('done');card.append(elem('h3','Candidate '+(i+1)+(n.flagged?' · flagged':'')));
+  if(n.crop){const im=elem('img');im.src=n.crop;im.className='crop';im.alt='Number crop';card.append(im)}else card.append(elem('p','New number: check the selected rectangle on the full page.'));
+  card.append(elem('p','Reader 1: '+(n.reader1??'—')+' | Reader 2: '+(n.reader2??'—')+' | Embedded OCR layer: '+(n.layer||'—')));
+  const picks=elem('div');picks.className='pick';
+  for(const [label,value] of [['Pick reader 1',n.reader1],['Pick reader 2',n.reader2],['Pick OCR layer',n.layer],['not a number',false],['Illegible','[illegible]']]){
+   if(value===null||value==='')continue;const b=elem('button',label);b.onclick=()=>choose(n,value,card);picks.append(b)
+  }card.append(picks);
+  const answer=elem('input');answer.className='answer';answer.placeholder='Type the value exactly as printed';answer.value=typeof n.chosen==='string'?n.chosen:'';
+  const apply=elem('button','Confirm typed value');apply.onclick=()=>{if(answer.value.trim())choose(n,answer.value.trim(),card)};card.append(answer,apply);
+  const context=elem('input');context.placeholder='Context (optional)';context.value=n.context;context.onchange=()=>{n.context=context.value;persist()};card.append(context);
+  const verdict=elem('p',n.chosen===false?'Rejected: not a printed number':n.chosen===null?'Waiting for your choice':'Confirmed: '+n.chosen);card.append(verdict);
+  picks.addEventListener('click',()=>verdict.textContent=n.chosen===false?'Rejected: not a printed number':'Confirmed: '+n.chosen);
+  apply.addEventListener('click',()=>verdict.textContent='Confirmed: '+n.chosen);$('items').append(card)
+ });update();
+}
+function result(){
+ const p=page();if(p.proposals.some(n=>n.chosen===null)||!$('complete').checked||!$('owner').value.trim())throw Error('Review every candidate, check the full-page box, and enter your name first.');
+ return {...p.template,status:'verified',verified_scope:'numbers only',full_page_reviewed:true,verified_by:$('owner').value.trim(),verified_on:new Date().toISOString().slice(0,10),
+  numbers:p.proposals.filter(n=>n.chosen!==false).map(n=>({value_as_printed:n.chosen,context:n.context,bbox:n.bbox,verified:true})),
+  rejected_proposals:p.proposals.filter(n=>n.chosen===false).map(n=>({reader1:n.reader1,bbox:n.bbox,reason:'not a number'}))}
+}
+$('folder').onclick=async()=>{try{handle=await window.showDirectoryPicker({mode:'readwrite'});$('status').textContent='Selected folder: '+handle.name}catch(e){$('status').textContent=e.message+' — use Download GT JSON if unsupported.'}};
+$('save').onclick=async()=>{try{
+ const gt=result();if(!handle)throw Error('Choose the existing gt folder first, or download the JSON.');
+ const filename=page().key+'.json';const file=await handle.getFileHandle(filename);const existing=JSON.parse(await (await file.getFile()).text());
+ if(existing.doc_key!==gt.doc_key||existing.page_index!==gt.page_index)throw Error('Wrong folder/file identity; nothing was written.');
+ const writable=await file.createWritable();await writable.write(JSON.stringify(gt,null,2)+'\n');await writable.close();$('status').textContent='Saved '+filename;
+ }catch(e){$('status').textContent=e.message}};
+$('download').onclick=()=>{try{const gt=result();const blob=new Blob([JSON.stringify(gt,null,2)+'\n'],{type:'application/json'});const url=URL.createObjectURL(blob);const a=elem('a');a.href=url;a.download=page().key+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$('status').textContent='Downloaded '+a.download+'. Replace the matching file under eval/reading/real/gt.'}catch(e){$('status').textContent=e.message}};
+$('page').onclick=e=>{const img=e.currentTarget,r=img.getBoundingClientRect(),box=page().cropbox;
+ const point=[box[0]+(e.clientX-r.left)/r.width*(box[2]-box[0]),box[1]+(e.clientY-r.top)/r.height*(box[3]-box[1])];
+ if(!first){first=point;$('status').textContent='Now click bottom-right of the missing number.';return}
+ const bbox=[Math.min(first[0],point[0]),Math.min(first[1],point[1]),Math.max(first[0],point[0]),Math.max(first[1],point[1])];first=null;
+ if(bbox[2]-bbox[0]<.5||bbox[3]-bbox[1]<.5){$('status').textContent='Rectangle too small. Try again.';return}
+ page().proposals.push({reader1:null,reader2:null,layer:'',context:'',bbox,chosen:null,flagged:false});persist();render();window.scrollTo(0,document.body.scrollHeight)
+};
+pages.forEach((p,i)=>{try{const stored=JSON.parse(localStorage.getItem('matn-real-review-v1-'+p.key));if(Array.isArray(stored))p.proposals=stored}catch(e){}const option=elem('option',p.key);option.value=i;$('pages').append(option)});
+$('pages').onchange=()=>{active=Number($('pages').value);render()};
+if(pages.length)render();else $('status').textContent='No verified sources/results available. Generate after the real-scan reader run.';
+</script></html>

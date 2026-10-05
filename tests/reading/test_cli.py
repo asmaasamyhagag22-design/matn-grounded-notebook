@@ -90,3 +90,10 @@ def test_test_split_files_are_refused_unless_milestone(tmp_path, monkeypatch):
 
 def test_the_real_registry_lists_the_sealed_test_documents():
     assert len(cli.test_split_hashes()) == 2
+
+
+def test_ocr_unavailable_is_reported_as_incomplete(tmp_path, monkeypatch, capsys):
+    pdf=write_pdf(tmp_path / "digital.pdf",DIGITAL)
+    monkeypatch.setattr(cli,"run",lambda *a,**k:{"ocr_failed_pages":[0]})
+    assert cli.main(["read",str(pdf),"--out",str(tmp_path / "out")]) == 2
+    assert "Incomplete" in capsys.readouterr().out
