@@ -249,3 +249,85 @@ Exact block (Windows Code Integrity, events 3033 and 3077; Smart App Control sta
   (`paddlex/inference/common/result/mixin.py:178`).
 
 No security setting was changed. Options are in `reports/HANDOFF.md` (open decision 8).
+
+## 8. Reader 1 via RapidOCR on onnxruntime (owner decision Oct 5, option E)
+
+Paddle cannot be imported on the laptop because Smart App Control blocks pandas (§7). So reader 1 runs the **same
+PP-OCRv5 mobile models** converted to ONNX, through RapidOCR on onnxruntime, without paddlex or pandas. WSL2 Ubuntu
+is the fallback.
+
+**Probe before installing (2026-10-05).** `.venv` already has `onnxruntime==1.30.0`, pulled in by `pymupdf-layout`.
+Its native files `onnxruntime\capi\onnxruntime_pybind11_state.pyd`, `onnxruntime.dll` and
+`onnxruntime_providers_shared.dll` load without a block. `InferenceSession` runs on CPU with
+`onnxruntime/datasets/logreg_iris.onnx`. The same wheel is in `wheelhouse/`
+(`onnxruntime-1.30.0-cp311-cp311-win_amd64.whl`, sha256
+`0edd0145a6e3fce8a1276491dc784d615e3c58bcb952c9b4e5c876d5c6a12ad7`, matches PyPI).
+
+### 8.1 Pins
+
+| Package | Version | Licence | File and sha256 (PyPI) |
+|---|---|---|---|
+| `rapidocr` | 3.9.2 (2026-07-21) | Apache-2.0 | `rapidocr-3.9.2-py3-none-any.whl` `04d6b8d151f823d930bd91910555f57bea897c0c44fa6794267b94cf9c1ef9a0` |
+| `onnxruntime` (CPU) | 1.30.0 | MIT | win cp311 `0edd0145a6e3fce8a1276491dc784d615e3c58bcb952c9b4e5c876d5c6a12ad7`; manylinux_2_28 x86_64 cp311 `fd54b314ea385bcecac69ab431f020ba503e3878dad4ebb645fec5a24b041242`, cp312 `fa688e7891a6aa206636fe7372e27ee75fd17713289f6b4fc7b190e0a7de9328` |
+| `omegaconf` | 2.3.0 | BSD-3-Clause | a rapidocr dependency |
+| `antlr4-python3-runtime` | 4.9.3 | BSD-3-Clause | **source only** (pure Python): `antlr4-python3-runtime-4.9.3.tar.gz` `f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b`. The download step builds it once into a local wheel |
+
+Other dependencies (opencv-python, shapely, pyclipper, numpy, Pillow, PyYAML, six, tqdm, requests, colorlog) resolve
+during `pip download` and are frozen into `requirements-ocr-rapid.lock.txt` after the install.
+
+**Own venv: `.venv-ocr-rapid`, not `.venv-ocr`.** rapidocr requires `opencv-python`, while `.venv-ocr` already has
+`opencv-contrib-python`. Both install the same `cv2` folder, so mixing them breaks one of them. `.venv-ocr` stays
+untouched for a later Paddle-vs-RapidOCR parity check on Linux.
+
+### 8.2 Install (Windows, owner)
+
+```powershell
+py -3.11 -m venv .venv-ocr-rapid; .venv-ocr-rapid\Scripts\python.exe -m pip download --only-binary=:all: --no-binary=antlr4-python3-runtime --dest wheelhouse\rapidocr "rapidocr==3.9.2" "onnxruntime==1.30.0" "omegaconf==2.3.0" "antlr4-python3-runtime==4.9.3"; .venv-ocr-rapid\Scripts\python.exe -m pip wheel --no-deps --wheel-dir wheelhouse\rapidocr wheelhouse\rapidocr\antlr4-python3-runtime-4.9.3.tar.gz; .venv-ocr-rapid\Scripts\python.exe -m pip install --no-index --find-links wheelhouse\rapidocr "rapidocr==3.9.2" "onnxruntime==1.30.0" "omegaconf==2.3.0" "antlr4-python3-runtime==4.9.3"; .venv-ocr-rapid\Scripts\python.exe -m pip check; .venv-ocr-rapid\Scripts\python.exe -m pip freeze > wheelhouse\rapidocr\freeze.txt; Get-FileHash wheelhouse\rapidocr\* -Algorithm SHA256 | Format-Table Hash, Path -AutoSize
+```
+
+If `pip download` stops on a package with no wheel (other than antlr4), paste the error and do not switch to a
+source build.
+
+### 8.3 Models (owner): RapidOCR's official model source, ModelScope `RapidAI/RapidOCR` @ tag `v3.9.2`
+
+| File | Path under `.../resolve/v3.9.2/` | Expected sha256 (RapidOCR `default_models.yaml` @ v3.9.2) |
+|---|---|---|
+| `ch_PP-OCRv5_det_mobile.onnx` | `onnx/PP-OCRv5/det/` | `4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae` |
+| `ch_PP-OCRv5_rec_mobile.onnx` | `onnx/PP-OCRv5/rec/` | `5825fc7ebf84ae7a412be049820b4d86d77620f204a041697b0494669b1742c5` |
+| `ch_ppocr_mobile_v2.0_cls_mobile.onnx` | `onnx/PP-OCRv4/cls/` | `e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c` (never used: classifier off; on disk so RapidOCR never downloads it) |
+| `ppocrv5_dict.txt` | `paddle/PP-OCRv5/rec/ch_PP-OCRv5_rec_mobile/` | not published; measured after download. The agent also checks it character by character against the dictionary inside our already-hashed `models/ocr/PP-OCRv5_mobile_rec/inference.yml` |
+
+The same `default_models.yaml` lists the Paddle form of `ch_PP-OCRv5_rec_mobile` with exactly our §6 hashes
+(`inference.pdiparams` `2460da90…`, `inference.json` `24587345…`, `inference.yml` `5dfeb277…`). So the ONNX file is
+RapidAI's conversion of the same model we pinned. Parity with a real Paddle run is checked later on Linux.
+
+```powershell
+$base = "https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2"; $dir = "models\ocr\rapidocr"; New-Item -ItemType Directory -Force $dir | Out-Null; foreach ($f in "onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx","onnx/PP-OCRv5/rec/ch_PP-OCRv5_rec_mobile.onnx","onnx/PP-OCRv4/cls/ch_ppocr_mobile_v2.0_cls_mobile.onnx","paddle/PP-OCRv5/rec/ch_PP-OCRv5_rec_mobile/ppocrv5_dict.txt") { Invoke-WebRequest -UseBasicParsing -Uri "$base/$f" -OutFile "$dir\$(Split-Path $f -Leaf)" }; Get-FileHash "$dir\*" -Algorithm SHA256 | Format-Table Hash, Path -AutoSize
+```
+
+### 8.4 Ubuntu equivalents (later, production)
+
+```bash
+python3 -m venv .venv-ocr-rapid
+.venv-ocr-rapid/bin/pip download --only-binary=:all: --no-binary=antlr4-python3-runtime --dest wheelhouse/rapidocr rapidocr==3.9.2 onnxruntime==1.30.0 omegaconf==2.3.0 antlr4-python3-runtime==4.9.3
+.venv-ocr-rapid/bin/pip wheel --no-deps --wheel-dir wheelhouse/rapidocr wheelhouse/rapidocr/antlr4-python3-runtime-4.9.3.tar.gz
+.venv-ocr-rapid/bin/pip install --no-index --find-links wheelhouse/rapidocr rapidocr==3.9.2 onnxruntime==1.30.0 omegaconf==2.3.0 antlr4-python3-runtime==4.9.3
+.venv-ocr-rapid/bin/pip check
+base=https://www.modelscope.cn/models/RapidAI/RapidOCR/resolve/v3.9.2; mkdir -p models/ocr/rapidocr
+for f in onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx onnx/PP-OCRv5/rec/ch_PP-OCRv5_rec_mobile.onnx onnx/PP-OCRv4/cls/ch_ppocr_mobile_v2.0_cls_mobile.onnx paddle/PP-OCRv5/rec/ch_PP-OCRv5_rec_mobile/ppocrv5_dict.txt; do curl -fL --proto '=https' -o "models/ocr/rapidocr/$(basename "$f")" "$base/$f"; done
+sha256sum models/ocr/rapidocr/*
+```
+
+On Ubuntu, the onnxruntime wheel is `manylinux_2_28_x86_64` (sha256 in §8.1, cp311 or cp312 depending on the open
+Python-version decision). Windows wheels do not install on Linux, so run the download on Linux or add
+`--platform manylinux_2_28_x86_64 --python-version 3.12`.
+
+### 8.5 How Matn calls it (reviewed before the code; frozen with the 4c rules)
+
+- Every model path is explicit and inside `models/ocr/rapidocr/`. The classifier is off (`Global.use_cls: false`),
+  but its `model_path` is still set, so no code path can download a default model. The run happens under
+  `block_egress()`.
+- `ocr_version: PP-OCRv5`, `model_type: mobile`, `lang_type: ch`, `Rec.rec_keys_path` = the downloaded dictionary.
+- RapidOCR's default `Global.max_side_len: 2000` would shrink a 300-DPI page (2550 x 3300 px) and lose small digits. So
+  Matn uses the PaddleOCR PP-OCRv5 detection defaults (limit side 64 / type `min`, max side 4000, `thresh` 0.3,
+  `box_thresh` 0.6, `unclip_ratio` 1.5). These are recorded in the frozen 4c settings before any measurement.
