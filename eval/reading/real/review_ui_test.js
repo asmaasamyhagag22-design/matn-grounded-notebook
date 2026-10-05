@@ -11,7 +11,7 @@ class Element {
 }
 const ids={};
 const document={getElementById:id=>ids[id]??(ids[id]=new Element(id)), createElement:tag=>new Element(tag),body:{scrollHeight:0}};
-const fixture=[{key:'synthetic_ui_fixture_p0000',template:{doc_key:'synthetic_ui_fixture',page_index:0,status:'template',numbers:[]},image:'fake.png',cropbox:[0,0,100,100],proposals:[{reader1:'20',reader2:'28',layer:'',bbox:[10,10,20,20],context:'test fixture',chosen:null,flagged:true}]}];
+const fixture=[{key:'synthetic_ui_fixture_p0000',template:{doc_key:'synthetic_ui_fixture',page_index:0,status:'template',numbers:[]},image:'fake.png',cropbox:[0,0,100,100],proposals:[{reader1:'20',reader2:'28',layer:'20 | 2020',bbox:[10,10,20,20],context:'test fixture',chosen:null,flagged:true}]}];
 const html=fs.readFileSync(require('node:path').join(__dirname,'review_ui.html'),'utf8');
 const script=html.split('<script>')[1].split('</script>')[0].replace('__REVIEW_DATA__',JSON.stringify(fixture));
 const context=vm.createContext({document,window:{scrollTo:()=>{}},localStorage:{getItem:()=>null,setItem:()=>{}},setTimeout,Blob,URL,console});
@@ -20,6 +20,9 @@ assert.match(ids.progress.textContent,/0 \/ 1/);
 ids.save.onclick().then(async()=>{
   assert.match(ids.status.textContent,/Review every candidate/);
   const card=ids.items.children[0]; const picks=card.children.find(x=>x.className==='pick');
+  assert.ok(picks.children.some(x=>x.textContent==='Pick OCR layer 20'));
+  assert.ok(picks.children.some(x=>x.textContent==='Pick OCR layer 2020'));
+  assert.ok(!picks.children.some(x=>x.textContent==='Pick OCR layer'));
   picks.children.find(x=>x.textContent==='Pick reader 2').onclick();
   assert.match(ids.progress.textContent,/1 \/ 1/);
   document.getElementById('owner').value='Synthetic test reviewer'; ids.complete.checked=true;

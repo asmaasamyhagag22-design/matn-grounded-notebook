@@ -40,7 +40,8 @@ function render(){
   };
   card.append(elem('p','Reader 1: '+(n.reader1??'—')+' | Reader 2: '+(n.reader2??'—')+' | Embedded OCR layer: '+(n.layer||'—')));
   const picks=elem('div');picks.className='pick';
-  for(const [label,value] of [['Pick reader 1',n.reader1],['Pick reader 2',n.reader2],['Pick OCR layer',n.layer],['not a number',false],['Illegible','[illegible]']]){
+  const layerPicks=(n.layer||'').split(' | ').filter(Boolean).map(value=>['Pick OCR layer '+value,value]);
+  for(const [label,value] of [['Pick reader 1',n.reader1],['Pick reader 2',n.reader2],...layerPicks,['not a number',false],['Illegible','[illegible]']]){
    if(value===null||value==='')continue;const b=elem('button',label);b.onclick=()=>choose(n,value,card);picks.append(b)
   }card.append(picks);
   const answer=elem('input');answer.className='answer';answer.placeholder='Type the value exactly as printed';answer.value=typeof n.chosen==='string'?n.chosen:'';
