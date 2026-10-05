@@ -164,3 +164,15 @@ def test_horizontal_fragment_of_vertical_margin_stamp_is_not_accepted(tmp_path):
     two,twelve=page.ocr['tokens']
     assert two['role']=='marginalia' and two['flagged']
     assert twelve['role']=='text' and not twelve['flagged']
+
+
+def test_duplicate_detection_of_a_year_digit_cannot_be_accepted_twice(tmp_path):
+    # Dev-tune WB p10: 21 in FY2020/21, then its final 1 detected again on an overlapping line.
+    lines=[_line([('21',.99494)],1750,x=931,height=55),
+           _line([('1',.87915)],1748,x=965,height=53),
+           _line([('12',.999)],1900,x=500)]
+    page=read(lines,[],{'a':'21','b':'1','c':'12'},tmp_path)
+    twenty_one,one,twelve=page.ocr['tokens']
+    assert twenty_one['flagged'] and one['flagged']
+    assert 'overlapping_number_detections' in one['reasons']
+    assert not twelve['flagged']

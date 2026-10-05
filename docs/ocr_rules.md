@@ -130,6 +130,12 @@ strip are also marginalia (the detector can split a vertical stamp into tall let
 Explicit captions/tables/figure/furniture roles and body text outside that strip keep their classification.
 This correction was identified on dev-tune arXiv p0 and re-frozen before any holdout-2 read.
 
+Distinct detector lines whose numeric token boxes overlap by **>=0.5 of the smaller area** flag both tokens as
+`uncertain_number`, reason `overlapping_number_detections`, even if both second reads agree. Values and detections
+are preserved; there is no silent deduplication or replacement. This addresses dev-tune WB p10's duplicate final
+`1` from `FY2020/21`. It does not change numeric normalization, raw matching, or the all-number second-read rule.
+The additional consistency rule was re-frozen before any holdout-2 result, using dev-tune evidence only.
+
 Multi-page one-command reading cross-checks furniture by repetition within the outer **8%** top/bottom margins:
 normalized digits, at least **2** distinct pages and **>=50%** of input pages. Single-page benchmark results use
 the layout classes; the repetition cross-check is covered by its multi-page regression test.

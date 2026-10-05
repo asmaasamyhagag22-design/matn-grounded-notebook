@@ -18,6 +18,9 @@ Reader 2 هو GLM-OCR `glm-ocr:bf16` على Ollama المحلي، prompt `Text R
 
 الـ consensus بيقارن numeric tokens بنفس الشكل المطبوع: `1,240` و`1240` مختلفين. Reader 2 ما بيستبدلش
 قيمة reader 1. اختلاف، فشل قراية، أو قراءة غير ثابتة بعد التدوير → `uncertain_number` مع الصورة والقراءتين.
+في dev-tune WB p10، detector قرى آخر `1` من `FY2020/21` مرتين؛ crop agreement ما كشفش التكرار.
+numeric boxes من سطرين مختلفين لو بيتداخلوا >=0.5 من المساحة الأصغر بيتعلّموا الاتنين، والقيم بتفضل محفوظة.
+الفحص اتثبت من dev-tune قبل holdout؛ مفيش اختيار أو حذف تلقائي لواحد منهم.
 الاتفاق وحده مش كفاية: رقم داخل رسم أو صورة يبقى `figure_text` خارج prose، وpage furniture خارج النص.
 عقد Block الحالي بيمثل `figure_text` و`marginalia` بنوع `figure`؛ النوع التفصيلي محفوظ في OCR metadata،
 من غير enum/schema change غير مطلوب.

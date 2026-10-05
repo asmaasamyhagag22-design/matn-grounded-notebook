@@ -360,6 +360,20 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
             entry["flagged"] = True
             entry["reasons"].append(entry["role"])
             flags.append({"kind": entry["role"], "bbox": entry["bbox"], "reader1": entry["token"]})
+    # Different detector lines must not accept the same printed glyphs twice (e.g. 21 and its final 1).
+    # Even matching cropped second reads cannot detect that reuse. Preserve both candidates, flag both.
+    overlapping = set()
+    for i, first in enumerate(tokens):
+        for j in range(i+1, len(tokens)):
+            second = tokens[j]
+            if first["line"] != second["line"] and _overlap(first["bbox"], second["bbox"]) >= CLOSEOUT["number_overlap_coverage"]:
+                overlapping.update((i,j))
+    for i in sorted(overlapping):
+        entry = tokens[i]
+        entry["flagged"] = True
+        entry["reasons"].append("overlapping_number_detections")
+        flags.append({"kind":"uncertain_number", "bbox":entry["bbox"], "reader1":entry["token"],
+                      "reader2":entry["reader2"], "reason":"overlapping_number_detections"})
     number_words = {entry["_word"] for entry in tokens}
     for line in lines:
         for word in line.words:
