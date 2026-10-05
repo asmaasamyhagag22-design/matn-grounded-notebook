@@ -28,9 +28,11 @@ FOOTNOTE_SIZE_DELTA_PT = 1.0
 FOOTNOTE_TOP_SHARE = 0.70
 FIGURE_MIN_IMAGE_SHARE = 0.02         # an image smaller than 2% of the page is a logo/icon, not a figure region
 VECTOR_CELL_PT = 20.0
-VECTOR_CELL_MIN_OBJECTS = 4
-VECTOR_REGION_MIN_OBJECTS = 25
-VECTOR_REGION_MIN_AREA_PT2 = 6000.0
+VECTOR_CELL_MIN_OBJECTS = 3
+VECTOR_REGION_MIN_OBJECTS = 12
+VECTOR_REGION_MIN_AREA_PT2 = 3000.0
+FIGURE_MIN_SHORT_NUMERIC_LABELS = 4
+FIGURE_MAX_SHORT_LABEL_CHARS = 12
 CAPTION = re.compile(r"^(?:(?:Figure|Fig\.|Table|Box|Chart|Exhibit|Map)\s+[A-Z]?\d+(?:[.\-]\d+)*\b|"
                      r"(?:Sources?|Notes?)\s*:)")
 
@@ -57,7 +59,7 @@ def _overlap_share(inner: BBox, outer: BBox) -> float:
 
 
 def figure_regions(images: list[BBox], drawings: list[BBox], tables: list[BBox], width: float,
-                   height: float) -> list[BBox]:
+                   height: float, words: list[Word] | None = None) -> list[BBox]:
     """Image regions above FIGURE_MIN_IMAGE_SHARE plus connected clusters of dense vector drawing, minus tables."""
     regions = [img for img in images if (img[2] - img[0]) * (img[3] - img[1]) >= FIGURE_MIN_IMAGE_SHARE * width * height]
     cols, rows = int(np.ceil(width / VECTOR_CELL_PT)), int(np.ceil(height / VECTOR_CELL_PT))
@@ -87,6 +89,36 @@ def figure_regions(images: list[BBox], drawings: list[BBox], tables: list[BBox],
             box = (min(xs) * VECTOR_CELL_PT, min(ys) * VECTOR_CELL_PT, (max(xs) + 1) * VECTOR_CELL_PT,
                    (max(ys) + 1) * VECTOR_CELL_PT)
             if objects >= VECTOR_REGION_MIN_OBJECTS and (box[2] - box[0]) * (box[3] - box[1]) >= VECTOR_REGION_MIN_AREA_PT2:
+                regions.append(box)
+    # Sparse charts often have only axes, bars/curves and labels, so a density-only rule misses them.
+    long_objects = [box for box in drawings if max(box[2] - box[0], box[3] - box[1]) >= 30]
+    if words:
+        remaining = set(range(len(long_objects)))
+        while remaining:
+            seed = remaining.pop()
+            component, stack = [long_objects[seed]], [seed]
+            while stack:
+                index = stack.pop()
+                current = long_objects[index]
+                nearby = [other for other in remaining
+                          if not (long_objects[other][2] + 12 < current[0]
+                                  or current[2] + 12 < long_objects[other][0]
+                                  or long_objects[other][3] + 12 < current[1]
+                                  or current[3] + 12 < long_objects[other][1])]
+                for other in nearby:
+                    remaining.remove(other)
+                    stack.append(other)
+                    component.append(long_objects[other])
+            if len(component) < 2:
+                continue
+            box = (max(0.0, min(item[0] for item in component) - 20),
+                   max(0.0, min(item[1] for item in component) - 20),
+                   min(width, max(item[2] for item in component) + 20),
+                   min(height, max(item[3] for item in component) + 20))
+            labels = [word for word in words if len(word.text) <= FIGURE_MAX_SHORT_LABEL_CHARS
+                      and re.search(r"\d", word.text)
+                      and _centre_in((word.x0, word.top, word.x1, word.bottom), [box])]
+            if len(labels) >= FIGURE_MIN_SHORT_NUMERIC_LABELS:
                 regions.append(box)
     return [r for r in regions if not any(_overlap_share(r, t) > 0.5 for t in tables)]
 

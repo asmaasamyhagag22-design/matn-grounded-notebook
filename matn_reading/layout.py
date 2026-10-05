@@ -27,6 +27,7 @@ NARROW_SHARE = 0.55            # a block narrower than this share of the content
 MIN_GUTTER_PT = 12.0
 MARGIN_COLUMN_SHARE = 0.30     # a column narrower than this share of the page and than half its right neighbour,
 MARGIN_COLUMN_MAX_LINES = 3    # whose blocks have at most this many lines, is a margin column (side headings)
+SIDE_HEADING_TOP_TOLERANCE = 0.50
 FURNITURE_BAND_SHARE = 0.08    # top/bottom band where running headers and footers live
 FURNITURE_MIN_PAGES = 3
 FURNITURE_MIN_SHARE = 0.30
@@ -42,6 +43,10 @@ class Word:
     bottom: float
     size: float = 10.0
     bold: bool = False
+    kind: str = "word"
+    vertical: bool = False
+    visibility: str = "visible"
+    visibility_reasons: tuple[str, ...] = ()
 
 
 @dataclass
@@ -81,6 +86,18 @@ class Line:
     def starts_with_bullet(self) -> bool:
         return bool(_BULLET.match(self.words[0].text))
 
+    @property
+    def vertical(self) -> bool:
+        return all(word.vertical for word in self.words)
+
+    @property
+    def visibility(self) -> str:
+        return self.words[0].visibility
+
+    @property
+    def visibility_reasons(self) -> tuple[str, ...]:
+        return self.words[0].visibility_reasons
+
 
 @dataclass
 class LayoutBlock:
@@ -116,6 +133,18 @@ class LayoutBlock:
     def bold(self) -> bool:
         return all(line.bold for line in self.lines)
 
+    @property
+    def vertical(self) -> bool:
+        return all(line.vertical for line in self.lines)
+
+    @property
+    def visibility(self) -> str:
+        return self.lines[0].visibility
+
+    @property
+    def visibility_reasons(self) -> tuple[str, ...]:
+        return self.lines[0].visibility_reasons
+
     def finish(self) -> "LayoutBlock":
         self.text, self.raw_text = join_hyphenation([line.text for line in self.lines])
         return self
@@ -141,7 +170,9 @@ def group_lines(words: Sequence[Word]) -> list[Line]:
         row.sort(key=lambda w: w.x0)
         current = [row[0]]
         for previous, word in zip(row, row[1:]):
-            if word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size):
+            state_changed = (word.visibility, word.visibility_reasons, word.vertical) != (
+                previous.visibility, previous.visibility_reasons, previous.vertical)
+            if state_changed or word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size):
                 lines.append(Line(current))
                 current = []
             current.append(word)
@@ -161,7 +192,14 @@ def _continues(block: LayoutBlock, line: Line) -> bool:
     gap = line.top - last.bottom
     if gap < -0.5 * line.size or gap > PARA_GAP_EM * max(line.size, last.size):
         return False
-    if abs(line.size - last.size) > SIZE_TOLERANCE_PT or line.bold != last.bold:
+    if abs(line.size - last.size) > SIZE_TOLERANCE_PT:
+        return False
+    if line.bold != last.bold:
+        bold_lead = block.lines[0].bold and not line.bold and block.lines[-1].text.rstrip().endswith((".", ":"))
+        if not bold_lead:
+            return False
+    if (line.visibility, line.visibility_reasons, line.vertical) != (
+            last.visibility, last.visibility_reasons, last.vertical):
         return False
     if line.starts_with_bullet:
         return False
@@ -222,6 +260,7 @@ def order_blocks(blocks: Sequence[LayoutBlock], page_width: float) -> list[Layou
 
     # Margin columns (side headings) are merged into their right-hand neighbour and read by vertical position.
     merged_into = {}
+    margin_blocks: set[int] = set()
     for index in sorted(columns):
         members = columns[index]
         width = max(b.x1 for b in members) - min(b.x0 for b in members)
@@ -232,6 +271,7 @@ def order_blocks(blocks: Sequence[LayoutBlock], page_width: float) -> list[Layou
         neighbour_width = max(b.x1 for b in columns[neighbour]) - min(b.x0 for b in columns[neighbour])
         if width < MARGIN_COLUMN_SHARE * page_width and width < 0.5 * neighbour_width and short:
             merged_into[index] = neighbour
+            margin_blocks.update(id(block) for block in members)
     for index, target in sorted(merged_into.items(), reverse=True):
         while target in merged_into:
             target = merged_into[target]
@@ -243,7 +283,17 @@ def order_blocks(blocks: Sequence[LayoutBlock], page_width: float) -> list[Layou
     ordered: list[LayoutBlock] = []
     for seg in range(len(spanning) + 1):
         for index in sorted(columns):
-            ordered += sorted((b for b in columns[index] if segment(b) == seg), key=lambda b: (b.top, b.x0))
+            members = sorted((b for b in columns[index] if segment(b) == seg), key=lambda b: (b.top, b.x0))
+            # A side heading may sit a few points lower than the paragraph it labels. Within half a line height,
+            # semantic order wins over the raw top coordinate.
+            for side in [b for b in members if id(b) in margin_blocks]:
+                peers = [b for b in members if id(b) not in margin_blocks
+                         and abs(b.top - side.top) <= SIDE_HEADING_TOP_TOLERANCE * max(b.size, side.size)]
+                if peers:
+                    body = min(peers, key=lambda b: (abs(b.top - side.top), b.x0))
+                    members.remove(side)
+                    members.insert(members.index(body), side)
+            ordered += members
         if seg < len(spanning):
             ordered.append(spanning[seg])
     return ordered

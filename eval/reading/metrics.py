@@ -16,9 +16,8 @@ import unicodedata
 from collections import Counter
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass, field
+import re
 from typing import Any
-
-from matn_contracts.conversion import numeric_tokens
 
 BBox = tuple[float, float, float, float]
 PAGE_TYPES = ("digital", "synthetic_scan", "real_scan")
@@ -129,8 +128,22 @@ class NumberReport:
         self.details.extend(other.details)
 
 
+_READER_NUMBER = re.compile(
+    r"(?<![\d.,])[+-]?(?:\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?)(?!\d|[.,]\d)"
+    r"|(?<![\w.,])[+-]?\.\d+(?!\d|[.,]\d)"
+)
+
+
+def reader_numeric_tokens(text: str) -> list[re.Match[str]]:
+    """Reader/metric numbers start at digit transitions, even when glued to letters.
+
+    The fact verifier's stricter exact-token tokenizer is intentionally unchanged.
+    """
+    return list(_READER_NUMBER.finditer(text))
+
+
 def _numbers(text: str) -> list[str]:
-    return [match.group(0) for match in numeric_tokens(normalize_for_numbers(text))]
+    return [match.group(0) for match in reader_numeric_tokens(normalize_for_numbers(text))]
 
 
 def _overlap(a: BBox, b: BBox) -> float:
@@ -183,11 +196,12 @@ def _compare_tokens(report: NumberReport, expected: list[str], got: list[tuple[s
             leftovers_got.append((token, flagged))
     for index, token in enumerate(leftovers_expected):
         if index < len(leftovers_got):
-            _record(report, "wrong", token, leftovers_got[index][0], leftovers_got[index][1], where)
+            _record(report, "wrong", token, leftovers_got[index][0],
+                    region_flagged or leftovers_got[index][1], where)
         else:
             _record(report, "missing", token, None, region_flagged, where)
     for token, flagged in leftovers_got[len(leftovers_expected):]:
-        _record(report, "inserted", None, token, flagged, where)
+        _record(report, "inserted", None, token, region_flagged or flagged, where)
 
 
 def _in_regions(box: BBox, regions: Sequence[BBox]) -> bool:

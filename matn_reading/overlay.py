@@ -87,8 +87,8 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
         draw.text((lx + 20, ly), route.value, fill="black", font=small)
         ly += 18
     ly += 6
-    for line in ("number = reading order", "! = flagged (not clean)", "dashed = figure region",
-                 "visibility: not detected yet", "(baseline, all visible)"):
+    for line in ("number = reading order", "! = flagged / non-prose", "dashed = figure region",
+                 "hidden/uncertain excluded", "reasons in run JSON"):
         draw.text((lx, ly), line, fill="black", font=small)
         ly += 16
     ly += 6

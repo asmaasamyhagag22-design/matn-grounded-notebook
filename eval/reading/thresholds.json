@@ -3,14 +3,14 @@
   "frozen_on": "2026-10-04",
   "tuning_scope": "dev-tune only; no value may change after inspecting dev-check",
   "word_segmentation": {
-    "gap_em": 0.28,
+    "gap_em": 0.10,
     "tracked_numeric_gap_em": 0.80,
-    "line_center_tolerance_height": 0.50,
+    "line_center_tolerance_height": 0.35,
     "vertical_axis_ratio": 1.50
   },
   "footnote_marker": {
     "max_body_size_ratio": 0.75,
-    "min_baseline_raise_em": 0.15,
+    "min_baseline_raise_em": 0.05,
     "link_x_distance_em": 2.00
   },
   "figure_detection": {
@@ -30,6 +30,7 @@
     "grayscale_delta": 24,
     "visible_min_changed_pixels": 3,
     "visible_min_changed_share": 0.05,
+    "small_inner_min_pixels": 25,
     "fill_background_contrast": 1.5,
     "near_zero_size_pt": 1.0,
     "coverage_min_overlap_share": 0.5,

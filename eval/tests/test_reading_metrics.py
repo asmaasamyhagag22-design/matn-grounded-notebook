@@ -12,6 +12,7 @@ from eval.reading.metrics import (
     levenshtein,
     match_blocks,
     reading_order_accuracy,
+    reader_numeric_tokens,
     score_numbers,
     teds,
     wer,
@@ -61,6 +62,12 @@ def test_a_wrong_but_flagged_number_is_not_silent():
     assert (report.wrong, report.silent_errors, report.flagged_wrong) == (1, 0, 1)
 
 
+def test_a_wrong_number_inside_a_flagged_region_is_not_silent():
+    report = score_numbers([_w("3.2", 0)], [_w("3.7", 0)],
+                           flagged_regions=[(-1.0, -1.0, 11.0, 11.0)])
+    assert (report.wrong, report.silent_errors, report.flagged_wrong) == (1, 0, 1)
+
+
 def test_a_missing_number_is_a_silent_drop_not_a_silent_error():
     report = score_numbers([_w("64", 0), _w("x", 20)], [_w("x", 20)])
     assert (report.missing, report.silent_drops, report.silent_errors) == (1, 1, 0)
@@ -90,6 +97,13 @@ def test_without_boxes_numbers_are_aligned_in_sequence():
 def test_one_word_can_hold_several_numbers():
     report = score_numbers([_w("2019-2021", 0)], [_w("2019-2021", 0)])
     assert (report.total, report.correct) == (2, 2)
+
+
+def test_reader_number_boundaries_allow_letters_but_keep_exact_formatting():
+    tokens = lambda text: [match.group(0) for match in reader_numeric_tokens(text)]  # noqa: E731
+    assert tokens("vs48.0% FY2021 x-3.2 and +1,234.50") == ["48.0", "2021", "-3.2", "+1,234.50"]
+    assert tokens("12,34 and 1.2.3") == []  # malformed groups never become partial exact tokens
+    assert tokens("defense.1 but value .5") == [".5"]
 
 
 # ---- tables (TEDS) -----------------------------------------------------------------------------------------------

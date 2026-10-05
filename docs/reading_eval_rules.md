@@ -96,14 +96,20 @@ passes and dev-check does not, the result is overfitting; nothing may be changed
 
 The machine-readable source is `eval/reading/thresholds.json`.
 
-- Words: a geometric gap over 0.28 em breaks a word, independent of font changes. Numeric tracking can bridge up
-  to 0.80 em. Vertical direction comes from the char matrix/upright flag.
-- Footnote markers: size ≤0.75× the line body and baseline raised by ≥0.15 em.
+- Words: a geometric gap over 0.10 em breaks a word, independent of font changes. Numeric tracking can bridge up
+  to 0.80 em, and row centres may differ by at most 0.35× the smaller glyph height. A month + day + four-digit year keeps its
+  real space instead of treating the date punctuation as a decimal. Vertical direction comes from the char matrix.
+- Footnote markers: size ≤0.75× the nearby body text and baseline raised by ≥0.05 em; a leading numeric marker
+  attached to its footnote body is split and linked by the same token rule.
+- Code-looking blocks require at least two independent syntax signals (assignment, call, keyword, comment, or
+  repeated underscored identifiers). Their numbers stay available but are warning-flagged as non-prose candidates.
 - Side headings lead when their tops are within 0.50 line height of the paragraph top.
 - Visibility candidates come only from render mode, later image/vector coverage, fill/background match,
   outside-CropBox, near-zero size, or clipping, plus a deterministic 2% audit of all other text objects (seed 42042).
+  Any outside-CropBox character also produces a page warning, so a damaged overlapping layer cannot fail silently.
   Candidate pages render at 4×. A bbox inset 15% is visible at ≥3 changed pixels and ≥5% changed area, with a
-  grayscale delta ≥24; zero changed pixels in the full bbox is hidden; the middle is uncertain. Fill/background
+  grayscale delta ≥24; for an inset smaller than 25 pixels the same test uses the full bbox. Zero changed pixels in
+  the full bbox is hidden; the middle is uncertain. Fill/background
   contrast below 1.5 explains `fill_matches_background`.
 
 ### Step 4c (OCR), frozen now so it cannot drift after results
