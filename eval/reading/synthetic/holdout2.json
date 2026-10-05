@@ -1,0 +1,249 @@
+{
+  "schema": "matn-reading-holdout2/1",
+  "frozen_before_closeout_code": true,
+  "dpi": 300,
+  "scope": "New to synthetic OCR measurement, disjoint from all 31 prior synthetic dev-tune/dev-check pages. Digital pages previously measured in 4b; not a document-independent holdout.",
+  "selection": "10 per dev document; round-robin digital-metadata strata; hash ordering with fresh fixed seed; no OCR results used.",
+  "pages": [
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 14,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 2131638184
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 37,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 2306335810
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 18,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 666824936
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 13,
+      "kinds": [
+        "table"
+      ],
+      "seed": 1364363018
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 40,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 3445823948
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 12,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 759553620
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 35,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 3979549250
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 20,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 1225251182
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 19,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 644114633
+    },
+    {
+      "doc_id": "2601-14525v1",
+      "page_index": 21,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 3559852945
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 13,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 3407699532
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 3,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 656175957
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 34,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 2703194767
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 20,
+      "kinds": [
+        "table"
+      ],
+      "seed": 194656789
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 36,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 198051341
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 25,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 4076226476
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 1,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 1338373992
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 15,
+      "kinds": [
+        "table"
+      ],
+      "seed": 1187850870
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 0,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 550276662
+    },
+    {
+      "doc_id": "wb-eem-2021-12",
+      "page_index": 17,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 2398869632
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 4,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 3483425409
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 103,
+      "kinds": [
+        "number_dense"
+      ],
+      "seed": 3980783447
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 105,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 1837034452
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 66,
+      "kinds": [
+        "table"
+      ],
+      "seed": 3933938817
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 5,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 3254575266
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 83,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 3500569694
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 32,
+      "kinds": [
+        "table"
+      ],
+      "seed": 1240935689
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 52,
+      "kinds": [
+        "figure"
+      ],
+      "seed": 3057164756
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 78,
+      "kinds": [
+        "prose"
+      ],
+      "seed": 1603453927
+    },
+    {
+      "doc_id": "gao-21-519sp",
+      "page_index": 33,
+      "kinds": [
+        "table"
+      ],
+      "seed": 1405427395
+    }
+  ]
+}
