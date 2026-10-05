@@ -81,9 +81,11 @@ def test_rotated_stamp_and_axis_agreement_cannot_bypass_orientation(tmp_path):
     for name, token in [("arxiv_stamp", "2"), ("wb_dec20", "20")]:
         image = Image.open(fixtures / (name + ".png"))
         w, h = image.size
-        quad = [[30, 40], [45, 40], [45, 40+h-50], [30, 40+h-50]]
+        x = 2 if name == "arxiv_stamp" else 30
+        quad = [[x, 40], [x+15, 40], [x+15, 40+h-50], [x, 40+h-50]]
         lines = [{"text": token, "score": .99993, "box": quad, "words": []}]
-        regions = [{"class": "vertical_text", "bbox": [25,35,50,40+h], "score": .9}]
+        regions = [{"class": "vertical_text" if name == "arxiv_stamp" else "chart",
+                    "bbox": [0,0,w,h], "score": .9}]
         page = read_scan_page(image, page_index=0, page_label=None, cropbox=(0,0,w*72/300,h*72/300),
                              route=Route.SCANNED, reasons=[], doc_id="sha256-"+"0"*64,
                              worker=RegionsWorker(lines, regions), glm=FakeGlm({"a":token}),
@@ -129,3 +131,25 @@ def test_undetected_vertical_layout_region_is_rotated_and_second_read(tmp_path):
               {"a":"arXiv 2601.14525"},tmp_path)
     assert page.ocr["second_reads"]["lines"]==1
     assert any(f["kind"]=="possible_drop" and f["reader2"]==["2601.14525"] for f in page.flags)
+
+
+def test_short_upright_digit_is_not_rotated_due_to_glyph_height():
+    from matn_reading.ocr.regions import orientation
+    assert orientation([[0,0],[35,0],[35,40],[0,40]],(0,0,35,40),"text")==0.0
+
+
+def test_nonmargin_rotated_number_requires_agreement_after_rotation(tmp_path):
+    quad=[[500,400],[530,400],[530,800],[500,800]]
+    lines=[{"text":"12","score":.99,"box":quad,"words":[]}]
+    page=read(lines,[{"class":"vertical_text","bbox":[490,390,540,810],"score":.9}],{"a":"12"},tmp_path)
+    assert page.ocr["tokens"][0]["rotation"]["agreed_after_rotation"]
+    assert not page.ocr["tokens"][0]["flagged"]
+    assert page.ocr["tokens"][0]["role"]=="text"
+
+
+def test_score_one_still_gets_the_default_second_read(tmp_path):
+    from .test_route import _read
+    from matn_reading.ocr.route import OcrConfig
+    glm=FakeGlm({"a":"Staff 12"})
+    page=_read([_line([("Staff",1.0),("12",1.0)],400)],glm,config=OcrConfig(),tmp_path=tmp_path)
+    assert len(glm.asked)==1 and page.ocr["tokens"][0]["status"]=="agreed"

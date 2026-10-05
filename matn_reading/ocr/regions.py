@@ -28,13 +28,14 @@ def role(box, regions):
 
 def orientation(quad, box, semantic_role):
     edges = [(quad[(i+1)%4][0]-quad[i][0], quad[(i+1)%4][1]-quad[i][1]) for i in range(2)]
-    dx, dy = max(edges, key=lambda e:e[0]**2+e[1]**2)
+    tall = (box[3]-box[1]) > RULES["vertical_aspect_ratio"] * max(box[2]-box[0],1)
+    dx, dy = max(edges, key=lambda e:e[0]**2+e[1]**2) if tall or semantic_role == "vertical_text" else edges[0]
     angle = math.degrees(math.atan2(dy, dx))
     angle = (angle+90) % 180-90
-    tall = (box[3]-box[1]) > RULES["vertical_aspect_ratio"] * max(box[2]-box[0],1)
     if tall or semantic_role == "vertical_text":
         return -90.0 if abs(angle) < RULES["rotation_min_degrees"] else angle
     return angle if abs(angle) >= RULES["rotation_min_degrees"] else 0.0
+
 
 
 def repeat_furniture(pages):

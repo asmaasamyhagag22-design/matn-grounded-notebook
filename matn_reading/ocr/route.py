@@ -106,7 +106,7 @@ def _lines(reply: dict, to_pt) -> list[_Line]:
                 continue
             wbox = _axis_box(word["box"])
             wrole = region_role(wbox, reply.get("layout", []))
-            if line.role == "vertical_text": wrole = "marginalia"
+            if wrole == "vertical_text": wrole = "text"
             line.words.append(_Word(word["text"], float(word["score"]), wbox, to_pt(wbox), index, wrole))
         lines.append(line)
     return lines

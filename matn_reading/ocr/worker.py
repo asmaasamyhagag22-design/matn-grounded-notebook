@@ -93,7 +93,9 @@ def main() -> int:
                 if request.get("layout", True):
                     detected = layout(image)
                     regions = [{"class": name, "bbox": _plain(box), "score": float(score)}
-                               for name, box, score in zip(detected.class_names, detected.boxes, detected.scores)]
+                               for name, box, score in zip(detected.class_names if detected.class_names is not None else (),
+                                                          detected.boxes if detected.boxes is not None else (),
+                                                          detected.scores if detected.scores is not None else ())]
                     layout_seconds = detected.elapse
                 reply = {"layout": regions, "layout_seconds": layout_seconds, "ok": True, "lines": _lines(output), "seconds": round(time.perf_counter() - started, 3),
                          "size": [int(image.shape[1]), int(image.shape[0])]}

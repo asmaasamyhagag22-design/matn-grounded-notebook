@@ -30,7 +30,14 @@ function render(){
  const p=page();$('items').replaceChildren();$('page').src=p.image;$('complete').checked=false;$('status').textContent='';first=null;
  p.proposals.forEach((n,i)=>{
   const card=elem('article');if(n.chosen!==null)card.classList.add('done');card.append(elem('h3','Candidate '+(i+1)+(n.flagged?' · flagged':'')));
-  if(n.crop){const im=elem('img');im.src=n.crop;im.className='crop';im.alt='Number crop';card.append(im)}else card.append(elem('p','New number: check the selected rectangle on the full page.'));
+  if(n.crop){const im=elem('img');im.src=n.crop;im.className='crop';im.alt='Number crop';card.append(im)}else {
+   const crop=elem('div');crop.className='crop';crop.style.overflow='hidden';crop.style.position='relative';
+   const box=p.cropbox,b=n.bbox,k=Math.min(3,650/Math.max(b[2]-b[0],1),240/Math.max(b[3]-b[1],1));
+   crop.style.width=((b[2]-b[0])*k)+'px';crop.style.height=((b[3]-b[1])*k)+'px';
+   const im=elem('img');im.src=p.image;im.alt='Crop of manually added number';im.style.position='absolute';
+   im.style.width=((box[2]-box[0])*k)+'px';im.style.maxWidth='none';
+   im.style.left=(-(b[0]-box[0])*k)+'px';im.style.top=(-(b[1]-box[1])*k)+'px';crop.append(im);card.append(crop)
+  };
   card.append(elem('p','Reader 1: '+(n.reader1??'—')+' | Reader 2: '+(n.reader2??'—')+' | Embedded OCR layer: '+(n.layer||'—')));
   const picks=elem('div');picks.className='pick';
   for(const [label,value] of [['Pick reader 1',n.reader1],['Pick reader 2',n.reader2],['Pick OCR layer',n.layer],['not a number',false],['Illegible','[illegible]']]){
