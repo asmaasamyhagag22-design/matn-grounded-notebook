@@ -53,6 +53,7 @@ class PageReading:
     edge_cases: dict
     signals: dict
     footnote_markers: list[dict] = field(default_factory=list)
+    ocr: dict | None = None              # OCR route only: tokens, second reads, preprocessing record
 
 
 @dataclass

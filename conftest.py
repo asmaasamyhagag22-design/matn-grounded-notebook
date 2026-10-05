@@ -56,6 +56,7 @@ SLOW = frozenset({
     "eval/tests/test_verify_gold.py::test_gold_commit_refuses_uncommitted_gold_and_returns_head_when_clean",
     "tests/test_demo_mode.py::test_validated_demo_makes_zero_network_or_model_calls",
     "tests/test_document_store.py::test_noncontiguous_pages_and_bad_selectors",
+    "tests/reading/ocr/test_reader1_worker.py::test_worker_reads_a_generated_line_offline_from_local_models",
     "tests/test_inspect_pdf.py::test_blank_and_image_only_share_no_text_but_have_distinct_signals",
     "tests/test_inspect_pdf.py::test_evaluation_harness_emits_schema_valid_json_and_markdown",
     "tests/test_inspect_pdf.py::test_manifest_deterministic_fields_and_text_are_stable",
