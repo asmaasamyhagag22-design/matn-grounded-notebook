@@ -14,6 +14,7 @@ from __future__ import annotations
 import io
 import json
 import tempfile
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from statistics import median
@@ -203,7 +204,9 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
     if config.confidence_bar is None:
         raise ValueError("the OCR confidence bar is not calibrated (matn_reading/ocr/ocr_rules.json)")
     bar = config.confidence_bar
+    started = time.perf_counter()
     processed, record = preprocess(image, config.preprocess)
+    preprocess_seconds = time.perf_counter() - started
     scale = 72.0 / config.dpi
 
     def to_pt(box: BBox) -> BBox:
@@ -213,7 +216,9 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
     with tempfile.TemporaryDirectory() as folder:
         path = Path(folder) / "page.png"
         processed.save(path)
+        started = time.perf_counter()
         reply = worker.read(path)
+        reader1_wall = time.perf_counter() - started
     lines = _lines(reply, to_pt)
     median_height = median([l.height for l in lines]) if lines else 1.0
     flags: list[dict] = []
@@ -363,7 +368,8 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         entry.pop("_word")
     scores = [w.score for line in lines for w in line.words]
     details = {
-        "preprocess": record, "reader1_seconds": reply.get("seconds"), "second_reads": second_reads,
+        "preprocess": record, "preprocess_seconds": round(preprocess_seconds, 3), "reader1_seconds": reply.get("seconds"),
+        "reader1_wall_seconds": round(reader1_wall, 3), "second_reads": second_reads,
         "targets": sorted(config.targets), "second_read": config.second_read, "confidence_bar": bar,
         "mean_confidence": round(sum(scores) / len(scores), 4) if scores else None, "ink_share": round(ink_share, 4),
         "tokens": tokens, "lines": [{"index": l.index, "text": l.text, "score": l.score, "bbox": l.box,

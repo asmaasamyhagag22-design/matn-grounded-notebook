@@ -19,6 +19,10 @@ ROUTE_COLOURS = {
     Route.DIGITAL_HEALTHY: (44, 160, 44), Route.DIGITAL_BROKEN: (214, 39, 40), Route.SCANNED: (64, 64, 64),
     Route.SCANNED_WITH_OCR_LAYER: (227, 119, 194), Route.MIXED: (255, 187, 0),
 }
+FLAG_COLOURS = {  # OCR route flags, drawn as thin outlines on the exact place
+    "uncertain_number": (230, 0, 0), "low_confidence": (255, 170, 0), "possible_drop": (200, 0, 200),
+    "table_total_mismatch": (120, 0, 200), "text_table_mismatch": (120, 0, 200), "ocr_layer_disagreement": (0, 150, 150),
+}
 LEGEND_WIDTH = 260
 BAND = 18
 
@@ -70,6 +74,16 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
         draw.rectangle((x0 - 1, y0 - 13, x0 + 7 * len(tag) + 4, y0 - 1), fill=colour + (230,))
         draw.text((x0 + 1, y0 - 13), tag, fill="white", font=small)
 
+    for flag in page.flags:
+        colour = FLAG_COLOURS.get(flag["kind"])
+        if colour is None or "bbox" not in flag:
+            continue
+        x0, y0, x1, y1 = to_px(flag["bbox"])
+        if flag["kind"] == "possible_drop":
+            _dashed_rect(draw, (x0 - 2, y0 - 2, x1 + 2, y1 + 2), colour, dash=5, width=2)
+        else:
+            draw.rectangle((x0 - 2, y0 - 2, x1 + 2, y1 + 2), outline=colour + (255,), width=3)
+
     lx, ly = image.width + 12, BAND + 8
     draw.text((lx, ly), "Block types", fill="black", font=label)
     ly += 20
@@ -91,6 +105,14 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
                  "hidden/uncertain excluded", "reasons in run JSON"):
         draw.text((lx, ly), line, fill="black", font=small)
         ly += 16
+    if any(flag["kind"] in FLAG_COLOURS for flag in page.flags):
+        ly += 6
+        draw.text((lx, ly), "OCR flags", fill="black", font=label)
+        ly += 20
+        for name, colour in FLAG_COLOURS.items():
+            draw.rectangle((lx, ly + 2, lx + 14, ly + 14), outline=colour, width=3)
+            draw.text((lx + 20, ly), name, fill="black", font=small)
+            ly += 18
     ly += 6
     draw.text((lx, ly), "Reasons", fill="black", font=label)
     ly += 18
@@ -116,3 +138,10 @@ def write_overlays(pages: list[PageReading], renders, out_dir: Path, scale: floa
         draw_overlay(by_index[page_index], image, scale, origin).save(path, optimize=True)
         written.append(path)
     return written
+
+
+def draw_scan_overlay(page: PageReading, image: Image.Image, dpi: int, scale: float = 1.5) -> Image.Image:
+    """Overlay for an OCR page, drawn on the image reader 1 saw (``image`` = the preprocessed scan at ``dpi``)."""
+    factor = scale / (dpi / 72)
+    small = image.convert("RGB").resize((round(image.width * factor), round(image.height * factor)))
+    return draw_overlay(page, small, scale, (page.cropbox[0], page.cropbox[1]))
