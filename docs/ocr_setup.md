@@ -221,3 +221,31 @@ Measured 2026-10-04 after the owner approved §2-§3 (installs and downloads onl
 | PaddleOCR-VL-1.6 | `c5630aba…` | model.safetensors | `85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db` | GPU, later |
 | TeleOCR | `e9258535…` | model.safetensors | `9817b18041bd96403f75e38a33b28ed0cd5fb2641f67eead673afabd3c408109` | GPU, later |
 | OvisOCR2 | `1fc9221b…` | model.safetensors | `9270560288656ece5cb3a6989001afcf5af8d223bceed4a423c33a008861d009` | GPU, later |
+
+## 7. Environment check (Step 4c Part 1, 2026-10-05): stopped by Smart App Control
+
+The install and download commands are §2.2 (Paddle wheels), §2.3 (PP-OCRv5 det/rec) and §3.1 (GLM-OCR). The owner
+ran them on 2026-10-04 and nothing new needs downloading. On 2026-10-05 the agent re-hashed every model file. All 8
+files in `models/ocr/` match §6, and `ollama list` still shows `glm-ocr:bf16` with ID `6effedd0dc8a`.
+
+| Check (network blocked by `checks.egress_guard.block_egress()`) | Result |
+|---|---|
+| GLM-OCR via Ollama, one line crop from a synthetic scan of GAO p3 (dev-tune), `Text Recognition:`, `num_ctx` 16384, `temperature` 0, `seed` 0 | **works offline**: 10.6 s on CPU; it read the line correctly, then repeated it until `num_predict` (256). Without `num_predict` the first call did not finish in 600 s. The client must stop at the first newline and cap the output |
+| `from paddleocr import PaddleOCR` in `.venv-ocr` (`PADDLE_PDX_DISABLE_MODEL_SOURCE_CHECK=True`) | **blocked** before any model loads; no OCR call was possible |
+
+Exact block (Windows Code Integrity, events 3033 and 3077; Smart App Control state **On**,
+`VerifiedAndReputablePolicyState = 1`):
+
+- File: `.venv-ocr\Lib\site-packages\pandas\_libs\pandas_parser.cp311-win_amd64.pyd`
+- Message: `ImportError: DLL load failed while importing pandas_parser: An Application Control policy has blocked this file.`
+- Import chain: `paddleocr` -> `paddlex.inference.utils.io.readers` (`import pandas as pd` at module level) -> pandas.
+- Also blocked, harmless: `.venv-ocr\Lib\site-packages\ujson.cp311-win_amd64.pyd`. paddlex falls back to `json`
+  ("failed to import ujson, using json instead").
+- Loads fine: `paddle`, `cv2`, `shapely`, `pyclipper`, `numpy`, `PIL`, `pypdfium2`, `pydantic_core`, `google.protobuf`,
+  `crc32c`, `cryptography`, `psutil`, `Crypto`, `yaml`.
+- In paddlex 3.7.2, pandas is imported at module level by the time-series models and pipelines, the CSV/Excel
+  readers and writers, and two result mixins. The OCR path does not call pandas functions. It does run
+  `isinstance(obj, pd.DataFrame)` when a result is converted to JSON
+  (`paddlex/inference/common/result/mixin.py:178`).
+
+No security setting was changed. Options are in `reports/HANDOFF.md` (open decision 8).
