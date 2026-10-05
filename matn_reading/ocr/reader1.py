@@ -81,9 +81,9 @@ class RapidOcrWorker:
         self.log.seek(0)
         return self.log.read()[-chars:]
 
-    def read(self, image_path: Path) -> dict:
+    def read(self, image_path: Path, *, layout: bool = True) -> dict:
         assert self.process is not None and self.process.stdin is not None
-        self.process.stdin.write(json.dumps({"image": str(Path(image_path).resolve())}) + "\n")
+        self.process.stdin.write(json.dumps({"image": str(Path(image_path).resolve()), "layout": layout}) + "\n")
         self.process.stdin.flush()
         reply = self._receive()
         if not reply.get("ok"):

@@ -52,7 +52,7 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
     """``image`` is the pypdfium2 render of the CropBox at ``scale``; ``crop_origin`` is the CropBox top-left in
     reader coordinates."""
     ox, oy = crop_origin
-    canvas = Image.new("RGB", (image.width + LEGEND_WIDTH, image.height + BAND), "white")
+    canvas = Image.new("RGB", (image.width + LEGEND_WIDTH, max(image.height + BAND, 650)), "white")
     canvas.paste(image, (0, BAND))
     draw = ImageDraw.Draw(canvas, "RGBA")
     small, label = _font(11), _font(13)
@@ -69,7 +69,7 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
     for order, block in enumerate(page.blocks):
         colour = TYPE_COLOURS[block.block_type]
         x0, y0, x1, y1 = to_px(block.layout.bbox)
-        draw.rectangle((x0 - 1, y0 - 1, x1 + 1, y1 + 1), outline=colour + (255,), fill=colour + (28,), width=2)
+        draw.rectangle((x0 - 1, y0 - 1, x1 + 1, y1 + 1), outline=colour + (255,), fill=None if page.ocr is not None else colour + (28,), width=2)
         tag = f"{order}{' !' if block.flagged else ''}"
         draw.rectangle((x0 - 1, y0 - 13, x0 + 7 * len(tag) + 4, y0 - 1), fill=colour + (230,))
         draw.text((x0 + 1, y0 - 13), tag, fill="white", font=small)

@@ -1,0 +1,38 @@
+[
+  {
+    "fixture": "arxiv_stamp.png",
+    "doc_id": "2601-14525v1",
+    "page_index": 0,
+    "bbox_points": [
+      16.2,
+      224.1,
+      36.5,
+      567.4
+    ],
+    "original_failure": "2"
+  },
+  {
+    "fixture": "wb_dec20.png",
+    "doc_id": "wb-eem-2021-12",
+    "page_index": 14,
+    "bbox_points": [
+      417.1,
+      695.5,
+      423.1,
+      713.2
+    ],
+    "original_failure": "20"
+  },
+  {
+    "fixture": "wb_scatter_dots.png",
+    "doc_id": "wb-eem-2021-12",
+    "page_index": 31,
+    "bbox_points": [
+      175.2,
+      555.4,
+      183.8,
+      567.1
+    ],
+    "original_failure": "8"
+  }
+]

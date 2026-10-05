@@ -1,15 +1,17 @@
 # OCR setup (Step 4c): exact offline install, for the owner to run
 
-Status: **prepared, nothing installed or downloaded by an agent.** The owner runs every command below in her own
-PowerShell, from the repository root, and pastes the output back. After that, the agent checks every hash against
-the "expected" column of the record table (§6) and fills in the "measured" column.
+Status (2026-10-06): **installed and hash-verified** for RapidOCR + GLM-OCR + PP-DocLayoutV2 on this laptop.
+Current stack: ADR-0005; current measurements/remaining owner work: `reports/step4c-final.md`.
+The commands in §§1–8 are the historical, specifically approved setup; GPU commands remain future work.
+The unattended close-out approval authorized only rapid-layout 1.2.1, its wheel dependencies, the V2 model,
+and the original GAO scan URL. No other install/download was performed in this run.
 
 Versions and hashes were read from PyPI, Hugging Face and the Ollama library on 2026-10-04.
 
 ## 0. Layout and rules
 
 - Readers (decision log, Oct 4):
-  - **Reader 1: PaddleOCR.** PP-OCRv5 mobile on the laptop CPU; PaddleOCR-VL on the work GPU.
+  - **Reader 1: RapidOCR 3.9.2 + PP-OCRv5 mobile ONNX** on the laptop CPU; PaddleOCR-VL on the work GPU (deferred).
   - **Reader 2: GLM-OCR** (Z.ai, 0.9B, MIT, GLM-V architecture: a different family from Paddle), run locally
     through Ollama, **on number-bearing crops only**. We call the model itself. We do not use the `glmocr` SDK
     pipeline, because it embeds a Paddle layout model and would make reader 2 share reader 1's failure modes.
@@ -360,3 +362,66 @@ degraded with its seed:
 - RapidOCR's default `Global.max_side_len: 2000` would shrink a 300-DPI page (2550 x 3300 px) and lose small digits. So
   Matn uses the PaddleOCR PP-OCRv5 detection defaults (limit side 64 / type `min`, max side 4000, `thresh` 0.3,
   `box_thresh` 0.6, `unclip_ratio` 1.5). These are recorded in the frozen 4c settings before any measurement.
+
+## 9. Step 4c close-out — layout (installed with explicit unattended approval)
+
+`rapid-layout==1.2.1` (Apache-2.0), wheel 6,875,844 bytes,
+sha256 `7d424dcaa92c7cfd9c1c45bc6b323293a6461cf95cad605958fd0961f2397acf`.
+All prior venv pins stayed unchanged; `pip check`: no broken requirements.
+The dependency wheel flow used the existing UTF-8 lock as constraints, including the existing locally built
+antlr wheel. No source build was run.
+
+```powershell
+.venv-ocr-rapid\Scripts\python.exe -m pip download --only-binary=:all: --find-links wheelhouse\rapidocr --dest wheelhouse\rapidocr --constraint requirements-ocr-rapid.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid\Scripts\python.exe -m pip install --no-index --find-links wheelhouse\rapidocr --constraint requirements-ocr-rapid.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid\Scripts\python.exe -m pip check
+.venv-ocr-rapid\Scripts\python.exe -c "from pathlib import Path; import subprocess; Path('requirements-ocr-rapid.lock.txt').write_text(subprocess.check_output([r'.venv-ocr-rapid\Scripts\python.exe','-m','pip','freeze'],text=True),encoding='utf-8')"
+```
+
+Model source (exact approved source):
+`https://www.modelscope.cn/models/RapidAI/RapidLayout/resolve/v1.2.0/onnx/pp_doc_layout/pp_doc_layoutv2.onnx`.
+File: `models/ocr/layout/pp_doc_layoutv2.onnx`, **213,963,993 bytes**,
+sha256 **`0bd2ea0997fe0789f0300292291f8bbf897d890b44a9a3bd5be72afd6198aa90`**.
+Measured size/hash match both `reports/step4c-report.md` and rapid-layout 1.2.1 `default_models.yaml`.
+
+```powershell
+New-Item -ItemType Directory -Force models\ocr\layout | Out-Null
+Invoke-WebRequest -Uri 'https://www.modelscope.cn/models/RapidAI/RapidLayout/resolve/v1.2.0/onnx/pp_doc_layout/pp_doc_layoutv2.onnx' -OutFile models\ocr\layout\pp_doc_layoutv2.onnx
+Get-Item models\ocr\layout\pp_doc_layoutv2.onnx | Select-Object Length
+Get-FileHash models\ocr\layout\pp_doc_layoutv2.onnx -Algorithm SHA256
+```
+
+The actual approved downloader verified size and hash before use. A mismatch deletes only that new download;
+network failures have at most two retries. No V3 or alternative model/source is allowed.
+Smoke: `out/reading/layout-smoke.json`, under `block_egress()`, local models only, no Application Control block.
+WB p31 layout inference: **3.53 seconds CPU**. No speed claim for the GPU.
+
+Ubuntu equivalents (future setup, **not run/downloaded here**): build a Linux wheelhouse, preserve the target
+Linux venv pins in its own UTF-8 lock, use its existing antlr wheel, then:
+
+```bash
+.venv-ocr-rapid/bin/python -m pip download --only-binary=:all: --find-links wheelhouse/rapidocr --dest wheelhouse/rapidocr --constraint requirements-ocr-rapid-linux.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid/bin/python -m pip install --no-index --find-links wheelhouse/rapidocr --constraint requirements-ocr-rapid-linux.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid/bin/python -m pip check
+.venv-ocr-rapid/bin/python -m pip freeze > requirements-ocr-rapid-linux.lock.txt
+mkdir -p models/ocr/layout
+curl -fL --proto '=https' -o models/ocr/layout/pp_doc_layoutv2.onnx 'https://www.modelscope.cn/models/RapidAI/RapidLayout/resolve/v1.2.0/onnx/pp_doc_layout/pp_doc_layoutv2.onnx'
+wc -c models/ocr/layout/pp_doc_layoutv2.onnx
+sha256sum models/ocr/layout/pp_doc_layoutv2.onnx
+```
+
+`reports/step4c-environment.json` records every local OCR model file's complete size/hash and the UTF-8 lock hashes.
+`.venv` = pipeline/render/tests (`requirements.lock.txt`); `.venv-ocr` = Paddle comparison environment
+(`requirements-ocr.lock.txt`); `.venv-ocr-rapid` = active OCR/layout worker (`requirements-ocr-rapid.lock.txt`).
+Ollama owns GLM outside these venvs; §6 records its full blob hash. GPU models remain explicitly deferred.
+
+## 10. Real-scan review for the owner
+
+After the offline real reader run: `.venv\Scripts\python.exe -m eval.reading.real.review`.
+Open `eval/reading/real/review.html`. Choose the existing `eval/reading/real/gt` folder, inspect each image and
+candidate, choose a reading or type the exact printed value, reject false detections, and add missing numbers by
+clicking two corners on the page. Check the full-page box, enter your name, then **Save GT**.
+If folder access is unavailable, **Download GT JSON** and replace the matching template filename manually.
+The generator never writes an answer or modifies a GT template. This review verifies numbers only.
+Then run `.venv\Scripts\python.exe -m eval.reading.real.measure` for actual number accuracy/false alarms.
+GAO pages appear only after the original source's SHA-256 verifies; no mirror or WebFetch copy is accepted.

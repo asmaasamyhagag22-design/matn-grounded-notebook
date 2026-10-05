@@ -18,6 +18,7 @@ DESKEW_COARSE_STEP = 0.25
 DESKEW_FINE_STEP = 0.02
 DESKEW_WORK_WIDTH = 800       # the angle search runs on a downscaled copy; the result is applied to the full image
 DENOISE_MEDIAN_SIZE = 3
+from .regions import RULES as CLOSEOUT_RULES
 
 
 @dataclass(frozen=True)
@@ -72,8 +73,43 @@ def preprocess(image: Image.Image, config: PreprocessConfig = PreprocessConfig()
         out = out.rotate(angle, resample=Image.Resampling.BICUBIC, fillcolor=255)
     record["rotation_deg"] = angle
     record["steps"].append({"step": "deskew", "applied": config.deskew, "angle_deg": angle})
-    if config.denoise:
-        out = out.filter(ImageFilter.MedianFilter(DENOISE_MEDIAN_SIZE))
-    record["steps"].append({"step": "denoise", "applied": config.denoise,
-                            "median_size": DENOISE_MEDIAN_SIZE if config.denoise else None})
+    noise = estimate_noise(out) if config.denoise else 0.0
+    filtered = config.denoise and noise >= CLOSEOUT_RULES["noise_threshold"]
+    if filtered:
+        out = edge_preserving(out)
+    record["steps"].append({"step": "denoise", "applied": config.denoise, "filtered": filtered,
+                            "noise": round(noise, 4), "threshold": CLOSEOUT_RULES["noise_threshold"],
+                            "filter": "light-bilateral-3x3" if filtered else None})
     return out, record
+
+
+def estimate_noise(image: Image.Image) -> float:
+    """RMS residual on flat-neighbor pixels; text edges are excluded. Includes isolated sensor impulses."""
+    pixels = np.asarray(image, dtype=np.float32)
+    pad = np.pad(pixels, 1, mode="edge")
+    neighbors = [pad[dy:dy+pixels.shape[0], dx:dx+pixels.shape[1]] for dy in range(3) for dx in range(3)
+                 if (dy, dx) != (1, 1)]
+    lo = np.minimum.reduce(neighbors); hi = np.maximum.reduce(neighbors)
+    flat = hi-lo < CLOSEOUT_RULES["noise_flat_neighbor_range"]
+    residual = pixels - sum(neighbors)/8
+    return float(np.sqrt(np.mean(residual[flat]**2))) if flat.any() else 0.0
+
+
+def edge_preserving(image: Image.Image) -> Image.Image:
+    """Small bilateral window; isolated one-pixel outliers repaired separately, connected punctuation retained."""
+    pixels = np.asarray(image, dtype=np.float32)
+    pad = np.pad(pixels, 1, mode="edge")
+    total = pixels.copy(); weight = np.ones_like(pixels)
+    lo = np.full_like(pixels, 255); hi = np.zeros_like(pixels)
+    sigma = CLOSEOUT_RULES["bilateral_range_sigma"]
+    for dy in range(-1, 2):
+        for dx in range(-1, 2):
+            if dx == dy == 0: continue
+            neighbor = pad[1+dy:1+dy+pixels.shape[0], 1+dx:1+dx+pixels.shape[1]]
+            lo = np.minimum(lo, neighbor); hi = np.maximum(hi, neighbor)
+            w = np.exp(-(neighbor-pixels)**2 / (2*sigma*sigma) - (dx*dx+dy*dy)/2)
+            total += w*neighbor; weight += w
+    out = total / weight
+    isolated = ((hi-lo) < 10) & (np.abs(pixels-(hi+lo)/2) > 100)
+    out[isolated] = (hi[isolated]+lo[isolated])/2
+    return Image.fromarray(np.clip(np.rint(out), 0, 255).astype(np.uint8))

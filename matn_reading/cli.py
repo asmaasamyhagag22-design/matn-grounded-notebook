@@ -201,6 +201,8 @@ def run(pdf: Path, out: Path, *, milestone: bool = False, worker_factory=None, g
                     pages[i].flags.append({"kind": "ocr_unavailable", "bbox": (0.0, 0.0, pages[i].width,
                                                                                pages[i].height), "error": str(error)})
             ocr_seconds = time.perf_counter() - ocr_started
+        from .ocr.regions import repeat_furniture
+        repeat_furniture(pages)
         (out / "blocks.jsonl").write_text("".join(block.contract.model_dump_json() + "\n" for page in pages
                                                   for block in page.blocks), encoding="utf-8")
         write_reading(pages, pdf.name, out / "reading.md")

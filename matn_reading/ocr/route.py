@@ -33,6 +33,7 @@ from .consensus import compare_line
 from .consistency import Cell, cell_value, check_table_totals, check_text_against_tables
 from .numbers import normalize, number_spans
 from .preprocess import PreprocessConfig, preprocess
+from .regions import RULES as CLOSEOUT, role as region_role, orientation
 
 RULES = json.loads(Path(__file__).with_name("ocr_rules.json").read_text(encoding="utf-8"))
 EXTRACTOR = ExtractorInfo(name="matn_reading.ocr", version="rapidocr-3.9.2+PP-OCRv5-mobile-onnx+glm-ocr-bf16")
@@ -44,7 +45,7 @@ BODY_HEIGHT_TOLERANCE = 0.25
 class OcrConfig:
     preprocess: PreprocessConfig = PreprocessConfig()
     second_read: bool = True
-    targets: frozenset[str] = frozenset(RULES["second_read_targets_laptop"])
+    targets: frozenset[str] = frozenset({"all"})
     confidence_bar: float | None = RULES["confidence_bar"]
     dpi: int = RULES["render_dpi"]
 
@@ -56,6 +57,7 @@ class _Word:
     box_px: BBox
     box: BBox
     line: int
+    role: str = "text"
 
 
 @dataclass
@@ -66,6 +68,8 @@ class _Line:
     box_px: BBox
     box: BBox
     words: list[_Word] = field(default_factory=list)
+    role: str = "text"
+    angle: float = 0.0
 
     @property
     def height(self) -> float:
@@ -94,12 +98,16 @@ def _lines(reply: dict, to_pt) -> list[_Line]:
     for index, raw in enumerate(reply["lines"]):
         box_px = _axis_box(raw["box"])
         line = _Line(index, raw["text"], float(raw["score"]), box_px, to_pt(box_px))
+        line.role = region_role(box_px, reply.get("layout", []))
+        line.angle = orientation(raw["box"], box_px, line.role)
         words = raw.get("words") or [{"text": raw["text"], "score": raw["score"], "box": raw["box"]}]
         for word in words:
             if not word["text"].strip():
                 continue
             wbox = _axis_box(word["box"])
-            line.words.append(_Word(word["text"], float(word["score"]), wbox, to_pt(wbox), index))
+            wrole = region_role(wbox, reply.get("layout", []))
+            if line.role == "vertical_text": wrole = "marginalia"
+            line.words.append(_Word(word["text"], float(word["score"]), wbox, to_pt(wbox), index, wrole))
         lines.append(line)
     return lines
 
@@ -222,6 +230,11 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         reader1_wall = time.perf_counter() - started
     lines = _lines(reply, to_pt)
     median_height = median([l.height for l in lines]) if lines else 1.0
+    for line in lines:
+        if line.angle and (line.box_px[0] < processed.width * CLOSEOUT["margin_fraction"] or
+                           line.box_px[2] > processed.width * (1-CLOSEOUT["margin_fraction"])):
+            line.role = "marginalia"
+            for word in line.words: word.role = "marginalia"
     flags: list[dict] = []
 
     # Every number token with its place, score and the reasons it is (or is not) trusted.
@@ -235,13 +248,18 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
                 entry = {"token": token, "line": line.index, "word": word.text, "score": word.score,
                          "bbox": _token_box(word, start, end), "status": "reader1_only", "reader2": None,
                          "flagged": False, "reasons": [], "targets": [],
-                         "kpi": _kpi(word, following, line, median_height), "_word": id(word)}
+                         "kpi": _kpi(word, following, line, median_height), "_word": id(word), "role": word.role}
                 tokens.append(entry)
                 by_line.setdefault(line.index, []).append(entry)
         line.words = words
 
     rows = _rows(lines)
-    tables = _tables(rows)
+    if "layout" in reply:
+        tables = [_rows([l for l in lines if l.role == "table" and _overlap(l.box_px, r["bbox"]) > 0.5])
+                  for r in reply["layout"] if r["class"] == "table"]
+        tables = [t for t in tables if t]
+    else:
+        tables = _tables(rows)  # protocol-less injected readers retained for existing unit tests only
     table_lines = {line.index for table in tables for row in table for line in row}
     for entry in tokens:
         line = lines[entry["line"]]
@@ -265,6 +283,14 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         x0, y0, x1, y1 = line.box_px
         crop = processed.crop((max(0, int(x0) - pad), max(0, int(y0) - pad),
                                min(processed.width, int(x1) + pad), min(processed.height, int(y1) + pad)))
+        rotated_reply = None
+        if line.angle:
+            crop = crop.rotate(line.angle, expand=True, resample=Image.Resampling.BICUBIC, fillcolor=255)
+            with tempfile.TemporaryDirectory() as folder:
+                upright = Path(folder) / "upright.png"
+                crop.save(upright)
+                from .reader1 import RapidOcrWorker
+                rotated_reply = worker.read(upright, layout=False) if isinstance(worker, RapidOcrWorker) else worker.read(upright)
         png = _png(crop)
         result = glm.read_line(png)
         second_reads["lines"] += 1
@@ -273,7 +299,22 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         second_reads["seconds"] += result.seconds
         verdict = compare_line([{"text": w.text, "score": w.score} for w in line.words], result.text)
         crop_name = None
-        if any(v.status != "agreed" for v in verdict.tokens) or verdict.extra_in_reader2:
+        if rotated_reply is not None:
+            rotated_text = " ".join(l["text"] for l in rotated_reply["lines"])
+            rotated_verdict = compare_line([{"text": rotated_text, "score": 1.0}], result.text)
+            original_numbers = [e["token"] for e in entries]
+            rotated_numbers = [t for t, _, _ in number_spans(rotated_text)]
+            stable = original_numbers == rotated_numbers and len(rotated_verdict.tokens) == len(original_numbers) and all(
+                t.status == "agreed" for t in rotated_verdict.tokens)
+            for entry in entries:
+                entry["rotation"] = {"angle": line.angle, "reader1": rotated_text, "reader2": result.text,
+                                     "agreed_after_rotation": stable}
+                if not stable:
+                    entry["flagged"] = True
+                    entry["reasons"].append("rotation_uncertain")
+                    flags.append({"kind": "uncertain_number", "bbox": entry["bbox"], "reason": "rotation_uncertain",
+                                  "reader1": entry["token"], "rotated_reader1": rotated_text, "reader2": result.text})
+        if line.angle or any(v.status != "agreed" for v in verdict.tokens) or verdict.extra_in_reader2:
             if crop_dir is not None:
                 crop_name = f"crops/{result.key}.png"
                 (Path(crop_dir) / "crops").mkdir(parents=True, exist_ok=True)
@@ -297,6 +338,11 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
             entry["reasons"].append("low_confidence")
             flags.append({"kind": "uncertain_number", "bbox": entry["bbox"], "reader1": entry["token"],
                           "reader2": None, "reason": "low_confidence", "score": entry["score"], "crop": None})
+    for entry in tokens:
+        if entry["role"] in ("figure_text", "header", "footer", "marginalia"):
+            entry["flagged"] = True
+            entry["reasons"].append(entry["role"])
+            flags.append({"kind": entry["role"], "bbox": entry["bbox"], "reader1": entry["token"]})
     number_words = {entry["_word"] for entry in tokens}
     for line in lines:
         for word in line.words:
@@ -320,7 +366,7 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         table_cells += [cell for row in cells_by_row for cell in row]
         for issue in check_table_totals(cells_by_row):
             flag_cells(issue.cells, issue.kind, issue.detail)
-    prose_cells = [_cell([w]) for line in lines if line.index not in table_lines for w in line.words
+    prose_cells = [_cell([w]) for line in lines if line.index not in table_lines for w in line.words if w.role == "text"
                    if number_spans(w.text)]
     for issue in check_text_against_tables(prose_cells, [c for c in table_cells if number_spans(c.text)]):
         flag_cells(issue.cells, issue.kind, issue.detail)
@@ -358,13 +404,21 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         return body_height if abs(height - body_height) <= BODY_HEIGHT_TOLERANCE * body_height else height
 
     layout_words = [Word(w.text, *w.box, size=size(w)) for line in lines for w in line.words]
-    blocks = order_blocks(group_blocks(group_lines(layout_words)), width) if layout_words else []
+    by_role = {}
+    for line in lines:
+        for w in line.words: by_role.setdefault(w.role, []).append(Word(w.text, *w.box, size=size(w)))
+    role_blocks = [(block, role) for role, words in by_role.items() for block in group_blocks(group_lines(words))]
+    blocks = order_blocks([b for b, _ in role_blocks], width) if layout_words else []
+    roles = {id(b): role for b, role in role_blocks}
     body = median(w.size for w in layout_words) if layout_words else 10.0
     flagged_boxes = [entry["bbox"] for entry in tokens if entry["flagged"]] + [
         f["bbox"] for f in flags if f["kind"] in ("low_confidence", "possible_drop")]
     read: list[ReadBlock] = []
     for order, block in enumerate(blocks):
-        kind = block_type(block, body, height, in_figure=False)
+        semantic = roles[id(block)]
+        kind = {"figure_text": "figure", "marginalia": "figure", "vertical_text": "figure",
+                "header": "header", "footer": "footer", "caption": "caption", "table": "table", "footnote": "footnote", "heading": "heading"}.get(
+                    semantic, block_type(block, body, height, in_figure=False))
         flagged = any(_overlap(block.bbox, box) > 0.5 for box in flagged_boxes) or bool(
             any(f["kind"] == "ocr_no_text" for f in flags))
         x0, top, x1, bottom = block.bbox
@@ -384,10 +438,12 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         "reader1_wall_seconds": round(reader1_wall, 3), "second_reads": second_reads,
         "targets": sorted(config.targets), "second_read": config.second_read, "confidence_bar": bar,
         "mean_confidence": round(sum(scores) / len(scores), 4) if scores else None, "ink_share": round(ink_share, 4),
-        "tokens": tokens, "lines": [{"index": l.index, "text": l.text, "score": l.score, "bbox": l.box,
+        "layout": reply.get("layout", []), "layout_seconds": reply.get("layout_seconds", 0.0),
+        "tokens": tokens, "lines": [{"index": l.index, "text": l.text, "score": l.score, "bbox": l.box, "role": l.role, "angle": l.angle,
                                       "words": [{"text": w.text, "score": w.score, "bbox": w.box} for w in l.words]}
                                      for l in lines],
         "tables": [_union(l.box for row in table for l in row) for table in tables],
     }
     return PageReading(page_index, page_label, width, height, tuple(cropbox), route, list(reasons), read, flags,
-                       [], details["tables"], {}, {}, [], ocr=details)
+                       [to_pt(r["bbox"]) for r in reply.get("layout", []) if r["class"] in ("chart", "image")],
+                       details["tables"], {}, {}, [], ocr=details)

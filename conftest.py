@@ -19,6 +19,20 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "tests/reading/ocr/test_closeout.py::test_scatter_dots_agreed_as_8_are_excluded_from_prose",
+    "tests/reading/ocr/test_closeout.py::test_header_footer_and_caption_are_kept_out_of_body_or_preserved",
+    "tests/reading/ocr/test_closeout.py::test_code_columns_do_not_trigger_text_table_alarm",
+    "tests/reading/ocr/test_closeout.py::test_rotated_stamp_and_axis_agreement_cannot_bypass_orientation",
+    "tests/reading/ocr/test_closeout.py::test_scatter_crop_with_agreed_8_is_flagged",
+    "tests/reading/ocr/test_closeout.py::test_repeated_margin_furniture_does_not_enter_prose",
+    "tests/reading/ocr/test_closeout.py::test_scan_overlay_preserves_character_pixels_and_keeps_legend",
+    "tests/reading/ocr/test_preprocess.py::test_deskew_recovers_a_known_rotation",
+    "tests/reading/ocr/test_preprocess.py::test_upright_page_needs_no_rotation",
+    "tests/reading/ocr/test_preprocess.py::test_every_step_is_recorded_and_can_be_switched_off",
+    "tests/reading/ocr/test_preprocess.py::test_denoise_removes_isolated_specks_but_keeps_a_decimal_point",
+    "tests/reading/test_cli.py::test_a_digital_pdf_gives_all_four_outputs",
+    "tests/reading/test_cli.py::test_a_scanned_page_goes_through_ocr_and_shows_flags_inline",
+    "tests/reading/test_cli.py::test_test_split_files_are_refused_unless_milestone",
     ".claude/hooks/test_guard.py::test_r1_allows_normal_project_paths",
     ".claude/hooks/test_guard.py::test_r1_blocks_restricted_paths_for_file_tools",
     ".claude/hooks/test_guard.py::test_r2_allows_loopback_and_local_commands",

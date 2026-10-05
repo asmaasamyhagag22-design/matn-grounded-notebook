@@ -66,6 +66,16 @@ def main() -> int:
         from rapidocr import RapidOCR
 
         engine = RapidOCR(params=_params(settings))
+        from matn_reading.ocr.regions import RULES as layout_rules
+        from matn_reading.ocr.reader1 import REPO, _sha256
+        model = REPO / layout_rules["layout_model"]
+        if not model.is_file() or model.stat().st_size != layout_rules["layout_bytes"] or _sha256(model) != layout_rules["layout_sha256"]:
+            protocol.write(json.dumps({"ready": False, "error": "layout model missing or hash/size mismatch"}) + "\n")
+            protocol.flush()
+            return 2
+        from rapid_layout import RapidLayout
+        layout = RapidLayout(model_type="pp_doc_layoutv2", model_dir_or_path=str(model),
+                             conf_thresh=layout_rules["layout_confidence"], engine_cfg={"use_cuda": False, "use_dml": False})
         models = {k: v for k, v in settings["params"].items() if k.endswith(("model_path", "rec_keys_path"))}
         protocol.write(json.dumps({"ready": True, "egress_guard": True, "models": models,
                                    "versions": {"rapidocr": "3.9.2", "onnxruntime": onnxruntime.__version__}}) + "\n")
@@ -78,7 +88,14 @@ def main() -> int:
                 started = time.perf_counter()
                 image = np.asarray(Image.open(request["image"]).convert("RGB"))
                 output = engine(image)
-                reply = {"ok": True, "lines": _lines(output), "seconds": round(time.perf_counter() - started, 3),
+                regions = []
+                layout_seconds = 0.0
+                if request.get("layout", True):
+                    detected = layout(image)
+                    regions = [{"class": name, "bbox": _plain(box), "score": float(score)}
+                               for name, box, score in zip(detected.class_names, detected.boxes, detected.scores)]
+                    layout_seconds = detected.elapse
+                reply = {"layout": regions, "layout_seconds": layout_seconds, "ok": True, "lines": _lines(output), "seconds": round(time.perf_counter() - started, 3),
                          "size": [int(image.shape[1]), int(image.shape[0])]}
             except Exception as error:  # report, never crash silently
                 reply = {"ok": False, "error": f"{type(error).__name__}: {error}",

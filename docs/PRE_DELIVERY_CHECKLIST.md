@@ -27,3 +27,15 @@ to the ministry. Tick an item only with evidence (a commit, a test, or a report 
 - [ ] **Logs never contain document content**: hashes and IDs only, with a test that scans the run logs.
 - [ ] **A full audit** of the delivered tree, like `audit/AUDIT.md`.
 - [ ] **A cross-review of the whole codebase** by an independent agent or person.
+
+## OCR قبل التسليم (Step 4c close-out)
+
+- [ ] **Client Windows Application Control:** allowlisting أو signing للـ OCR binaries (onnxruntime/OpenCV/Paddle)،
+      وتجربة على سياسة WDAC/AppLocker الفعلية. تغيير أمان اللابتوب مش حل تسليم.
+- [ ] **pymupdf-layout license review:** مراجعة قانونية مستقلة قبل أي استخدام؛ مش dependency في مسار OCR الحالي.
+- [ ] **Paddle vs RapidOCR parity على Linux:** نفس صفحات dev ونفس PP-OCRv5 models، مقارنة الأرقام/الصناديق؛
+      ONNX conversion لوحده مش دليل تطابق النتائج.
+- [ ] **GPU:** قياس PaddleOCR-VL وreader 3 (TeleOCR/OvisOCR2)، مع hashes، egress test، ووقت فعلي؛
+      ممنوع تحويل توقع السرعة لنتيجة مقاسة.
+- [ ] **Human real-scan GT:** مراجعة كل رقم من الصور والتوقيع في الأداة قبل إعلان real-scan accuracy أو true
+      false-alarm rate. إغلاق Step 4c يتطلب إنهاء البنود المحجوبة وقرار gate لو فشل.

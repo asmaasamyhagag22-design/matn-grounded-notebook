@@ -1,0 +1,17 @@
+{
+  "schema": "matn-ocr-closeout-rules/1",
+  "layout_model": "models/ocr/layout/pp_doc_layoutv2.onnx",
+  "layout_bytes": 213963993,
+  "layout_sha256": "0bd2ea0997fe0789f0300292291f8bbf897d890b44a9a3bd5be72afd6198aa90",
+  "layout_confidence": 0.5,
+  "region_word_coverage": 0.5,
+  "rotation_min_degrees": 15.0,
+  "vertical_aspect_ratio": 1.8,
+  "margin_fraction": 0.08,
+  "furniture_min_pages": 2,
+  "furniture_page_share": 0.5,
+  "noise_threshold": 2.0,
+  "bilateral_range_sigma": 16.0,
+  "bilateral_spatial_sigma": 1.0,
+  "noise_flat_neighbor_range": 30.0
+}
