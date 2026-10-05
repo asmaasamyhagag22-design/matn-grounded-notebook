@@ -16,7 +16,7 @@ FROZEN = {
     "matn_reading/ocr/consistency.py": "b7b684189715e65713508b96dff7cb08be32c1f85803a17c152201559fe8411d",
 }
 RULES_WITHOUT_BAR_SHA256 = "0b0491b6a0904e88880d9570dc93a756fd278daeee4b501d678e9b971b2553fc"
-CONFIDENCE_BAR = None
+CONFIDENCE_BAR = 1.0
 
 
 def _sha(text: str) -> str:

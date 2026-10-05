@@ -3,7 +3,7 @@
   "frozen_on": "2026-10-05",
   "tuning_scope": "dev-tune synthetic scans only (without GAO p12); no value may change after inspecting dev-check",
   "render_dpi": 300,
-  "confidence_bar": null,
+  "confidence_bar": 1.0,
   "confidence_bar_note": "null until calibrated on dev-tune; the calibration result is frozen in its own commit before dev-check is measured",
   "second_read_targets_laptop": ["low_confidence", "table", "kpi", "summary"],
   "second_read_targets_gpu": ["all"],
