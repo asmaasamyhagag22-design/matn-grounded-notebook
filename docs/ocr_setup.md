@@ -332,10 +332,24 @@ Python-version decision). Windows wheels do not install on Linux, so run the dow
 `--platform manylinux_2_28_x86_64 --python-version 3.12`.
 
 **Installed 2026-10-05 by the owner** (transcript `out/ocr_setup_log.txt`; PowerShell 5.1 transcripts do not capture
-native program output, so the agent re-ran `pip check`: `No broken requirements found.`). `wheelhouseapidocrreeze.txt`
+native program output, so the agent re-ran `pip check`: `No broken requirements found.`). `wheelhouse\rapidocr\freeze.txt`
 was UTF-16 LE (PowerShell 5.1 `>`); converted to UTF-8, and the 22 pins are in `requirements-ocr-rapid.lock.txt`.
 Import probes in `.venv-ocr-rapid` (cv2 5.0.0, numpy 2.4.6, onnxruntime 1.30.0, shapely 2.1.2, pyclipper 1.4.0,
 rapidocr): **no Application Control block**.
+
+**Smoke test (2026-10-05, agent)**, run under `block_egress()` on GAO p3 (dev-tune), rendered at 300 DPI and
+degraded with its seed:
+
+- the RapidOCR log shows `Using models/ocr/rapidocr/ch_PP-OCRv5_det_mobile.onnx`, `..._cls_mobile.onnx` and
+  `..._rec_mobile.onnx`, and nothing else. The wheel also bundles PP-OCRv6 small models inside the package; they were
+  not loaded;
+- the rec ONNX carries an embedded character list, and RapidOCR then **ignores `rec_keys_path`**. The embedded list is
+  identical to the verified `ppocrv5_dict.txt` (18,383 entries), so both paths decode the same way;
+- OpenCV 5.0.0, CPU provider only: model load 3.3 s, then 8.1 s for the 2550 x 3301 page, with 43 lines and per-word
+  scores and boxes;
+- RapidOCR's default `text_score: 0.5` silently drops low-confidence lines. Matn sets it to 0 and flags low
+  confidence itself. When detection fails, RapidOCR only logs a warning and returns nothing, so Matn flags an inked
+  page with no text read (`ocr_no_text`).
 
 ### 8.5 How Matn calls it (reviewed before the code; frozen with the 4c rules)
 
