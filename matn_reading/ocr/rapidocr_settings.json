@@ -1,0 +1,35 @@
+{
+  "schema": "matn-rapidocr-settings/1",
+  "note": "Reader 1 = PP-OCRv5 mobile (ONNX conversion of the pinned Paddle models) via RapidOCR 3.9.2. Every model path is explicit and inside models/ocr/rapidocr/, so nothing can be downloaded. Detection uses the PaddleOCR PP-OCRv5 defaults (docs/ocr_setup.md 8.5). text_score 0 keeps every line: Matn flags low confidence itself instead of dropping text.",
+  "model_dir": "models/ocr/rapidocr",
+  "params": {
+    "Global.use_cls": false,
+    "Global.text_score": 0.0,
+    "Global.max_side_len": 4000,
+    "Global.min_side_len": 30,
+    "Global.return_word_box": true,
+    "Global.log_level": "warning",
+    "Global.model_root_dir": "models/ocr/rapidocr",
+    "Det.engine_type": "onnxruntime",
+    "Det.ocr_version": "PP-OCRv5",
+    "Det.model_type": "mobile",
+    "Det.model_path": "models/ocr/rapidocr/ch_PP-OCRv5_det_mobile.onnx",
+    "Det.limit_side_len": 64,
+    "Det.limit_type": "min",
+    "Det.thresh": 0.3,
+    "Det.box_thresh": 0.6,
+    "Det.unclip_ratio": 1.5,
+    "Cls.model_path": "models/ocr/rapidocr/ch_ppocr_mobile_v2.0_cls_mobile.onnx",
+    "Rec.engine_type": "onnxruntime",
+    "Rec.ocr_version": "PP-OCRv5",
+    "Rec.model_type": "mobile",
+    "Rec.model_path": "models/ocr/rapidocr/ch_PP-OCRv5_rec_mobile.onnx",
+    "Rec.rec_keys_path": "models/ocr/rapidocr/ppocrv5_dict.txt"
+  },
+  "model_sha256": {
+    "ch_PP-OCRv5_det_mobile.onnx": "4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae",
+    "ch_PP-OCRv5_rec_mobile.onnx": "5825fc7ebf84ae7a412be049820b4d86d77620f204a041697b0494669b1742c5",
+    "ch_ppocr_mobile_v2.0_cls_mobile.onnx": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c",
+    "ppocrv5_dict.txt": "d1979e9f794c464c0d2e0b70a7fe14dd978e9dc644c0e71f14158cdf8342af1b"
+  }
+}

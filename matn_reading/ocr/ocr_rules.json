@@ -1,0 +1,21 @@
+{
+  "schema": "matn-ocr-rules/1",
+  "frozen_on": "2026-10-05",
+  "tuning_scope": "dev-tune synthetic scans only (without GAO p12); no value may change after inspecting dev-check",
+  "render_dpi": 300,
+  "confidence_bar": null,
+  "confidence_bar_note": "null until calibrated on dev-tune; the calibration result is frozen in its own commit before dev-check is measured",
+  "second_read_targets_laptop": ["low_confidence", "table", "kpi", "summary"],
+  "second_read_targets_gpu": ["all"],
+  "crop_pad_px": 8,
+  "row_center_tolerance_height": 0.5,
+  "table_row_min_cells": 2,
+  "table_min_rows": 2,
+  "table_max_row_gap_height": 2.5,
+  "cell_split_gap_height": 0.8,
+  "kpi_large_line_height_ratio": 1.5,
+  "kpi_units": ["million", "millions", "billion", "billions", "trillion", "percent", "bn", "mn"],
+  "kpi_symbols": ["%", "$", "€", "£"],
+  "empty_page_ink_share": 0.005,
+  "ink_threshold_gray": 128
+}
