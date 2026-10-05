@@ -1,6 +1,7 @@
 """Demo dashboard (app/dashboard.py) and its data layer (matn_deck/demo_data.py)."""
 from __future__ import annotations
 
+import importlib
 import re
 from pathlib import Path
 
@@ -10,6 +11,9 @@ from matn_deck import demo_data
 
 ROOT = Path(__file__).resolve().parents[1]
 DASHBOARD = ROOT / "app" / "dashboard.py"
+APPLICATION_CONTROL = "Application Control policy has blocked"
+# Compiled pyarrow modules the dashboard loads (st.dataframe -> pandas -> pyarrow.compute).
+PYARROW_BINARIES = ("pyarrow.lib", "pyarrow.compute")
 PAGES = ["الرئيسية", "معرض القوالب", "اعمل عرض", "نفس الحقايق، أي قالب", "الإيصالات", "الجودة", "الطريق"]
 
 
@@ -41,6 +45,39 @@ def test_last_test_run_falls_back_to_the_handoff(tmp_path, monkeypatch):
     assert (run["passed"], run["skipped"], run["seconds"]) == (428, 6, 299.5)
 
 
+def application_control_block(modules=PYARROW_BINARIES, importer=importlib.import_module) -> str | None:
+    """The skip reason when Windows Application Control blocks a pyarrow binary; None when every module imports.
+
+    Any other import failure is raised, so it still fails the test.
+    """
+    for module in modules:
+        try:
+            importer(module)
+        except ImportError as error:
+            if APPLICATION_CONTROL in str(error):
+                return f"environment: Windows Application Control blocks {module} ({error})"
+            raise
+    return None
+
+
+def test_application_control_block_names_the_blocked_module_and_reraises_anything_else():
+    def blocked(name):
+        if name == "pyarrow.compute":
+            raise ImportError("DLL load failed while importing _compute: An Application Control policy has "
+                              "blocked this file.")
+
+    reason = application_control_block(importer=blocked)
+    assert reason is not None
+    assert "Windows Application Control" in reason and "pyarrow.compute" in reason and "_compute" in reason
+
+    def broken(name):
+        raise ImportError("No module named 'pyarrow'")
+
+    with pytest.raises(ImportError, match="No module named"):
+        application_control_block(importer=broken)
+    assert application_control_block(importer=lambda name: None) is None
+
+
 def test_dashboard_has_no_external_urls_or_pdf_library():
     source = DASHBOARD.read_text(encoding="utf-8") + (ROOT / "matn_deck" / "demo_data.py").read_text(encoding="utf-8")
     urls = re.findall(r"https?://[^\s\"')]+", source)
@@ -51,6 +88,9 @@ def test_dashboard_has_no_external_urls_or_pdf_library():
 
 @pytest.mark.skipif(not (demo_data.OUT / "manifest.json").is_file(), reason="demo cache not built (out/demo/)")
 def test_every_dashboard_page_loads_from_the_cache():
+    blocked = application_control_block()
+    if blocked:
+        pytest.skip(blocked)
     from streamlit.testing.v1 import AppTest
 
     app = AppTest.from_file(str(DASHBOARD), default_timeout=180)
