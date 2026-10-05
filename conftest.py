@@ -19,6 +19,20 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "tests/reading/ocr/test_glm.py::test_leading_blank_output_and_spaces_are_trimmed",
+    "tests/reading/ocr/test_glm.py::test_a_failed_call_returns_an_error_and_is_not_cached",
+    "tests/reading/test_pdf_page.py::test_edge_case_counts_on_a_generated_page",
+    "tests/reading/test_read.py::test_block_types_order_and_contract_blocks",
+    "tests/reading/test_step4b2_regressions.py::test_giant_display_number_does_not_bridge_two_heading_rows",
+    "tests/reading/test_step4b2_regressions.py::test_footnote_body_prefix_is_a_linked_marker_not_a_prose_number",
+    "tests/reading/test_step4b2_regressions.py::test_side_heading_within_half_line_leads_its_paragraph",
+    "tests/reading/test_step4b2_regressions.py::test_bold_lead_sentence_stays_in_its_paragraph",
+    "tests/reading/test_step4b2_regressions.py::test_visibility_splits_outside_cropbox_and_later_image_from_prose",
+    "tests/reading/test_step4b2_regressions.py::test_lone_side_heading_beside_a_wide_body_leads_its_paragraph",
+    "tests/test_contact_sheet.py::test_contact_sheet_replaces_an_existing_png_atomically",
+    "tests/test_creative_templates.py::test_background_art_is_perceptible_while_content_stays_calm",
+    "tests/test_creative_templates.py::test_card_and_divider_tokens_are_honored_and_classic_defaults_stay_unchanged",
+    "tests/test_template_renderer.py::test_specimen_exercises_every_variant_and_slide_type",
     "tests/reading/ocr/test_closeout.py::test_score_one_still_gets_the_default_second_read",
     "tests/reading/ocr/test_closeout.py::test_undetected_vertical_layout_region_is_rotated_and_second_read",
     "tests/reading/test_closeout_e2e.py::test_generated_image_pdf_real_worker_marks_failed_second_read",

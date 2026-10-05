@@ -1,11 +1,11 @@
-# OCR rules (Step 4c). FROZEN before the first OCR measurement.
+# OCR rules (Step 4c close-out). Re-frozen before holdout-2.
 
 Frozen on 2026-10-05, before any OCR result was measured. `eval/tests/test_ocr_rules_frozen.py` holds the sha256 of
 this file, `matn_reading/ocr/ocr_rules.json`, `matn_reading/ocr/rapidocr_settings.json`,
 `matn_reading/ocr/consensus.py`, `matn_reading/ocr/numbers.py` and `matn_reading/ocr/consistency.py`. Changing
 any of them needs its own commit with the owner's approval. The single planned exception is
 `confidence_bar` (§4): it is calibrated on dev-tune and frozen in its own commit **before** dev-check is measured.
-Nothing changes after dev-check has been seen. The digital rules (`docs/reading_eval_rules.md`) stay as they are; its §2
+The owner approved close-out changes on Oct 6: dev-check is now seen. Nothing changes after holdout-2 results are opened. The digital rules (`docs/reading_eval_rules.md`) stay as they are; its §2
 number tokenizer and normalization are reused here unchanged.
 
 ## 1. Readers
@@ -22,7 +22,13 @@ number tokenizer and normalization are reused here unchanged.
 ## 2. Page images
 
 Render the CropBox at 300 DPI with pypdfium2, then deskew (projection profile, ±4°, 0.25° coarse and 0.02° fine
-steps), then a light denoise (3×3 median). Each step is recorded in the page's OCR details and can be switched off.
+steps), then noise-adaptive denoise. Estimate RMS residual on flat-neighbor pixels (neighbor range < 30).
+Below **2.0**, do not filter; at/above 2.0, a light 3×3 bilateral filter (range sigma 16, spatial sigma 1),
+with isolated one-pixel impulse repair. Connected punctuation remains intact. `applied` records whether the
+caller enabled the denoise stage; `filtered` records whether the image was actually filtered.
+Threshold 2.0 was selected on **19 dev-tune pages only**, with GAO p12 excluded, by highest exact number accuracy,
+then lower median CER, then higher threshold. Grid 2/2.5/4/6/8. Full paired results (20 pages retained) and evidence:
+`reports/step4c-denoise-selection.json`. No holdout-2 or seen-check results were used.
 
 ## 3. Consensus (no silent choice between readers)
 
@@ -38,7 +44,7 @@ steps), then a light denoise (3×3 median). Each step is recorded in the page's 
 
 ## 4. Which lines get a second read, and the confidence bar
 
-- Targets are configurable. On the laptop: `low_confidence`, `table`, `kpi`, `summary`. On the GPU target: `all`.
+- Targets are configurable for the harness/ablations. The production default is **all** on both laptop and GPU; even a score of exactly 1.0 gets a second read. The frozen confidence bar remains 1.0.
   A line is second-read when any of its numbers is targeted, and then the consensus verdict applies to every number
   on that line.
   - `low_confidence`: the number's reader-1 word score is below `confidence_bar`;
@@ -90,7 +96,42 @@ steps), then a light denoise (3×3 median). Each step is recorded in the page's 
   when it ran. Reported with and without second reads.
 - **Ablations**, each on the same pages: `full` (deskew + denoise + laptop second reads), `no_deskew`, `no_denoise`,
   and `reader1_alone` (no second reads; the bar still flags low confidence).
-- **Gate:** 0 silent number errors on both dev-tune and dev-check synthetic scans. If dev-tune passes and dev-check
-  does not, that is overfitting; nothing is changed after looking at dev-check.
+- **Current gate:** 0 reader-attributed silent number errors on **holdout-2**, after visually adjudicating every raw
+  silent error. Report raw counts alongside adjudication, flag rate and false-alarm share of flags. Never tune on
+  holdout-2; a failure is BLOCKED-ON-OWNER. The 20 tune/11 seen-check pages are diagnostics, not the current gate.
+  The 30 holdout-2 pages/seeds were committed in f4d87a1 before any close-out code, stratified by dev document and
+  digital-metadata page type and disjoint from all 31 prior OCR synthetic pages. They were previously measured
+  digitally in 4b; this is an OCR holdout, not independent documents.
 - **Real scans:** measured only after `eval.reading.real.verify` confirms the sha256. Results, flags and time are
   reported, with no gate, until the owner's hand-verified ground truth exists (`status: verified`).
+
+
+## 7. Close-out semantic regions and orientation (approved Oct 6, frozen before holdout-2)
+
+`matn_reading/ocr/closeout_rules.json` pins the PP-DocLayoutV2 ONNX path, bytes and full hash. rapid-layout 1.2.1,
+confidence threshold **0.5**, local CPU provider, egress guard. Missing/bad models refuse the worker startup.
+Classify words with **>=0.5 of their own area** covered by a region; captions take precedence over an enclosing
+image, then the smaller region. `chart`/`image` text becomes `figure_text`; `header`/`footer`/images and page
+`number` become page furniture. `figure_title`/`table_title` remain captions, footnotes remain footnotes.
+`figure_text`/`marginalia` map to the existing Block type `figure` and are outside prose; their numbers are flagged.
+No new contract enum/version. Production tables and text-table checks operate only on detected `table` regions;
+code columns are never promoted by the old gap heuristic. Protocol-less injected unit-test readers alone retain
+that heuristic to exercise the existing table arithmetic tests.
+
+Orientation: polygon baseline angle **>=15 degrees**, or vertical aspect ratio **>1.8**, or `vertical_text` class.
+Use the long polygon side for clearly vertical regions, baseline for ordinary lines (short upright digits are
+not rotated just because a glyph is taller than wide). Rotate the padded crop upright, read it again with reader 1,
+then reader 2. Keep reader 1's original value; accept a number only if the post-rotation sequences exactly agree
+and preserve the original numeric sequence. Otherwise `rotation_uncertain` / `uncertain_number`. Reader-2-only
+numbers become `possible_drop`. A vertical region missed by the OCR detector still gets this re-read. Rotated
+stamps in the outer **8%** side margins become marginalia, even if readers agree.
+
+Multi-page one-command reading cross-checks furniture by repetition within the outer **8%** top/bottom margins:
+normalized digits, at least **2** distinct pages and **>=50%** of input pages. Single-page benchmark results use
+the layout classes; the repetition cross-check is covered by its multi-page regression test.
+
+All original numeric normalization, matching thresholds and raw scoring remain unchanged. Semantic exclusions
+count as flagged tokens in the historical flag-rate definition. The reported false-alarm share includes correct
+reads excluded for legitimate layout reasons; role counts are shown separately so this is not mistaken for
+uncertainty-review burden. Real GT remains owner-only. True real false alarms need signed full-page review;
+`real.measure` reports both false-alarm share among flags and false-positive rate on correct reads.
