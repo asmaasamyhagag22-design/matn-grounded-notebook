@@ -19,6 +19,7 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "tests/reading/ocr/test_closeout.py::test_horizontal_fragment_of_vertical_margin_stamp_is_not_accepted",
     "eval/tests/test_closeout_real_layer.py::test_real_runner_passes_embedded_layer_to_reader",
     "eval/tests/test_fetch_sources.py::test_tls_uses_the_certifi_bundle_and_keeps_verification_strict",
     "eval/tests/test_fetch_sources.py::test_https_requests_use_that_context",

@@ -9,15 +9,15 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 FROZEN = {
-    "matn_reading/ocr/closeout_rules.json": "8433c5b40a2119a602a55c83ad918e9a4ef1d43fd01a654fde0a0d67b483f60a",
+    "matn_reading/ocr/closeout_rules.json": "0a03d4331c6b3b9f4c9043daffa6dc4a9ae645b12e2e8f62c5b82e2b4c705985",
     "matn_reading/ocr/preprocess.py": "d153f7585b95f037de50f174219ad6f166077e989213a22f10a8456b844cddae",
     "matn_reading/ocr/regions.py": "88bab7b1bdddfa3753dc8b574e57586cfb633178a1e5d13dc61d2a123d0cea63",
-    "matn_reading/ocr/route.py": "562b5967f26614a5e03e537606affae0d83d5a20574e9de45feffca260e8518a",
+    "matn_reading/ocr/route.py": "d36de4f457d71c4a7188d8fa56ec13dbed456cc073860f93ae9f6650e046c0f5",
     "matn_reading/ocr/worker.py": "262d30a6626b5da5ec3eeab75e4728819498f61d9312dee875485b764ddb26b0",
     "matn_reading/ocr/reader1.py": "fed053f26fbb70a32e0451731ada65eeeb0824a763084eabedab20f0d8940e15",
     "matn_reading/cli.py": "a296b8de5f466a78a2ea4d2b004459e13954b38302e057f4ff125d1684f47672",
     "eval/reading/synthetic/holdout2.json": "3ed1cd6cc64495264a48c30cb37523fa03ba134bf8062b510aa090f3d1b02a96",
-    "docs/ocr_rules.md": "f78a24c2cc45a1ab7af5f73b8b6c09970cdba76cca870750974aa62bfd179917",
+    "docs/ocr_rules.md": "8f4f9cee70971a8587bae834c36839494613dcccb0fdf670c8ecca55f79709d2",
     "matn_reading/ocr/rapidocr_settings.json": "dc6e9e3febe5905111af74e8aade66d3d3953943939f0b86af0b3c2093358323",
     "matn_reading/ocr/consensus.py": "1d791a18742380960409403ad6acc9477d40da690224c3714c8ada7b98553a3a",
     "matn_reading/ocr/numbers.py": "9456df442c6d850e053c7efb159c46cb9894d5f61783974538b1976fb271b762",

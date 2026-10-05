@@ -125,6 +125,10 @@ then reader 2. Keep reader 1's original value; accept a number only if the post-
 and preserve the original numeric sequence. Otherwise `rotation_uncertain` / `uncertain_number`. Reader-2-only
 numbers become `possible_drop`. A vertical region missed by the OCR detector still gets this re-read. Rotated
 stamps in the outer **8%** side margins become marginalia, even if readers agree.
+If that side strip contains rotated marginalia, horizontal-looking text fragments entirely within the same
+strip are also marginalia (the detector can split a vertical stamp into tall letters and one short digit).
+Explicit captions/tables/figure/furniture roles and body text outside that strip keep their classification.
+This correction was identified on dev-tune arXiv p0 and re-frozen before any holdout-2 read.
 
 Multi-page one-command reading cross-checks furniture by repetition within the outer **8%** top/bottom margins:
 normalized digits, at least **2** distinct pages and **>=50%** of input pages. Single-page benchmark results use

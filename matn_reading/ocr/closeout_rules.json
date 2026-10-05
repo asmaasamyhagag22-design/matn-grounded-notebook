@@ -8,6 +8,7 @@
   "rotation_min_degrees": 15.0,
   "vertical_aspect_ratio": 1.8,
   "margin_fraction": 0.08,
+  "margin_stamp_fragments": "text_entirely_in_same_side_strip",
   "furniture_min_pages": 2,
   "furniture_page_share": 0.5,
   "noise_threshold": 2.0,

@@ -240,6 +240,18 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
                            line.box_px[2] > processed.width * (1-CLOSEOUT["margin_fraction"])):
             line.role = "marginalia"
             for word in line.words: word.role = "marginalia"
+    # A vertical stamp may be detected as several tall fragments plus isolated upright-looking digits.
+    # Once a side strip contains rotated marginalia, text entirely inside that strip is marginalia too.
+    # Preserve explicitly detected table/caption/figure/furniture roles; body text outside the strip is untouched.
+    edge = processed.width * CLOSEOUT["margin_fraction"]
+    left_stamp = any(l.role == "marginalia" and l.box_px[0] < edge for l in lines)
+    right_stamp = any(l.role == "marginalia" and l.box_px[2] > processed.width-edge for l in lines)
+    for line in lines:
+        if line.role == "text" and ((left_stamp and line.box_px[2] <= edge) or
+                                    (right_stamp and line.box_px[0] >= processed.width-edge)):
+            line.role = "marginalia"
+            for word in line.words:
+                if word.role == "text": word.role = "marginalia"
     flags: list[dict] = []
 
     # Every number token with its place, score and the reasons it is (or is not) trusted.

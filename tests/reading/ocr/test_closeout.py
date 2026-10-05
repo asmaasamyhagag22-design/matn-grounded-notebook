@@ -153,3 +153,14 @@ def test_score_one_still_gets_the_default_second_read(tmp_path):
     glm=FakeGlm({"a":"Staff 12"})
     page=_read([_line([("Staff",1.0),("12",1.0)],400)],glm,config=OcrConfig(),tmp_path=tmp_path)
     assert len(glm.asked)==1 and page.ocr["tokens"][0]["status"]=="agreed"
+
+
+def test_horizontal_fragment_of_vertical_margin_stamp_is_not_accepted(tmp_path):
+    # Final dev-tune arXiv p0: the detector splits the rotated stamp into tall letters and an upright-looking 2.
+    stamp={"text":"S","score":.99,"box":[[60,1700],[120,1700],[120,1950],[60,1950]],"words":[]}
+    fragment={"text":"2","score":.98253,"box":[[77,2100],[138,2100],[138,2152],[77,2152]],"words":[]}
+    body=_line([("12",.99)],2100,x=500,height=52)
+    page=read([stamp,fragment,body],[],{"a":"S","b":"2","c":"12"},tmp_path)
+    two,twelve=page.ocr['tokens']
+    assert two['role']=='marginalia' and two['flagged']
+    assert twelve['role']=='text' and not twelve['flagged']

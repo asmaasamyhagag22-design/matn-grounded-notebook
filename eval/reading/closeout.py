@@ -25,7 +25,7 @@ from matn_reading.pdf_page import OpenPdf
 from matn_reading.triage import Route, decide_route
 
 REPO = Path(__file__).resolve().parents[2]
-OUT = REPO / "out/reading/step4c-closeout-final"
+OUT = REPO / "out/reading/step4c-closeout-final-v2"
 
 
 def fingerprint(mode):
