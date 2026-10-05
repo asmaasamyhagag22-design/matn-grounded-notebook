@@ -218,6 +218,15 @@ Measured 2026-10-04 after the owner approved §2-§3 (installs and downloads onl
 | PP-OCRv5_mobile_rec | `682f2053…` | inference.pdiparams | `2460da90875937c94db97eba74ae3d9e5d4c4c57c42f1f41531c09a26bcc771a` | same (match) |
 | PP-OCRv5_mobile_rec | `682f2053…` | inference.json / .yml / config.json | (measured) | `24587345250c7332d0fc6f9a44e794d078cdaeb64c302fef906f325619de2569` / `5dfeb2777f6d0db8177d8128a8acfcf6e6276dc4ac73ea3bf0dc06d6a5e85d8e` / `6df1587ae056f0b987125fc894b17f62ae3a12644fa2488d108f19377da9c1a8` |
 | GLM-OCR | `glm-ocr:bf16`, ID `6effedd0dc8a` (match) | Ollama blob (`FROM` line), 2,219,298,752 bytes | (full digest from `ollama show`) | `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` (file hash = blob name) |
+| rapidocr | 3.9.2 (`.venv-ocr-rapid`, 2026-10-05) | wheel | `04d6b8d151f823d930bd91910555f57bea897c0c44fa6794267b94cf9c1ef9a0` | same (match) |
+| onnxruntime | 1.30.0 cp311 win_amd64 | wheel | `0edd0145a6e3fce8a1276491dc784d615e3c58bcb952c9b4e5c876d5c6a12ad7` | same (match) |
+| antlr4-python3-runtime | 4.9.3 | sdist / locally built wheel | `f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b` (sdist) | sdist same (match); built wheel `27e18b9ef0045bcefed5f6e3b7d90416335a4dd4b4d290d88c42f5d1038803b1` |
+| omegaconf | 2.3.0 | wheel | (from `pip download`) | `7b4df175cdb08ba400f45cae3bdcae7ba8365db4d165fc65fd04b050ab63b46b` |
+| opencv-python | 5.0.0.93 (resolved; new major) | cp37-abi3 win_amd64 wheel | (from `pip download`) | `f90ba04b8f73bc5c3814037699739f0156f597338a98f05956c684e7c3ca10d2` |
+| ch_PP-OCRv5_det_mobile (ONNX) | ModelScope `RapidAI/RapidOCR` @ `v3.9.2` | `.onnx`, 4,819,576 bytes | `4d97c44a20d30a81aad087d6a396b08f786c4635742afc391f6621f5c6ae78ae` | same (match) |
+| ch_PP-OCRv5_rec_mobile (ONNX) | same | `.onnx`, 16,631,306 bytes | `5825fc7ebf84ae7a412be049820b4d86d77620f204a041697b0494669b1742c5` | same (match) |
+| ch_ppocr_mobile_v2.0_cls (ONNX, unused) | same | `.onnx`, 585,532 bytes | `e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c` | same (match) |
+| ppocrv5_dict.txt | same (`paddle/.../ch_PP-OCRv5_rec_mobile/`) | 74,012 bytes, UTF-8, LF, no BOM | (not published) | `d1979e9f794c464c0d2e0b70a7fe14dd978e9dc644c0e71f14158cdf8342af1b`; identical, entry by entry, to `PostProcess.character_dict` in `models/ocr/PP-OCRv5_mobile_rec/inference.yml` (18,383 entries, 0 differences; 10 entries are two-code-point flag emoji in both) |
 | PaddleOCR-VL-1.6 | `c5630aba…` | model.safetensors | `85a479d506a11e724e7285d395c551be69f41dbc16b6342d3cacfb189aed71db` | GPU, later |
 | TeleOCR | `e9258535…` | model.safetensors | `9817b18041bd96403f75e38a33b28ed0cd5fb2641f67eead673afabd3c408109` | GPU, later |
 | OvisOCR2 | `1fc9221b…` | model.safetensors | `9270560288656ece5cb3a6989001afcf5af8d223bceed4a423c33a008861d009` | GPU, later |
@@ -321,6 +330,12 @@ sha256sum models/ocr/rapidocr/*
 On Ubuntu, the onnxruntime wheel is `manylinux_2_28_x86_64` (sha256 in §8.1, cp311 or cp312 depending on the open
 Python-version decision). Windows wheels do not install on Linux, so run the download on Linux or add
 `--platform manylinux_2_28_x86_64 --python-version 3.12`.
+
+**Installed 2026-10-05 by the owner** (transcript `out/ocr_setup_log.txt`; PowerShell 5.1 transcripts do not capture
+native program output, so the agent re-ran `pip check`: `No broken requirements found.`). `wheelhouseapidocrreeze.txt`
+was UTF-16 LE (PowerShell 5.1 `>`); converted to UTF-8, and the 22 pins are in `requirements-ocr-rapid.lock.txt`.
+Import probes in `.venv-ocr-rapid` (cv2 5.0.0, numpy 2.4.6, onnxruntime 1.30.0, shapely 2.1.2, pyclipper 1.4.0,
+rapidocr): **no Application Control block**.
 
 ### 8.5 How Matn calls it (reviewed before the code; frozen with the 4c rules)
 
