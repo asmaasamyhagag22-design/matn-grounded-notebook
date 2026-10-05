@@ -400,8 +400,8 @@ Ubuntu equivalents (future setup, **not run/downloaded here**): build a Linux wh
 Linux venv pins in its own UTF-8 lock, use its existing antlr wheel, then:
 
 ```bash
-.venv-ocr-rapid/bin/python -m pip download --only-binary=:all: --find-links wheelhouse/rapidocr --dest wheelhouse/rapidocr --constraint requirements-ocr-rapid-linux.lock.txt rapid-layout==1.2.1
-.venv-ocr-rapid/bin/python -m pip install --no-index --find-links wheelhouse/rapidocr --constraint requirements-ocr-rapid-linux.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid/bin/python -m pip download --only-binary=:all: --find-links wheelhouse/rapidocr --dest wheelhouse/rapidocr --constraint requirements-ocr-rapid.lock.txt rapid-layout==1.2.1
+.venv-ocr-rapid/bin/python -m pip install --no-index --find-links wheelhouse/rapidocr --constraint requirements-ocr-rapid.lock.txt rapid-layout==1.2.1
 .venv-ocr-rapid/bin/python -m pip check
 .venv-ocr-rapid/bin/python -m pip freeze > requirements-ocr-rapid-linux.lock.txt
 mkdir -p models/ocr/layout

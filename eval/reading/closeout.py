@@ -25,7 +25,7 @@ from matn_reading.pdf_page import OpenPdf
 from matn_reading.triage import Route, decide_route
 
 REPO = Path(__file__).resolve().parents[2]
-OUT = REPO / "out/reading/step4c-closeout"
+OUT = REPO / "out/reading/step4c-closeout-final"
 
 
 def fingerprint(mode):
@@ -93,7 +93,7 @@ def run(subset, mode="final", max_seconds=6900):
                 else:
                     image, params = synthetic_image(doc,pdf,index)
             page = read_scan_page(image,page_index=index,page_label=label,cropbox=cropbox,route=route,reasons=reasons,
-                                  doc_id="sha256-"+"0"*64,worker=worker,glm=glm,config=config,crop_dir=folder)
+                                  doc_id="sha256-"+"0"*64,worker=worker,glm=glm,config=config,crop_dir=folder,text_layer=layer)
             processed, _ = preprocess(image, config.preprocess)
             record = {"fingerprint": identity, "doc_id":doc,"page_index":index,"subset":subset,"mode":mode,
                       "kinds":spec["kinds"],"degrade":params,"cropbox":cropbox,

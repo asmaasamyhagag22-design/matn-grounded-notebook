@@ -19,6 +19,10 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "eval/tests/test_closeout_real_layer.py::test_real_runner_passes_embedded_layer_to_reader",
+    "eval/tests/test_fetch_sources.py::test_tls_uses_the_certifi_bundle_and_keeps_verification_strict",
+    "eval/tests/test_fetch_sources.py::test_https_requests_use_that_context",
+    "eval/tests/test_verify_gold.py::test_cross_check_without_filter_checks_every_gold_file",
     "tests/reading/ocr/test_glm.py::test_leading_blank_output_and_spaces_are_trimmed",
     "tests/reading/ocr/test_glm.py::test_a_failed_call_returns_an_error_and_is_not_cached",
     "tests/reading/test_pdf_page.py::test_edge_case_counts_on_a_generated_page",
