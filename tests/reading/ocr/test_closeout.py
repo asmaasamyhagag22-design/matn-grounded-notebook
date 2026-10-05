@@ -122,3 +122,10 @@ def test_scan_overlay_preserves_character_pixels_and_keeps_legend(tmp_path):
     # The box interior remains unchanged; numbers are outlined, never covered by a coloured fill.
     assert overlay.getpixel((76,102+BAND)) == (255,255,255)
     assert overlay.height >= 650
+
+
+def test_undetected_vertical_layout_region_is_rotated_and_second_read(tmp_path):
+    page=read([], [{"class":"vertical_text","bbox":[20,300,60,1000],"score":.9}],
+              {"a":"arXiv 2601.14525"},tmp_path)
+    assert page.ocr["second_reads"]["lines"]==1
+    assert any(f["kind"]=="possible_drop" and f["reader2"]==["2601.14525"] for f in page.flags)

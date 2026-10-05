@@ -16,7 +16,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[2]
 
 
-def make_proposals(tokens, layer, angle, size, cropbox):
+def make_proposals(tokens, layer, angle, size, cropbox, reader2_only=()):
     scale=300/72
     def original(box):
         px=tuple((v-cropbox[i%2])*scale for i,v in enumerate(box))
@@ -26,13 +26,20 @@ def make_proposals(tokens, layer, angle, size, cropbox):
     for token in tokens:
         box=original(token["bbox"])
         nearby=[text for text,lb in layer if _overlap(box,lb)>.3]
-        proposals.append({"reader1":token["token"],"reader2":token.get("reader2"),"layer":" | ".join(nearby),
+        proposals.append({"reader1":token["token"],"reader2":token.get("reader2"),"layer":" | ".join(dict.fromkeys(t for text in nearby for t in number_tokens(text))),
                           "context":token.get("word",""),"bbox":box,"chosen":None,"flagged":token["flagged"]})
     for text,box in layer:
         if any(_overlap(box,p["bbox"])>.3 for p in proposals): continue
         for token,_,_ in number_spans(text):
             proposals.append({"reader1":None,"reader2":None,"layer":token,"context":text,"bbox":list(box),
                               "chosen":None,"flagged":True})
+    for flag in reader2_only:
+        if flag.get("kind") != "possible_drop" or not isinstance(flag.get("reader2"), list): continue
+        for token in flag["reader2"]:
+            box=original(flag["bbox"])
+            if any(p["reader2"]==token and _overlap(box,p["bbox"])>.3 for p in proposals): continue
+            proposals.append({"reader1":None,"reader2":token,"layer":"","context":flag.get("reader2_line", ""),
+                              "bbox":box,"chosen":None,"flagged":True})
     return proposals
 
 
@@ -74,7 +81,7 @@ def generate():
             image=render_page_image(pdf,index)
             image.save(assets / (key+'.png'))
             proposals=make_proposals(record["tokens"],record["text_layer"],record["preprocess"]["rotation_deg"],image.size,
-                                    record["cropbox"])
+                                    record["cropbox"],record["flags"])
             for i,p in enumerate(proposals):
                 x0,y0,x1,y1=p["bbox"];ox,oy=record["cropbox"][:2];scale=300/72
                 box=(max(0,int((x0-ox)*scale)-30),max(0,int((y0-oy)*scale)-30),

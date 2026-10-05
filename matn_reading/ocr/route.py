@@ -228,6 +228,11 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         started = time.perf_counter()
         reply = worker.read(path)
         reader1_wall = time.perf_counter() - started
+    # A layout vertical region must be re-read even if the first detector missed every glyph in it.
+    for region in reply.get("layout", []):
+        if region["class"] == "vertical_text" and not any(_overlap(_axis_box(l["box"]), region["bbox"]) > 0.5 for l in reply["lines"]):
+            x0,y0,x1,y1 = region["bbox"]
+            reply["lines"].append({"text":"", "score":0.0, "box":[[x0,y0],[x1,y0],[x1,y1],[x0,y1]], "words":[]})
     lines = _lines(reply, to_pt)
     median_height = median([l.height for l in lines]) if lines else 1.0
     for line in lines:
@@ -277,7 +282,7 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
     second_reads = {"lines": 0, "calls": 0, "cached": 0, "seconds": 0.0}
     for line in lines:
         entries = by_line.get(line.index, [])
-        if not entries or not config.second_read or glm is None or not any(e["targets"] for e in entries):
+        if not config.second_read or glm is None or ((not entries or not any(e["targets"] for e in entries)) and not line.angle):
             continue
         pad = RULES["crop_pad_px"]
         x0, y0, x1, y1 = line.box_px
@@ -389,7 +394,7 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
     pixels = np.asarray(processed)
     ink_share = float((pixels < RULES["ink_threshold_gray"]).mean())
     width, height = cropbox[2] - cropbox[0], cropbox[3] - cropbox[1]
-    if not lines and ink_share > RULES["empty_page_ink_share"]:
+    if not any(l.words for l in lines) and ink_share > RULES["empty_page_ink_share"]:
         flags.append({"kind": "ocr_no_text", "bbox": tuple(cropbox), "ink_share": round(ink_share, 4)})
 
     # Layout with the 4b logic, on OCR words in page points.

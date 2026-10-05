@@ -19,6 +19,7 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "tests/reading/ocr/test_closeout.py::test_undetected_vertical_layout_region_is_rotated_and_second_read",
     "tests/reading/test_closeout_e2e.py::test_generated_image_pdf_real_worker_marks_failed_second_read",
     "tests/reading/test_closeout_e2e.py::test_verified_real_scan_and_powershell_wrapper",
     "tests/reading/ocr/test_closeout.py::test_scan_overlay_preserves_character_pixels_and_keeps_legend",
