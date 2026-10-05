@@ -78,11 +78,14 @@ def draw_overlay(page: PageReading, image: Image.Image, scale: float, crop_origi
         colour = FLAG_COLOURS.get(flag["kind"])
         if colour is None or "bbox" not in flag:
             continue
-        x0, y0, x1, y1 = to_px(flag["bbox"])
-        if flag["kind"] == "possible_drop":
-            _dashed_rect(draw, (x0 - 2, y0 - 2, x1 + 2, y1 + 2), colour, dash=5, width=2)
-        else:
-            draw.rectangle((x0 - 2, y0 - 2, x1 + 2, y1 + 2), outline=colour + (255,), width=3)
+        for box in flag.get("cells") or [flag["bbox"]]:   # a consistency flag marks each involved cell
+            x0, y0, x1, y1 = to_px(box)
+            if flag["kind"] == "possible_drop":
+                _dashed_rect(draw, (x0 - 2, y0 - 2, x1 + 2, y1 + 2), colour, dash=5, width=2)
+            elif flag["kind"] == "low_confidence":         # faint: under a high bar most words carry it
+                draw.rectangle((x0 - 1, y0 - 1, x1 + 1, y1 + 1), outline=colour + (110,), width=1)
+            else:
+                draw.rectangle((x0 - 2, y0 - 2, x1 + 2, y1 + 2), outline=colour + (255,), width=3)
 
     lx, ly = image.width + 12, BAND + 8
     draw.text((lx, ly), "Block types", fill="black", font=label)

@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from statistics import median
 
 REPO = Path(__file__).resolve().parents[2]
 OUT = REPO / "out" / "reading" / "ocr"
@@ -27,6 +28,7 @@ def aggregate(pages: list[dict]) -> dict:
         "pages": len(pages),
         "cer": _ratio(sum(p["cer"]["char_edits"] for p in pages), sum(p["cer"]["chars"] for p in pages)),
         "wer": _ratio(sum(p["cer"]["word_edits"] for p in pages), sum(p["cer"]["words"] for p in pages)),
+        "median_page_cer": f"{median(p['cer']['char_edits'] / max(p['cer']['chars'], 1) for p in pages):.4f}" if pages else "n/a",
         "numbers": total("total"),
         "accuracy": _ratio(total("correct"), total("total")),
         "unflagged_accuracy": _ratio(total("unflagged_correct"), total("unflagged_total")),
@@ -40,7 +42,7 @@ def aggregate(pages: list[dict]) -> dict:
     }
 
 
-COLUMNS = [("pages", "pages"), ("cer", "CER"), ("wer", "WER"), ("numbers", "أرقام GT"), ("accuracy", "exact accuracy"),
+COLUMNS = [("pages", "pages"), ("cer", "CER"), ("median_page_cer", "median page CER (diagnostic)"), ("wer", "WER"), ("numbers", "أرقام GT"), ("accuracy", "exact accuracy"),
            ("silent_errors", "**silent errors**"), ("silent_drops", "silent drops"), ("flag_rate", "flag rate"),
            ("false_alarm_rate", "false-alarm rate"), ("agreement_rate", "agreement r1/r2"),
            ("flags_per_page", "flags/page"), ("s_without", "s/page من غير second reads"),
@@ -97,6 +99,21 @@ def write_report(path: Path = REPO / "reports" / "step4c-ocr.md") -> Path:
         lines += [f"- {p['subset']} {p['doc_id']} p{p['page_index']}: expected `{d['expected']}` at "
                   f"{[round(v, 1) for v in d['where']]}" for p, d in drops[:40]] or ["- مفيش."]
         lines += [""]
+    if all(full.values()):
+        lines += ["## قيمة الـ consensus وحساسية الـ bar (من نفس بيانات full؛ تحليل، مش قاعدة)", "",
+                  "| subset | أرقام reader 1 | غلط عند reader 1 | الـ consensus مسكها | الاتنين اتفقوا على الغلط | "
+                  "silent لو reader 1 لوحده بـ bar 0.90 | 0.95 | 0.99 | 0.999 |",
+                  "|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
+        for subset in SUBSETS:
+            tokens = [t for p in full[subset]["pages"] for t in p["tokens"]]
+            wrong = [t for t in tokens if not t["correct"]]
+            caught = sum(t["flagged"] for t in wrong)
+            agreed_wrong = sum(t["status"] == "agreed" for t in wrong)
+            at = [sum(t["score"] >= bar for t in wrong) for bar in (0.90, 0.95, 0.99, 0.999)]
+            lines.append(f"| {subset} | {len(tokens)} | {len(wrong)} | {caught} | {agreed_wrong} | " +
+                         " | ".join(str(a) for a in at) + " |")
+        lines += ["", "\"غلط عند reader 1\" = مش مطابق للـ truth بالـ matching في `docs/ocr_rules.md` §6، "
+                  "وده بيشمل الـ reference artifacts.", ""]
     real = _load("full", "real")
     if real:
         lines += ["## Real scans (full؛ من غير gate)", "",

@@ -37,6 +37,7 @@ from .preprocess import PreprocessConfig, preprocess
 RULES = json.loads(Path(__file__).with_name("ocr_rules.json").read_text(encoding="utf-8"))
 EXTRACTOR = ExtractorInfo(name="matn_reading.ocr", version="rapidocr-3.9.2+PP-OCRv5-mobile-onnx+glm-ocr-bf16")
 BBox = tuple[float, float, float, float]
+BODY_HEIGHT_TOLERANCE = 0.25
 
 
 @dataclass(frozen=True)
@@ -310,7 +311,8 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
                 entry["flagged"] = True
                 if kind not in entry["reasons"]:
                     entry["reasons"].append(kind)
-        flags.append({"kind": kind, "bbox": _union(c.box for c in cells), "detail": detail})
+        flags.append({"kind": kind, "bbox": _union(c.box for c in cells), "cells": [c.box for c in cells],
+                      "detail": detail})
 
     table_cells: list[Cell] = []
     for table in tables:
@@ -345,7 +347,17 @@ def read_scan_page(image: Image.Image, *, page_index: int, page_label: str | Non
         flags.append({"kind": "ocr_no_text", "bbox": tuple(cropbox), "ink_share": round(ink_share, 4)})
 
     # Layout with the 4b logic, on OCR words in page points.
-    layout_words = [Word(w.text, *w.box, size=max(w.box[3] - w.box[1], 0.1)) for line in lines for w in line.words]
+    # OCR box heights vary from line to line (ascenders, descenders, detector padding). Heights within
+    # BODY_HEIGHT_TOLERANCE of the page median count as body size, so a paragraph stays one block and only a clearly
+    # larger line becomes a heading.
+    heights = [w.box[3] - w.box[1] for line in lines for w in line.words]
+    body_height = median(heights) if heights else 10.0
+
+    def size(word: _Word) -> float:
+        height = max(word.box[3] - word.box[1], 0.1)
+        return body_height if abs(height - body_height) <= BODY_HEIGHT_TOLERANCE * body_height else height
+
+    layout_words = [Word(w.text, *w.box, size=size(w)) for line in lines for w in line.words]
     blocks = order_blocks(group_blocks(group_lines(layout_words)), width) if layout_words else []
     body = median(w.size for w in layout_words) if layout_words else 10.0
     flagged_boxes = [entry["bbox"] for entry in tokens if entry["flagged"]] + [

@@ -171,3 +171,20 @@ def test_numbers_that_disagree_with_an_embedded_ocr_layer_are_flagged(tmp_path):
     token = _tokens(page)["1,240"]
     assert token["flagged"] and "ocr_layer_disagreement" in token["reasons"]
     assert any(f["kind"] == "ocr_layer_disagreement" and f["layer"] == "1,248" for f in page.flags)
+
+
+def test_noisy_ocr_line_heights_still_form_one_paragraph(tmp_path):
+    lines = [_line([("The", 0.99), ("first", 0.99), ("line", 0.99)], 400, height=40),
+             _line([("the", 0.99), ("second", 0.99), ("line", 0.99)], 452, height=46),
+             _line([("and", 0.99), ("third", 0.99)], 504, height=36)]
+    page = _read(lines, FakeGlm({}), tmp_path=tmp_path)
+    assert [b.block_type for b in page.blocks] == ["text"]
+    assert page.blocks[0].contract.text == "The first line the second line and third"
+
+
+def test_a_clearly_larger_ocr_line_is_still_a_heading(tmp_path):
+    lines = [_line([("Background", 0.99)], 300, height=70),
+             _line([("body", 0.99), ("text", 0.99), ("here", 0.99)], 420, height=40),
+             _line([("more", 0.99), ("body", 0.99), ("text", 0.99)], 472, height=40)]
+    page = _read(lines, FakeGlm({}), tmp_path=tmp_path)
+    assert [b.block_type for b in page.blocks] == ["heading", "text"]

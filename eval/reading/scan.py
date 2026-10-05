@@ -222,6 +222,8 @@ def calibrate() -> dict:
     return summary
 
 
+OVERLAY_SELECTION = [("gao-21-519sp", 24), ("wb-eem-2021-12", 14), ("2601-14525v1", 15),
+                     ("statab_1951_part04", 8)]
 REAL_PAGES = {"nbs_circular_31_e4_1956": [7, 15, 32], "statab_1951_part04": [0, 8, 45]}
 
 
@@ -277,6 +279,35 @@ def run_real(config_name: str) -> dict:
     return result
 
 
+def overlays(selection: list[tuple[str, int]], target: Path = OUT / "overlays_final") -> list[Path]:
+    """Re-run selected pages with the frozen full config (GLM answers come from the cache) and draw their overlays."""
+    from eval.reading.real.verify import require_verified
+
+    config = _config("full", RULES["confidence_bar"])
+    docs = dict(dev_documents())
+    written = []
+    with RapidOcrWorker() as worker:
+        for doc, index in selection:
+            if doc in docs:
+                image, _ = synthetic_image(doc, docs[doc], index)
+                digital = read_document(docs[doc], pages=[index]).pages[0]
+                cropbox, label, route, reasons, layer = digital.cropbox, digital.page_label, Route.SCANNED, [
+                    "synthetic scan"], []
+            else:
+                path = require_verified(doc)
+                with OpenPdf(path) as pdf:
+                    data = pdf.page(index)
+                route, reasons = decide_route(data.signals)
+                cropbox, label = data.cropbox, data.page_label
+                layer = [(w.text, (w.x0, w.top, w.x1, w.bottom)) for w in data.words]                     if route is Route.SCANNED_WITH_OCR_LAYER else []
+                image = render_page_image(path, index)
+            page = read_scan_page(image, page_index=index, page_label=label, cropbox=cropbox, route=route,
+                                  reasons=reasons, doc_id="sha256-" + "0" * 64, worker=worker, glm=GlmReader(),
+                                  config=config, text_layer=layer)
+            written.append(write_overlay(page, image, config, target / f"{doc}_p{index:04d}.png"))
+    return written
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -287,6 +318,7 @@ def main() -> None:
     real = sub.add_parser("real")
     real.add_argument("--config", choices=sorted(CONFIGS), default="full")
     sub.add_parser("report")
+    sub.add_parser("overlays")
     args = parser.parse_args()
     if args.command == "calibrate":
         calibrate()
@@ -294,6 +326,9 @@ def main() -> None:
         run_synthetic(args.config, args.subset)
     elif args.command == "real":
         run_real(args.config)
+    elif args.command == "overlays":
+        for path in overlays(OVERLAY_SELECTION):
+            print(path)
     else:
         from eval.reading.scan_report import write_report
 
