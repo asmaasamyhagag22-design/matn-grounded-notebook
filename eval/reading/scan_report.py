@@ -75,7 +75,8 @@ def write_report(path: Path = REPO / "reports" / "step4c-ocr.md") -> Path:
         verdict = "**عدّى**" if passed else ("**overfitting**: dev-tune عدّى وdev-check لأ" if tune["silent_errors"] == 0
                                               else "**ما عدّاش**")
         lines += ["## الـ gate", "", f"- silent number errors: dev-tune **{tune['silent_errors']}**، dev-check "
-                  f"**{check['silent_errors']}** → {verdict}.", ""]
+                  f"**{check['silent_errors']}** → {verdict}.",
+                  "- التحكيم البصري المقترح (الـ raw هو الرسمي): `reports/step4c-adjudication.md`.", ""]
     lines += ["## المقاييس (synthetic_scan)", ""]
     rows = []
     for config in CONFIG_ORDER:
