@@ -10,6 +10,9 @@ Reading order (column method, not plain XY-cut, which interleaves columns whose 
 2. a block that crosses a gutter is "spanning"; the spanning blocks cut the page into vertical segments;
 3. inside a segment, column blocks are read column by column, top to bottom; a narrow margin column of short blocks
    (side headings) is interleaved with its neighbour by vertical position instead of being read as its own column.
+4. with no gutter (the side headings are then often the only narrow blocks), plain top-to-bottom order is kept, and
+   only a heading-like block in the left margin moves in front of the body paragraph it sits beside
+   (``lead_side_headings``).
 """
 from __future__ import annotations
 
@@ -240,10 +243,36 @@ def find_gutters(blocks: Sequence[LayoutBlock]) -> list[tuple[float, float]]:
     return [(a[1], b[0]) for a, b in zip(merged, merged[1:]) if b[0] - a[1] >= MIN_GUTTER_PT]
 
 
+def lead_side_headings(ordered: Sequence[LayoutBlock], page_width: float) -> list[LayoutBlock]:
+    """Move each side heading in front of the paragraph it labels; every other block keeps its place.
+
+    A side heading starts at the left edge, is short and narrow, and is larger or bolder than a body block that starts
+    right of it (past a gutter) with a top within the side-heading tolerance. Without a gutter the column rule above
+    never sees the margin column, so a heading whose top sits a few points below its paragraph's top would follow it.
+    """
+    result = list(ordered)
+    if len(result) < 2:
+        return result
+    left = min(b.x0 for b in result)
+    sides = [b for b in result if b.x0 <= left + 2.0 and len(b.lines) <= MARGIN_COLUMN_MAX_LINES
+             and b.x1 - b.x0 < MARGIN_COLUMN_SHARE * page_width]
+    for side in sides:
+        peers = [b for b in result if b is not side and b.x0 >= side.x1 + MIN_GUTTER_PT
+                 and abs(b.top - side.top) <= SIDE_HEADING_TOP_TOLERANCE * max(b.size, side.size)
+                 and (side.size > b.size + SIZE_TOLERANCE_PT or (side.bold and not b.bold))]
+        if not peers:
+            continue
+        body = min(peers, key=lambda b: (abs(b.top - side.top), b.x0))
+        if result.index(side) > result.index(body):
+            result.remove(side)
+            result.insert(result.index(body), side)
+    return result
+
+
 def order_blocks(blocks: Sequence[LayoutBlock], page_width: float) -> list[LayoutBlock]:
     gutters = find_gutters(blocks)
     if not gutters:
-        return sorted(blocks, key=lambda b: (b.top, b.x0))
+        return lead_side_headings(sorted(blocks, key=lambda b: (b.top, b.x0)), page_width)
 
     def crosses(block: LayoutBlock, gutter: tuple[float, float]) -> bool:
         return block.x0 < gutter[0] - 1.0 and block.x1 > gutter[1] + 1.0

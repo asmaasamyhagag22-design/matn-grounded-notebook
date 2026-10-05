@@ -103,3 +103,29 @@ def test_unique_text_near_the_top_is_not_furniture():
     furniture = detect_furniture(pages, PAGE_H)
     assert furniture[0] == {}
     assert furniture[1] == {0: "header"}  # digits are normalized, so a numbered running head still repeats
+
+
+def test_a_lone_side_heading_without_a_narrow_body_column_still_leads_its_paragraph():
+    body = ["a wide body paragraph whose lines run across most of the page width here",
+            "and whose top sits a few points above the side heading beside it today"]
+    words = (_line("Background", 36.7, 269.5, size=17, bold=True) + _para(body, 216, 266.3, size=11, leading=14)
+             + _para(["a second wide paragraph that follows below the first one on this page"], 216, 320, size=11))
+    # No other narrow block (e.g. a centred page number) is present to reveal the margin gutter.
+    ordered = order_blocks(group_blocks(group_lines(words)), PAGE_W)
+    assert [t[:12] for t in _texts(ordered)] == ["Background", "a wide body ", "a second wid"]
+
+
+def test_short_left_aligned_headings_above_a_single_column_keep_top_order():
+    words = (_line("Overview", 72, 100, size=14, bold=True) + _para(["body " * 14, "body " * 14], 72, 120)
+             + _line("Details", 72, 170, size=14, bold=True) + _para(["more " * 14, "more " * 14], 72, 190))
+    ordered = order_blocks(group_blocks(group_lines(words)), PAGE_W)
+    assert [t.split()[0] for t in _texts(ordered)] == ["Overview", "body", "Details", "more"]
+
+
+def test_plain_margin_numbers_beside_code_keep_top_order():
+    # Code line numbers in the left margin are short and narrow too, but not heading-like: they must not move.
+    words = (_para(["code_line = compute(value)", "second_line = other(value)"], 160, 99, size=9, leading=11)
+             + _line("221", 72, 100, size=9) + _line("222", 72, 111, size=9))
+    blocks = group_blocks(group_lines(words))
+    ordered = order_blocks(blocks, PAGE_W)
+    assert _texts(ordered) == _texts(sorted(blocks, key=lambda b: (b.top, b.x0)))

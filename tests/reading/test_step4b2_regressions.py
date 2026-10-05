@@ -167,3 +167,30 @@ q 100 0 0 20 65 495 cm /Im1 Do Q
     assert "111" in prose and "222" not in prose and "333" not in prose
     assert any(flag["kind"] == "hidden_text" and flag["severity"] == "error" for flag in page.flags)
     assert any(flag["kind"] == "outside_cropbox" and flag["severity"] == "warning" for flag in page.flags)
+
+
+GAO_SIDE_HEADING_PAGE = b"""BT /F2 17 Tf 36.7 507 Td (Introduction) Tj ET
+BT /F1 11 Tf 216 515 Td (AI is a transformative technology with applications that) Tj ET
+BT /F1 11 Tf 216 501 Td (range from medical diagnostics and precision agriculture) Tj ET
+BT /F1 11 Tf 216 487 Td (to advanced manufacturing and autonomous transportation,) Tj ET
+BT /F1 11 Tf 216 473 Td (and federal agencies are investing in it for their missions.) Tj ET
+BT /F1 11 Tf 216 445 Td (However, AI systems pose unique challenges for independent) Tj ET
+BT /F1 11 Tf 216 431 Td (assessments and audits that promote accountability, as their) Tj ET
+BT /F1 11 Tf 216 417 Td (inputs and operations are not always visible to overseers.) Tj ET
+BT /F1 8 Tf 36.7 120 Td (1 Office of Science and Technology Policy, American Artificial Intelligence Initiative: Year One Annual Report.) Tj ET
+BT /F1 8 Tf 36.7 110 Td (2 Exec. Order No. 13,960, Promoting the Use of Trustworthy Artificial Intelligence in the Federal Government.) Tj ET
+BT /F1 9 Tf 290 36 Td (Page 9) Tj ET
+"""
+
+
+def test_lone_side_heading_beside_a_wide_body_leads_its_paragraph(tmp_path):
+    # GAO layout: one 17 pt side heading in the left margin column, whose top sits a few points below the top of a
+    # wide 11 pt body paragraph. The side heading is the only narrow block, so no gutter comes from narrow blocks.
+    page = read_document(write_pdf(tmp_path / "gao-side-heading.pdf", GAO_SIDE_HEADING_PAGE)).pages[0]
+    blocks = [block.layout for block in page.blocks]
+    heading = next(block for block in blocks if block.text == "Introduction")
+    body = next(block for block in blocks if block.text.startswith("AI is a transformative"))
+    assert 1.0 < heading.top - body.top < 6.0          # the fixture reproduces "a few points below"
+    order = [block.text for block in blocks]
+    assert order.index("Introduction") + 1 == order.index(body.text)
+    assert order.index(body.text) < next(i for i, text in enumerate(order) if text.startswith("However"))
