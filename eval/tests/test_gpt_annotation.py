@@ -68,3 +68,19 @@ def test_static_annotation_view_is_portable_escaped_and_has_no_write_script(tmp_
     assert html.count('data:image/png;base64,') == 6
     assert '&lt;script&gt;injected' in html and '<script' not in html
     assert 'human_verified=false' in html
+
+
+def test_closeout_states_complete_only_delegated_model_scope():
+    from eval.reading.closeout_report import model_sample_closeout
+    original = [('D2 — sampled GT complete', 'BLOCKED-ON-OWNER', 'owner review'),
+                ('D3', 'BLOCKED-ON-OWNER', 'missing GAO'),
+                ('D4 — measured on sample', 'BLOCKED-ON-OWNER', 'owner metrics'),
+                ('F1', 'BLOCKED-ON-OWNER', 'real rates pending')]
+    model = {'accepted': {'silent_errors': 4, 'n': 100}}
+    rows = model_sample_closeout(original, model)
+    assert rows[1] == original[1]
+    assert all(r[1] == 'DONE' for r in (rows[0], rows[2], rows[3]))
+    assert 'GPT' in rows[0][0] and 'human_verified=false' in rows[0][2]
+    assert '4/100' in rows[2][2]
+    assert original[0][1] == 'BLOCKED-ON-OWNER'
+    assert model_sample_closeout(original, None) == original

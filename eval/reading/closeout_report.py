@@ -15,6 +15,19 @@ def _subset_label(subset):
     return 'dev_check (seen)' if subset=='dev_check' else subset
 
 
+def model_sample_closeout(table, model):
+    if model is None:
+        return table
+    a = model['accepted']
+    replacements = {
+        'D2 — sampled GT complete': ('D2 — sampled GT complete (GPT reference)', 'DONE',
+            '180 عنصر متراجع بصريًا بتفويض owner؛ GPT model reference، human_verified=false؛ النسخة الأولى قبل المقارنة والتصحيحات معلنة'),
+        'D4 — measured on sample': ('D4 — measured on sample (GPT reference)', 'DONE',
+            f'GPT sample metrics: silent errors {a["silent_errors"]}/{a["n"]}؛ Wilson/exact upper 95%، illegible منفصل؛ مش تحقق بشري مستقل'),
+        'F1': ('F1', 'DONE', 'synthetic القياسات والتحكيم وتوقيت real؛ real sampled rates على GPT reference في step4c-gpt-sample-metrics.md؛ مفيش full-page GT claim')}
+    return [replacements.get(row[0], row) for row in table]
+
+
 def publish():
     sets={s:load(OUT/'final'/f'{s}.json')['pages'] for s in ('dev_tune','dev_check','holdout2','real')}
     assert {s:len(p) for s,p in sets.items()} == {'dev_tune':20,'dev_check':11,'holdout2':30,'real':6}
@@ -35,6 +48,9 @@ def publish():
     passed=reader_errors['holdout2']==0
     gate='PASS' if passed else 'FAIL — BLOCKED-ON-OWNER'
     summary={s:aggregate(p) for s,p in sets.items() if s!='real'}
+    from eval.reading.real.gpt_annotation import REFERENCE, measure_reference
+    from eval.reading.real.sample import INITIAL
+    model = measure_reference(load(INITIAL), load(REFERENCE), REPO) if REFERENCE.exists() else None
     table=[('A1','DONE','30 صفحة/seeds جديدة للـ OCR، disjoint؛ f4d87a1 قبل الكود؛ test_holdout2_disjoint_from_previous_synthetic_pages'),
            ('A2','DONE','dev-check = seen في القواعد والتقارير، ومش gate'),
            ('B1','DONE','rapid-layout 1.2.1 + model size/hash مطابقين؛ egress smoke 3.53s؛ 3c1f3a4'),
@@ -65,6 +81,7 @@ def publish():
            ('Reading structure','DEFERRED','section trees/document.json/chunks → Step R'),
            ('Table structure','DEFERRED','structure/TEDS → Step 4d / R4'),
            ('Arabic OCR','DEFERRED','→ R9')]
+    table = model_sample_closeout(table, model)
     def close_table():
         return ['| البند | الحالة | الدليل / المطلوب |','|---|---|---|']+[f'| {a} | {b} | {c} |' for a,b,c in table]
     lines=['# Step 4c — ملخص الصبح والإغلاق','',
@@ -72,9 +89,28 @@ def publish():
            '**مستنيكي:** Step 4c لسه مش مقفول؛ D2/D3/D4 وجزء real من F1 محتاجينك.','',
            '1. افتحي `eval/reading/real/review.html` في Chrome أو Edge. اكتبي اسمك، واضغطي `Choose existing gt folder` واختاري `eval/reading/real/gt` واسمحي بالكتابة. هتشوفي رقم واحد في كل مرة، crop كبير وسطر السياق؛ الحالة flagged/accepted مخفية.',
            '2. الكيبورد: 1 = reader-1 صح؛ 2 = reader-2 صح؛ 3 = embedded layer صح لما تكون موجودة (لو أكتر من قيمة، اختاري الصح)؛ T = اكتبي القيمة واضغطي Enter؛ X = غير مقروء وممنوع التخمين؛ Backspace = ارجعي. للكشف المكرر/الجزئي أو اللي مش رقم استخدمي `Not a number`. الحفظ في GT JSON بعد كل إجابة قبل الانتقال؛ للرجوع اختاري نفس المجلد. مفيش مراجعة للصفحة كلها ولا GT متعبّي مسبقًا.',
-           '3. بعد الـ180 إجابة: `.venv\Scripts\python.exe -m eval.reading.real.measure` → `out/reading/step4c-closeout-final-v3/real-sample-metrics.json` و`reports/step4c-sample-metrics.md`. غير المقروء خارج المقام؛ لو صفر أخطاء و100 legible accepted، exact upper = 2.95%، وتقريب 3/n = 3%.',
+           r'3. بعد الـ180 إجابة: `.venv\Scripts\python.exe -m eval.reading.real.measure` → `out/reading/step4c-closeout-final-v3/real-sample-metrics.json` و`reports/step4c-sample-metrics.md`. غير المقروء خارج المقام؛ لو صفر أخطاء و100 legible accepted، exact upper = 2.95%، وتقريب 3/n = 3%.',
            '4. GAO p4/p37/p39 مستني الملف اليدوي بنفس URL/hash/size المعتمدين. بعدها verify → reader → `sample extend-gao` → commit للإضافة قبل مراجعتها → regenerate review. الإضافة 15 flagged + 15 accepted منفصلة؛ الـ180 الأصلية وترتيبها مش بيتغيروا. التفاصيل في `reports/step4c-sampling.md`.', '',
            f'**نتيجة الـ gate:** {gate}. holdout-2: raw silent errors **{summary["holdout2"]["silent_errors"]}**؛ reader-attributed بعد التحكيم **{reader_errors["holdout2"]}**. flag rate **{summary["holdout2"]["flag_rate"]}**؛ false-alarm share **{summary["holdout2"]["false_alarm_rate"]}**.']
+    if model is not None:
+        a, f = model['accepted'], model['flagged']
+        lines[2] = ('**اتعمل:** الكود والاختبارات والقياسات الصناعية مكتملة، وكمان GPT annotation '
+                    'لكل180 عنصر بطلبك:169 رقم،9 كشوف جزئية/مش رقم،2 غير مقروءين. D2 وD4 مكتملين '
+                    'في نطاق مرجع GPT؛ مش GT بشري مستقل. العينة وترتيبها والقواعد ثابتين.')
+        lines[4] = '**مستنيكي:** GAO بس في نطاق العينة الحالية؛ مش مطلوب منك مراجعة180 رقم.'
+        lines[6:10] = [
+            '1. لو عايزة تشوفي اللي اتعمل: افتحي `eval/reading/real/gpt-annotations.html`؛ '
+            'اضغطي على أي عنصر لعرض تعليق GPT وصورة الرقم وسطر السياق. static و360 صورة embedded، من غير JavaScript أو طلب folder permission.',
+            f'2. النتيجة على مرجع GPT: false alarms {f["false_alarms"]}/{f["n"]} '
+            f'({f["rate"]:.2%})، silent errors {a["silent_errors"]}/{a["n"]} ({a["rate"]:.2%})؛ '
+            f'exact upper 95% = {a["exact_binomial_upper_95"]:.2%}. غير المقروء خارج المقام؛ '
+            'التفاصيل وWilson وباقي الصفحات وسجل التصحيحات في `reports/step4c-gpt-sample-metrics.md`.',
+            '3. إعادة القياس: `.venv\\Scripts\\python.exe -m eval.reading.real.gpt_annotation`. '
+            'المراجعة الأولى اتثبتت في041ee46 قبل المقارنة، والتكبير اللاحق صحّح رقمين وخلى عنصر إضافي غير مقروء؛ '
+            'الأصل والتصحيحات محفوظين. الـ intervals مش بتغطي أخطاء GPT، ومش دليل بشري مستقل.',
+            '4. GAO: نزّلي يدويًا الملف المعتمد إلى `eval/reading/real/incoming/gao_cg_annual_report_1990.pdf` '
+            'بنفس URL/hash/size تحت. بعد ما تقولي إنه وصل: verify → reader → إضافة15+15 بنفس seed method، '
+            'commit قبل مراجعتها. الـ180 الأصلية ثابتين.']
     if not passed:
         lines+=['**القرار المطلوب:** راجعي حالات holdout-2 في جدول التحكيم والصور، وقرري قبول الخطر الموثّق أو ترخيص جولة إصلاح وholdout جديد. مفيش أي tuning اتعمل على النتيجة دي.']
     lines+=['','جدول الإغلاق لحد دلوقتي:','']+close_table()+['','## قواعد القياس والأدلة','',
@@ -136,7 +172,7 @@ def publish():
              '| subset | page | GT | exact accuracy | raw silent errors | silent drops | flag rate | false-alarm share | preprocess s | layout s | without r2 s | with r2 s | actual read wall s |','|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|']
     for s,ps in sets.items():
         for p in ps:
-            if s=='real':v=['BLOCKED']*4+[f'{p["flagged_tokens"]/max(p["reader1_tokens"],1):.4f}','BLOCKED']
+            if s=='real':v=['sample only' if model else 'BLOCKED']*4+[f'{p["flagged_tokens"]/max(p["reader1_tokens"],1):.4f}','sample below' if model else 'BLOCKED']
             else:
                 a=aggregate([p]);v=[a[k] for k in ('numbers','accuracy','silent_errors','silent_drops','flag_rate','false_alarm_rate')]
             t=p['timing'];v+= [f'{x:.2f}' for x in (t['preprocess'],p['layout_seconds'],t['without_second_reads'],t['with_second_reads'],p['wall_seconds'])]
@@ -148,19 +184,35 @@ def publish():
              '```powershell',
              "Invoke-WebRequest -Uri 'https://www.gao.gov/assets/Comptroller%20General%27s%201990%20Annual%20Report.pdf' -OutFile 'eval/reading/real/incoming/gao_cg_annual_report_1990.pdf'",
              "Get-FileHash 'eval/reading/real/incoming/gao_cg_annual_report_1990.pdf' -Algorithm SHA256",
-             '.venv\Scripts\python.exe -m eval.reading.real.verify',
-             '.venv\Scripts\python.exe -m eval.reading.closeout --subset real',
-             '.venv\Scripts\python.exe -m eval.reading.real.review','```','',
+             r'.venv\Scripts\python.exe -m eval.reading.real.verify',
+             r'.venv\Scripts\python.exe -m eval.reading.closeout --subset real --mode final',
+             r'.venv\Scripts\python.exe -m eval.reading.real.sample extend-gao',
+             '# Commit the frozen GAO extension before review; never use --no-verify.',
+             r'.venv\Scripts\python.exe -m eval.reading.real.review','```','',
              'GAO expected SHA256 `71586b0afcd7ff14955e2f5c4dd8645e94809fca99e525761267577805b2b57a`، size 9,297,136 bytes. mismatch: الملف الجديد بس يتشال ويتسجل؛ ممنوع substitution.','',
              load(REPO/'reports/step4c-test-evidence.json')['summary'],'',
              'أداة Browser Use رفضت معاينة `file://` بسبب سياسة تسمح HTTP/HTTPS بس ومنعت workarounds. مفيش تجاوز أو server اتعمل. JavaScript syntax/DOM tests نجحوا؛ المعاينة البصرية الكاملة للأداة ضمن المطلوب منك في D2.','',
              'الإغلاق الكامل لسه مستني البنود BLOCKED. الخطوة التالية **المخططة** Step R (Reading v1)، بعد إغلاق Step4c بقرارك وGT الحقيقي. كل التأجيلات تحت من القائمة المسموحة بس.','',
              '## Close-out table — كل بند وحالته','']+close_table()
+    if model is not None:
+        lines = [
+            ('**Real sampled rates: DONE على GPT reference**؛ كل180 عنصر متراجع. '
+             'المرجع منفصل عن GT البشري؛ قياسات وحدود لكل صفحة في `step4c-gpt-sample-metrics.md`. '
+             'GAO إضافة30 رقم معلقة. الـ4 أخطاء الصامتة تشخيصية مهمة رغم PASS الصناعي؛ مفيش tuning اتعمل. '
+             'مفيش ادعاء full-page accuracy/CER/WER أو missed-number recall.')
+            if line.startswith('**Real sampled rates: BLOCKED-ON-OWNER**') else
+            ('المعاينة البصرية للـ180 crop اتعملت بواسطة GPT. عرض التعليقات الجديد static وصوره embedded؛ '
+             'اتحققنا من البنية وبايتات الصور، مش من فتحه في متصفح owner. سياسة Browser Use القديمة اتاحترمت، من غير workaround.')
+            if line.startswith('أداة Browser Use رفضت') else
+            ('الإغلاق في نطاق GPT annotation مكتمل باستثناء GAO والـ allowed deferrals. '
+             'الدليل الحقيقي قائم على نموذج وممكن يغلط؛ مش human validation. Step R لسه خطوة تالية مخططة.')
+            if line.startswith('الإغلاق الكامل لسه مستني') else line for line in lines]
     artifact={'gate':gate,'final_core_freeze':freeze['final_core_freeze_commit'],
               'final_fingerprint':freeze['final_run_fingerprint'],
               'timing_definition':'wall_seconds stops after reading and the second preprocess, before scoring/export; with/without-second-read estimates use recorded inference time (including cached original GLM time). Extra reader1 rotation reads are included in wall_seconds.',
               'reader_attributed_errors':{s:reader_errors[s] for s in summary},'synthetic':summary,
               'evaluation_labels':{s:_subset_label(s) for s in summary},
+              'real_model_sample':model,
               'page_records':{s:[{k:v for k,v in p.items() if k not in ('tokens','lines','layout','text_layer')} for p in ps] for s,ps in sets.items()},
               'closeout':[{'item':a,'state':b,'evidence':c} for a,b,c in table]}
     (REPO/'reports/step4c-closeout-metrics.json').write_text(json.dumps(artifact,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
