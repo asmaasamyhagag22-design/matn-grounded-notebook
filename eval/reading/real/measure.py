@@ -64,4 +64,12 @@ def measure():
 
 
 if __name__=="__main__":
-    measure()
+    import sys
+    from .sample import INITIAL, measure_samples
+    if INITIAL.exists() and '--full' not in sys.argv:
+        try:
+            measure_samples()
+        except ValueError as error:
+            raise SystemExit(str(error)) from None
+    else:
+        measure()

@@ -1,0 +1,122 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Matn · sampled number review</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f2eb;color:#17322e;font:17px system-ui}
+header{padding:20px max(20px,calc((100vw - 1100px)/2));background:#17322e;color:white}h1{font-size:25px;margin:0 0 10px}
+button,input{font:inherit;padding:10px 14px;margin:5px 3px;border:1px solid #90a59d;border-radius:7px}button{background:white;cursor:pointer}button:disabled{opacity:.5;cursor:wait}
+main{max-width:1100px;margin:auto;padding:20px}article{padding:22px;background:white;border:1px solid #bdcbc4;border-radius:12px}
+.crop{display:flex;align-items:center;justify-content:center;min-height:280px;background:#ede9df;border-radius:8px;overflow:auto}.crop img{height:260px;max-width:100%;object-fit:contain}
+#contextCrop{display:block;max-width:100%;max-height:260px;margin:18px auto}#context{white-space:pre-wrap;color:#4b6057}
+progress{width:100%;height:16px;accent-color:#e0b663}#status{white-space:pre-wrap;min-height:28px}#location{font-size:15px;color:#4b6057}
+.keys{line-height:1.9}kbd{background:#e5ece8;border-radius:3px;padding:2px 6px;color:#17322e}#saved{color:#386458}
+[hidden]{display:none!important}button:focus-visible,input:focus-visible{outline:3px solid #d8a62c;outline-offset:2px}
+</style>
+<header><h1>Sampled number review · مراجعة العينة</h1>
+<div>Read the scan; never guess. Answers save to the GT JSON after every choice. Sampling status is hidden.</div>
+<label>Your name <input id="owner" autocomplete="name" aria-label="Reviewer name"></label>
+<button id="folder">Choose existing gt folder</button><div id="progress" aria-live="polite"></div><progress id="bar" max="1" value="0"></progress></header>
+<main><p id="status" role="status">Open in Chrome or Edge, enter your name, then choose eval/reading/real/gt. Grant file-write access when prompted.</p>
+<article id="card"><div id="location"></div><p>The blue outline identifies the sampled detection. Context is shown below.</p><div class="crop"><img id="crop" alt="Large crop; blue outline marks the sampled detection"></div>
+<img id="contextCrop" alt="Context line from the original scan"><div id="context"></div>
+<div class="keys"><button id="r1">1 · Reader 1</button><button id="r2">2 · Reader 2</button><button id="r3">3 · Embedded layer</button>
+<button id="type">T · Type correct value</button><button id="illegible">X · Illegible</button><button id="notNumber">Not a number / duplicate / partial detection</button><button id="back">Backspace · Go back</button></div>
+<div id="layerPick" hidden></div>
+<div id="typedBox" hidden><label>Value exactly as printed <input id="typed" aria-label="Correct printed value"></label><button id="typedSave">Save value ↵</button><button id="typedCancel">Cancel</button></div>
+<p id="saved"></p><p>1 / 2 / 3 choose that reading; T opens typing; X records illegible; Backspace goes back. Each successful save advances. You can close and resume by selecting the same gt folder. No full-page review is required.</p></article>
+<p id="finished" hidden>Sample complete. Your answers are saved. You can go back to correct an answer. Run the sample measurement command from the repository.</p></main>
+<script>
+'use strict';
+const batches=__SAMPLE_DATA__;
+const items=batches.flatMap(b=>b.items.map(i=>({...i,batch:b.batch,manifest_sha256:b.manifest_sha256})));
+const byBatch=new Map(batches.map(b=>[b.batch,b]));
+const el=id=>document.getElementById(id);
+let answers={},handles=new Map(),position=0,busy=false,ready=false;
+const current=()=>items[position];
+function validAnswer(a){return a&&typeof a.verified_by==='string'&&a.verified_by.trim()&&['number','not_number','illegible'].includes(a.kind)&&(a.kind!=='number'||(typeof a.value_as_printed==='string'&&a.value_as_printed.trim()));}
+function checkedReview(gt,batch,page){
+ const doc=page.slice(0,page.lastIndexOf('_p')),index=Number(page.slice(page.lastIndexOf('_p')+2));
+ if(gt.doc_key!==doc||gt.page_index!==index)throw Error('Wrong folder/file identity: '+page);
+ const r=gt.sample_reviews?.[batch.batch];if(!r)return null;
+ if(r.manifest_sha256!==batch.manifest_sha256)throw Error('Frozen manifest mismatch: '+page);
+ const allowed=new Set(batch.items.filter(i=>i.page===page).map(i=>i.id));
+ if(!r.answers||Object.entries(r.answers).some(([id,a])=>!allowed.has(id)||!validAnswer(a)))throw Error('Invalid saved sample answers: '+page);
+ return r;
+}
+function show(){
+ const count=items.filter(i=>answers[i.id]).length;
+ el('progress').textContent=count+' / '+items.length+' saved · '+(position<items.length?'Item '+(position+1):'Complete');
+ el('bar').max=items.length;el('bar').value=count;
+ el('typedBox').hidden=true;el('layerPick').hidden=true;
+ el('card').hidden=position>=items.length;el('finished').hidden=position<items.length;
+ for(const id of ['r1','r2','r3','type','illegible','notNumber','back'])el(id).disabled=busy;
+ el('back').disabled=busy||position===0;
+ const item=current();if(!item)return;
+ el('location').textContent=item.page+' · item '+(position+1)+' of '+items.length;
+ el('crop').src=item.crop;el('contextCrop').src=item.context_crop;el('context').textContent='Context (OCR suggestion): '+item.context;
+ el('r1').textContent='1 · Reader 1: '+item.reader1;
+ el('r2').textContent='2 · Reader 2: '+(item.reader2??'unavailable');el('r2').disabled=busy||!item.reader2;
+ const layers=(item.layer||'').split(' | ').filter(Boolean);
+ el('r3').textContent='3 · Embedded layer: '+layers.join(' | ');
+ el('r3').hidden=!layers.length;el('r3').disabled=busy||!layers.length;
+ el('layerPick').replaceChildren();
+ for(const value of layers){const button=document.createElement('button');button.textContent=value;button.onclick=()=>choose('number',value,'embedded-layer');el('layerPick').append(button);}
+ const a=answers[item.id];el('saved').textContent=a?'Saved answer: '+(a.value_as_printed??a.kind)+' · '+a.verified_by:'No answer saved yet.';
+}
+async function choose(kind,value,method){
+ if(busy||!current())return;
+ if(!ready){el('status').textContent='Choose the existing gt folder before answering. Nothing saved.';return;}
+ const owner=el('owner').value.trim();if(!owner){el('status').textContent='Enter your name before answering.';return;}
+ if(kind==='number'&&!String(value??'').trim()){el('status').textContent='Enter the correct printed value.';return;}
+ const item=current(),batch=byBatch.get(item.batch),handle=handles.get(item.page);
+ const answer={kind,value_as_printed:kind==='number'?String(value).trim():null,verified_by:owner,verified_at:new Date().toISOString(),method};
+ busy=true;show();el('status').textContent='Saving…';
+ try{
+  // Reload before each write: preserve full-page data and any other saved sample answers.
+  const gt=JSON.parse(await(await handle.getFile()).text()),old=checkedReview(gt,batch,item.page);
+  const review=old??{manifest_sha256:batch.manifest_sha256,scope:'frozen_sample_only',answers:{},history:[]};
+  review.answers={...review.answers,[item.id]:answer};review.history=[...(review.history??[]),{item_id:item.id,answer}];
+  review.status=batch.items.filter(i=>i.page===item.page).every(i=>review.answers[i.id])?'sampled GT complete':'sampled GT partial';
+  gt.sample_reviews={...(gt.sample_reviews??{}),[item.batch]:review};
+  const writable=await handle.createWritable();await writable.write(JSON.stringify(gt,null,2)+'\n');await writable.close();
+  Object.assign(answers,review.answers);position++;
+  while(position<items.length&&answers[items[position].id])position++;
+  el('status').textContent='Saved '+item.page+'.json. You can stop and resume.';
+ }catch(error){el('status').textContent='Save failed; item has not advanced: '+error.message;}
+ finally{busy=false;show();}
+}
+el('folder').onclick=async()=>{
+ if(busy)return;ready=false;handles=new Map();answers={};position=0;
+ try{
+  if(!window.showDirectoryPicker)throw Error('Folder writing requires Chrome or Edge. Open this file there and choose the existing gt folder.');
+  const folder=await window.showDirectoryPicker({mode:'readwrite'});
+  const loaded={},selected=new Map();
+  for(const page of new Set(items.map(i=>i.page))){
+   const handle=await folder.getFileHandle(page+'.json',{create:false});
+   const gt=JSON.parse(await(await handle.getFile()).text());
+   for(const batch of batches.filter(b=>b.items.some(i=>i.page===page))){const r=checkedReview(gt,batch,page);if(r)Object.assign(loaded,r.answers);}
+   selected.set(page,handle);
+  }
+  handles=selected;answers=loaded;ready=true;
+  position=items.findIndex(i=>!answers[i.id]);if(position===-1)position=items.length;
+  if(!el('owner').value&&Object.values(answers)[0])el('owner').value=Object.values(answers)[0].verified_by;
+  el('status').textContent='GT folder connected. Every answer saves before advancing.';
+ }catch(error){el('status').textContent=error.message;}
+ show();
+};
+el('r1').onclick=()=>choose('number',current()?.reader1,'reader1');
+el('r2').onclick=()=>current()?.reader2?choose('number',current().reader2,'reader2'):undefined;
+el('r3').onclick=()=>{if(busy||!current()?.layer)return;const values=current().layer.split(' | ').filter(Boolean);if(values.length===1)return choose('number',values[0],'embedded-layer');el('layerPick').hidden=false;el('status').textContent='Several embedded readings: choose the one that matches the scan.';};
+el('type').onclick=()=>{if(busy||!current())return;el('typedBox').hidden=false;el('typed').value='';if(el('typed').focus)el('typed').focus();};
+el('typedSave').onclick=()=>choose('number',el('typed').value,'typed');
+el('typedCancel').onclick=()=>{el('typedBox').hidden=true;};
+el('typed').addEventListener('keydown',async event=>{if(event.key==='Enter'){event.preventDefault();await el('typedSave').onclick();}if(event.key==='Escape')el('typedBox').hidden=true;});
+el('illegible').onclick=()=>choose('illegible',null,'scan-illegible');
+el('notNumber').onclick=()=>choose('not_number',null,'not-number');
+el('back').onclick=()=>{if(busy||position===0)return;position--;show();};
+document.addEventListener('keydown',async event=>{
+ if(['INPUT','TEXTAREA','SELECT'].includes(event.target?.tagName)||event.target?.isContentEditable||busy)return;
+ const action={'1':'r1','2':'r2','3':'r3','t':'type','x':'illegible','Backspace':'back'}[event.key.length===1?event.key.toLowerCase():event.key];
+ if(action){event.preventDefault();await el(action).onclick();}
+});
+show();
+</script></html>

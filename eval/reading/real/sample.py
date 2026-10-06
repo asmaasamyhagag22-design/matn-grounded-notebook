@@ -79,7 +79,10 @@ def validate_records(manifest, folder):
 def manifests():
     if not INITIAL.is_file():
         raise ValueError('Freeze the initial sample before generating or reviewing')
-    return [json.loads(p.read_text(encoding='utf8')) for p in (INITIAL, GAO) if p.is_file()]
+    result = [json.loads(p.read_text(encoding='utf8')) for p in (INITIAL, GAO) if p.is_file()]
+    if len(result) == 2 and result[1].get('initial_manifest_sha256') != digest(result[0]):
+        raise ValueError('GAO extension belongs to another initial frozen sample')
+    return result
 
 
 def create_sample(gao=False):
@@ -210,8 +213,10 @@ def statistics(manifest, answers):
     missing = []
     for item in manifest['items']:
         a = answers.get(item['id'], {})
-        if (not a.get('verified_by') or a.get('kind') not in ('number', 'not_number', 'illegible')
-                or (a.get('kind') == 'number' and not str(a.get('value_as_printed') or '').strip())):
+        if (not isinstance(a.get('verified_by'), str) or not a['verified_by'].strip()
+                or a.get('kind') not in ('number', 'not_number', 'illegible')
+                or (a.get('kind') == 'number' and
+                    (not isinstance(a.get('value_as_printed'), str) or not a['value_as_printed'].strip()))):
             missing.append(item['id'])
     if missing:
         raise ValueError(f'BLOCKED-ON-OWNER: {len(missing)} unanswered/unsigned sample items; owner must review all drawn items')
@@ -250,17 +255,54 @@ def statistics(manifest, answers):
 
 def measure_samples():
     from eval.reading.closeout import OUT
-    results = []
+    results = []; blocked = []
     for manifest in manifests():
         for doc in manifest['sources']:
             require_verified(doc)
         validate_records(manifest, OUT / 'final/real')
+        try:
+            answers = read_answers(manifest, HERE / 'gt')
+            measured = statistics(manifest, answers)
+        except ValueError as error:
+            if not str(error).startswith('BLOCKED-ON-OWNER:'):
+                raise
+            blocked.append({'batch': manifest['batch'], 'ask': str(error)})
+            continue
         results.append({'batch': manifest['batch'], 'manifest_sha256': digest(manifest),
-                        **statistics(manifest, read_answers(manifest, HERE / 'gt'))})
+                        'answers_sha256': digest(answers), **measured})
+    if not results:
+        raise ValueError('\n'.join(b['ask'] for b in blocked))
     target = OUT / 'real-sample-metrics.json'
-    target.write_text(json.dumps({'batches': results, 'gao': 'measured' if GAO.exists() else
-                                 'BLOCKED-ON-OWNER: approved GAO source missing; 30-item extension pending'},
+    gao_state = ('measured' if any(r['batch'] == 'gao' for r in results) else
+                 'BLOCKED-ON-OWNER: complete GAO sampled GT' if GAO.exists() else
+                 'BLOCKED-ON-OWNER: approved GAO source missing; 30-item extension pending')
+    target.write_text(json.dumps({'batches': results, 'blocked': blocked, 'gao': gao_state},
                                 ensure_ascii=False, indent=2) + '\n', encoding='utf8')
+    report = ['# Real-scan — قياس العينة البشرية', '',
+              'الـ holdout-2 الصناعي هو الدليل الأساسي؛ مفيش قياس لدقة الصفحة كلها أو الأرقام الناقصة من العينة.', '']
+    def row(label, result):
+        flagged, accepted = result['flagged'], result['accepted']
+        interval = flagged['wilson_95']
+        rate = lambda value: '—' if value is None else f'{value:.2%}'
+        return f"| {label} | {flagged['n']} | {flagged['false_alarms']} | {rate(flagged['rate'])} | {'—' if interval is None else rate(interval[0])+' – '+rate(interval[1])} | {flagged['illegible']} | {accepted['n']} | {accepted['silent_errors']} | {rate(accepted['rate'])} | {rate(accepted['exact_binomial_upper_95'])} | {rate(accepted['rule_of_three_upper_approx'])} | {accepted['illegible']} |"
+    for result in results:
+        report += [f"## {result['batch']}", '', f"Manifest SHA256: `{result['manifest_sha256']}`", '',
+                   '| العينة / الصفحة | flagged n | false alarms | rate | Wilson 95% | illegible flagged | accepted n | silent errors | rate | exact upper 95% | 3/n عند صفر أخطاء | illegible accepted |',
+                   '|---|---:|---:|---:|---|---:|---:|---:|---:|---:|---:|---:|', row('كل العينة', result)]
+        report += [row(page, values) for page, values in result['pages'].items()]
+        report += ['', 'Population-weighted point estimates: '+json.dumps(result['population_weighted_point_estimates']), '',
+                   'الـ intervals الملخصة للعينة مبنية على binomial model: Wilson two-sided 95% وClopper–Pearson one-sided 95%. '
+                   'مع page quotas/minimums دول مش exact design-based population intervals. الوزن حسب حجم كل صفحة متسجل كنقطة تقدير منفصلة؛ استبعاد غير المقروء ممكن يعمل bias. '
+                   'غير المقروء خارج المقام ومش محسوب خطأ. 3/n تقريب عند صفر أخطاء بس؛ النتيجة الأساسية هي الحد exact.', '']
+    report += ['GAO: '+gao_state, '']
+    report += [f"{b['batch']}: {b['ask']}" for b in blocked]
+    report += ['', '| البند | الحالة | الدليل |', '|---|---|---|']
+    for result in results:
+        report += [f"| D2 sampled GT complete — {result['batch']} | DONE | كل عناصر العينة متراجعة وموقعة، ومن ضمنها غير المقروء |",
+                   f"| D4 measured on sample — {result['batch']} | DONE | المقاييس والـ intervals فوق؛ answers SHA256 `{result['answers_sha256']}` |"]
+    if gao_state != 'measured':
+        report += ['| D3 / GAO sampled GT | BLOCKED-ON-OWNER | '+gao_state+' |']
+    (HERE.parents[2] / 'reports/step4c-sample-metrics.md').write_text('\n'.join(report), encoding='utf8')
     print(target)
 
 
@@ -268,10 +310,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=['freeze', 'extend-gao', 'measure'])
     args = parser.parse_args()
-    if args.action == 'measure':
-        measure_samples()
-    else:
-        create_sample(args.action == 'extend-gao')
+    try:
+        if args.action == 'measure':
+            measure_samples()
+        else:
+            create_sample(args.action == 'extend-gao')
+    except ValueError as error:
+        raise SystemExit(str(error)) from None
 
 
 if __name__ == '__main__':

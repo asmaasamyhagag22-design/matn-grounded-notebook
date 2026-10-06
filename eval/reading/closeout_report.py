@@ -46,14 +46,14 @@ def publish():
            ('C3','DONE','0.99993 wrong؛ bar 1.0؛ all default حتى score 1.0؛ توقيت تحت؛ ADR-0005'),
            ('C4','DONE','19 tune فقط، threshold 2.0؛ step4c-denoise-selection.json؛ d5fe844'),
            ('C5','DONE','d5fe844 ثم2abd37b (margin fragments) ثمcbc5724 (duplicate detections)، tune-only؛ test_ocr_rules_frozen؛ كلهم قبل holdout'),
-           ('D1','DONE','90aaa9d؛ review.html للست صفحات، 951 مرشح بدون اختيار؛ كل assets موجودة وقوالب GT مطابقة للـ baseline؛ step4c-review-evidence.json + test_real_review.py + review_ui_test.js؛ D2 فيه مراجعة الشكل'),
-           ('D2','BLOCKED-ON-OWNER','مراجعة وتوقيع GT للست صفحات في review.html؛ الخطوات فوق؛ مفيش إجابة اتملت'),
-           ('D3','BLOCKED-ON-OWNER','GAO 403 ×3؛ نفس المصدر والأمر والـ hash في step4c-downloads.md؛ بعدها GT لـ p4/p37/p39'),
-           ('D4','BLOCKED-ON-OWNER','real.measure بيرفض templates غير موقعة؛ test_signed_synthetic_fixture_measures_true_false_alarms_per_page بيؤكد accuracy/flags/FPR على fixture صناعي مؤقت؛ بعد D2/GAO GT نحسب الدقة والـ true false alarms ونحكّم كل raw error'),
+           ('D1','DONE','sample mode: 180 رقم بس؛ seed 20261006؛ freeze commit 477e4c7؛ crop/context، keyboard، auto-advance وحفظ GT بعد كل إجابة؛ sample_ui_test.js وtest_real_sample.py'),
+           ('D2 — sampled GT complete','BLOCKED-ON-OWNER','راجعي العينة الثابتة 180 رقم؛ مفيش full-page review؛ لسه 0/180؛ GAO إضافة منفصلة 30 رقم لما الملف يوصل'),
+           ('D3','BLOCKED-ON-OWNER','GAO 403 ×3؛ الملف لسه مش موجود؛ بعد verify والقراءة نضيف 15 flagged + 15 accepted بنفس seed method من p4/p37/p39، ونثبت الإضافة في commit قبل مراجعتها'),
+           ('D4 — measured on sample','BLOCKED-ON-OWNER','بعد D2: real.measure → false-alarm share مع Wilson 95%، silent-error rate مع exact upper 95% و3/n عند صفر أخطاء؛ illegible منفصل، breakdown لكل صفحة؛ GAO مش بيمنع قياس العينة الأصلية'),
            ('E1','DONE','CLI + read_pdf.ps1؛ digital/scan/layout/test refusal/output paths؛ test_cli.py + test_closeout_e2e.py'),
            ('E2','DONE','generated digital + image-only + verified NBS real page؛ markers/report/overlays؛ test_closeout_e2e.py'),
            ('E3','DONE','outline من غير fill، legend موسعة؛ test_scan_overlay_preserves_character_pixels_and_keeps_legend'),
-           ('F1','BLOCKED-ON-OWNER','20 tune + 11 seen + 30 holdout مقاسين ومحكّمين، وتوقيت 6 real؛ دقة real مستنية D4'),
+           ('F1','BLOCKED-ON-OWNER','20 tune + 11 seen + 30 holdout مقاسين ومحكّمين، وتوقيت 6 real؛ مقاييس عينة real مستنية D4'),
            ('F2','DONE' if passed else 'BLOCKED-ON-OWNER',f'{gate}؛ raw {summary["holdout2"]["silent_errors"]}، reader-attributed {reader_errors["holdout2"]}؛ لا tuning بعد القياس'),
            ('F3','DONE','docs/adr/0005-ocr-stack.md؛ الأسباب والبدائل المرفوضة'),
            ('F4','DONE','docs/ocr_setup.md + UTF-8 locks + step4c-environment.json؛ versions/full hashes/Ubuntu commands'),
@@ -68,16 +68,19 @@ def publish():
     def close_table():
         return ['| البند | الحالة | الدليل / المطلوب |','|---|---|---|']+[f'| {a} | {b} | {c} |' for a,b,c in table]
     lines=['# Step 4c — ملخص الصبح والإغلاق','',
-           '**اتعمل:** layout + rotate/re-read + adaptive denoise، اختبارات الأخطاء التلاتة، one-command reader، مراجعة GT offline، القياسات الصناعية والتحكيم، وتوثيق الـ stack. الـ downloads اقتصرت على الموافقات. مفيش test split اتقري ولا history اتعاد.','',
+           '**اتعمل:** layout + rotate/re-read + adaptive denoise، اختبارات الأخطاء التلاتة، one-command reader، مراجعة GT offline بالعينة: 180 رقم (80 flagged + 100 accepted) في ترتيب مخفي وعشوائي، القياسات الصناعية والتحكيم، وتوثيق الـ stack. الـ downloads اقتصرت على الموافقات. مفيش test split اتقري ولا history اتعاد.','',
            '**مستنيكي:** Step 4c لسه مش مقفول؛ D2/D3/D4 وجزء real من F1 محتاجينك.','',
-           '1. افتحي `eval/reading/real/review.html` محليًا وراجعي شكل الأداة. اختاري `Choose existing gt folder` → `eval/reading/real/gt`. لكل صفحة قارني الصورة والـ crops، اختاري القراءة الصح أو اكتبي القيمة زي المطبوع، واعملي `not a number` للكشف الغلط أو المكرر أو جزء الرقم؛ كل رقم مطبوع يتسجل مرة واحدة. لو crop أو مكان الكشف غلط، ارفضي المرشح وزوّدي الرقم بمكانه الصحيح. زوّدي أي رقم ناقص بكليكتين (top-left/bottom-right) على الصفحة الكاملة؛ headers/figures كمان ضمن GT.','2. كمّلي NBS p7/p15/p32 وStatAb p0/p8/p45 (indices من صفر). اكتبي اسمك، علّمي إنك راجعتي الصفحة كلها، واضغطي `Save GT`. لو اختيار المجلد مش مدعوم، `Download GT JSON` واستبدلي نفس ملف الـ template. استخدمي `[illegible]` لغير المقروء؛ مفيش answers مختارة مسبقًا.','3. نزّلي GAO من نفس الأمر تحت/في `step4c-downloads.md`، ثم verify، reader run، review generator، وراجعي p4/p37/p39. مفيش بديل معتمد.','4. بعد توقيع الست صفحات: `.venv\\Scripts\\python.exe -m eval.reading.real.measure`. كمّلي GAO بنفس المسار لما يوصل؛ كل real raw silent error محتاج تحكيم من الصورة.','',
+           '1. افتحي `eval/reading/real/review.html` في Chrome أو Edge. اكتبي اسمك، واضغطي `Choose existing gt folder` واختاري `eval/reading/real/gt` واسمحي بالكتابة. هتشوفي رقم واحد في كل مرة، crop كبير وسطر السياق؛ الحالة flagged/accepted مخفية.',
+           '2. الكيبورد: 1 = reader-1 صح؛ 2 = reader-2 صح؛ 3 = embedded layer صح لما تكون موجودة (لو أكتر من قيمة، اختاري الصح)؛ T = اكتبي القيمة واضغطي Enter؛ X = غير مقروء وممنوع التخمين؛ Backspace = ارجعي. للكشف المكرر/الجزئي أو اللي مش رقم استخدمي `Not a number`. الحفظ في GT JSON بعد كل إجابة قبل الانتقال؛ للرجوع اختاري نفس المجلد. مفيش مراجعة للصفحة كلها ولا GT متعبّي مسبقًا.',
+           '3. بعد الـ180 إجابة: `.venv\Scripts\python.exe -m eval.reading.real.measure` → `out/reading/step4c-closeout-final-v3/real-sample-metrics.json` و`reports/step4c-sample-metrics.md`. غير المقروء خارج المقام؛ لو صفر أخطاء و100 legible accepted، exact upper = 2.95%، وتقريب 3/n = 3%.',
+           '4. GAO p4/p37/p39 مستني الملف اليدوي بنفس URL/hash/size المعتمدين. بعدها verify → reader → `sample extend-gao` → commit للإضافة قبل مراجعتها → regenerate review. الإضافة 15 flagged + 15 accepted منفصلة؛ الـ180 الأصلية وترتيبها مش بيتغيروا. التفاصيل في `reports/step4c-sampling.md`.', '',
            f'**نتيجة الـ gate:** {gate}. holdout-2: raw silent errors **{summary["holdout2"]["silent_errors"]}**؛ reader-attributed بعد التحكيم **{reader_errors["holdout2"]}**. flag rate **{summary["holdout2"]["flag_rate"]}**؛ false-alarm share **{summary["holdout2"]["false_alarm_rate"]}**.']
     if not passed:
         lines+=['**القرار المطلوب:** راجعي حالات holdout-2 في جدول التحكيم والصور، وقرري قبول الخطر الموثّق أو ترخيص جولة إصلاح وholdout جديد. مفيش أي tuning اتعمل على النتيجة دي.']
     lines+=['','جدول الإغلاق لحد دلوقتي:','']+close_table()+['','## قواعد القياس والأدلة','',
              'A1 اتثبت في f4d87a1 قبل أي كود close-out: 10 صفحات لكل dev document، طبقات metadata، seeds جديدة، خارج الـ31 صفحة القديمة. صفحات المستندات اتقرت digitally قبل كده في 4b؛ ده holdout للـ OCR الصناعي، مش مستندات مستقلة. dev-check seen تشخيصي بس. Freeze d5fe844 ثم2abd37b لتصليح fragmented margin stamp على dev-tune بس؛ runner fix 01d4501 وoverlap guard cbc5724 (WB p10 tune-only) قبل فتح holdout. الـ core ثابت منcbc5724.','',
              'كل تشغيل final له checkpoint ببصمة code/rules. الدليل الحالي في `out/reading/step4c-closeout-final-v3/final/`. أول checkpoint tune قبل إصلاح توصيل embedded layer محفوظ في `out/reading/step4c-closeout/final/` ومش داخل النتائج. اختيار denoise محفوظ في المجلد القديم؛ جولة dev-tune قبل overlap guard محفوظة في `out/reading/step4c-closeout-final-v2/final/` كمان. checkpointات محاولة القياس قبل margin fix كمان محفوظة في `out/reading/step4c-closeout-final/final/` ومش داخل القياس النهائي. مفيش حذف/إعادة كتابة لأي run قديم.','',
-             'تعريفات المقاييس القديمة ثابتة: كل رقم مطبوع ضمن raw GT حتى figures/furniture؛ الأرقام المستبعدة دلاليًا بتتحسب flagged. false-alarm share = correct flagged / all flagged؛ ده مش معدل الخطأ على كل الأرقام الصحيحة. correct numbers المستبعدة من prose ممكن تعلي الرقم ده لأسباب سليمة. الـ real tool بيحسب كمان false-positive rate على correct reads بعد GT اليدوي.','',
+             'تعريفات المقاييس القديمة ثابتة: كل رقم مطبوع ضمن raw GT حتى figures/furniture؛ الأرقام المستبعدة دلاليًا بتتحسب flagged. false-alarm share = correct flagged / all flagged؛ ده مش معدل الخطأ على كل الأرقام الصحيحة. correct numbers المستبعدة من prose ممكن تعلي الرقم ده لأسباب سليمة. الـ real sample بيقيس false-alarm share على flagged وسرية الأخطاء على accepted؛ مفيش ادعاء population FPR أو recall للأرقام الناقصة. page quotas متناسبة مع minimum 5 حيث متاح؛ Wilson/exact binomial ملخصات للعينة تحت binomial model، مش exact design-based population intervals؛ weighted point estimates منفصلة. التفاصيل في step4c-sampling.md.','',
              '## Synthetic — full بالقواعد الحالية','']+_table([(_subset_label(s),summary[s]) for s in summary],'subset')
     lines+=['','## حسب النوع — full (الأنواع ممكن تتداخل)','']
     lines+=['accuracy والـ false-alarm share الصناعية فوق وتحت من المرجع الرقمي الخام بنفس scoring المجمّد؛ التحكيم بيحدد reader-attributed gate بس، ومش بيعيد كتابة accuracy أو matching. flag rate من flags الفعلية على الأرقام المكتشفة.','']
@@ -138,16 +141,16 @@ def publish():
                 a=aggregate([p]);v=[a[k] for k in ('numbers','accuracy','silent_errors','silent_drops','flag_rate','false_alarm_rate')]
             t=p['timing'];v+= [f'{x:.2f}' for x in (t['preprocess'],p['layout_seconds'],t['without_second_reads'],t['with_second_reads'],p['wall_seconds'])]
             lines.append(f'| {_subset_label(s)} | {p["doc_id"]} p{p["page_index"]} | '+' | '.join(map(str,v))+' |')
-    lines+=['','**Real accuracy / true false alarms: BLOCKED-ON-OWNER**؛ tool قارى الست صفحات وبيعرض crops/القراءات بس. NBS وStatAb hash-verified، GAO مش موجود. الـ GT templates لسه unsigned وغير معدّلة. CER/WER للـreal مش مدّعى لأن المراجعة الحالية numbers only؛ table structure/TEDS مؤجل لـ4d/R4.','',
+    lines+=['','**Real sampled rates: BLOCKED-ON-OWNER**؛ sample review فيه 180 رقم بس من الست صفحات، ثابت في477e4c7. NBS وStatAb hash-verified؛ GAO مش موجود وإضافته30 رقم معلقة. GT templates لسه غير معدّلة؛ full-page status هيفضل template، وإجابات العينة تتسجل في sample_reviews بس. مفيش ادعاء full-page accuracy/CER/WER أو missed-number recall؛ table structure/TEDS مؤجل لـ4d/R4.','',
              '## التثبيت والاختبارات والحدود','',
              'rapid-layout **1.2.1** offline wheels ثم no-index؛ كل pins القديمة ثابتة. PP-DocLayoutV2 **213,963,993 bytes**، sha256 `0bd2ea0997fe0789f0300292291f8bbf897d890b44a9a3bd5be72afd6198aa90` مطابق للتقرير وdefault_models.yaml. GLM blob **2,219,298,752 bytes**، sha256 `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` اتراجع محليًا. hashes كاملة لكل نموذج/lock في `step4c-environment.json`؛ pip check سليم.','',
              'GAO رجع403 في3 محاولات؛ مفيش file اتكتب أو بديل اتنزّل. الأمر المعتمد من root المشروع:','',
              '```powershell',
              "Invoke-WebRequest -Uri 'https://www.gao.gov/assets/Comptroller%20General%27s%201990%20Annual%20Report.pdf' -OutFile 'eval/reading/real/incoming/gao_cg_annual_report_1990.pdf'",
              "Get-FileHash 'eval/reading/real/incoming/gao_cg_annual_report_1990.pdf' -Algorithm SHA256",
-             '.venv\\Scripts\\python.exe -m eval.reading.real.verify',
-             '.venv\\Scripts\\python.exe -m eval.reading.closeout --subset real',
-             '.venv\\Scripts\\python.exe -m eval.reading.real.review','```','',
+             '.venv\Scripts\python.exe -m eval.reading.real.verify',
+             '.venv\Scripts\python.exe -m eval.reading.closeout --subset real',
+             '.venv\Scripts\python.exe -m eval.reading.real.review','```','',
              'GAO expected SHA256 `71586b0afcd7ff14955e2f5c4dd8645e94809fca99e525761267577805b2b57a`، size 9,297,136 bytes. mismatch: الملف الجديد بس يتشال ويتسجل؛ ممنوع substitution.','',
              load(REPO/'reports/step4c-test-evidence.json')['summary'],'',
              'أداة Browser Use رفضت معاينة `file://` بسبب سياسة تسمح HTTP/HTTPS بس ومنعت workarounds. مفيش تجاوز أو server اتعمل. JavaScript syntax/DOM tests نجحوا؛ المعاينة البصرية الكاملة للأداة ضمن المطلوب منك في D2.','',

@@ -1,6 +1,5 @@
 """Synthetic fixtures only: immutable draws, blind payload, and owner-only sample statistics."""
 import json
-import math
 import pytest
 
 
@@ -100,3 +99,94 @@ def test_prediction_hash_and_gt_batch_identity_are_enforced(tmp_path):
     (tmp_path / 'doc_p0000.json').write_text(json.dumps(gt), encoding='utf8')
     with pytest.raises(ValueError, match='manifest'):
         read_answers(manifest, tmp_path)
+
+
+def test_gao_extension_cannot_change_initial_draw(monkeypatch, tmp_path):
+    from eval.reading.real import sample
+    initial = tmp_path / 'initial.json'; gao = tmp_path / 'gao.json'
+    data = {'items': [{'id': 'original'}]}
+    initial.write_text(json.dumps(data), encoding='utf8')
+    extension = {'items': [{'id': 'gao-only'}], 'initial_manifest_sha256': sample.digest(data)}
+    gao.write_text(json.dumps(extension), encoding='utf8')
+    monkeypatch.setattr(sample, 'INITIAL', initial); monkeypatch.setattr(sample, 'GAO', gao)
+    assert sample.manifests()[0] == data
+    extension['initial_manifest_sha256'] = 'wrong'
+    gao.write_text(json.dumps(extension), encoding='utf8')
+    with pytest.raises(ValueError, match='another initial'):
+        sample.manifests()
+
+
+def test_sample_html_never_embeds_population_or_unselected_predictions():
+    from eval.reading.real.sample_review import render_sample_html
+    html = render_sample_html([{'batch': 'fixture', 'manifest_sha256': 'abc', 'items': []}])
+    assert '__SAMPLE_DATA__' not in html
+    assert '"flagged"' not in html and '"accepted"' not in html
+    assert 'createWritable' in html and 'showDirectoryPicker' in html
+    assert 'localStorage' not in html  # disk is authoritative on resume
+    assert '<script src=' not in html and 'https://' not in html
+
+
+def test_all_illegible_and_empty_strata_have_no_invented_rate():
+    from eval.reading.real.sample import statistics
+    manifest = {'items': [{'id': 'a', 'page': 'p', 'reader1': '1', 'flagged': True}],
+                'populations': {'p': {'flagged': 1, 'accepted': 0}}}
+    result = statistics(manifest, {'a': {'kind': 'illegible', 'verified_by': 'Fixture'}})
+    assert result['flagged']['n'] == 0 and result['flagged']['rate'] is None
+    assert result['accepted']['exact_binomial_upper_95'] is None
+    assert result['population_weighted_point_estimates'] == {'flagged': None, 'accepted': None}
+
+
+def test_sample_measurement_publishes_only_signed_fixture_and_blocks_pending_gao(monkeypatch, tmp_path):
+    from eval.reading.real import sample
+    from eval.reading import closeout
+    here = tmp_path / 'eval/reading/real'; (here / 'gt').mkdir(parents=True)
+    (tmp_path / 'reports').mkdir()
+    out = tmp_path / 'out'; out.mkdir()
+    fixture = {'batch': 'initial', 'sources': {'fixture': 'sha'}, 'records': {},
+               'items': [{'id': 'a', 'page': 'fixture_p0000', 'reader1': '20', 'flagged': False}],
+               'populations': {'fixture_p0000': {'flagged': 0, 'accepted': 1}}}
+    gt = {'doc_key': 'fixture', 'page_index': 0, 'status': 'template', 'numbers': []}
+    path = here / 'gt/fixture_p0000.json'; path.write_text(json.dumps(gt), encoding='utf8')
+    monkeypatch.setattr(sample, 'HERE', here); monkeypatch.setattr(closeout, 'OUT', out)
+    monkeypatch.setattr(sample, 'GAO', tmp_path / 'absent-gao.json')
+    monkeypatch.setattr(sample, 'require_verified', lambda doc: tmp_path / 'fixture.pdf')
+    monkeypatch.setattr(sample, 'manifests', lambda: [fixture])
+    with pytest.raises(ValueError, match='BLOCKED-ON-OWNER'):
+        sample.measure_samples()
+    assert not (out / 'real-sample-metrics.json').exists()
+    gt['sample_reviews'] = {'initial': {'manifest_sha256': sample.digest(fixture), 'answers': {
+        'a': {'kind': 'number', 'value_as_printed': '20', 'verified_by': 'Synthetic fixture'}}}}
+    path.write_text(json.dumps(gt), encoding='utf8'); before = path.read_bytes()
+    sample.measure_samples()
+    result = json.loads((out / 'real-sample-metrics.json').read_text(encoding='utf8'))
+    assert result['batches'][0]['accepted']['silent_errors'] == 0
+    assert result['gao'].startswith('BLOCKED-ON-OWNER')
+    assert (tmp_path / 'reports/step4c-sample-metrics.md').exists()
+    assert path.read_bytes() == before
+    # A newly frozen but unreviewed extension does not block the completed initial batch.
+    gao = {'batch': 'gao', 'sources': {}, 'records': {},
+           'items': [{'id': 'g', 'page': 'fixture_p0000', 'reader1': '21', 'flagged': True}],
+           'populations': {'fixture_p0000': {'flagged': 1, 'accepted': 0}}}
+    monkeypatch.setattr(sample, 'manifests', lambda: [fixture, gao])
+    sample.GAO.write_text('{}', encoding='utf8')
+    sample.measure_samples()
+    result = json.loads((out / 'real-sample-metrics.json').read_text(encoding='utf8'))
+    assert result['batches'][0]['batch'] == 'initial' and len(result['batches']) == 1
+    assert result['blocked'][0]['batch'] == 'gao'
+    assert result['gao'].startswith('BLOCKED-ON-OWNER')
+
+
+def test_review_generation_requires_a_committed_unchanged_manifest(monkeypatch, tmp_path):
+    from eval.reading.real import sample_review
+    from types import SimpleNamespace
+    here = tmp_path / 'eval/reading/real'; here.mkdir(parents=True)
+    path = here / 'sample.json'; path.write_text('{"items":[]}', encoding='utf8')
+    monkeypatch.setattr(sample_review, 'HERE', here)
+    monkeypatch.setattr(sample_review.subprocess, 'run', lambda *a, **k: SimpleNamespace(returncode=1, stdout=b''))
+    with pytest.raises(ValueError, match='Commit this frozen sample'):
+        sample_review.require_committed(path)
+    monkeypatch.setattr(sample_review.subprocess, 'run', lambda *a, **k: SimpleNamespace(returncode=0, stdout=b'{"items":[]}'))
+    sample_review.require_committed(path)
+    path.write_text('{"items":[1]}', encoding='utf8')
+    with pytest.raises(ValueError, match='Commit this frozen sample'):
+        sample_review.require_committed(path)

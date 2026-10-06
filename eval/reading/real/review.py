@@ -97,4 +97,10 @@ def generate():
 
 
 if __name__=="__main__":
-    generate()
+    import sys
+    from .sample import INITIAL
+    if INITIAL.exists() and '--full' not in sys.argv:
+        from .sample_review import generate as generate_sample
+        generate_sample()
+    else:
+        generate()
