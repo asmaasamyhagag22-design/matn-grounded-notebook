@@ -19,6 +19,7 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "eval/tests/test_real_sample.py::test_constrained_proportional_quotas_and_seeded_draw",
     "eval/tests/test_real_review.py::test_review_has_no_selected_answers_and_preserves_template",
     "eval/tests/test_real_review.py::test_signed_synthetic_fixture_measures_true_false_alarms_per_page",
     "tests/reading/ocr/test_closeout.py::test_duplicate_detection_of_a_year_digit_cannot_be_accepted_twice",

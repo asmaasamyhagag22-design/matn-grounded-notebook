@@ -1,0 +1,3131 @@
+{
+  "schema": "matn-real-sample/1",
+  "batch": "initial",
+  "seed": 20261006,
+  "frozen_at": "2026-10-06T09:15:31.017816+00:00",
+  "method": "SHA256 seeded random ranks without replacement within page; constrained proportional largest remainder; minimum min(5, population); separate blind-order domain",
+  "unit": "reader-1 detected numeric token; excludes layer/r2-only proposals and cannot measure missed-number recall",
+  "sources": {
+    "nbs_circular_31_e4_1956": "8112e7604c97ed652d1b8d9c0e75c5eaa1e617070efc6e082f6bc7ff8d3aafbc",
+    "statab_1951_part04": "d4b808d9f8953091ecbd793247d0e224465a88c0af1a4858e280c81805ae9ac1"
+  },
+  "records": {
+    "nbs_circular_31_e4_1956_p0007": "ccfb3d1e7b4c9aac39f9053b75afcf844d9f8998b1f259ba214b763d49a9bfd8",
+    "nbs_circular_31_e4_1956_p0015": "311f1707c21de2827091990046226d9b8f0dd1d41e927beeea8ea443f2b057b2",
+    "nbs_circular_31_e4_1956_p0032": "6fb0ad5b072647699cfa0df6379b68563bce888cdf8a40cafa50d6d60a5cf0ed",
+    "statab_1951_part04_p0000": "5b0c6da5cf1b00c5e976366f4854cce70f33721a0107175d631fd2800e274139",
+    "statab_1951_part04_p0008": "96e76315f199d72e9fd5863ffb919fd1dba3568a676b2908c9a20517778a9d50",
+    "statab_1951_part04_p0045": "0b96a0571a0e01ee183d3c4623100d097900f555bfca1853bf85c523e916b2f6"
+  },
+  "populations": {
+    "nbs_circular_31_e4_1956_p0007": {
+      "flagged": 32,
+      "accepted": 56
+    },
+    "nbs_circular_31_e4_1956_p0015": {
+      "flagged": 40,
+      "accepted": 94
+    },
+    "nbs_circular_31_e4_1956_p0032": {
+      "flagged": 35,
+      "accepted": 25
+    },
+    "statab_1951_part04_p0000": {
+      "flagged": 1,
+      "accepted": 19
+    },
+    "statab_1951_part04_p0008": {
+      "flagged": 340,
+      "accepted": 59
+    },
+    "statab_1951_part04_p0045": {
+      "flagged": 45,
+      "accepted": 77
+    }
+  },
+  "quotas": {
+    "flagged": {
+      "nbs_circular_31_e4_1956_p0007": 5,
+      "nbs_circular_31_e4_1956_p0015": 6,
+      "nbs_circular_31_e4_1956_p0032": 6,
+      "statab_1951_part04_p0000": 1,
+      "statab_1951_part04_p0008": 55,
+      "statab_1951_part04_p0045": 7
+    },
+    "accepted": {
+      "nbs_circular_31_e4_1956_p0007": 17,
+      "nbs_circular_31_e4_1956_p0015": 28,
+      "nbs_circular_31_e4_1956_p0032": 8,
+      "statab_1951_part04_p0000": 6,
+      "statab_1951_part04_p0008": 18,
+      "statab_1951_part04_p0045": 23
+    }
+  },
+  "items": [
+    {
+      "reader1": "1910",
+      "reader2": "1910",
+      "layer": "191 | 0",
+      "context": "7 Bul. BS, 7, 104 (1910).",
+      "bbox": [
+        331.18886081211474,
+        621.4948681628276,
+        343.270617919622,
+        632.3096046405046
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0086",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 86
+    },
+    {
+      "reader1": "4",
+      "reader2": "4",
+      "layer": "4",
+      "context": "4",
+      "bbox": [
+        26.523026169871905,
+        647.3127617348977,
+        33.97680173365167,
+        658.6018429889748
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0087",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 87
+    },
+    {
+      "reader1": "31",
+      "reader2": "31",
+      "layer": "3 | 1",
+      "context": "yalue as a mean. (See appendix 3, p. 31).",
+      "bbox": [
+        482.06732258145166,
+        274.0337318275701,
+        491.3234425237999,
+        287.2450107630375
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0036",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 36
+    },
+    {
+      "reader1": "0.000",
+      "reader2": "0.000",
+      "layer": "0.000",
+      "context": "0.000 597 ohm-gram/meter²",
+      "bbox": [
+        87.92883017822234,
+        29.93675460431266,
+        112.18288641919206,
+        41.48636074617227
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0001",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 1
+    },
+    {
+      "reader1": "0.000",
+      "reader2": "0.000",
+      "layer": "0.000",
+      "context": "or, 0.000 0681 ohm-mm²/meter",
+      "bbox": [
+        88.67287329067138,
+        49.61732634736376,
+        111.72781007294037,
+        61.88546587567129
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0009",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 9
+    },
+    {
+      "reader1": "30",
+      "reader2": "29",
+      "layer": "30",
+      "context": "30",
+      "bbox": [
+        272.61242297902686,
+        523.8926012137182,
+        279.58502604007117,
+        534.2210967537726
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0075",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 75
+    },
+    {
+      "reader1": "47",
+      "reader2": "46",
+      "layer": "46 | 47",
+      "context": "47",
+      "bbox": [
+        365.52020910944617,
+        546.5779370384072,
+        373.4548639607201,
+        558.587604185622
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0099",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 99
+    },
+    {
+      "reader1": "31",
+      "reader2": "31",
+      "layer": "3 | 1",
+      "context": "31",
+      "bbox": [
+        271.6626862289356,
+        532.290835653244,
+        281.0341146378642,
+        541.6622640621725
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0082",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 82
+    },
+    {
+      "reader1": "46",
+      "reader2": "45",
+      "layer": "46",
+      "context": "46",
+      "bbox": [
+        365.75082604260655,
+        538.8979427700878,
+        373.4446014272713,
+        550.1873172394063
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0091",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 91
+    },
+    {
+      "reader1": "27",
+      "reader2": "26",
+      "layer": "26 | 27",
+      "context": "27",
+      "bbox": [
+        270.6628096725666,
+        499.65027358240405,
+        281.47599629825316,
+        510.46346020809074
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0052",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 52
+    },
+    {
+      "reader1": "3.1",
+      "reader2": "3",
+      "layer": "3.5 | 3.1",
+      "context": "3.1",
+      "bbox": [
+        412.4936141431062,
+        492.0331771291692,
+        426.42709165553913,
+        503.09017537387894
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0047",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 47
+    },
+    {
+      "reader1": ".014780",
+      "reader2": ".225",
+      "layer": ".014 | 780",
+      "context": ".014780",
+      "bbox": [
+        133.32295073469905,
+        122.79465834295948,
+        156.37611699396317,
+        131.23083911236333
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0037",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 37
+    },
+    {
+      "reader1": "67.879",
+      "reader2": "172.41",
+      "layer": "67.879",
+      "context": "67.879",
+      "bbox": [
+        443.63540506451847,
+        117.75588544511558,
+        461.1678241518814,
+        125.70339601453735
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0036",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 36
+    },
+    {
+      "reader1": "1",
+      "reader2": null,
+      "layer": "",
+      "context": "1",
+      "bbox": [
+        126.46715236692481,
+        341.94417030065904,
+        137.76636498991883,
+        354.20187377544715
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0051",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 51
+    },
+    {
+      "reader1": "84.389",
+      "reader2": "289.4",
+      "layer": "84.389",
+      "context": "84.389",
+      "bbox": [
+        193.32212273075447,
+        122.22832800451714,
+        211.33642618075825,
+        131.37659107542538
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0038",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 38
+    },
+    {
+      "reader1": "15.279",
+      "reader2": "6.0153",
+      "layer": "15.279",
+      "context": "15.279",
+      "bbox": [
+        383.8743478175579,
+        117.12674115555905,
+        403.32827250007,
+        126.03726646833574
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0035",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 35
+    },
+    {
+      "reader1": "50763",
+      "reader2": "50",
+      "layer": "50 | 763",
+      "context": "50763",
+      "bbox": [
+        181.7753705845805,
+        105.2064445930134,
+        199.78778907976732,
+        113.15470914436199
+      ],
+      "flagged": true,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0019",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 19
+    },
+    {
+      "reader1": "301",
+      "reader2": "301",
+      "layer": "",
+      "context": "301",
+      "bbox": [
+        332.97167399502825,
+        578.2200563883811,
+        347.3857375797138,
+        589.7576407053436
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0000:t0019",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 19
+    },
+    {
+      "reader1": "49,958",
+      "reader2": "49,958",
+      "layer": "",
+      "context": "49,958",
+      "bbox": [
+        222.89061234439336,
+        266.34576778147556,
+        240.18303172784442,
+        274.292901359934
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0139",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 139
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "",
+      "context": "1",
+      "bbox": [
+        252.00258179174602,
+        312.1574369063991,
+        258.25275284946804,
+        318.64723067706944
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0181",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 181
+    },
+    {
+      "reader1": "40,057",
+      "reader2": "40,057",
+      "layer": "",
+      "context": "40,057",
+      "bbox": [
+        325.30941337871633,
+        227.30408662444478,
+        343.0810781880644,
+        234.7719747770061
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0119",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 119
+    },
+    {
+      "reader1": "3199",
+      "reader2": "3",
+      "layer": "",
+      "context": "3199",
+      "bbox": [
+        252.67823950957424,
+        436.69956466141036,
+        269.7295282162231,
+        443.92632213716956
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0296",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 296
+    },
+    {
+      "reader1": "413",
+      "reader2": "348",
+      "layer": "",
+      "context": "413",
+      "bbox": [
+        285.08611634791595,
+        441.6995974014405,
+        295.1789216049726,
+        449.87542095490886
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0305",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 305
+    },
+    {
+      "reader1": "88",
+      "reader2": "88",
+      "layer": "",
+      "context": "88",
+      "bbox": [
+        338.7993031447265,
+        411.85895805019385,
+        346.49135738073704,
+        419.5510122862043
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0289",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 289
+    },
+    {
+      "reader1": "422",
+      "reader2": "422",
+      "layer": "",
+      "context": "422",
+      "bbox": [
+        309.1630828070588,
+        185.10259181421205,
+        318.53475797948937,
+        192.55728528305437
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0085",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 85
+    },
+    {
+      "reader1": "65",
+      "reader2": "65",
+      "layer": "",
+      "context": "65",
+      "bbox": [
+        184.96024691910694,
+        412.5843785751908,
+        190.25268110696155,
+        420.5126626054791
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0284",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 284
+    },
+    {
+      "reader1": "39",
+      "reader2": "39",
+      "layer": "",
+      "context": "39",
+      "bbox": [
+        287.99551809000434,
+        460.41919731560756,
+        295.44719563113944,
+        467.8708748567427
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0328",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 328
+    },
+    {
+      "reader1": "64",
+      "reader2": "64",
+      "layer": "",
+      "context": "64",
+      "bbox": [
+        288.25399035112275,
+        472.17880581632863,
+        295.705667892258,
+        479.63048335746385
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0336",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 336
+    },
+    {
+      "reader1": "46,134",
+      "reader2": "45,134",
+      "layer": "",
+      "context": "46,134",
+      "bbox": [
+        248.04685030339158,
+        238.46508710364472,
+        266.0615307443588,
+        247.85334987846485
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0124",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 124
+    },
+    {
+      "reader1": "898",
+      "reader2": "2",
+      "layer": "",
+      "context": "898",
+      "bbox": [
+        309.6976559931592,
+        525.4195330245833,
+        320.74932909297326,
+        532.8768654301693
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0365",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 365
+    },
+    {
+      "reader1": "4,803",
+      "reader2": "4,803",
+      "layer": "",
+      "context": "4,803",
+      "bbox": [
+        358.13485266473106,
+        345.3353091148352,
+        374.2287814924761,
+        354.24055655412434
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0219",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 219
+    },
+    {
+      "reader1": "1,048",
+      "reader2": "1,048",
+      "layer": "",
+      "context": "1,048",
+      "bbox": [
+        251.85230593712313,
+        369.2634177717923,
+        267.22925158083956,
+        380.0875318694866
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0239",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 239
+    },
+    {
+      "reader1": "75",
+      "reader2": "180",
+      "layer": "",
+      "context": "75",
+      "bbox": [
+        237.28055936287083,
+        412.74181725811826,
+        242.81337024560077,
+        420.9104779832819
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0286",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 286
+    },
+    {
+      "reader1": "3",
+      "reader2": null,
+      "layer": "",
+      "context": "3思",
+      "bbox": [
+        365.9942908884909,
+        459.5812000323277,
+        370.56672596460976,
+        467.5083530897259
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0331",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 331
+    },
+    {
+      "reader1": "1,366",
+      "reader2": "1,366",
+      "layer": "",
+      "context": "1,366",
+      "bbox": [
+        252.0749640567187,
+        358.22267740991674,
+        267.6904014404935,
+        368.0871696829268
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0231",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 231
+    },
+    {
+      "reader1": "44,762",
+      "reader2": "44,762",
+      "layer": "",
+      "context": "44,762",
+      "bbox": [
+        221.74551096571656,
+        148.5044051968649,
+        240.95943594431665,
+        157.41455351867822
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0042",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 42
+    },
+    {
+      "reader1": "41",
+      "reader2": "41",
+      "layer": "",
+      "context": "41",
+      "bbox": [
+        369.142561361601,
+        477.5758999522348,
+        373.95386516874163,
+        484.78343088886066
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0342",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 342
+    },
+    {
+      "reader1": "4,572",
+      "reader2": "4,572",
+      "layer": "",
+      "context": "4,572",
+      "bbox": [
+        359.1155859833658,
+        358.534915839028,
+        374.4883847264848,
+        366.719033193691
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0235",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 235
+    },
+    {
+      "reader1": "83",
+      "reader2": "139",
+      "layer": "",
+      "context": "83",
+      "bbox": [
+        314.55782508576806,
+        410.9396742585933,
+        320.5721433401755,
+        420.0690877813316
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0288",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 288
+    },
+    {
+      "reader1": "25",
+      "reader2": "25",
+      "layer": "",
+      "context": "25",
+      "bbox": [
+        235.94423365433408,
+        478.7406048610084,
+        243.63628789034456,
+        486.4326590970189
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0340",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 340
+    },
+    {
+      "reader1": "10,961",
+      "reader2": "10,961",
+      "layer": "",
+      "context": "10,961",
+      "bbox": [
+        299.1667872366324,
+        238.38290307362362,
+        318.38108920619584,
+        247.53305109934888
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0126",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 126
+    },
+    {
+      "reader1": "33,791",
+      "reader2": "42",
+      "layer": "",
+      "context": "33,791",
+      "bbox": [
+        299.2473197630264,
+        136.86415929176795,
+        317.50049194405193,
+        145.29280024190376
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0037",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 37
+    },
+    {
+      "reader1": "683",
+      "reader2": "683",
+      "layer": "",
+      "context": "683",
+      "bbox": [
+        182.1281283245155,
+        443.0617020352619,
+        191.98055688669677,
+        450.99714889385484
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0301",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 301
+    },
+    {
+      "reader1": "3881",
+      "reader2": "3",
+      "layer": "",
+      "context": "3881",
+      "bbox": [
+        254.13595630832552,
+        447.9787967633442,
+        270.2287541631803,
+        456.1640450908975
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0313",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 313
+    },
+    {
+      "reader1": "172",
+      "reader2": "172",
+      "layer": "",
+      "context": "172",
+      "bbox": [
+        335.5858132349484,
+        352.34091643485255,
+        345.1978651022543,
+        360.0359865985702
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0226",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 226
+    },
+    {
+      "reader1": "3",
+      "reader2": "3",
+      "layer": "",
+      "context": "3",
+      "bbox": [
+        264.22687661056517,
+        454.9387881767901,
+        270.2381789372654,
+        462.148204068233
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0320",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 320
+    },
+    {
+      "reader1": "10",
+      "reader2": "21",
+      "layer": "",
+      "context": "10, 174",
+      "bbox": [
+        300.2533114762088,
+        166.16196740795743,
+        306.18725283834885,
+        175.05125556312933
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0061",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 61
+    },
+    {
+      "reader1": "2,072",
+      "reader2": "2,072",
+      "layer": "",
+      "context": "2,072",
+      "bbox": [
+        328.13210719922273,
+        190.8237546388682,
+        343.2664142022834,
+        199.96749381821562
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0094",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 94
+    },
+    {
+      "reader1": "11,554",
+      "reader2": "18",
+      "layer": "",
+      "context": "11,554",
+      "bbox": [
+        325.69441106376354,
+        166.82340725671185,
+        343.468337818892,
+        175.7312936327448
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0063",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 63
+    },
+    {
+      "reader1": "764",
+      "reader2": "764",
+      "layer": "",
+      "context": "764",
+      "bbox": [
+        365.29940663152945,
+        322.7775988928943,
+        372.7510841726646,
+        330.22927643402943
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0204",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 204
+    },
+    {
+      "reader1": "6,668",
+      "reader2": "6,668",
+      "layer": "",
+      "context": "6,668",
+      "bbox": [
+        329.0111964975131,
+        292.1002367710315,
+        345.5851247330819,
+        301.00623819224745
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0165",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 165
+    },
+    {
+      "reader1": "929",
+      "reader2": "929",
+      "layer": "",
+      "context": "929",
+      "bbox": [
+        284.64065656895133,
+        310.90352867907325,
+        292.5727105088738,
+        318.59595990604714
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0183",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 183
+    },
+    {
+      "reader1": "57",
+      "reader2": "57",
+      "layer": "",
+      "context": "57",
+      "bbox": [
+        234.98974616336383,
+        329.4622969916422,
+        242.44142370449904,
+        336.91397453277744
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0206",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 206
+    },
+    {
+      "reader1": "384",
+      "reader2": "884",
+      "layer": "",
+      "context": "384",
+      "bbox": [
+        334.1230520138994,
+        185.06300776305508,
+        343.7351038812053,
+        192.75807792677278
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0086",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 86
+    },
+    {
+      "reader1": "306",
+      "reader2": "306",
+      "layer": "",
+      "context": "306",
+      "bbox": [
+        284.7443290838862,
+        376.90118530907324,
+        294.11600425631684,
+        384.3558787779156
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0248",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 248
+    },
+    {
+      "reader1": "564",
+      "reader2": "564",
+      "layer": "",
+      "context": "564",
+      "bbox": [
+        232.63649600370613,
+        359.2226372676848,
+        242.24854787101205,
+        366.91770743140256
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0230",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 230
+    },
+    {
+      "reader1": "2,596",
+      "reader2": "6",
+      "layer": "",
+      "context": "2,596",
+      "bbox": [
+        359.02096125155254,
+        298.2976290938775,
+        372.71451604921486,
+        306.95910691962075
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0171",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 171
+    },
+    {
+      "reader1": "305",
+      "reader2": "305",
+      "layer": "",
+      "context": "305",
+      "bbox": [
+        181.33273102009983,
+        395.06326921672974,
+        190.94478288740578,
+        402.7583393804474
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0268",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 268
+    },
+    {
+      "reader1": "2",
+      "reader2": "2",
+      "layer": "",
+      "context": "2",
+      "bbox": [
+        213.53076743160165,
+        419.26101632393375,
+        217.86207183091835,
+        426.4677932786328
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0291",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 291
+    },
+    {
+      "reader1": "2,094",
+      "reader2": "2,094",
+      "layer": "",
+      "context": "2,094",
+      "bbox": [
+        226.0528314831492,
+        293.224226655758,
+        241.1856305223563,
+        301.4079670194577
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0161",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 161
+    },
+    {
+      "reader1": "2.122",
+      "reader2": "7,370",
+      "layer": "",
+      "context": "2.122",
+      "bbox": [
+        277.180308235658,
+        297.9431676768657,
+        292.7953686284694,
+        307.56766024596385
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0168",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 168
+    },
+    {
+      "reader1": "9",
+      "reader2": "9",
+      "layer": "",
+      "context": "9",
+      "bbox": [
+        340.47614160462933,
+        257.0617879637435,
+        344.56669231810724,
+        263.7881885196553
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0131",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 131
+    },
+    {
+      "reader1": "11,914",
+      "reader2": "11,914",
+      "layer": "",
+      "context": "11,914",
+      "bbox": [
+        325.56750864887147,
+        238.82444940318072,
+        342.85992803232244,
+        246.77158298163909
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0127",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 127
+    },
+    {
+      "reader1": "2",
+      "reader2": "2",
+      "layer": "",
+      "context": "2",
+      "bbox": [
+        370.30523777578406,
+        453.81215935531986,
+        376.3165401024843,
+        461.02157524676267
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0323",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 323
+    },
+    {
+      "reader1": "84,569",
+      "reader2": "84,569",
+      "layer": "",
+      "context": "84,569",
+      "bbox": [
+        222.12839024475687,
+        239.46429297948592,
+        241.10080755559142,
+        247.41406549468812
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0123",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 123
+    },
+    {
+      "reader1": "677",
+      "reader2": "677",
+      "layer": "",
+      "context": "677",
+      "bbox": [
+        232.61802344649956,
+        347.4637827488905,
+        241.5093222201429,
+        354.6777225318942
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0214",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 214
+    },
+    {
+      "reader1": "42,211",
+      "reader2": "42,211",
+      "layer": "",
+      "context": "42,211",
+      "bbox": [
+        299.02616960728443,
+        148.86339050543754,
+        317.99971789100925,
+        157.53316213237557
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0045",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 45
+    },
+    {
+      "reader1": "631",
+      "reader2": "631",
+      "layer": "",
+      "context": "631",
+      "bbox": [
+        336.23041415400434,
+        304.3421066253569,
+        344.4032217797655,
+        312.51491425111806
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0176",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 176
+    },
+    {
+      "reader1": "162",
+      "reader2": "14",
+      "layer": "",
+      "context": "162",
+      "bbox": [
+        207.99041672960374,
+        406.30254027654325,
+        216.8843544399909,
+        415.19647798693035
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0277",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 277
+    },
+    {
+      "reader1": "431",
+      "reader2": "431",
+      "layer": "",
+      "context": "431",
+      "bbox": [
+        309.38852340317163,
+        328.62203776258207,
+        319.0005752704775,
+        336.31710792629974
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0209",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 209
+    },
+    {
+      "reader1": "6,566",
+      "reader2": "6,566",
+      "layer": "",
+      "context": "6,566",
+      "bbox": [
+        302.3708523723255,
+        291.9017060730935,
+        319.1855342937331,
+        301.28808389309677
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0164",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 164
+    },
+    {
+      "reader1": "2,213",
+      "reader2": "2",
+      "layer": "",
+      "context": "2,213",
+      "bbox": [
+        357.9321750661957,
+        369.0964107750064,
+        373.5472354590071,
+        378.7209033441045
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0243",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 243
+    },
+    {
+      "reader1": "15",
+      "reader2": "6",
+      "layer": "",
+      "context": "150",
+      "bbox": [
+        186.2744737005766,
+        485.2993879779809,
+        193.49256038417764,
+        496.83068349465543
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0008:t0343",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 343
+    },
+    {
+      "reader1": "31",
+      "reader2": "3",
+      "layer": "",
+      "context": "31",
+      "bbox": [
+        204.12212398021768,
+        209.98379855834105,
+        212.77296649600842,
+        218.87434767977535
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0019",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 19
+    },
+    {
+      "reader1": "1,709",
+      "reader2": "1,799",
+      "layer": "",
+      "context": "1,709",
+      "bbox": [
+        157.60614101474044,
+        246.03156577543479,
+        173.69668476272412,
+        254.69120474846727
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0072",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 72
+    },
+    {
+      "reader1": "186",
+      "reader2": "186",
+      "layer": "",
+      "context": "186",
+      "bbox": [
+        202.21737260569017,
+        222.46349602911857,
+        213.0279202942044,
+        231.11668426684045
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0039",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 39
+    },
+    {
+      "reader1": "8",
+      "reader2": "4",
+      "layer": "",
+      "context": "8 Pennsylvania.",
+      "bbox": [
+        23.024298116062475,
+        293.73156446887515,
+        26.393385280935323,
+        301.175663929689
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0110",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 110
+    },
+    {
+      "reader1": "2",
+      "reader2": "6",
+      "layer": "",
+      "context": " 2 sohool districts in Connecticut.",
+      "bbox": [
+        28.08657871299279,
+        311.9653933360644,
+        31.455665877865645,
+        319.40949279687817
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0112",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 112
+    },
+    {
+      "reader1": "188",
+      "reader2": "188",
+      "layer": "",
+      "context": "Statistics, series P 188-201') provide cross-references, where applicable, to Historical",
+      "bbox": [
+        92.8265709808786,
+        66.3540934154162,
+        106.04034224589788,
+        77.65021183528678
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0001",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 1
+    },
+    {
+      "reader1": "15,823",
+      "reader2": "15",
+      "layer": "",
+      "context": "15,823",
+      "bbox": [
+        91.36589723524467,
+        245.86838834779437,
+        110.8167316908595,
+        254.7721321550913
+      ],
+      "flagged": true,
+      "id": "initial:statab_1951_part04_p0045:t0069",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 69
+    },
+    {
+      "reader1": "0681",
+      "reader2": "0681",
+      "layer": "0681",
+      "context": "or, 0.000 0681 ohm-mm²/meter",
+      "bbox": [
+        115.07285358801911,
+        49.58741839274182,
+        136.20779180320827,
+        61.85321219911822
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0010",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 10
+    },
+    {
+      "reader1": "0",
+      "reader2": "0",
+      "layer": "0",
+      "context": "density of 8.90 at 0° C. In'English units, the",
+      "bbox": [
+        362.571455430526,
+        293.86472298945506,
+        367.7452326958985,
+        305.151018698739
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0040",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 40
+    },
+    {
+      "reader1": "1910",
+      "reader2": "1910",
+      "layer": "1910",
+      "context": "Bul. BS, 7, N0. 1(1910).",
+      "bbox": [
+        82.0995888042399,
+        611.7182382687969,
+        94.94954853979364,
+        619.8939191943006
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0077",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 77
+    },
+    {
+      "reader1": "597",
+      "reader2": "597",
+      "layer": "597",
+      "context": "0.000 597 ohm-gram/meter²",
+      "bbox": [
+        116.72880868441986,
+        29.913297385001368,
+        131.38287208999043,
+        41.45117491720524
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0002",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 2
+    },
+    {
+      "reader1": "20",
+      "reader2": "20",
+      "layer": "20",
+      "context": "by the resistivity of the sample at 20° C. Either",
+      "bbox": [
+        185.75271967032035,
+        540.5553119276826,
+        195.52678671789636,
+        552.0872274166449
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0071",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 71
+    },
+    {
+      "reader1": "3",
+      "reader2": "3",
+      "layer": "3",
+      "context": "yalue as a mean. (See appendix 3, p. 31).",
+      "bbox": [
+        449.66734676197945,
+        274.07903358236507,
+        454.24317698182915,
+        287.0445949997404
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0035",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 35
+    },
+    {
+      "reader1": "-100",
+      "reader2": "-100",
+      "layer": "-100",
+      "context": "up to 200° C, and probably in the interval -100",
+      "bbox": [
+        230.04830190810614,
+        455.0451995115235,
+        252.86294565424876,
+        467.07304600370475
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0064",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 64
+    },
+    {
+      "reader1": "8.90",
+      "reader2": "8.90",
+      "layer": "8.90",
+      "context": "density of 8.90 at 0° C. In'English units, the",
+      "bbox": [
+        325.13119015722776,
+        293.6550709460541,
+        342.9052512343031,
+        305.1967602763961
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0039",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 39
+    },
+    {
+      "reader1": "3.210",
+      "reader2": "3.210",
+      "layer": "3.210",
+      "context": "3.210",
+      "bbox": [
+        172.11275690613243,
+        376.8744566999887,
+        196.1268133262172,
+        388.4237696266068
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0058",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 58
+    },
+    {
+      "reader1": "0",
+      "reader2": "0",
+      "layer": "0",
+      "context": "percent. Now the corresponding 0° C resistivity",
+      "bbox": [
+        430.1937912709627,
+        50.182951131231945,
+        434.5284488089619,
+        62.18822004982601
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0011",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 11
+    },
+    {
+      "reader1": "2.747",
+      "reader2": "2.747",
+      "layer": "2.747",
+      "context": "2.747",
+      "bbox": [
+        171.38073561858042,
+        367.0329979674976,
+        197.31449739050365,
+        378.34465679516194
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0056",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 56
+    },
+    {
+      "reader1": "0.00393",
+      "reader2": "0.00393",
+      "layer": "0.00393",
+      "context": "copper to be 0.00393 at 20° C, for the resistance",
+      "bbox": [
+        88.27761285366361,
+        118.96554597346719,
+        121.41283532834312,
+        131.4860003627981
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0021",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 21
+    },
+    {
+      "reader1": "1914",
+      "reader2": "1914",
+      "layer": "1914",
+      "context": "found to be linear. In 1914 Northrup ⁶ published",
+      "bbox": [
+        136.1102945896396,
+        178.44474463438863,
+        154.8449413807376,
+        190.46760646746617
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0027",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 27
+    },
+    {
+      "reader1": "20",
+      "reader2": "20",
+      "layer": "20",
+      "context": "International Annealed Copper Standard at 20° C",
+      "bbox": [
+        229.17978577988038,
+        529.9414659427412,
+        239.59502521078187,
+        542.4341626225538
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0069",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 69
+    },
+    {
+      "reader1": "0.15328",
+      "reader2": "0.15328",
+      "layer": "0.15328",
+      "context": "0.15328 by this, the percent conductivity is 96.0",
+      "bbox": [
+        273.7021794443004,
+        40.73953523473592,
+        306.35593620100303,
+        52.05940408915921
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0007",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 7
+    },
+    {
+      "reader1": "7",
+      "reader2": "7",
+      "layer": "7",
+      "context": "Bul. BS, 7, N0. 1(1910).",
+      "bbox": [
+        56.47960792476837,
+        611.7615608207125,
+        59.48898857355513,
+        619.4452202795493
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0074",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 74
+    },
+    {
+      "reader1": "104",
+      "reader2": "104",
+      "layer": "104",
+      "context": "7 Bul. BS, 7, 104 (1910).",
+      "bbox": [
+        319.0517270130743,
+        621.5141784808679,
+        327.4649154299113,
+        632.3244329541405
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0085",
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "token_index": 85
+    },
+    {
+      "reader1": "20",
+      "reader2": "20",
+      "layer": "20",
+      "context": "at 20°C.",
+      "bbox": [
+        315.96618527823904,
+        453.27612197499394,
+        325.7704930104847,
+        463.36807763401185
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0030",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 30
+    },
+    {
+      "reader1": "11",
+      "reader2": "11",
+      "layer": "11",
+      "context": "11",
+      "bbox": [
+        173.68323661386154,
+        483.69343598449495,
+        180.65583967490582,
+        494.0219315245494
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0034",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 34
+    },
+    {
+      "reader1": "11.3",
+      "reader2": "11.3",
+      "layer": "11.3",
+      "context": "11.3",
+      "bbox": [
+        312.44242392772617,
+        515.6689795962469,
+        331.65560428438715,
+        526.4924287553823
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0068",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 68
+    },
+    {
+      "reader1": "13",
+      "reader2": "13",
+      "layer": "13",
+      "context": "13",
+      "bbox": [
+        172.74405561246047,
+        500.73225040636294,
+        181.6348979491362,
+        509.6230927430386
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0050",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 50
+    },
+    {
+      "reader1": "20",
+      "reader2": "20",
+      "layer": "20",
+      "context": "at 20°C.",
+      "bbox": [
+        217.3259656792711,
+        453.15663361832094,
+        227.13027341151673,
+        463.24858927733874
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0029",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 29
+    },
+    {
+      "reader1": "0000",
+      "reader2": "0000",
+      "layer": "0000",
+      "context": "0000",
+      "bbox": [
+        72.88243219644603,
+        483.08368545260333,
+        90.41620023739493,
+        494.38508174681897
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0032",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 32
+    },
+    {
+      "reader1": "22.6",
+      "reader2": "22.6",
+      "layer": "25.3 | 22.6",
+      "context": "22.6",
+      "bbox": [
+        217.47931725051893,
+        578.6650459037025,
+        236.6924976071799,
+        589.488495062838
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0124",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 124
+    },
+    {
+      "reader1": "20",
+      "reader2": "20",
+      "layer": "20",
+      "context": "at 20°C.",
+      "bbox": [
+        410.76640774304735,
+        453.40030177552916,
+        420.57071547529296,
+        463.4922574345472
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0031",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 31
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "1",
+      "context": "TaBLE 1. The American Wire Gage",
+      "bbox": [
+        212.2443328764089,
+        419.0897950954681,
+        216.3372313020748,
+        429.65477187351087
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0027",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 27
+    },
+    {
+      "reader1": "289.3",
+      "reader2": "289.3",
+      "layer": "324.9 | 289.3",
+      "context": "289.3",
+      "bbox": [
+        120.20168775313346,
+        515.1814998200155,
+        141.33545310735707,
+        526.487294342852
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0064",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 64
+    },
+    {
+      "reader1": "324.9",
+      "reader2": "324.9",
+      "layer": "364.8 | 324.9",
+      "context": "324.9",
+      "bbox": [
+        119.4720121875126,
+        507.2612125155698,
+        141.5654836100347,
+        518.3281800784869
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0057",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 57
+    },
+    {
+      "reader1": "7.1",
+      "reader2": "7.1",
+      "layer": "7.1",
+      "context": "7.1",
+      "bbox": [
+        317.76200404478357,
+        548.070421491926,
+        330.49430959182604,
+        558.165954376889
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0098",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 98
+    },
+    {
+      "reader1": "15",
+      "reader2": "15",
+      "layer": "15",
+      "context": "15",
+      "bbox": [
+        172.76340781839232,
+        516.5719453695302,
+        181.89454319119443,
+        525.7030807423323
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0065",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 65
+    },
+    {
+      "reader1": "2,000,000",
+      "reader2": "2,000,000",
+      "layer": "2,000,000",
+      "context": "2,000,000 circular mils the increase is 2 percent;",
+      "bbox": [
+        15.818042259870571,
+        332.1639686040219,
+        57.35413811124857,
+        345.41468498945653
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0020",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 20
+    },
+    {
+      "reader1": "64.1",
+      "reader2": "64.1",
+      "layer": "72.0 | 64.1",
+      "context": "64.1",
+      "bbox": [
+        219.31223089090548,
+        507.3853923161051,
+        236.36599929008437,
+        518.6862021798379
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0059",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 59
+    },
+    {
+      "reader1": "16",
+      "reader2": "16",
+      "layer": "16",
+      "context": "16",
+      "bbox": [
+        172.77308392135825,
+        524.4922326739759,
+        181.66392625803397,
+        533.3830750106516
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0073",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 73
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "1",
+      "context": "1",
+      "bbox": [
+        85.88347265802976,
+        516.6804350088452,
+        93.09402303326924,
+        525.3292250179461
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0063",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 63
+    },
+    {
+      "reader1": "45.3",
+      "reader2": "45.3",
+      "layer": "50.8 | 45.3",
+      "context": "45.3",
+      "bbox": [
+        217.66126045360835,
+        531.1465474446836,
+        235.4353215306836,
+        542.6882367750256
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0081",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 81
+    },
+    {
+      "reader1": "14.2",
+      "reader2": "14.2",
+      "layer": "14.2",
+      "context": "14.2",
+      "bbox": [
+        312.66365797316206,
+        500.3092842748496,
+        331.39654547281174,
+        510.8921471826173
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0053",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 53
+    },
+    {
+      "reader1": "36",
+      "reader2": "36",
+      "layer": "36",
+      "context": "36",
+      "bbox": [
+        272.4298933454547,
+        570.9328593224155,
+        279.4024964064989,
+        581.26135486247
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0118",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 118
+    },
+    {
+      "reader1": "20.1",
+      "reader2": "20.1",
+      "layer": "22.6 | 20.1",
+      "context": "20.1",
+      "bbox": [
+        219.40869870532333,
+        586.3450401720219,
+        236.7027601406286,
+        597.8861430718813
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0130",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 130
+    },
+    {
+      "reader1": "40",
+      "reader2": "40",
+      "layer": "40",
+      "context": "40",
+      "bbox": [
+        366.1733554970638,
+        491.85797787663176,
+        373.38654480947577,
+        502.6667662736976
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0046",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 46
+    },
+    {
+      "reader1": "2",
+      "reader2": "2",
+      "layer": "2",
+      "context": "2,000,000 circular mils the increase is 2 percent;",
+      "bbox": [
+        198.45878559906413,
+        332.7059864151521,
+        203.03520224939663,
+        346.1515474742974
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0021",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 21
+    },
+    {
+      "reader1": "101.9",
+      "reader2": "101.9",
+      "layer": "101.9",
+      "context": "101.9",
+      "bbox": [
+        118.84936018499968,
+        586.9399801884174,
+        142.62195070799248,
+        597.2890007953691
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0128",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 128
+    },
+    {
+      "reader1": "49",
+      "reader2": "49",
+      "layer": "49",
+      "context": "49",
+      "bbox": [
+        366.740440065527,
+        563.1376314642293,
+        373.71333634181264,
+        573.7061268251688
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0112",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 112
+    },
+    {
+      "reader1": "4",
+      "reader2": "4",
+      "layer": "4",
+      "context": "percent; over 3,000,000, to 4,000,000, 4 percent;",
+      "bbox": [
+        443.58100249707104,
+        6.966270103176338,
+        448.1559530711967,
+        19.21183205789677
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0002",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 2
+    },
+    {
+      "reader1": "19",
+      "reader2": "19",
+      "layer": "19",
+      "context": "19",
+      "bbox": [
+        173.52123204718677,
+        547.5339747703823,
+        180.25354207210466,
+        557.6221772743104
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0095",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 95
+    },
+    {
+      "reader1": "38",
+      "reader2": "38",
+      "layer": "38",
+      "context": "38",
+      "bbox": [
+        272.20953894574296,
+        587.0131405369506,
+        279.18214200678716,
+        597.3416360770051
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0131",
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "token_index": 131
+    },
+    {
+      "reader1": "2.5400",
+      "reader2": "2.5400",
+      "layer": "2.5400",
+      "context": "2.5400",
+      "bbox": [
+        283.31447187845976,
+        117.286208333077,
+        301.8065127905071,
+        124.9952271624405
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0034",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 34
+    },
+    {
+      "reader1": "172.41",
+      "reader2": "172.41",
+      "layer": "172.41",
+      "context": "172.41",
+      "bbox": [
+        278.31104621975896,
+        140.5752273956557,
+        296.0838420019973,
+        148.7631146599528
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0047",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 47
+    },
+    {
+      "reader1": "13",
+      "reader2": "13",
+      "layer": "13",
+      "context": "and equation (13) may be written",
+      "bbox": [
+        320.23776824603067,
+        399.48250617271435,
+        329.85698294164115,
+        411.7375707107587
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0055",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 55
+    },
+    {
+      "reader1": "67.660",
+      "reader2": "67.660",
+      "layer": "67.660",
+      "context": "67.660",
+      "bbox": [
+        385.03853219559466,
+        94.32639229296242,
+        403.53057310764194,
+        102.03541112232587
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0006",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 6
+    },
+    {
+      "reader1": "4.4284",
+      "reader2": "4.4284",
+      "layer": "4.4284",
+      "context": "4.4284",
+      "bbox": [
+        333.43859585453,
+        94.4078223410567,
+        351.6895060897751,
+        101.39646506772095
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0005",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 5
+    },
+    {
+      "reader1": "15",
+      "reader2": "15",
+      "layer": "15",
+      "context": "(15)",
+      "bbox": [
+        464.2756666804913,
+        423.49854363555994,
+        472.45865306226426,
+        438.1513432669432
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0057",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 57
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "1",
+      "context": "RM1",
+      "bbox": [
+        377.628233749017,
+        418.83125037643794,
+        387.9655626015463,
+        429.88744736781285
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0056",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 56
+    },
+    {
+      "reader1": "14",
+      "reader2": "14",
+      "layer": "14",
+      "context": "(14)",
+      "bbox": [
+        463.95574489233866,
+        372.61898339719437,
+        472.13873127411165,
+        387.27178302857766
+      ],
+      "flagged": false,
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0054",
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "token_index": 54
+    },
+    {
+      "reader1": "439",
+      "reader2": "439",
+      "layer": "",
+      "context": "335, 437–439, and 443.",
+      "bbox": [
+        71.42714344920891,
+        427.3408000973058,
+        84.75915533322232,
+        437.1970661994872
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0016",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 16
+    },
+    {
+      "reader1": "357",
+      "reader2": "357",
+      "layer": "",
+      "context": "for the fiscal year ending June 30, 1952, are presented in tables 352-357. The Trea-",
+      "bbox": [
+        308.3233181311001,
+        145.77083688684777,
+        321.92708910505746,
+        157.06743178148557
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0004",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 4
+    },
+    {
+      "reader1": "478",
+      "reader2": "478",
+      "layer": "",
+      "context": "422, and 478, pp. 382, 383, and 420.",
+      "bbox": [
+        70.60774401972222,
+        345.9808608172978,
+        84.66063501211474,
+        356.55800602785837
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0007",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 7
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "",
+      "context": "Treasury Department. This Bureau's annual report, Statistics of Income, Part 1,",
+      "bbox": [
+        367.5127389652014,
+        366.2705998075637,
+        371.3659307852237,
+        377.07528319125015
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0011",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 11
+    },
+    {
+      "reader1": "420",
+      "reader2": "420",
+      "layer": "",
+      "context": "422, and 478, pp. 382, 383, and 420.",
+      "bbox": [
+        162.04796899214074,
+        346.1106850112299,
+        174.84086092488715,
+        356.68629084177303
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0010",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 10
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "",
+      "context": "1. General accounts.Money represented in the general accounts may be with-",
+      "bbox": [
+        45.14122388076252,
+        520.745445745875,
+        48.27617552957822,
+        532.9892484091471
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0000:t0018",
+      "page": "statab_1951_part04_p0000",
+      "token_index": 18
+    },
+    {
+      "reader1": "1945",
+      "reader2": "1945",
+      "layer": "",
+      "context": "1945",
+      "bbox": [
+        223.8304870992074,
+        100.75124995573225,
+        236.56328909929522,
+        108.93122040979799
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0009",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 9
+    },
+    {
+      "reader1": "68",
+      "reader2": "68",
+      "layer": "",
+      "context": "68",
+      "bbox": [
+        262.9267420345148,
+        543.9783013371523,
+        270.6187962705253,
+        551.6703555731629
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0379",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 379
+    },
+    {
+      "reader1": "40,043",
+      "reader2": "40,043",
+      "layer": "",
+      "context": "40,043",
+      "bbox": [
+        273.7983033652404,
+        131.14563540385552,
+        291.09072274869146,
+        139.09276898231394
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0027",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 27
+    },
+    {
+      "reader1": "462",
+      "reader2": "462",
+      "layer": "",
+      "context": "462",
+      "bbox": [
+        207.9849054049262,
+        555.580471154946,
+        218.31808735685811,
+        563.9966714032895
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0385",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 385
+    },
+    {
+      "reader1": "474",
+      "reader2": "474",
+      "layer": "",
+      "context": "474",
+      "bbox": [
+        182.06569136436474,
+        556.1004316048901,
+        192.8792497150839,
+        564.7573855390727
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0384",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 384
+    },
+    {
+      "reader1": "44,762",
+      "reader2": "44,762",
+      "layer": "",
+      "context": "44,762",
+      "bbox": [
+        222.9183661359114,
+        131.22631147002303,
+        239.73040912057527,
+        138.93269136264271
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0025",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 25
+    },
+    {
+      "reader1": "354",
+      "reader2": "354",
+      "layer": "",
+      "context": "NO. 354.—BUDGET RECBIPTS AND EXPENDITURRS OF THE FEDERAL",
+      "bbox": [
+        82.87865562889593,
+        55.12646553293763,
+        99.51916930205824,
+        64.75256888160663
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0001",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 1
+    },
+    {
+      "reader1": "452",
+      "reader2": "452",
+      "layer": "",
+      "context": "452",
+      "bbox": [
+        259.7788485523681,
+        526.2205851934499,
+        269.15052372479875,
+        533.6752786622923
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0363",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 363
+    },
+    {
+      "reader1": "1949",
+      "reader2": "1949",
+      "layer": "",
+      "context": "1949",
+      "bbox": [
+        327.26998249428533,
+        100.34801316466839,
+        340.4835378841239,
+        109.00873700848477
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0013",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 13
+    },
+    {
+      "reader1": "53,041",
+      "reader2": "53,041",
+      "layer": "",
+      "context": "53,041",
+      "bbox": [
+        221.93951777209375,
+        119.22708025635337,
+        239.2319371555448,
+        127.17421383481178
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0017",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 17
+    },
+    {
+      "reader1": "837",
+      "reader2": "837",
+      "layer": "",
+      "context": "837",
+      "bbox": [
+        365.66282592024646,
+        554.1324125814696,
+        376.23638456705373,
+        562.7889895246884
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0391",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 391
+    },
+    {
+      "reader1": "1943",
+      "reader2": "1943",
+      "layer": "",
+      "context": "GOVERNMENT, BY FUNCTION: 1943 TO 1950",
+      "bbox": [
+        232.17166614583465,
+        63.29206960633799,
+        248.74823331814733,
+        73.87806895493743
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0002",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 2
+    },
+    {
+      "reader1": "131",
+      "reader2": "131",
+      "layer": "",
+      "context": "131",
+      "bbox": [
+        259.8346432149512,
+        561.7401643814521,
+        269.4466950822572,
+        569.4352345451698
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0395",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 395
+    },
+    {
+      "reader1": "1,811",
+      "reader2": "1,811",
+      "layer": "",
+      "context": "1,811",
+      "bbox": [
+        327.0586341035918,
+        118.58308977945076,
+        343.63293933012403,
+        127.72909090457863
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0019",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 19
+    },
+    {
+      "reader1": "43,892",
+      "reader2": "43,892",
+      "layer": "",
+      "context": "43,892",
+      "bbox": [
+        196.51839870559925,
+        131.26476454828978,
+        215.2508163125219,
+        139.21416007252859
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0024",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 24
+    },
+    {
+      "reader1": "650",
+      "reader2": "650",
+      "layer": "",
+      "context": "650",
+      "bbox": [
+        285.9384392878049,
+        525.9402474564542,
+        294.8297380614483,
+        533.1541872394579
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0364",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 364
+    },
+    {
+      "reader1": "352",
+      "reader2": "352",
+      "layer": "",
+      "context": "to table 352]",
+      "bbox": [
+        212.0429812671948,
+        83.25728394663601,
+        219.97503520711717,
+        90.9497151736099
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0006",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 6
+    },
+    {
+      "reader1": "138",
+      "reader2": "138",
+      "layer": "",
+      "context": "138",
+      "bbox": [
+        233.91505218342633,
+        562.0205021184478,
+        243.76748074560754,
+        569.9559489770407
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0008:t0394",
+      "page": "statab_1951_part04_p0008",
+      "token_index": 394
+    },
+    {
+      "reader1": "252",
+      "reader2": "252",
+      "layer": "",
+      "context": "252",
+      "bbox": [
+        285.9699797135132,
+        216.36351410967953,
+        294.8608220501889,
+        225.25435644635522
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0031",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 31
+    },
+    {
+      "reader1": "1,987",
+      "reader2": "1,987",
+      "layer": "",
+      "context": "1,987",
+      "bbox": [
+        136.9075133703538,
+        198.0582841854055,
+        151.79864444439545,
+        207.19645672400105
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0007",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 7
+    },
+    {
+      "reader1": "21",
+      "reader2": "21",
+      "layer": "",
+      "context": "21",
+      "bbox": [
+        325.3381603654088,
+        223.03688787107768,
+        333.0275375214527,
+        230.72626502712154
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0044",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 44
+    },
+    {
+      "reader1": "4",
+      "reader2": "4",
+      "layer": "",
+      "context": "4",
+      "bbox": [
+        169.0915330187352,
+        217.71129369576576,
+        173.89885981746957,
+        223.71715352271812
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0025",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 25
+    },
+    {
+      "reader1": "6,565",
+      "reader2": "6,565",
+      "layer": "",
+      "context": "6,565",
+      "bbox": [
+        258.82771559516476,
+        198.14845101793935,
+        274.4394325623441,
+        207.76750284402902
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0011",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 11
+    },
+    {
+      "reader1": "3,350",
+      "reader2": "3,350",
+      "layer": "",
+      "context": "3,350",
+      "bbox": [
+        176.50807024685824,
+        198.49019652758724,
+        191.15890828477347,
+        207.3880760300564
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0009",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 9
+    },
+    {
+      "reader1": "1789",
+      "reader2": "1789",
+      "layer": "",
+      "context": "Statistics of the United States, 1789-1945. In that historical suppiement to the",
+      "bbox": [
+        147.0788455410224,
+        76.36213087234786,
+        164.94861333121028,
+        87.6639376679014
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0003",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 3
+    },
+    {
+      "reader1": "30",
+      "reader2": "30",
+      "layer": "",
+      "context": "I Excludes Federal Government, whose fscal year ends June 30.",
+      "bbox": [
+        208.529498898082,
+        281.50159493696134,
+        214.62063653967434,
+        290.6290162500392
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0109",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 109
+    },
+    {
+      "reader1": "79",
+      "reader2": "79",
+      "layer": "",
+      "context": "79",
+      "bbox": [
+        228.15142759285476,
+        233.95709805987235,
+        234.64344458164626,
+        243.8050075276741
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0061",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 61
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "",
+      "context": "s 6,15g school districts in Texas and 1 in Connecticut.",
+      "bbox": [
+        132.50086834478705,
+        323.59812914466437,
+        135.63054211925768,
+        331.5219350320068
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0117",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 117
+    },
+    {
+      "reader1": "19",
+      "reader2": "19",
+      "layer": "",
+      "context": "19",
+      "bbox": [
+        326.32630831212225,
+        246.07775032175988,
+        332.3368595829369,
+        254.72507425465395
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0080",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 80
+    },
+    {
+      "reader1": "871",
+      "reader2": "871",
+      "layer": "",
+      "context": "871",
+      "bbox": [
+        225.24973181437204,
+        216.19769774486662,
+        234.14057415104776,
+        225.08854008154236
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0028",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 28
+    },
+    {
+      "reader1": "16",
+      "reader2": "16",
+      "layer": "",
+      "context": "16",
+      "bbox": [
+        248.3266597397454,
+        246.41333831133855,
+        254.09750440491638,
+        255.30036884987618
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0076",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 76
+    },
+    {
+      "reader1": "6,075",
+      "reader2": "6,075",
+      "layer": "",
+      "context": "6,075",
+      "bbox": [
+        157.85435086238434,
+        252.7512675449728,
+        173.9437217494025,
+        260.4509072344654
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0085",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 85
+    },
+    {
+      "reader1": "60",
+      "reader2": "60",
+      "layer": "",
+      "context": "60",
+      "bbox": [
+        126.40587108445168,
+        245.84258540655193,
+        131.93583628301351,
+        254.00932326719322
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0070",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 70
+    },
+    {
+      "reader1": "7",
+      "reader2": "7",
+      "layer": "",
+      "context": "7i,i82 school districts in Indiana, 2,546 in Pennsylvania, and 1 in Connecticut.",
+      "bbox": [
+        24.25273909890235,
+        317.01052084137336,
+        27.26358582389607,
+        325.89417940463494
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0113",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 113
+    },
+    {
+      "reader1": "95",
+      "reader2": "95",
+      "layer": "",
+      "context": "95",
+      "bbox": [
+        269.69456061002614,
+        252.86841017971466,
+        274.50335348496753,
+        260.0742691110919
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0090",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 90
+    },
+    {
+      "reader1": "6",
+      "reader2": "6",
+      "layer": "",
+      "context": "6",
+      "bbox": [
+        207.9706243563777,
+        216.9423272877985,
+        213.97970955098532,
+        224.38965211626765
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0027",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 27
+    },
+    {
+      "reader1": "62",
+      "reader2": "62",
+      "layer": "",
+      "context": "62",
+      "bbox": [
+        184.26107511028408,
+        258.24487405360213,
+        195.55044957960263,
+        265.93864943826685
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0094",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 94
+    },
+    {
+      "reader1": "1",
+      "reader2": "1",
+      "layer": "",
+      "context": "1",
+      "bbox": [
+        307.3528345611049,
+        235.05857684318963,
+        315.283091183758,
+        243.46824667712983
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0065",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 65
+    },
+    {
+      "reader1": "2",
+      "reader2": "2",
+      "layer": "",
+      "context": "2.",
+      "bbox": [
+        249.27317112218128,
+        235.3746660192158,
+        253.0063630317611,
+        246.17920279528136
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0062",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 62
+    },
+    {
+      "reader1": "4",
+      "reader2": "4",
+      "layer": "",
+      "context": "4",
+      "bbox": [
+        271.3537410740822,
+        235.82607717495,
+        276.4016541241844,
+        242.3122298589137
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0063",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 63
+    },
+    {
+      "reader1": "19",
+      "reader2": "19",
+      "layer": "",
+      "context": "19",
+      "bbox": [
+        229.37459070134963,
+        252.91767034026847,
+        234.18338357629094,
+        260.1235292716457
+      ],
+      "flagged": false,
+      "id": "initial:statab_1951_part04_p0045:t0088",
+      "page": "statab_1951_part04_p0045",
+      "token_index": 88
+    }
+  ],
+  "review_order": [
+    "initial:statab_1951_part04_p0008:t0323",
+    "initial:nbs_circular_31_e4_1956_p0015:t0124",
+    "initial:nbs_circular_31_e4_1956_p0015:t0057",
+    "initial:nbs_circular_31_e4_1956_p0015:t0098",
+    "initial:statab_1951_part04_p0008:t0037",
+    "initial:nbs_circular_31_e4_1956_p0015:t0081",
+    "initial:nbs_circular_31_e4_1956_p0032:t0006",
+    "initial:statab_1951_part04_p0045:t0088",
+    "initial:statab_1951_part04_p0008:t0024",
+    "initial:nbs_circular_31_e4_1956_p0007:t0002",
+    "initial:nbs_circular_31_e4_1956_p0032:t0035",
+    "initial:statab_1951_part04_p0008:t0219",
+    "initial:nbs_circular_31_e4_1956_p0015:t0050",
+    "initial:nbs_circular_31_e4_1956_p0015:t0027",
+    "initial:nbs_circular_31_e4_1956_p0007:t0056",
+    "initial:statab_1951_part04_p0045:t0085",
+    "initial:statab_1951_part04_p0045:t0028",
+    "initial:statab_1951_part04_p0008:t0171",
+    "initial:statab_1951_part04_p0008:t0161",
+    "initial:nbs_circular_31_e4_1956_p0015:t0063",
+    "initial:nbs_circular_31_e4_1956_p0007:t0010",
+    "initial:nbs_circular_31_e4_1956_p0032:t0051",
+    "initial:statab_1951_part04_p0008:t0230",
+    "initial:statab_1951_part04_p0008:t0094",
+    "initial:statab_1951_part04_p0008:t0019",
+    "initial:statab_1951_part04_p0045:t0063",
+    "initial:statab_1951_part04_p0008:t0239",
+    "initial:statab_1951_part04_p0008:t0301",
+    "initial:statab_1951_part04_p0008:t0286",
+    "initial:nbs_circular_31_e4_1956_p0032:t0019",
+    "initial:nbs_circular_31_e4_1956_p0015:t0073",
+    "initial:statab_1951_part04_p0045:t0007",
+    "initial:nbs_circular_31_e4_1956_p0007:t0077",
+    "initial:nbs_circular_31_e4_1956_p0007:t0040",
+    "initial:nbs_circular_31_e4_1956_p0007:t0064",
+    "initial:statab_1951_part04_p0045:t0039",
+    "initial:statab_1951_part04_p0045:t0110",
+    "initial:statab_1951_part04_p0045:t0061",
+    "initial:nbs_circular_31_e4_1956_p0015:t0020",
+    "initial:statab_1951_part04_p0008:t0119",
+    "initial:nbs_circular_31_e4_1956_p0015:t0053",
+    "initial:statab_1951_part04_p0008:t0123",
+    "initial:nbs_circular_31_e4_1956_p0032:t0036",
+    "initial:statab_1951_part04_p0008:t0183",
+    "initial:nbs_circular_31_e4_1956_p0032:t0057",
+    "initial:nbs_circular_31_e4_1956_p0032:t0054",
+    "initial:statab_1951_part04_p0008:t0364",
+    "initial:nbs_circular_31_e4_1956_p0015:t0131",
+    "initial:statab_1951_part04_p0008:t0328",
+    "initial:statab_1951_part04_p0008:t0395",
+    "initial:nbs_circular_31_e4_1956_p0007:t0069",
+    "initial:statab_1951_part04_p0008:t0340",
+    "initial:statab_1951_part04_p0008:t0277",
+    "initial:statab_1951_part04_p0008:t0086",
+    "initial:statab_1951_part04_p0045:t0009",
+    "initial:nbs_circular_31_e4_1956_p0015:t0128",
+    "initial:nbs_circular_31_e4_1956_p0015:t0095",
+    "initial:nbs_circular_31_e4_1956_p0007:t0086",
+    "initial:statab_1951_part04_p0008:t0291",
+    "initial:nbs_circular_31_e4_1956_p0007:t0036",
+    "initial:statab_1951_part04_p0008:t0268",
+    "initial:statab_1951_part04_p0045:t0001",
+    "initial:statab_1951_part04_p0008:t0336",
+    "initial:statab_1951_part04_p0045:t0112",
+    "initial:nbs_circular_31_e4_1956_p0032:t0056",
+    "initial:statab_1951_part04_p0008:t0006",
+    "initial:statab_1951_part04_p0008:t0017",
+    "initial:statab_1951_part04_p0000:t0019",
+    "initial:nbs_circular_31_e4_1956_p0015:t0068",
+    "initial:statab_1951_part04_p0008:t0331",
+    "initial:statab_1951_part04_p0008:t0042",
+    "initial:nbs_circular_31_e4_1956_p0007:t0011",
+    "initial:statab_1951_part04_p0008:t0164",
+    "initial:nbs_circular_31_e4_1956_p0015:t0032",
+    "initial:statab_1951_part04_p0008:t0001",
+    "initial:statab_1951_part04_p0008:t0063",
+    "initial:statab_1951_part04_p0008:t0363",
+    "initial:statab_1951_part04_p0045:t0011",
+    "initial:nbs_circular_31_e4_1956_p0007:t0007",
+    "initial:nbs_circular_31_e4_1956_p0007:t0001",
+    "initial:statab_1951_part04_p0000:t0007",
+    "initial:nbs_circular_31_e4_1956_p0032:t0055",
+    "initial:statab_1951_part04_p0045:t0109",
+    "initial:statab_1951_part04_p0045:t0031",
+    "initial:statab_1951_part04_p0008:t0391",
+    "initial:statab_1951_part04_p0008:t0379",
+    "initial:statab_1951_part04_p0045:t0062",
+    "initial:statab_1951_part04_p0008:t0176",
+    "initial:statab_1951_part04_p0008:t0342",
+    "initial:nbs_circular_31_e4_1956_p0032:t0037",
+    "initial:statab_1951_part04_p0008:t0206",
+    "initial:statab_1951_part04_p0008:t0002",
+    "initial:statab_1951_part04_p0000:t0011",
+    "initial:statab_1951_part04_p0008:t0313",
+    "initial:statab_1951_part04_p0045:t0065",
+    "initial:statab_1951_part04_p0008:t0385",
+    "initial:nbs_circular_31_e4_1956_p0015:t0082",
+    "initial:statab_1951_part04_p0008:t0296",
+    "initial:nbs_circular_31_e4_1956_p0007:t0087",
+    "initial:statab_1951_part04_p0008:t0181",
+    "initial:statab_1951_part04_p0008:t0126",
+    "initial:statab_1951_part04_p0045:t0070",
+    "initial:statab_1951_part04_p0008:t0394",
+    "initial:nbs_circular_31_e4_1956_p0007:t0071",
+    "initial:statab_1951_part04_p0045:t0113",
+    "initial:statab_1951_part04_p0008:t0139",
+    "initial:statab_1951_part04_p0045:t0025",
+    "initial:statab_1951_part04_p0045:t0069",
+    "initial:statab_1951_part04_p0008:t0365",
+    "initial:statab_1951_part04_p0045:t0027",
+    "initial:statab_1951_part04_p0045:t0094",
+    "initial:statab_1951_part04_p0008:t0165",
+    "initial:nbs_circular_31_e4_1956_p0015:t0029",
+    "initial:nbs_circular_31_e4_1956_p0032:t0038",
+    "initial:statab_1951_part04_p0008:t0085",
+    "initial:nbs_circular_31_e4_1956_p0015:t0099",
+    "initial:statab_1951_part04_p0008:t0168",
+    "initial:nbs_circular_31_e4_1956_p0032:t0005",
+    "initial:statab_1951_part04_p0008:t0284",
+    "initial:statab_1951_part04_p0008:t0289",
+    "initial:statab_1951_part04_p0000:t0018",
+    "initial:statab_1951_part04_p0008:t0320",
+    "initial:nbs_circular_31_e4_1956_p0015:t0091",
+    "initial:nbs_circular_31_e4_1956_p0015:t0034",
+    "initial:nbs_circular_31_e4_1956_p0007:t0058",
+    "initial:nbs_circular_31_e4_1956_p0032:t0034",
+    "initial:nbs_circular_31_e4_1956_p0015:t0047",
+    "initial:statab_1951_part04_p0045:t0117",
+    "initial:statab_1951_part04_p0008:t0214",
+    "initial:statab_1951_part04_p0008:t0127",
+    "initial:nbs_circular_31_e4_1956_p0015:t0021",
+    "initial:nbs_circular_31_e4_1956_p0015:t0118",
+    "initial:statab_1951_part04_p0008:t0025",
+    "initial:statab_1951_part04_p0045:t0072",
+    "initial:nbs_circular_31_e4_1956_p0015:t0112",
+    "initial:statab_1951_part04_p0008:t0343",
+    "initial:nbs_circular_31_e4_1956_p0007:t0035",
+    "initial:nbs_circular_31_e4_1956_p0015:t0052",
+    "initial:statab_1951_part04_p0008:t0248",
+    "initial:statab_1951_part04_p0008:t0013",
+    "initial:statab_1951_part04_p0008:t0204",
+    "initial:statab_1951_part04_p0045:t0080",
+    "initial:statab_1951_part04_p0008:t0384",
+    "initial:nbs_circular_31_e4_1956_p0032:t0047",
+    "initial:nbs_circular_31_e4_1956_p0007:t0039",
+    "initial:statab_1951_part04_p0008:t0045",
+    "initial:statab_1951_part04_p0045:t0003",
+    "initial:statab_1951_part04_p0008:t0226",
+    "initial:statab_1951_part04_p0008:t0209",
+    "initial:nbs_circular_31_e4_1956_p0015:t0030",
+    "initial:nbs_circular_31_e4_1956_p0015:t0075",
+    "initial:nbs_circular_31_e4_1956_p0015:t0031",
+    "initial:statab_1951_part04_p0008:t0235",
+    "initial:statab_1951_part04_p0008:t0288",
+    "initial:statab_1951_part04_p0008:t0061",
+    "initial:statab_1951_part04_p0000:t0004",
+    "initial:statab_1951_part04_p0045:t0076",
+    "initial:statab_1951_part04_p0000:t0016",
+    "initial:nbs_circular_31_e4_1956_p0007:t0009",
+    "initial:nbs_circular_31_e4_1956_p0015:t0130",
+    "initial:statab_1951_part04_p0008:t0231",
+    "initial:statab_1951_part04_p0008:t0124",
+    "initial:nbs_circular_31_e4_1956_p0015:t0002",
+    "initial:statab_1951_part04_p0008:t0027",
+    "initial:nbs_circular_31_e4_1956_p0015:t0065",
+    "initial:statab_1951_part04_p0045:t0090",
+    "initial:statab_1951_part04_p0008:t0243",
+    "initial:statab_1951_part04_p0000:t0010",
+    "initial:statab_1951_part04_p0008:t0009",
+    "initial:statab_1951_part04_p0008:t0131",
+    "initial:nbs_circular_31_e4_1956_p0007:t0085",
+    "initial:statab_1951_part04_p0045:t0019",
+    "initial:nbs_circular_31_e4_1956_p0015:t0059",
+    "initial:statab_1951_part04_p0045:t0044",
+    "initial:nbs_circular_31_e4_1956_p0015:t0064",
+    "initial:statab_1951_part04_p0008:t0305",
+    "initial:nbs_circular_31_e4_1956_p0015:t0046",
+    "initial:nbs_circular_31_e4_1956_p0007:t0027",
+    "initial:nbs_circular_31_e4_1956_p0007:t0021",
+    "initial:nbs_circular_31_e4_1956_p0007:t0074"
+  ],
+  "pending": [
+    "GAO 1990: source unavailable; separate 15 flagged + 15 accepted immutable extension with this seed; initial 180 unchanged"
+  ]
+}
