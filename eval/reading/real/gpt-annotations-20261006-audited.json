@@ -1,0 +1,2942 @@
+{
+  "schema": "matn-gpt-sample-annotations/1",
+  "manifest_sha256": "1e2c4532b903be1b48f11c92289725aee23eb4de89f8344167eceb84a9f88f8c",
+  "created_at": "2026-10-06T10:15:21.998846+00:00",
+  "reviewer_type": "model",
+  "human_verified": false,
+  "method": "Visual reading of 18 blind image sheets (10 items each) in immutable review order, with targeted enlarged original scan reinspection. Reader predictions and flagged/accepted strata were hidden during transcription. Labels frozen before comparison to OCR outputs.",
+  "scope": "Owner-delegated GPT reference, not independent human-verified ground truth. Original nine human GT templates untouched.",
+  "transcription_policy": "Numeric typography: join digit-group spaces, preserve printed decimal places/leading zeroes and thousands commas; ASCII minus for printed minus. Footnote markers are separate from cell values. Mark fragments/merged cells/non-numeric glyphs not_number. Uncertain decimal separator is illegible; never infer from arithmetic.",
+  "answers": {
+    "initial:statab_1951_part04_p0008:t0323": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 1,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0323.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0323_line.png",
+        "crop_sha256": "f20d2c43648e2d617fa8ed82f16ae475b2d7196d55c048fd61e0c7483454c11a",
+        "context_sha256": "2d5adfa0d8b20043158db01080f1815e0ad6c6b789110ec6d56838c2d1a0e943"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0124": {
+      "kind": "number",
+      "value_as_printed": "22.6",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 2,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0124.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0124_line.png",
+        "crop_sha256": "465e2382e358ec6c3c1931fa0d5802edc99220b89a213fb8e824f077debb943e",
+        "context_sha256": "e5e7dca39690ae700f6eeb4ba3b622210929221aa645cf649fc9f69c643483a1"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0057": {
+      "kind": "number",
+      "value_as_printed": "324.9",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 3,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0057.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0057_line.png",
+        "crop_sha256": "0aa5b87d6e365885bdfb3c16e667829cdf854d2962c80ad204a640ae0f9446f9",
+        "context_sha256": "99a73960cff954472f8619564d58b98faae1eeea4514a8dd11e9285a9a971f28"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0098": {
+      "kind": "number",
+      "value_as_printed": "7.1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 4,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0098.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0098_line.png",
+        "crop_sha256": "dfff722602a81269e1999b9422d6af6f09745afd1b039f9fe4e40878564e1d69",
+        "context_sha256": "08b53ebd06913b0ea7f8058d2d3423f729164a6e3ee62b840006c0d36ffdaf1b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0037": {
+      "kind": "number",
+      "value_as_printed": "33,791",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 5,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0037.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0037_line.png",
+        "crop_sha256": "cd73fe3dce6daf4746c2f13c8587939939a66c4b570c9e0e5b161dc3c4a62f05",
+        "context_sha256": "2b82c5b51468cc816a5a92560de91fb89a3100904ebeaa098b9e6cf518ecf4e8"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0081": {
+      "kind": "number",
+      "value_as_printed": "45.3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 6,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0081.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0081_line.png",
+        "crop_sha256": "9358ab227620d58c81744b9ba6c21e24379e3c7624af12acaf0fee84955233eb",
+        "context_sha256": "f3253753432cb492c03b3d733cd40403d5473147c4acc0c66cfc54423e59d18f"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0006": {
+      "kind": "number",
+      "value_as_printed": "67.660",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 7,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0006.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0006_line.png",
+        "crop_sha256": "e2f5184ccbbabcbf615d997dcc3d2d36432e7276cd6f45d108e25e7c5159d998",
+        "context_sha256": "5e10cafd6e0574aa662f1734c6379cc73df10499c4cedd32cc148c21382298f4"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0088": {
+      "kind": "number",
+      "value_as_printed": "19",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 8,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0088.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0088_line.png",
+        "crop_sha256": "daa3762c8d668fe117057baa87eeb448df668781e0f7718fbe6892e33ff58f2e",
+        "context_sha256": "2e7ff3613e26b0e5b5b79265d698a5b6ac6b2017146b2de8e54f24e088fb2faa"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0024": {
+      "kind": "number",
+      "value_as_printed": "43,892",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 9,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0024.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0024_line.png",
+        "crop_sha256": "64a9015b047122b1feb7a5b6d7c28561e518089cb08f242076de5274fb5b7b6b",
+        "context_sha256": "6812473741208197708a1289751b6b72f4fec2b59f3a88e1cb2752f1e25fa591"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0002": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Detection boxes only the trailing 597 of the printed 0.000 597; partial numeric detection.",
+      "review_number": 10,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0002.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0002_line.png",
+        "crop_sha256": "a5b415a43ff792e74fd3da1f547f7b4d39875b6cecb22cc0dd05970cab6f1440",
+        "context_sha256": "cec3202e43442e1c54269076a1a874793ad3affdb098cd1d7de251fecfc13af5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0035": {
+      "kind": "number",
+      "value_as_printed": "15.279",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 11,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0035.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0035_line.png",
+        "crop_sha256": "4dedd961d83505068ca8c8498da92890d2dd171ea77d82b80be00a87a58839ff",
+        "context_sha256": "2b8c5e1d76c98a8f03e0bcc7c3fd2b2918d556fdcd8bb096f12db41725546fa2"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0219": {
+      "kind": "number",
+      "value_as_printed": "4,803",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 12,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0219.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0219_line.png",
+        "crop_sha256": "b8fa68dee49e46282ee0c6975e6c2663d9d80e18428bacb0ca62e6e5d83508ae",
+        "context_sha256": "686d2c101dd44b043a4b87708a89a5a06e60d3618a484bfa7b9528b65fda459e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0050": {
+      "kind": "number",
+      "value_as_printed": "13",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 13,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0050.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0050_line.png",
+        "crop_sha256": "c177fad16db3af592a853d5b262e1777431640d8f0bdf81f69578ba8e4c44f9e",
+        "context_sha256": "7f4acc2ab242a060b9e5b49f223d29a747d4691a9b8facdc6fc503ad2c983c45"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0027": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 14,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0027.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0027_line.png",
+        "crop_sha256": "7c93e7dc41d8c5facf1580d45b0d38d7e6d5cb6341c11cb517a1e2e2e9956724",
+        "context_sha256": "65177986e5ec3717d077fb07524cff8b27a16827e831e9d7291aebc2ce49a96e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0056": {
+      "kind": "number",
+      "value_as_printed": "2.747",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 15,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0056.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0056_line.png",
+        "crop_sha256": "0092f4d5f4cc31f510d352ad381d1d35dc324dbd66ebf412b9cb8c7590a6083e",
+        "context_sha256": "946d6eb91a8de36c8e9443857b0725d6149f2f61591f75646a4028de7f6a7e76"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0085": {
+      "kind": "number",
+      "value_as_printed": "6,075",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 16,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0085.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0085_line.png",
+        "crop_sha256": "fa76ef393918dd10e19770896ebdd0495991568b97bde8761eff9e325ac19195",
+        "context_sha256": "d28c3334990f1415863cc9ef88a23c126fbbe8614a8473d53cd1bf761419acdf"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0028": {
+      "kind": "number",
+      "value_as_printed": "871",
+      "note": "Enlarged original crop has two closed loops in the first digit: 8, not 3.",
+      "review_number": 17,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0028.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0028_line.png",
+        "crop_sha256": "82ae8a242d67395984bb7490fbdc62278531070d09c9a81736f592676a07587b",
+        "context_sha256": "8f0d76029d710e5cf1025f55cfbf1dc7b91a1cf978bfc382eb3262f8b3559e58"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0171": {
+      "kind": "number",
+      "value_as_printed": "2,596",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 18,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0171.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0171_line.png",
+        "crop_sha256": "014619a6a5f4ba3ff1388aab3c5d3bb525dd2bbc99e3db0767ac69c4c221ea82",
+        "context_sha256": "5e0861eb5068e79b1fed24563a7508367f08efd821ef50f40cea35333217127b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0161": {
+      "kind": "number",
+      "value_as_printed": "2,094",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 19,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0161.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0161_line.png",
+        "crop_sha256": "9010c994ed8814ca21d1a29141549512fad61b534a4f573d14176da56dbffd28",
+        "context_sha256": "c29a34bffca84212e24189602f9eddf2ca682ac85f34b884b517e3467971ab98"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0063": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 20,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0063.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0063_line.png",
+        "crop_sha256": "ac783df3c9dedab1bc67acf7277995907d8bafd26e44ea03ea18d5b9d981f6d1",
+        "context_sha256": "269bbfac23bfb5e86c4da53c69879fac1d1f27b367de43d79b9e68b597014b75"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0010": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Detection boxes trailing 0681 of printed 0.0000681; partial numeric detection.",
+      "review_number": 21,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0010.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0010_line.png",
+        "crop_sha256": "fbea6ff4569b4e230413c77a61c411b6ca4be7bf8f068fd36edd40ee4ec9d8d0",
+        "context_sha256": "1dddb2d67adf015ea08246c81b979a71e4fb401ddb6fc821ef85e827dee7e89b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0051": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Printed symbol is italic lowercase l, not a number.",
+      "review_number": 22,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0051.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0051_line.png",
+        "crop_sha256": "7036abaff327072366a8a3c937d8862ad8c42f2d5da403d0d41d3dc3befabfd6",
+        "context_sha256": "e5df70af5ca44212f450d25e9a150343c0344d9e30c2b39c9ad12b821ccf51d9"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0230": {
+      "kind": "number",
+      "value_as_printed": "564",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 23,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0230.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0230_line.png",
+        "crop_sha256": "7a417d0395a083009b5b0b8c4c62f7ffee644b5ed01b27e1c5f8c965c9baeefa",
+        "context_sha256": "46f2c7062b54d86afc1e6b5ac9e250b881cc8d74490a0d5c6daade0beb313307"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0094": {
+      "kind": "number",
+      "value_as_printed": "2,072",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 24,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0094.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0094_line.png",
+        "crop_sha256": "558ec7407bb42bbc94630236e10d6b31f86a9e0815b354a35fc1cbb21d4dd9ae",
+        "context_sha256": "00b431f40b8d4389ac5a95c3373ed094834c7d1b03c910df0cf43ebb30ddf747"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0019": {
+      "kind": "number",
+      "value_as_printed": "1,811",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 25,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0019.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0019_line.png",
+        "crop_sha256": "dd31ea80822918dcc9bd689a013170509f4f6c5d50011b963cb26f21a9f1793b",
+        "context_sha256": "8fb5457bf07261ee4d22e909b3865d8d84693465c22c64db33c87172a2a3ef71"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0063": {
+      "kind": "number",
+      "value_as_printed": "4",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 26,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0063.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0063_line.png",
+        "crop_sha256": "9035d9da71a111276388031014bbdee976483779ea10d0c4eb4fac6842d464ed",
+        "context_sha256": "ab740648884982e6c546d9acc58491f9a8a7b95ece653bef9f2e69c156576ce6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0239": {
+      "kind": "number",
+      "value_as_printed": "1,048",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 27,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0239.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0239_line.png",
+        "crop_sha256": "a45979a3142b33f441dec7474c352ae037e9f4507b15dadf5334772216e1ede8",
+        "context_sha256": "b6b57cffb8d182f5205e56b3175d415906a4ea8e1ad73d00c4d2e8538c84480c"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0301": {
+      "kind": "number",
+      "value_as_printed": "683",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 28,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0301.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0301_line.png",
+        "crop_sha256": "97569beb86cef1864ce2a7a55935c951ddb2b2f0791a8719015e136599939780",
+        "context_sha256": "f855ec19293d4efd5bbf3ddcd10cf1dc41e28444aaa612f1c3162b5214d226a6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0286": {
+      "kind": "number",
+      "value_as_printed": "75",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 29,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0286.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0286_line.png",
+        "crop_sha256": "847e7b35ba1c88e4b88abb0f5b040f260b085f43a62453c79867fbc609f97723",
+        "context_sha256": "51460f0caedfb45d0d6fc7bb04763e907d42d8dc84c3f6ca176bf0a86ea1efd0"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0019": {
+      "kind": "illegible",
+      "value_as_printed": null,
+      "observed_text": "50 763",
+      "note": "Digits are visible but the separator/decimal point is not legible. Do not infer a value from adjacent conversion factors.",
+      "review_number": 30,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0019.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0019_line.png",
+        "crop_sha256": "a7f7edf87e10c60de32a691ac5b605b1fcbb36b00b1e8fab53b940531a95dce5",
+        "context_sha256": "e4dd49b3fd3303350b3bb5710fd087e0aba60c04cc19b4c8b623916d09f27ce7"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0073": {
+      "kind": "number",
+      "value_as_printed": "16",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 31,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0073.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0073_line.png",
+        "crop_sha256": "67d01e0f9928acab7a9a0e2759d5016135b910a8a489e9f489bcf1ec680b8026",
+        "context_sha256": "27a7ca0f25f35ed1656416ec763d2025be3099b1fddd4cc0ecb2f3ce3f8084ad"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0007": {
+      "kind": "number",
+      "value_as_printed": "1,987",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 32,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0007.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0007_line.png",
+        "crop_sha256": "88be39d94ab3d92c6aa2b4ad79f3f13f4ad1c4583878b8d3b096ca2b0fd505bb",
+        "context_sha256": "cc5b55fceb4f72b86eef22e9296ecffe172e49879ee07c71451d2b5b36e42ad2"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0077": {
+      "kind": "number",
+      "value_as_printed": "1910",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 33,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0077.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0077_line.png",
+        "crop_sha256": "78203263c122d171b8749386ffd0850b5350cb473440c3d9794221d22a320d2a",
+        "context_sha256": "39e3e644e8c58ee7cd5c62d9b695dee037148cc8bea20fc53053b4ad1124179e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0040": {
+      "kind": "number",
+      "value_as_printed": "0",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 34,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0040.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0040_line.png",
+        "crop_sha256": "62d3b17be63eef59d9050f3d1711b40d287633a476ac0d46aca6286b557e9c3c",
+        "context_sha256": "c62499b6f09311f3b31bf833bb420b4244be3ed720db934d8c5c9b8543e09c18"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0064": {
+      "kind": "number",
+      "value_as_printed": "-100",
+      "note": "Printed minus sign is U+2212; ASCII minus used for canonical numeric transcription.",
+      "review_number": 35,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0064.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0064_line.png",
+        "crop_sha256": "f84f2e1d91cb7486fc4055b45553029a62e3eef6a2d0256904b1d4fe654c337b",
+        "context_sha256": "469a5bf6fd1d029702512c70281d4d6f4269bc5fa2ac4e49e6b9774ffe11f14e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0039": {
+      "kind": "number",
+      "value_as_printed": "186",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 36,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0039.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0039_line.png",
+        "crop_sha256": "21e6fc879f2677b9be2ccdc6c09e7eef86cc8694b169c5aa94d2764bc8c4e7d2",
+        "context_sha256": "700d48ba8ce13bb4c8bed53bd0ce0220f1ff7e1622a6e86348966011a4d3f3db"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0110": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 37,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0110.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0110_line.png",
+        "crop_sha256": "e2d6a90c62320d42a5c70e580fcc6c4fea36c79727ffc7a3e3a55395390918e0",
+        "context_sha256": "d075d60e1fbee25af57d7f111d96e60e130c7d6e976f38d9609f102fc2f44d62"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0061": {
+      "kind": "number",
+      "value_as_printed": "79",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 38,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0061.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0061_line.png",
+        "crop_sha256": "242aff4255419b1c856bcf55f5025f3be0f5e818f6ab4c39c82a9eb7a126ad1c",
+        "context_sha256": "6afdac7d3d9bdc9dacacdae432ccd2f1440dd9d72af0bad364a960486b2f9fbb"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0020": {
+      "kind": "number",
+      "value_as_printed": "2,000,000",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 39,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0020.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0020_line.png",
+        "crop_sha256": "c8a24f2247e66e2864f3da0260299bcbeea54619216ee64033c9821bd0f62df8",
+        "context_sha256": "40fd9903de5e0d5f8e120b7223e487dc2a3bab1cd4d3d0385a3d9a8178a4e8c4"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0119": {
+      "kind": "number",
+      "value_as_printed": "40,057",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 40,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0119.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0119_line.png",
+        "crop_sha256": "cbeca5d12862ecff12c96ab4c6488d802b9bde228ad683baa8c92d6997b251bd",
+        "context_sha256": "f47a4f873652f41389ee146c6aa7ac2f05476428510bde8874878e27324e3650"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0053": {
+      "kind": "number",
+      "value_as_printed": "14.2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 41,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0053.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0053_line.png",
+        "crop_sha256": "fec67b7d9ad399ca797489c8b2091076043a5c72a7f9f6b48925b123760c8e31",
+        "context_sha256": "050f9916e1a306e075b73c03905dff8a972bb244520bf35b0e1119c89b7097b7"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0123": {
+      "kind": "number",
+      "value_as_printed": "84,569",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 42,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0123.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0123_line.png",
+        "crop_sha256": "21304218b8bbb4f127e95fd24e2132ddee02b1432c68e27957937ea5a0b52542",
+        "context_sha256": "0d8c6e2a62b94492af6c69d70d6f42ec847737dec900ca9e4d3a686b42285a79"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0036": {
+      "kind": "number",
+      "value_as_printed": "67.879",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 43,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0036.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0036_line.png",
+        "crop_sha256": "e9b5266b70b8ce8ccfb5aa84877c6e4e4e50f612088c4b7ca92d23b7b4248d18",
+        "context_sha256": "2f0f01aaf7a8ea8e365f0a062b9b68a4dd8cba3f32fc62b6f876f66a221f8f4a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0183": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Box contains trailing 920 of printed 1,920; partial numeric detection.",
+      "review_number": 44,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0183.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0183_line.png",
+        "crop_sha256": "7c28bcf4b7806d95fa7785bbb87c56efb72c3cd71e30e28d6fc56a2c2b5ce151",
+        "context_sha256": "0c0f580b7ae21aa08813186b17c452f5481f8f2c217c040d1d735f6db53b3bf8"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0057": {
+      "kind": "number",
+      "value_as_printed": "15",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 45,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0057.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0057_line.png",
+        "crop_sha256": "57540f3543b5d4cb52e921cd923a3678f6dd979a541fa36c3953673db99c4a23",
+        "context_sha256": "71405257b4b8c711117025033f4889cddf3fcf6abc03967d790bc32513146763"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0054": {
+      "kind": "number",
+      "value_as_printed": "14",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 46,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0054.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0054_line.png",
+        "crop_sha256": "821b111aa6044f7ba0bc1aca80e02816dd0dac980de2d7b8e368daaaf09ecd34",
+        "context_sha256": "b4594858555492a83670902e29bddab9f86ae984493de477e02ef1a210e72b90"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0364": {
+      "kind": "number",
+      "value_as_printed": "650",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 47,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0364.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0364_line.png",
+        "crop_sha256": "b5056e87001ce4eaef2ead3f06b43338b89850247e9f3eced04fc655b622b1b2",
+        "context_sha256": "5f67982fc1fdc1e7469c4df48ec2d607656b8bbef8fa10d768e2ba63fa8be5c5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0131": {
+      "kind": "number",
+      "value_as_printed": "38",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 48,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0131.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0131_line.png",
+        "crop_sha256": "a628094e0ee584b0bcc7f91d5b53f88d4ff636095f161d29783943c45e294158",
+        "context_sha256": "6cda0ab2c2b7cc34c3e58a0b8e0ccb3a8fc11d9418ed9b8a161c62141930ed91"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0328": {
+      "kind": "number",
+      "value_as_printed": "39",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 49,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0328.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0328_line.png",
+        "crop_sha256": "dbd2680995f8b6e0771a0bec543c6af0d836fa6829d7382387e2be46ac4f1410",
+        "context_sha256": "300802d7dded940a618d7d4c4030f026b15eef6c9e12c1046e698d1409aaf474"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0395": {
+      "kind": "number",
+      "value_as_printed": "131",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 50,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0395.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0395_line.png",
+        "crop_sha256": "ca40fdb3fcbf8d1f832b388ce5a1e84f1f6cdece720ba3327ae75e18ffa67746",
+        "context_sha256": "72527d747e09ee29e89158dc341f69a82847501fffad3f1c2e5a6c7456dca807"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0069": {
+      "kind": "number",
+      "value_as_printed": "20",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 51,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0069.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0069_line.png",
+        "crop_sha256": "16c29f1f990460258f8217dc62796b344f28e8ce893877a4a82977763c84216c",
+        "context_sha256": "08246bcecae946ffa93bd97502b3548dcecf9110e286378e840c39eefafad321"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0340": {
+      "kind": "number",
+      "value_as_printed": "25",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 52,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0340.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0340_line.png",
+        "crop_sha256": "fa3ffee8c3d185b00194b4c299ee2ea52a997ff9ddefc44fda951aa329899f24",
+        "context_sha256": "99c67a995ca94e5862d6940fe6ae2c00f2c365e3899e27b5ef4c821b1d060675"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0277": {
+      "kind": "number",
+      "value_as_printed": "162",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 53,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0277.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0277_line.png",
+        "crop_sha256": "9bfc9846ac1215017e09a4146f3b8459e6229b818182f3f767f45a8f749df157",
+        "context_sha256": "eb916ad4d9c97c54254a36bde8d427694ce29104f2b68953be4a07666adacf05"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0086": {
+      "kind": "number",
+      "value_as_printed": "384",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 54,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0086.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0086_line.png",
+        "crop_sha256": "bb55d1c11d69b1e9b431ae1dcc3bb1d5f6f7af3ca2fbc87e577abd275f53d1a1",
+        "context_sha256": "d54b9bde5c1a02d3a4b980fe855eae18416603422c916fd8bf54e071d961ba40"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0009": {
+      "kind": "number",
+      "value_as_printed": "3,350",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 55,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0009.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0009_line.png",
+        "crop_sha256": "875dda8fa98f50b3f8c65b8301fd6f4565066ccaf333533eb749b82c8feb9e60",
+        "context_sha256": "48df9fb55cff9fa60a6bdb5bbd9ff570d2a8c7c206b734aca5707d385025a158"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0128": {
+      "kind": "number",
+      "value_as_printed": "101.9",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 56,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0128.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0128_line.png",
+        "crop_sha256": "ffd2ce48beaabf4fbb9f415fc28585b53a840456562c59aa830ad89eb92dde50",
+        "context_sha256": "3c11a3953162caf36a5eb965cd542e370d7a68de9c10c05319f61bdd7c858bc9"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0095": {
+      "kind": "number",
+      "value_as_printed": "19",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 57,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0095.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0095_line.png",
+        "crop_sha256": "aa856a7f8d868a93dd28870bb35b9758358a84512d50c5aef8e67dbe22ec10fa",
+        "context_sha256": "7e173de0baeafc0eb8cf41ddbd89732621898c01870d7dafcd0ca0090f3081da"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0086": {
+      "kind": "number",
+      "value_as_printed": "1910",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 58,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0086.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0086_line.png",
+        "crop_sha256": "147177a8bfe68556a10ef9a35656dad4483f3723bd78770f52bf84309c6c40e6",
+        "context_sha256": "13c1d0381a600184600a1eec0714e95feb645b2de9fa04dd12ea21b079aaaa2b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0291": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 59,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0291.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0291_line.png",
+        "crop_sha256": "78d647e4c4fe1bf3977a692206bf74e4a1fd856c834ac765dae95f08287fcb34",
+        "context_sha256": "92dd77a5b9629865fa41396235cf59c222b0caae3e34f4c5ceb5cc9fb520c32a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0036": {
+      "kind": "number",
+      "value_as_printed": "31",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 60,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0036.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0036_line.png",
+        "crop_sha256": "22a1669c977ddbe6b0887eb1eb0ff66966c160da5d557519c88371de973e26f0",
+        "context_sha256": "47a9dcc98365c005ec3edb0446a5b7e181d5c683d78d4fa9a3de633e7d569965"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0268": {
+      "kind": "number",
+      "value_as_printed": "305",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 61,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0268.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0268_line.png",
+        "crop_sha256": "5b4e97833a4630bf2be34799513b1b5061f097f39e9edfec07eca8c0ee6739b8",
+        "context_sha256": "c70db890ad46e51ccd0ab5c7a65aa80a48460e4eb84ee4392435cd234b271690"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0001": {
+      "kind": "number",
+      "value_as_printed": "188",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 62,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0001.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0001_line.png",
+        "crop_sha256": "ed82252e74bbc8e95f37c5a264d52b207d8e0b72b433def137cf95ed5a6ce6ad",
+        "context_sha256": "5fcc05268be0910e15cc7cf8367e0d25ffcb0a8e85385308a1644bfd626e8ad5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0336": {
+      "kind": "number",
+      "value_as_printed": "64",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 63,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0336.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0336_line.png",
+        "crop_sha256": "8dd15496965f0306e31bb6b988c31503fd31552145b0940e2bc075a01326345d",
+        "context_sha256": "f8c0651348dfd048fcf1629787751e7c28589d37cebf8f79b5edb82e1c0a470a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0112": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 64,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0112.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0112_line.png",
+        "crop_sha256": "ad6dd5d1eea40531fb654fe9df4587836f1da71622801ba7053667c6e1f8c428",
+        "context_sha256": "78b55ee8a0f237f045968fccc278846f0453f9b51b729cb79193dad432644bce"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0056": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 65,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0056.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0056_line.png",
+        "crop_sha256": "ce859859e445a4bd062e4d1c8d81b29bed96b13f1ef41b18e4a37845a978f4c5",
+        "context_sha256": "c244fe02d7cc4ee4f15d5b8152df8646e5cbd58e914d1eafbdb9e4c40e75d724"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0006": {
+      "kind": "number",
+      "value_as_printed": "352",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 66,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0006.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0006_line.png",
+        "crop_sha256": "02b206720bc5feca95ebe75749cb1b319433933b5a2a974e62796566f7ec6e59",
+        "context_sha256": "a2e6a380cfef9e439a7391d239af4f2ab0693c6e4f2a75c60eacb76baea4e983"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0017": {
+      "kind": "number",
+      "value_as_printed": "53,041",
+      "note": "Enlarged original crop confirms the first digit after the comma is 0, not 9.",
+      "review_number": 67,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0017.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0017_line.png",
+        "crop_sha256": "41f1cb0741f5498ca3849eeb01439dc23aad96d141cf0a8d75c0c6a1a7523337",
+        "context_sha256": "dfd6eb34a3269a2fcbed2b02c560de8304b3e181af320cf3b459e1a335f3347e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0019": {
+      "kind": "number",
+      "value_as_printed": "301",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 68,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0019.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0019_line.png",
+        "crop_sha256": "59ab78d2d4ac642a09ac0e5531a4cf08697776b36537fd2fb82dc25698976ae3",
+        "context_sha256": "2f8bbb0516e0047c2b099f447d9caa6c6efe7fefb51e9a0fce904776989257b3"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0068": {
+      "kind": "number",
+      "value_as_printed": "11.3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 69,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0068.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0068_line.png",
+        "crop_sha256": "b69981480997ccf078a04be604033ad01623d231f99757d1480f902d13ad68c0",
+        "context_sha256": "b51e0d7550fd27c7ee3e366d9b87fa690f267f6d039b0bd140783b5a854efec2"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0331": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 70,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0331.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0331_line.png",
+        "crop_sha256": "d28f11b2a3e8d293e1a074d1945873211b0055972f4bcf842e28da935173b0e3",
+        "context_sha256": "2df31fa3360078207fdd3a1df393b2bceb1f9a9205484e94aaf65ac0b4c95c9c"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0042": {
+      "kind": "number",
+      "value_as_printed": "44,762",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 71,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0042.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0042_line.png",
+        "crop_sha256": "43041e50e4021f7b7df38e181cf3dcda6bba3b3f0098ede1a09c1f580992036d",
+        "context_sha256": "7a2347fd84e675022f7b9d35cd28d3aa947cd22758bd34bef5bb657d78ac1d81"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0011": {
+      "kind": "number",
+      "value_as_printed": "0",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 72,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0011.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0011_line.png",
+        "crop_sha256": "919bfaf51819fe3d6b3b6e00989de0afcf005c9943560613cca74911b7a7e949",
+        "context_sha256": "cd2d2402ea329cc435a61d77a0b7772f955d6ce199cc90dee356464e007f9ace"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0164": {
+      "kind": "number",
+      "value_as_printed": "6,566",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 73,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0164.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0164_line.png",
+        "crop_sha256": "991c082bd0e0427bca6664e0854155e2ede45d2c1c4edc8262f587c005cd9629",
+        "context_sha256": "523d6e214ef58886404f5adfa6e385bb47b89cf11465c2880b26c1c4c1975013"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0032": {
+      "kind": "number",
+      "value_as_printed": "0000",
+      "note": "AWG gauge printed as four zeros; leading zeros preserved.",
+      "review_number": 74,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0032.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0032_line.png",
+        "crop_sha256": "514399b88bf07e398184a4ac76411509074dc9cb6bc4018754ee0bf9dc9d5dcc",
+        "context_sha256": "9fefc2ee42de3626cf896abc9818fc833a3b7de50461aefa2ab4f92b01e0753a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0001": {
+      "kind": "number",
+      "value_as_printed": "354",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 75,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0001.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0001_line.png",
+        "crop_sha256": "212ea80146e9e7f05406310fbd21dd6e47d97048ca367f8dc0f11548d94d5946",
+        "context_sha256": "351da7bd7e132f3f8468922c74504c345f388c8adf31676e6a4e796b06135b44"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0063": {
+      "kind": "number",
+      "value_as_printed": "11,554",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 76,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0063.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0063_line.png",
+        "crop_sha256": "bccb4bf3a61926932585031d1e9e80ecec4a22a036c2396ade9b1a530fcadcaa",
+        "context_sha256": "43179c1d7860dd042e28fa5e01e445da140c8f158f5004dec67007b10035d6e6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0363": {
+      "kind": "number",
+      "value_as_printed": "452",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 77,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0363.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0363_line.png",
+        "crop_sha256": "1925c0c53e5c020f08a639a8061c081b39016540fcbcd0a369baff86829fc719",
+        "context_sha256": "176e4459ea399d15baca1aea5f4f1590557a1315591330d5de6ad892b7a88dbd"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0011": {
+      "kind": "number",
+      "value_as_printed": "6,565",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 78,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0011.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0011_line.png",
+        "crop_sha256": "f11fee97faac8c8a673e3723fccd0b2ce29c329b6202c54241bc7d2775a9492f",
+        "context_sha256": "0ca9ff4e6896f52e1a44aa15642a594ff503db9e3ae6947d6b0320b2eea12765"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0007": {
+      "kind": "number",
+      "value_as_printed": "0.15328",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 79,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0007.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0007_line.png",
+        "crop_sha256": "47889c1fdc0b426dbbf711d1434a01e26791b52e227bb31e425d81a1de5a4e6c",
+        "context_sha256": "3d9cde8799503357daabc46d80f995eca3644a4b2d74d2fc2e0627f2507fa27d"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0001": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Box covers only 0.000 of printed 0.000 597; partial numeric detection.",
+      "review_number": 80,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0001.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0001_line.png",
+        "crop_sha256": "3bcb7f33497118f3a4afe64cfece91d81d0d7151aeef8a20c5ee6b5176a8205e",
+        "context_sha256": "cec3202e43442e1c54269076a1a874793ad3affdb098cd1d7de251fecfc13af5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0007": {
+      "kind": "number",
+      "value_as_printed": "478",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 81,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0007.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0007_line.png",
+        "crop_sha256": "b140257ce2187c4eda2199364afb20a3c45d255a08732d335ccd5643322bc3a2",
+        "context_sha256": "5827ffda5ad9bd76146a25739e0e64104c1a34ae4f2378fffeeedcbea08b875b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0055": {
+      "kind": "number",
+      "value_as_printed": "13",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 82,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0055.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0055_line.png",
+        "crop_sha256": "0d1c65c9205c5a6388245225971183ca4e00e9e9b4cc6173ccfb43c05ca01dbb",
+        "context_sha256": "a5e1c98ce8d5a5e2e1b97c64005679da11f9f6251fa813738cfa1917af5b306e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0109": {
+      "kind": "number",
+      "value_as_printed": "30",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 83,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0109.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0109_line.png",
+        "crop_sha256": "3be1a24aec7e685580154bb96950ab7e6761ced9b122a566cf974435ab525cb8",
+        "context_sha256": "b86427006aba9bd3fab35b898456587f8b4e7951fec22dd65efd803bdf82fe36"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0031": {
+      "kind": "number",
+      "value_as_printed": "252",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 84,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0031.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0031_line.png",
+        "crop_sha256": "c0fec07e5ec8d5abeed3683f958302d75da86d8d6f9820df8bfba956a44124bc",
+        "context_sha256": "79a2fea671384ab8ef7a7ca389efcef8b9f7d28d8e8363d6a754bc63529978be"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0391": {
+      "kind": "number",
+      "value_as_printed": "337",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 85,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0391.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0391_line.png",
+        "crop_sha256": "d69e48cc058bf846e996622bcf32cd5a47e61d8d506335ae15648baae1fd2aba",
+        "context_sha256": "0a2ae0ce82d0583c4c86960f06041de3ac10601c5982d439f9c4ff143237a422"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0379": {
+      "kind": "number",
+      "value_as_printed": "68",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 86,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0379.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0379_line.png",
+        "crop_sha256": "952e327453b6b739c8c30aed4e0a0467cd67ab3c2aeebabee3da5ac7e7c7bce6",
+        "context_sha256": "7c61c82a4cb5350e8ea284bf9a76d085fcdd6ee98b0de630d71199ac3483a85d"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0062": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 87,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0062.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0062_line.png",
+        "crop_sha256": "285afe8f9e07e635ed6db706e15d53658788f62c1a924092c479d716235195dc",
+        "context_sha256": "c9b3dbd94f45abb1821690209b9016803719c627837684349e55ddb914e1f1d9"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0176": {
+      "kind": "number",
+      "value_as_printed": "631",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 88,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0176.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0176_line.png",
+        "crop_sha256": "f3884219217679e301583f1dec782f4d189224490b49e36327d4d0af2f899f7f",
+        "context_sha256": "9884832136389e2034d2ab79c7bcdf10c47459fc58e7f58ed2f1f0049b43c6ff"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0342": {
+      "kind": "number",
+      "value_as_printed": "41",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 89,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0342.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0342_line.png",
+        "crop_sha256": "d3bc495b8c70e947f5f1b1eb322d2c440aceb51ae3cbd9a4700bf93be825ed4e",
+        "context_sha256": "357b302eafd86b43eaf7b117bc0e0a49c9775ae4c3903b4e2f28326667afd710"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0037": {
+      "kind": "number",
+      "value_as_printed": ".014780",
+      "note": "Printed .014 780 with leading decimal point; grouping space removed in numeric transcription.",
+      "review_number": 90,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0037.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0037_line.png",
+        "crop_sha256": "a98bfd55912339559c04af810e9aaa7e582c0c9b7990fa295492c33b5a367289",
+        "context_sha256": "9e3e9435c847e5d91d9fb8bd618e3ac6af8543de59698202c622b455fbc3d320"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0206": {
+      "kind": "number",
+      "value_as_printed": "57",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 91,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0206.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0206_line.png",
+        "crop_sha256": "070f171a2ce16deed5cda84e97d79de358654ac136bd2919438e8623a57255ba",
+        "context_sha256": "35c161408d24a6c7c634a5968e4d623a3c6ac151bf23ef9aecaa10d567a96669"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0002": {
+      "kind": "number",
+      "value_as_printed": "1943",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 92,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0002.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0002_line.png",
+        "crop_sha256": "639db4cf89b899a923af544bc80d5b14cfa20f184eceeb083de92c3bdbb53026",
+        "context_sha256": "173b06188c0262d12bc5e7fdac86ff773c9714ae78ef794dd6f4cd4bf6af94ec"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0011": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Italic digit 1 in Part 1, not lowercase l.",
+      "review_number": 93,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0011.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0011_line.png",
+        "crop_sha256": "a413773cd81037d6f74a9280864f25b8ac6191efbcfa4cc8e3f16f02222f8cc0",
+        "context_sha256": "59fbb1b6e384d5731f9395b5d89b3a61591f134f5030679b0ef52008df4e2687"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0313": {
+      "kind": "number",
+      "value_as_printed": "831",
+      "note": "Main cell value 831; adjacent superscript footnote marker 3 is separate.",
+      "review_number": 94,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0313.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0313_line.png",
+        "crop_sha256": "a6895d9fa47e5df41558776a151aed8fde81f3d996a0d184e53c1e97676432d0",
+        "context_sha256": "21ab8b28186595d8121b2ea12a489623ef12390efdc3691b3476eda82095681c"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0065": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 95,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0065.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0065_line.png",
+        "crop_sha256": "b202733c314f5b464aa1d45bbedb701f638ae4623d50c8448bd74e3c3338433f",
+        "context_sha256": "a6e5bfc185ca1870f36bb16859d3d4dacc82fa9a5d69660bb15f1e9164432f91"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0385": {
+      "kind": "number",
+      "value_as_printed": "462",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 96,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0385.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0385_line.png",
+        "crop_sha256": "6ae0dfcbea007489edb6d54ef3d86e0792bd457eb95da16db1f36a110e69da22",
+        "context_sha256": "0e9542d660fbe0543eb849fadc92fd1ca68c7eee7397abc30a06accba4f39c9d"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0082": {
+      "kind": "number",
+      "value_as_printed": "31",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 97,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0082.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0082_line.png",
+        "crop_sha256": "a9c28b12840af134b006aeef11ed8c9a83561afcb6ba68c316cc77e3086d76ec",
+        "context_sha256": "0458a120d77ffca71f1d989042b71ba17c6dab8a2f852a857cb9f8bdc71b2c0b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0296": {
+      "kind": "number",
+      "value_as_printed": "199",
+      "note": "Main cell value 199; adjacent superscript footnote marker 3 is separate.",
+      "review_number": 98,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0296.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0296_line.png",
+        "crop_sha256": "504d945df040a0421d5859d7ca8c903ebb53efd4835e894285ac7f830a89d1e7",
+        "context_sha256": "e5d6df2ed9ec90c6d920e9519ffd8bd77fed475a0b2cfddbc56fb847dc319361"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0087": {
+      "kind": "number",
+      "value_as_printed": "4",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 99,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0087.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0087_line.png",
+        "crop_sha256": "ac1067db828e5346d29ae2c4e8f6a52bacbc38086fabe94cc30de60515635ee4",
+        "context_sha256": "3dbbd2e2ddc3acb4e1200a5c5f7c6402b3720a1e4dfd812cdc43fcb43247806b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0181": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Detection contains only leading 1, of printed 1,261; partial numeric detection.",
+      "review_number": 100,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0181.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0181_line.png",
+        "crop_sha256": "92eb962c1f11c8ed6deb2feefaab46c32a0be15ddc53a8317c8b7243c2ab1932",
+        "context_sha256": "673a36c79a66e358aed7b19fa08924c686c2eb2d94064fe4b2d48161c5346838"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0126": {
+      "kind": "number",
+      "value_as_printed": "10,961",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 101,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0126.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0126_line.png",
+        "crop_sha256": "7c6ee9e56d975fbe77f2aa9ac65454b0c837b4681d4294ab3b443bf640091b8f",
+        "context_sha256": "73d0be383b9851a9d93cad108dadb656f0ce1ca51ab0237f1a77202724c9246f"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0070": {
+      "kind": "number",
+      "value_as_printed": "60",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 102,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0070.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0070_line.png",
+        "crop_sha256": "e3da29139260f730c810864b13d341fcb3f7a17c26dd1beaca3d604fdfa956b7",
+        "context_sha256": "9531efcbf464683552e38386974c850290dc139d9709a4ebb1d6c65ddc83801f"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0394": {
+      "kind": "number",
+      "value_as_printed": "138",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 103,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0394.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0394_line.png",
+        "crop_sha256": "b4071cacd030c7611d971ef553853173a2270a27b75da9a8afcab230586c6bbd",
+        "context_sha256": "8695ef9f13d2a8540f2fe22f3b51cc7ccac9b6a23f2a358f643702dbe8a03f0c"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0071": {
+      "kind": "number",
+      "value_as_printed": "20",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 104,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0071.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0071_line.png",
+        "crop_sha256": "b3695cd3a8a156ad679f8a6457ba1d4d0ab3579006b4b8c52a00c6c1dc4f5c5a",
+        "context_sha256": "55a2d917d8aa57f23447e87e04b992984dd2babd042d9f7fa3f1c81a129d8dcf"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0113": {
+      "kind": "number",
+      "value_as_printed": "7",
+      "note": "Superscript footnote marker 7 is a complete printed marker, separate from following 1,182.",
+      "review_number": 105,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0113.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0113_line.png",
+        "crop_sha256": "f04807639dbcec0c8bb0efbd4bdaa2664bc07d37260672142d32aab9f66645cb",
+        "context_sha256": "4043906d54da61986c32c91431b2faffbf1cc56896cc58b4f049717b8c4b4a47"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0139": {
+      "kind": "number",
+      "value_as_printed": "49,958",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 106,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0139.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0139_line.png",
+        "crop_sha256": "fd60e58a36c048f13c96795255bb38e0f6b30ff162f82010f1e9174bca56d89c",
+        "context_sha256": "9e55fefa703a4924e5d6477ab50476cff31b3fb5f341a87ea4d019e20f495e87"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0025": {
+      "kind": "number",
+      "value_as_printed": "4",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 107,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0025.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0025_line.png",
+        "crop_sha256": "49cc2caee44be07dae32b69c2a090e91a0608d68875837cd09225144287222d3",
+        "context_sha256": "773b5b4cc982867ba9a7cd0df04dc0f4e0e96b151505f5f974b3bee5b3490603"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0069": {
+      "kind": "illegible",
+      "value_as_printed": null,
+      "note": "Cannot confidently distinguish 8 from 9 in the first digit after the comma at original resolution. Abstain instead of guessing.",
+      "review_number": 108,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0069.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0069_line.png",
+        "crop_sha256": "c6cea2e4e9d9c03c7673aa71dd634fb4998a9b6522f74e0c349fb2cd3b5cd0fd",
+        "context_sha256": "e29a917728f4a4b9e48dd76ad455944965f29fd645e931dbe1f635ecf953c788"
+      },
+      "observed_text": "15,?23",
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0365": {
+      "kind": "number",
+      "value_as_printed": "93",
+      "note": "Main cell value 93; adjacent superscript footnote marker 3 is separate.",
+      "review_number": 109,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0365.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0365_line.png",
+        "crop_sha256": "b7f74b6f23cc321034ef155fe35db9c0112bb2ff7a5674154043628809349378",
+        "context_sha256": "be66da3fdeb0c7f87780f72951c3c7d125a169a453b5f4b88bd1ef2621a0feb8"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0027": {
+      "kind": "number",
+      "value_as_printed": "6",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 110,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0027.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0027_line.png",
+        "crop_sha256": "96f8900cbaff5688d1857ab10d53ea4e5128356c98c32114b6109685d4522e1c",
+        "context_sha256": "a0e24c62c05777942b7c4067d76884cf83f005614e23e9c6412c9e8a667cfd7b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0094": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Main cell value 2; superscript footnote marker 6 is separate.",
+      "review_number": 111,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0094.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0094_line.png",
+        "crop_sha256": "93e6abc3d0cecb4a3846d88c64023cf826594aa8672e94c54ca7743356dd9cae",
+        "context_sha256": "e73a95dc08548a47711b0561f1f0dfd3188bd24415feec9e12926638d9841c83"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0165": {
+      "kind": "number",
+      "value_as_printed": "6,668",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 112,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0165.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0165_line.png",
+        "crop_sha256": "7ab49d58d656b049355efe3b75dafa9c8307ad625e60d316a4540de2c8f3e81a",
+        "context_sha256": "52f3d74db245d3bbdd2b7c543a7d3aac64ce32c874f3bb2bfc10141370b61b03"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0029": {
+      "kind": "number",
+      "value_as_printed": "20",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 113,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0029.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0029_line.png",
+        "crop_sha256": "bd2adde4ec8a264dd39344e9f0edfe3d33c24e0a0292379640a08228ddf6a472",
+        "context_sha256": "ad3875a6cb443eb9211349a64bbb21ab3f1ccd51460369b1994c63f2afa92b54"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0038": {
+      "kind": "number",
+      "value_as_printed": "84.389",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 114,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0038.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0038_line.png",
+        "crop_sha256": "73af66aaafa90dfe8ea3fed87e8d4a35c251d2441372f69f4358950c6c373b67",
+        "context_sha256": "71a9fe0d36d77ac2a0c60e4400b635c174d2351660828b67c6b781b76d375b54"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0085": {
+      "kind": "number",
+      "value_as_printed": "422",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 115,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0085.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0085_line.png",
+        "crop_sha256": "480532d53420a8b23943b39e6a8363f0227afb61104120390eef86624f83ecca",
+        "context_sha256": "8bd440b24d6eb1d9c306ef3cdb4d65c6a63cca3eee34a6d868d78469b77ccfe3"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0099": {
+      "kind": "number",
+      "value_as_printed": "47",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 116,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0099.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0099_line.png",
+        "crop_sha256": "0c0ca0dba7552fd639ebff3ad4a17fddb039921942871910114d94d171931e51",
+        "context_sha256": "edb650b2173a0adfdceca029cc099c36d377d2ec67c9ebfcbb9f7b7cd26a338f"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0168": {
+      "kind": "number",
+      "value_as_printed": "2,122",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 117,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0168.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0168_line.png",
+        "crop_sha256": "33b2de54c56f9a34229278399f11a830dc65d0aa16c8431e8cbd0da1d38a8bc9",
+        "context_sha256": "e2c67ff06cc91b58da023b89b86fdad82c3b0057f35eb2c8d1310d6ad30da1dd"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0005": {
+      "kind": "number",
+      "value_as_printed": "4.4284",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 118,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0005.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0005_line.png",
+        "crop_sha256": "47f52fe5d60ef5f29663a2f98981786da4b9759a7af1654b21a084878aa596a3",
+        "context_sha256": "8663c7ea1ea0d28903f06acb0c6ae868c71e820d161da5a4691ee27450f27a05"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0284": {
+      "kind": "number",
+      "value_as_printed": "65",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 119,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0284.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0284_line.png",
+        "crop_sha256": "8459c0cbfbd544b953b0d18a2e02f3f715a9d871f544cbd2dd11552a75c6b97c",
+        "context_sha256": "feaf6efe8c996c62a1407faa9e08c5cbfed044afeb8cdaba5ecda6e825e40064"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0289": {
+      "kind": "number",
+      "value_as_printed": "88",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 120,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0289.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0289_line.png",
+        "crop_sha256": "39e9b1d111d86cc23ef6693de8bf3bc27367bd1cb8910b306de6ced6c806a443",
+        "context_sha256": "ca08748ab82f9d0adb9298c8ac8648f9c42e6fbaaac05990d80e6d55d8fe4b31"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0018": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 121,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0018.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0018_line.png",
+        "crop_sha256": "352d6fedb41159fa0f2f990c49fe39ad23570eb32bdb9bb8fe82cef82176e988",
+        "context_sha256": "542efea6e5ec045ebd87c001e38cee46e2708f396d96d31e7dd5d731fee48757"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0320": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 122,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0320.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0320_line.png",
+        "crop_sha256": "66cbdf5fe755480012195728016bd878b710ac9315ca4f2664c59426946083ec",
+        "context_sha256": "60f777e30f52e920912224d2678abf87b059dd19747704829fdd7531a00d374e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0091": {
+      "kind": "number",
+      "value_as_printed": "46",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 123,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0091.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0091_line.png",
+        "crop_sha256": "df01a81f4abd0bc7041febf0e92293d9a9c7f9097532123aa990e7ee7ad4596d",
+        "context_sha256": "805883f5517cddaea5069e5f2428e9d78d40fd5daa00ac25b46990f6194336a6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0034": {
+      "kind": "number",
+      "value_as_printed": "11",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 124,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0034.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0034_line.png",
+        "crop_sha256": "a1ed67fa5481963c1557e1c42fe7f70f63c73afdcef21987ccee3ae776de5e28",
+        "context_sha256": "443f03fa2baa6800ac7b52ef71af195bfac20c4401ec1e6909364807f7afa277"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0058": {
+      "kind": "number",
+      "value_as_printed": "3.210",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 125,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0058.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0058_line.png",
+        "crop_sha256": "d0d75c841a448ba38c26acceb7683d8d3d0a165796b424ec1b8164613e07bc04",
+        "context_sha256": "9386708b9ab77de08993edce756fa70a82665755463d683342e902ef38d4e568"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0034": {
+      "kind": "number",
+      "value_as_printed": "2.5400",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 126,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0034.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0034_line.png",
+        "crop_sha256": "a79a86b409959db17815553e49e17318f82a4de7a129d8b5ee3bba9d6d2b6749",
+        "context_sha256": "89502e7fecc5b60585b74798bd0b1d1ba00b50ff65db019dc5155269e87bbd6e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0047": {
+      "kind": "number",
+      "value_as_printed": "3.1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 127,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0047.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0047_line.png",
+        "crop_sha256": "b21e91defa504aa20e741d1e9c0a7e081e7270b03772ef3fe7835a8efc6c22fb",
+        "context_sha256": "5930282ececdd51b553f28348f0b2e64b008c5272daecf47004981297a642410"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0117": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 128,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0117.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0117_line.png",
+        "crop_sha256": "bfcaa0ac29b1fb1a93b99ba3518930920fc0f9d1903dab1fbd5c80c6ebac3acb",
+        "context_sha256": "93144f2c07dad3a48782a69ff74ce82f6cdd52a5139f8cf364c77f26d5949b1a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0214": {
+      "kind": "number",
+      "value_as_printed": "677",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 129,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0214.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0214_line.png",
+        "crop_sha256": "0e5df2cfedbd76e3dd80249f2239eb4b2ea491c5529c9e35eea37ce08b670448",
+        "context_sha256": "91ef74869535b5e7a5f2b350a27aa626d326cd944fcaf5dbef616fdccf7f635a"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0127": {
+      "kind": "number",
+      "value_as_printed": "11,914",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 130,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0127.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0127_line.png",
+        "crop_sha256": "6c972060b0a78ce34d96796e48e4d208c6c92b0e8df9ed7e4a4d2a16a28c5188",
+        "context_sha256": "c26c5f69f013570bf321be3627653eec778d0b81e68155de1745ce7725509d90"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0021": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 131,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0021.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0021_line.png",
+        "crop_sha256": "d2860417b0560dc91ea47082b2ddb0cc0a9f82ec50cbccbe7f59d4443f43eeda",
+        "context_sha256": "40fd9903de5e0d5f8e120b7223e487dc2a3bab1cd4d3d0385a3d9a8178a4e8c4"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0118": {
+      "kind": "number",
+      "value_as_printed": "36",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 132,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0118.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0118_line.png",
+        "crop_sha256": "b61ece5e9f4c7aaaba6d6adb34797b4d13228a4f0d8a430f4c359fa73bdf0eb4",
+        "context_sha256": "396949dbd28f92bbdc6d94f933421e49cf1b684788555e8d3c1bff1dfcf9aaa1"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0025": {
+      "kind": "number",
+      "value_as_printed": "44,762",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 133,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0025.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0025_line.png",
+        "crop_sha256": "22dff721d060e0105b5dd1b7e90fd6a35bd7443b8772ea6169f671978d7e1d69",
+        "context_sha256": "56a16fcd6ab487eae4a3f19127748e42c91f58a8465ad30bf08fde961ed675b6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0072": {
+      "kind": "number",
+      "value_as_printed": "1,709",
+      "note": "Enlarged outlined scan confirms the third digit is 0, not 9.",
+      "review_number": 134,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0072.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0072_line.png",
+        "crop_sha256": "73857b123eb44467d6d68429fbd0527d4575e4022c700cdff9fea52cb83f59fc",
+        "context_sha256": "ae02e932f63899df0360cd08a3d80c5978e75a600e7d17217419d5f98671fd58"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0112": {
+      "kind": "number",
+      "value_as_printed": "49",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 135,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0112.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0112_line.png",
+        "crop_sha256": "c33fee01f7ed4b134d46c955fede23f0385b01716c3468ccbecce33d6830bb9b",
+        "context_sha256": "076ce2a76b144bf0c5e32911f3726796de422b47ce0a38156913e8cf90417ade"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0343": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "One detection box combines distinct vertically separated table cells 1 and 5; no single printed number.",
+      "review_number": 136,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0343.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0343_line.png",
+        "crop_sha256": "495541b2a991053a7163ad18b11155d054143f6cdac630d70a5f36013a5f41a2",
+        "context_sha256": "d1dc0317d6b2087bcb70695b9ce75b02b41848043fadbefc7e6b5e1e36a5e674"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0035": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 137,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0035.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0035_line.png",
+        "crop_sha256": "54091122f953ea4e51bafc0b73d81f06a72f9ae083345ca983545580682e3794",
+        "context_sha256": "47a9dcc98365c005ec3edb0446a5b7e181d5c683d78d4fa9a3de633e7d569965"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0052": {
+      "kind": "number",
+      "value_as_printed": "27",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 138,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0052.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0052_line.png",
+        "crop_sha256": "1db7ade7869b6bfcbe67bf92b637ed68a87927aff375010babd82c6cd71a8c2d",
+        "context_sha256": "c604f33a6914325072c7a915a014f26f25675f670a70648a0c401c928091f0fb"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0248": {
+      "kind": "number",
+      "value_as_printed": "306",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 139,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0248.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0248_line.png",
+        "crop_sha256": "9a5937919305a1aed659d52108c1dce618a93a5220509b74998d8d50645d2283",
+        "context_sha256": "377e36a8bfc24de35a9d47ba0a7b6c0a212c46ff35f5ada02028895362e9b9da"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0013": {
+      "kind": "number",
+      "value_as_printed": "1949",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 140,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0013.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0013_line.png",
+        "crop_sha256": "b020a8503bcac1aef1558d82943e9cfdb76ec4de58cb51404a7672239380eeda",
+        "context_sha256": "41fd2d5180f8cd3a5a192730e4065bbfe2343b0af97bfada40f481ed9c2a06ae"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0204": {
+      "kind": "number",
+      "value_as_printed": "764",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 141,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0204.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0204_line.png",
+        "crop_sha256": "462a73b934cc9b37dcb8794c07a99648d5b6b3f9b79c5c4cfc9b8a3f222233a0",
+        "context_sha256": "f4b96d58d861fd10a82d6723a126b40403fd4dcdfc46987b7627924cbee3b77b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0080": {
+      "kind": "number",
+      "value_as_printed": "19",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 142,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0080.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0080_line.png",
+        "crop_sha256": "e29145867d6f0e4740629922e563f1cbd09f176d1cf9d7b3e2edef8fc8e837ae",
+        "context_sha256": "a3dc8748f2362e2ec3acee8b1ed79326057a73e735a8bddaf2b46c5658e8ff44"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0384": {
+      "kind": "number",
+      "value_as_printed": "474",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 143,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0384.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0384_line.png",
+        "crop_sha256": "c4fea2151cafec3d2dacd44bc00d38be1b7c46a9e17447265b46d1ac9a6e2376",
+        "context_sha256": "05c0a64df2a372a36a994cfe4ba28f35b37c31a35e9edb57a899345ae56287f2"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0047": {
+      "kind": "number",
+      "value_as_printed": "172.41",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 144,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0047.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0032_t0047_line.png",
+        "crop_sha256": "4d6c57acb6fbc4d84cad3e92e0de39d9c1339fec674b0604c8a2b3a44ed999b1",
+        "context_sha256": "d93ab0edaeb2407fe80d0400363640b739c09bd2c6495d2dcb255382ff7ed044"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0039": {
+      "kind": "number",
+      "value_as_printed": "8.90",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 145,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0039.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0039_line.png",
+        "crop_sha256": "6e66825cfe30d93ec4ae4e44aa9513f8a6021fbf1f39a4c6525570c8aec527d1",
+        "context_sha256": "c62499b6f09311f3b31bf833bb420b4244be3ed720db934d8c5c9b8543e09c18"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0045": {
+      "kind": "number",
+      "value_as_printed": "42,211",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 146,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0045.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0045_line.png",
+        "crop_sha256": "9c4a69bc718b5bb7d8d2c31f58a047bc2ba4ddf496af9acda2f76785531468f7",
+        "context_sha256": "97fcb15302be9c7a51b1dd274a1dba3a81e55eb0e7a8ee656d50eea437cf6ef0"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0003": {
+      "kind": "number",
+      "value_as_printed": "1789",
+      "note": "Enlarged outlined crop and full context show all four year digits; the final 9 meets the outline edge.",
+      "review_number": 147,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0003.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0003_line.png",
+        "crop_sha256": "86aa272313d811ca2b2ff591ef2938c17ab71086d2e087f2e7dc4702dedd34f9",
+        "context_sha256": "9798e2493d07dac506fc32c0e904dafc1954774a5bbffe146a189ccb4dd78008"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0226": {
+      "kind": "number",
+      "value_as_printed": "172",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 148,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0226.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0226_line.png",
+        "crop_sha256": "49d3233af60c61163e55b6ebb9bb4db30f3b03824340f22a63a1fafd6061fd62",
+        "context_sha256": "f5ec7586ef95db5d88d71e1a67ef3cc5ca53b7712f573cbb526b302c4f80f6f7"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0209": {
+      "kind": "number",
+      "value_as_printed": "431",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 149,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0209.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0209_line.png",
+        "crop_sha256": "56efa8859335d7a7488dac7df45ed69e2ffdbbd2aff97ab6d0c801bf1f6bcaba",
+        "context_sha256": "9d142b85c78aa29c46de194fbce167ccd73e85d979fef7e6e0c35ddc9e6bc7fe"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0030": {
+      "kind": "number",
+      "value_as_printed": "20",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 150,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0030.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0030_line.png",
+        "crop_sha256": "f04edc638104c4d07180a027feaa1f470e98e3ba629d49c781d0111f65061214",
+        "context_sha256": "631ea5acc419a5786da9c218caf63ceeb6e28ff57cce77c19dad98c0505d8788"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0075": {
+      "kind": "number",
+      "value_as_printed": "30",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 151,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0075.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0075_line.png",
+        "crop_sha256": "ec187a83c001b75cc8445751397e75d8df60454833def81ff087ee6e57e85dac",
+        "context_sha256": "14a7e3c63107ae7eeb3565138c5a70b412301c8d9ff720006c27e22a6ae19c25"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0031": {
+      "kind": "number",
+      "value_as_printed": "20",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 152,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0031.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0031_line.png",
+        "crop_sha256": "bd229b320d5a33bf9e5722acd4d44ad40d05746a3a44cbee36aabc3b4a029391",
+        "context_sha256": "d2c60a85af20c0be478f4e1affbb3d70c9b7aedf7709de04ae04136f2b5638d7"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0235": {
+      "kind": "number",
+      "value_as_printed": "4,572",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 153,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0235.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0235_line.png",
+        "crop_sha256": "b0a4bc5f1b7966f725c56809725f69cc6f4267a8762e2cce373f5c78f299aaac",
+        "context_sha256": "7ae9ef2767fd5c35c7d860074e865e34efff2fb23b0921d0048839898d98f1a2"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0288": {
+      "kind": "number",
+      "value_as_printed": "83",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 154,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0288.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0288_line.png",
+        "crop_sha256": "3b09a029e8e0ed0d9aad87ae8174dd41a779564174baf5d0de758f7b0d440127",
+        "context_sha256": "5ef4526676dd1022849e7c3976dd5d14306f5f206b938c4e7aed473940bd17db"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0061": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Box contains leading 10 of printed 10,174; partial numeric detection.",
+      "review_number": 155,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0061.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0061_line.png",
+        "crop_sha256": "a403bf2986a66bea4453b17a0bd66810e09b5439b849566e7c5a4215b42cf834",
+        "context_sha256": "d5d13bdc0e66b8bff717e71f554dfa64708326dc6bf3e0bd0de284feaa533ba8"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0004": {
+      "kind": "number",
+      "value_as_printed": "357",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 156,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0004.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0004_line.png",
+        "crop_sha256": "416a5899eb6aa82676775f0a45b3657e4fee712cb4e52eccc84df3d52d342543",
+        "context_sha256": "d88e44e65cd402ede32096fb874ab2b1d654b0f2f5cba1c5fa0ef39ae36d3f54"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0076": {
+      "kind": "number",
+      "value_as_printed": "16",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 157,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0076.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0076_line.png",
+        "crop_sha256": "855b74cc1d929185ee25716e51e8178915bba01b9ea89d159f68a27e1aac567a",
+        "context_sha256": "5129a9c32a43ff9290449423b688954d078394951bef45d644b2cbfbde422cc5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0016": {
+      "kind": "number",
+      "value_as_printed": "439",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 158,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0016.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0016_line.png",
+        "crop_sha256": "1ae8380816c42174a4212d7a8b0b4803926dd64c437eef9909848406164617c2",
+        "context_sha256": "aadf75b4a86bb53ef021892d3d24201f38c9d87e840adfbd6a43bc0ed139c0fe"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0009": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "note": "Box contains 0.000 of printed 0.000 0681; partial numeric detection.",
+      "review_number": 159,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0009.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0009_line.png",
+        "crop_sha256": "d67437971764ae848403ce5a8999823c1fc2b1bba0025b8d95b2d46bbeeb4cac",
+        "context_sha256": "1dddb2d67adf015ea08246c81b979a71e4fb401ddb6fc821ef85e827dee7e89b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0130": {
+      "kind": "number",
+      "value_as_printed": "20.1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 160,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0130.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0130_line.png",
+        "crop_sha256": "c42dd77270968ff94dbf45b4cf80f5987e99c64c430eff2c2e559ae17fe8ac1f",
+        "context_sha256": "f1ddecf282dfbc470fcd73c644cd5bc8a39147632123bcbd13ce3b5000652468"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0231": {
+      "kind": "number",
+      "value_as_printed": "1,366",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 161,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0231.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0231_line.png",
+        "crop_sha256": "f59de92388cacc49285c7999e8350a37668a1a1588ff9b403fcaedefb93d52b4",
+        "context_sha256": "79e64a5660ce05a863308b889d01f56ab3bb1b326f9a59586be099fb0a6cd08b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0124": {
+      "kind": "number",
+      "value_as_printed": "45,134",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 162,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0124.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0124_line.png",
+        "crop_sha256": "e4042604d7782f7c580552ecbf309cbdc2b6713f564349200463217329202cdd",
+        "context_sha256": "32c769b380fb67644e4866e84344718826700192fe84e686233ef6d81b650dca"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0002": {
+      "kind": "number",
+      "value_as_printed": "4",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 163,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0002.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0002_line.png",
+        "crop_sha256": "b33a370795afe981b940f7f71af7756297139e299178b8da07053c93699a4c8c",
+        "context_sha256": "b31c73f0537ffc8737d92d41e06a82cf192c63fa1d8bb7e1082c55880a7560b6"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0027": {
+      "kind": "number",
+      "value_as_printed": "40,043",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 164,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0027.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0027_line.png",
+        "crop_sha256": "7f68608bc421057fc4077b772c3e799cd30d5afeb0882130e8c931b4067d1fff",
+        "context_sha256": "91d2c5306a581f0bad33f05940425b81fd962db5956640795f4b3aa281d826fe"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0065": {
+      "kind": "number",
+      "value_as_printed": "15",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 165,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0065.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0065_line.png",
+        "crop_sha256": "cbd9888c63a78556d4ccd9e6233ef65ca8849232637f73d34a95935976dedc13",
+        "context_sha256": "f86cb4a11d71e4607e6f11bf8949a1efa61ec62d53a1ea8284ac64682a2e5f9d"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0090": {
+      "kind": "number",
+      "value_as_printed": "95",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 166,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0090.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0090_line.png",
+        "crop_sha256": "fdc1ec9fb2ca1a2b593a696e8034e68435d25e99929951bb000b627baf60fc6a",
+        "context_sha256": "c4c94526eeca728d849dad0a4dc055d251fc437e22c5b8ad682dec0d3d0a835e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0243": {
+      "kind": "number",
+      "value_as_printed": "2,213",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 167,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0243.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0243_line.png",
+        "crop_sha256": "fb7a2bfaba3462d050d5b72821c4d51ac1a913b08bc4497bc10f2705b5e3e12d",
+        "context_sha256": "db0a45d5206281545b550ed103bf1163d6fb6d37131b05190186845a64a5bf62"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0000:t0010": {
+      "kind": "number",
+      "value_as_printed": "420",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 168,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0010.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0000_t0010_line.png",
+        "crop_sha256": "d09eefdc8cee0d739024aaef07dc5cda1f737adc2e2820b89cf12073918af391",
+        "context_sha256": "5827ffda5ad9bd76146a25739e0e64104c1a34ae4f2378fffeeedcbea08b875b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0009": {
+      "kind": "number",
+      "value_as_printed": "1945",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 169,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0009.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0009_line.png",
+        "crop_sha256": "fe3473ee3ec89d77c1d31401ee37b381657d3e0d2a2e932ebf5e2d23d3c58d02",
+        "context_sha256": "150060db30ea518c3041335ce2eab75c03fc9e7ccfaac169cdfcfc6b0b1d45b5"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0131": {
+      "kind": "number",
+      "value_as_printed": "9",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 170,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0131.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0131_line.png",
+        "crop_sha256": "4b076bbe15215ec2eaed71fee21dc00d95a0229ce7b500a158b87f72e6bbebea",
+        "context_sha256": "ac9cba11470ba1ee6d6db8accc9b723ff914b3b248ad2d724700e2547fe0c572"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0085": {
+      "kind": "number",
+      "value_as_printed": "104",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 171,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0085.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0085_line.png",
+        "crop_sha256": "a2cc594f29a8fae59280ea43f4b63fd05a09956e003a463332521cdff4ed6e16",
+        "context_sha256": "13c1d0381a600184600a1eec0714e95feb645b2de9fa04dd12ea21b079aaaa2b"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0019": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "note": "Cell value 1, separate from preceding superscript footnote marker 3.",
+      "review_number": 172,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0019.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0019_line.png",
+        "crop_sha256": "c3f77f4fc4327dd859718d2020b15c0899e2f3acb61a948673e2547884eefba8",
+        "context_sha256": "c79a30207f00ffc43553c109334c5734b94c81c2ec00317712a22f7c9562fedd"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0059": {
+      "kind": "number",
+      "value_as_printed": "64.1",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 173,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0059.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0059_line.png",
+        "crop_sha256": "0ca98446a3ff326cef2792a331df7aaa947e09a16bdb56ba4088ca2d6efaef1e",
+        "context_sha256": "1775ce99fac02ef446e4f7c5fbc37e2c75e91a81bb4e42b8fbecb46a4bc19f02"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0045:t0044": {
+      "kind": "number",
+      "value_as_printed": "21",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 174,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0044.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0045_t0044_line.png",
+        "crop_sha256": "971822bd2c6639d778783bb0bd6b2077a841651731b9c116b36e0db4a9eb0d97",
+        "context_sha256": "a7778b2ae714980c023075b5882edbbbc5b3ea0ce24108c74761c1249bc38fce"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0064": {
+      "kind": "number",
+      "value_as_printed": "289.3",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 175,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0064.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0064_line.png",
+        "crop_sha256": "38ef0e5db39ed82294621387a37ba411ab38dddef7afdec16367a1f334749d9f",
+        "context_sha256": "8b0d45cab19b324221f18fb7e24d538be019aca0ccfd1abde4b26d399bbad35d"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:statab_1951_part04_p0008:t0305": {
+      "kind": "number",
+      "value_as_printed": "413",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 176,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0305.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_statab_1951_part04_p0008_t0305_line.png",
+        "crop_sha256": "88b3a406be1ae12624b3505b52f3cfe70615d7036b90cc679c4fd4b3d1df1e4c",
+        "context_sha256": "eac892d15a12f60b3ed5a9a4766f4007c01207322a54ebce2d6a125026e268c7"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0046": {
+      "kind": "number",
+      "value_as_printed": "40",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 177,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0046.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0015_t0046_line.png",
+        "crop_sha256": "fb33f8560f9d24721513a36aaf4ed3d1d090e030ea25c29fe842c597c5780f05",
+        "context_sha256": "c5d4b51635d9010d56a33738cfd4684d96fe8163288dc89ab517ad647efdc39c"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0027": {
+      "kind": "number",
+      "value_as_printed": "1914",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 178,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0027.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0027_line.png",
+        "crop_sha256": "a865bdbbc2ce6feaf32b7bb4ecc0854342d46f31d9b931298d3a2a6007c1616f",
+        "context_sha256": "cf15c4d606b72505caf2b42fd90355ce57624dcc13354aab0a0db2ee01602396"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0021": {
+      "kind": "number",
+      "value_as_printed": "0.00393",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 179,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0021.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0021_line.png",
+        "crop_sha256": "696502d5e24a348bd42ede01c00c809a35090bb45a2859cfbeefe491d8370c50",
+        "context_sha256": "b924df342718484db8024053b131d87df5ae6bb0ef56778061021495e78c2e91"
+      },
+      "audit_pass": "enlarged scan visual review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0074": {
+      "kind": "number",
+      "value_as_printed": "7",
+      "note": "Read the outlined scan detection and its context visually.",
+      "review_number": 180,
+      "verified_by": "GPT (Codex visual annotation)",
+      "reviewer_type": "model",
+      "human_verified": false,
+      "images": {
+        "crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0074.png",
+        "context_crop": "eval\\reading\\real\\review_assets\\sample_nbs_circular_31_e4_1956_p0007_t0074_line.png",
+        "crop_sha256": "22134e93ebaba3d6b62e7cc9f5f1b6d6dfb4f37d7790992074fc987ee7ee8fcb",
+        "context_sha256": "39e3e644e8c58ee7cd5c62d9b695dee037148cc8bea20fc53053b4ad1124179e"
+      },
+      "audit_pass": "enlarged scan visual review"
+    }
+  },
+  "initial_annotation_commit": "041ee46",
+  "initial_annotation_sha256": "3add71ee3e377c6fce6f23cbfa040afe6a0dd7e1abd87e52ecc1c6d10b51a53d",
+  "audit_at": "2026-10-06T10:18:17.371499+00:00",
+  "audit_method": "Second visual pass over all 180 enlarged outlined crops without OCR labels/strata on audit sheets, after first comparison had exposed OCR outputs. Retain the committed blind first pass and disclose every amendment; no human review.",
+  "amendments": [
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0028",
+      "review_number": 17,
+      "before": {
+        "kind": "number",
+        "value_as_printed": "371"
+      },
+      "after": {
+        "kind": "number",
+        "value_as_printed": "871"
+      },
+      "reason": "Enlarged original crop has two closed loops in the first digit: 8, not 3.",
+      "after_ocr_comparison": true
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0017",
+      "review_number": 67,
+      "before": {
+        "kind": "number",
+        "value_as_printed": "53,941"
+      },
+      "after": {
+        "kind": "number",
+        "value_as_printed": "53,041"
+      },
+      "reason": "Enlarged original crop confirms the first digit after the comma is 0, not 9.",
+      "after_ocr_comparison": true
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0069",
+      "review_number": 108,
+      "before": {
+        "kind": "number",
+        "value_as_printed": "15,923"
+      },
+      "after": {
+        "kind": "illegible",
+        "value_as_printed": null
+      },
+      "reason": "Cannot confidently distinguish 8 from 9 in the first digit after the comma at original resolution. Abstain instead of guessing.",
+      "after_ocr_comparison": true
+    }
+  ]
+}
