@@ -11,12 +11,14 @@ progress{width:100%;height:16px;accent-color:#e0b663}#status{white-space:pre-wra
 .keys{line-height:1.9}kbd{background:#e5ece8;border-radius:3px;padding:2px 6px;color:#17322e}#saved{color:#386458}
 [hidden]{display:none!important}button:focus-visible,input:focus-visible{outline:3px solid #d8a62c;outline-offset:2px}
 </style>
+<body onerror="document.getElementById('status').textContent='Review failed to start: '+event+'. Copy this error so it can be fixed; no answer has been saved.'">
 <header><h1>Sampled number review · مراجعة العينة</h1>
 <div>Read the scan; never guess. Answers save to the GT JSON after every choice. Sampling status is hidden.</div>
 <label>Your name <input id="owner" autocomplete="name" aria-label="Reviewer name"></label>
 <button id="folder">Choose existing gt folder</button><div id="progress" aria-live="polite"></div><progress id="bar" max="1" value="0"></progress></header>
-<main><p id="status" role="status">Open in Chrome or Edge, enter your name, then choose eval/reading/real/gt. Grant file-write access when prompted.</p>
-<article id="card"><div id="location"></div><p>The blue outline identifies the sampled detection. Context is shown below.</p><div class="crop"><img id="crop" alt="Large crop; blue outline marks the sampled detection"></div>
+<main><p id="status" role="status">Loading the frozen review… If this message remains, the page script did not start. No answer has been saved.</p>
+<noscript>This review needs JavaScript to display the sampled items and save answers. No answer has been saved.</noscript>
+<article id="card" hidden><div id="location"></div><p>The blue outline identifies the sampled detection. Context is shown below.</p><div class="crop"><img id="crop" alt="Large crop; blue outline marks the sampled detection"></div>
 <img id="contextCrop" alt="Context line from the original scan"><div id="context"></div>
 <div class="keys"><button id="r1">1 · Reader 1</button><button id="r2">2 · Reader 2</button><button id="r3">3 · Embedded layer</button>
 <button id="type">T · Type correct value</button><button id="illegible">X · Illegible</button><button id="notNumber">Not a number / duplicate / partial detection</button><button id="back">Backspace · Go back</button></div>
@@ -119,4 +121,5 @@ document.addEventListener('keydown',async event=>{
  if(action){event.preventDefault();await el(action).onclick();}
 });
 show();
-</script></html>
+el('status').textContent='Open in Chrome or Edge, enter your name, then choose eval/reading/real/gt. Grant file-write access when prompted.';
+</script></body></html>

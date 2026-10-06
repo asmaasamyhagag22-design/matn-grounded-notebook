@@ -1,5 +1,6 @@
 """Generate only the committed sample, with original scan crops and no visible strata."""
 import json
+import base64
 import subprocess
 from PIL import Image, ImageDraw
 from .review import HERE, make_proposals
@@ -10,6 +11,12 @@ from .verify import require_verified
 def render_sample_html(payloads):
     data = json.dumps(payloads, ensure_ascii=False).replace('<', '\\u003c')
     return (HERE / 'sample_ui.html').read_text(encoding='utf8').replace('__SAMPLE_DATA__', data)
+
+
+def embedded_assets(assets, folder=HERE):
+    """Keep the local review portable; PNG bytes remain identical to verified crop assets."""
+    return {item_id: {key: 'data:image/png;base64,' + base64.b64encode((folder / path).read_bytes()).decode('ascii')
+                      for key, path in files.items()} for item_id, files in assets.items()}
 
 
 def require_committed(path):
@@ -56,7 +63,7 @@ def generate():
                     name = f"sample_{page}_t{item['token_index']:04d}"
                     assets[item['id']] = {'crop': crop(item['bbox'], 25, name + '.png', outline=True),
                                           'context_crop': crop(original_line(record['tokens'][item['token_index']]), 35, name + '_line.png')}
-        payloads.append(blind_payload(manifest, assets))
+        payloads.append(blind_payload(manifest, embedded_assets(assets)))
     (HERE / 'review.html').write_text(render_sample_html(payloads), encoding='utf8')
     print(f"Sample review: {HERE / 'review.html'}; {sum(len(b['items']) for b in payloads)} items; GT untouched")
 

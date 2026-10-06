@@ -190,3 +190,17 @@ def test_review_generation_requires_a_committed_unchanged_manifest(monkeypatch, 
     path.write_text('{"items":[1]}', encoding='utf8')
     with pytest.raises(ValueError, match='Commit this frozen sample'):
         sample_review.require_committed(path)
+
+
+def test_portable_review_embeds_images_without_changing_the_draw(tmp_path):
+    from eval.reading.real.sample_review import embedded_assets
+    from PIL import Image
+    folder = tmp_path / 'review_assets'; folder.mkdir()
+    Image.new('RGB', (3, 3), 'white').save(folder / 'number.png')
+    assets = {'frozen-id': {'crop': 'review_assets/number.png', 'context_crop': 'review_assets/number.png'}}
+    before = json.dumps(assets)
+    result = embedded_assets(assets, tmp_path)
+    assert list(result) == ['frozen-id'] and json.dumps(assets) == before
+    assert result['frozen-id']['crop'].startswith('data:image/png;base64,')
+    import base64
+    assert base64.b64decode(result['frozen-id']['crop'].split(',', 1)[1]) == (folder / 'number.png').read_bytes()
