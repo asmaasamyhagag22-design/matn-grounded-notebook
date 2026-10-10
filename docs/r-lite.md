@@ -95,6 +95,24 @@ G2 يعيد text من typed map بما فيها separators، ويفحص sentence
 
 G4 يستخدم `eval.normalize` المجمّد على dev gold بس. الموجود يتحسب single chunk أو two adjacent أو other split؛ المفقود يتصنف reader_text/wrongly_excluded_block/normalization. مفيش tuning على القياس. التقرير الفعلي في `reports/r-lite.md`؛ النقص في gold أو كثرة unavailable مش بيتخبوا. شجرة كل dev في `out/r-lite/<doc>/tree.txt`، وcontact sheet واحدة في `out/r-lite/table-contact-sheet.png`.
 
+## R-lite.1: ليه الشجرة والنص اتغيّروا؟
+
+A1 بيقبل section anchor من outline مطابق، أو حجم >=1.15 من body، أو reader heading على سطر مستقل. Fragment بنفس baseline جنب body ما يعملش section جديدة؛ TOC dot leaders والعناوين البريدية ما تعملش anchors. المرفوض يبقى Element.role=text ومعاه heading_demoted/page/block_id؛ Block الأصلي محفوظ. الهدف إن bold وسط الجملة ما يقطعش evidence أو chunk.
+
+A2 الـopening leaf بياخد عنوان ومسار الأب؛ synthetic_opening متسجل في Section.issues، باستخدام العقد الحالي. مفيش عنوان Introduction مخترع، ومفيش تكرار لعنوان الأب في context_prefix. ده يمنع سياق embedding يوحي بعنوان مش موجود في المصدر.
+
+A3 كل numeric string بيتربط بالـk-th reader occurrence بنفس النص وفي ترتيب words، بشرط العددين متساويين. اختلاف العدد يفضل digital-unlinked بسبب source_numeric_occurrence_count_mismatch؛ حتى تطابق الحروف المجمّعة ما يتجاوزش الشرط. السبب إن bbox مقنع مش دليل على وجود reader token مطابق؛ الرقمان المتكرران لازم يوصلوا لخليتين مختلفتين بأمان.
+
+B0 التجمع الرسومي اللي فيه rotated/reversed axis labels يفضل figure_text حتى لو pdfplumber اكتشف grid كجدول. النص المجاور خارج الرسم يفضل body. B1 font face/weight change عند body size ما يقطعش السطر أو الفقرة؛ same-baseline face boundary يسمح بحد2em، size tolerance0.6pt وbaseline0.2em، من غير تغيير قواعد visibility/gutters. Fixture فيها bold run مكتوب متأخر في PDF تختبر إن النص يرجع لمكانه في الجملة، مش آخر الفقرة. قبل inline-face join، التجميع الأصلي يكشف gutters بين multiline body blocks بنفس find_gutters والـthresholds القديمة؛ join ما يعبرهاش. Fixture ثانية بنفس17pt gap لكن عمودين مستمرين كانت حمراء ثم خضراء. ده يحمي column boundaries من غير تعطيل inline emphasis أو تعديل thresholds.
+
+B2 filled prose box يحتاج >=3 horizontal body-size lines، >=80% منها فيها >=4 words، >=2 sentence endings، صفر rotated words، <=3 numeric-only label lines، ومن غير interior axis strokes طويلة>=30pt. Body-size tolerance0.6pt؛ المحور أرفع<=1pt وبعيد>3pt عن الحافة. Border decorations القصيرة ما تتحسبش axes. غير الواضح يفضل figure_text ومعاه possible_prose_in_figure؛ precision قبل recall، ومفيش thresholds متضبطة على dev.
+
+B3 digital lexical line break زي end- +to-end يحتفظ بالـhyphen لما أول fragment في السطر التالي فيه hyphen. govern- +ment يفضل government، وOCR defaults ثابتة. ده إصلاح ضيق للكلمة المركّبة، مش سياسة dehyphenation جديدة.
+
+Reader fingerprint جديد يعني caches جديدة؛ القديمة immutable. الـacquisition كاملة؛ subset reads بتاعة guards ممكن تغيّر body size/furniture وتجزئة word، لأن دول محسوبين على الصفحات المختارة. ما نخلطش subsets عشان نبني مستند كامل؛ G5 يقارن نفس snapshot ونفس page selection. Acquisition يعيد digital فقط وينقل صفحات OCR القديمة كاملة بلا worker/inference. G-R1 يقارن مجموعة raw silent items مع HEAD بنفس doc/page/token/reference bbox/reader bbox؛ bbox tuples/lists تتحول JSON arrays بلا rounding. G-R2 reader-attributed errors=0. arXiv p19 signed +30.45% artifact متراجع بصريًا من4b.2؛ raw1/1 منفصل عن reader-attributed0/0. أي raw item جديد أو مختلف يوقف الشغل.
+
+القياس الجديد في reports/r-lite-1.md وreports/r-lite-1-diff.md؛ G4 مسمّى seen after R-lite diagnostics. Before/after block ids ممكن تتغير لما النص أو geometry تتغير؛ citations القديمة تخص الـsnapshot القديم، مش نسخة reader جديدة. Chunk target250/max350/tiny50/page-window3 والـgold normalization ثابتين.
+
 ## 9 أسئلة مقابلة
 
 1. **ليه citation مش chunk_id؟** Chunk حدودها ممكن تتغير؛ block span بيرجع لنفس النص والمكان من غير ربطه بالـretrieval strategy.
