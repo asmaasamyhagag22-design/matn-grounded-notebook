@@ -1,0 +1,221 @@
+{
+  "$defs": {
+    "BBoxRef": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox_precision": {
+          "enum": [
+            "char",
+            "word",
+            "line",
+            "region"
+          ],
+          "title": "Bbox Precision",
+          "type": "string"
+        },
+        "coordinates": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "frame": {
+          "default": "pdf_points",
+          "enum": [
+            "pdf_points",
+            "reader_points"
+          ],
+          "title": "Frame",
+          "type": "string"
+        },
+        "interpolated": {
+          "default": false,
+          "title": "Interpolated",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "coordinates",
+        "bbox_precision"
+      ],
+      "title": "BBoxRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "bbox": {
+      "$ref": "#/$defs/BBoxRef"
+    },
+    "block_id": {
+      "title": "Block Id",
+      "type": "string"
+    },
+    "chunk_end": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Chunk End"
+    },
+    "chunk_start": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Chunk Start"
+    },
+    "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+    },
+    "pdf_page_index": {
+      "minimum": 0,
+      "title": "Pdf Page Index",
+      "type": "integer"
+    },
+    "reader1": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reader1"
+    },
+    "reader2": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reader2"
+    },
+    "reader_bbox": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/BBoxRef"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "reader_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reader Ref"
+    },
+    "reader_source": {
+      "enum": [
+        "digital",
+        "ocr"
+      ],
+      "title": "Reader Source",
+      "type": "string"
+    },
+    "reader_status": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reader Status"
+    },
+    "reasons": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Reasons",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+    },
+    "status": {
+      "enum": [
+        "digital",
+        "accepted",
+        "flagged",
+        "flagged-unlinked"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    }
+  },
+  "required": [
+    "reader_source",
+    "status",
+    "text",
+    "pdf_page_index",
+    "block_id",
+    "start",
+    "end",
+    "bbox"
+  ],
+  "title": "NumberTokenRef",
+  "type": "object"
+}

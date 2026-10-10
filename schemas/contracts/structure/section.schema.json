@@ -1,0 +1,174 @@
+{
+  "$defs": {
+    "StructureIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Block Id"
+        },
+        "detail": {
+          "default": "",
+          "title": "Detail",
+          "type": "string"
+        },
+        "pdf_page_index": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pdf Page Index"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "title": "StructureIssue",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "block_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Block Ids",
+      "type": "array"
+    },
+    "child_ids": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Child Ids",
+      "type": "array"
+    },
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "heading_block_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Heading Block Id"
+    },
+    "issues": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/StructureIssue"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "level": {
+      "minimum": 0,
+      "title": "Level",
+      "type": "integer"
+    },
+    "page_range": {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "integer"
+        }
+      ],
+      "title": "Page Range",
+      "type": "array"
+    },
+    "parent_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Parent Id"
+    },
+    "path": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Path",
+      "type": "array"
+    },
+    "producer_version": {
+      "default": "r-lite-1",
+      "title": "Producer Version",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "section_id": {
+      "title": "Section Id",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "outline",
+        "layout_heading",
+        "page_window"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "title": {
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "section_id",
+    "doc_id",
+    "title",
+    "level",
+    "path",
+    "source",
+    "page_range"
+  ],
+  "title": "Section",
+  "type": "object"
+}

@@ -1,0 +1,122 @@
+{
+  "$defs": {
+    "BBoxRef": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox_precision": {
+          "enum": [
+            "char",
+            "word",
+            "line",
+            "region"
+          ],
+          "title": "Bbox Precision",
+          "type": "string"
+        },
+        "coordinates": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "frame": {
+          "default": "pdf_points",
+          "enum": [
+            "pdf_points",
+            "reader_points"
+          ],
+          "title": "Frame",
+          "type": "string"
+        },
+        "interpolated": {
+          "default": false,
+          "title": "Interpolated",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "coordinates",
+        "bbox_precision"
+      ],
+      "title": "BBoxRef",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "cropbox": {
+      "$ref": "#/$defs/BBoxRef"
+    },
+    "height": {
+      "exclusiveMinimum": 0,
+      "title": "Height",
+      "type": "number"
+    },
+    "page_label": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Page Label"
+    },
+    "pdf_page_index": {
+      "minimum": 0,
+      "title": "Pdf Page Index",
+      "type": "integer"
+    },
+    "rotation": {
+      "default": 0,
+      "title": "Rotation",
+      "type": "integer"
+    },
+    "route": {
+      "title": "Route",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "width": {
+      "exclusiveMinimum": 0,
+      "title": "Width",
+      "type": "number"
+    }
+  },
+  "required": [
+    "pdf_page_index",
+    "width",
+    "height",
+    "cropbox",
+    "route"
+  ],
+  "title": "PageGeometry",
+  "type": "object"
+}

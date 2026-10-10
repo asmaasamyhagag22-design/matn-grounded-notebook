@@ -1,0 +1,49 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Block Id"
+    },
+    "detail": {
+      "default": "",
+      "title": "Detail",
+      "type": "string"
+    },
+    "pdf_page_index": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pdf Page Index"
+    },
+    "reason": {
+      "title": "Reason",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "reason"
+  ],
+  "title": "StructureIssue",
+  "type": "object"
+}

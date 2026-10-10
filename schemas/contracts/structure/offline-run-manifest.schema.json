@@ -1,0 +1,50 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "cache_key": {
+      "title": "Cache Key",
+      "type": "string"
+    },
+    "completed_at": {
+      "title": "Completed At",
+      "type": "string"
+    },
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "started_at": {
+      "title": "Started At",
+      "type": "string"
+    },
+    "structure_hashes": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Structure Hashes",
+      "type": "object"
+    },
+    "wall_seconds": {
+      "minimum": 0,
+      "title": "Wall Seconds",
+      "type": "number"
+    }
+  },
+  "required": [
+    "doc_id",
+    "started_at",
+    "completed_at",
+    "wall_seconds",
+    "cache_key",
+    "structure_hashes"
+  ],
+  "title": "OfflineRunManifest",
+  "type": "object"
+}

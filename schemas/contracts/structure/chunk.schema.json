@@ -1,0 +1,622 @@
+{
+  "$defs": {
+    "BBoxRef": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox_precision": {
+          "enum": [
+            "char",
+            "word",
+            "line",
+            "region"
+          ],
+          "title": "Bbox Precision",
+          "type": "string"
+        },
+        "coordinates": {
+          "maxItems": 4,
+          "minItems": 4,
+          "prefixItems": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Coordinates",
+          "type": "array"
+        },
+        "frame": {
+          "default": "pdf_points",
+          "enum": [
+            "pdf_points",
+            "reader_points"
+          ],
+          "title": "Frame",
+          "type": "string"
+        },
+        "interpolated": {
+          "default": false,
+          "title": "Interpolated",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "coordinates",
+        "bbox_precision"
+      ],
+      "title": "BBoxRef",
+      "type": "object"
+    },
+    "NumberTokenRef": {
+      "additionalProperties": false,
+      "properties": {
+        "bbox": {
+          "$ref": "#/$defs/BBoxRef"
+        },
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "chunk_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chunk End"
+        },
+        "chunk_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chunk Start"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "pdf_page_index": {
+          "minimum": 0,
+          "title": "Pdf Page Index",
+          "type": "integer"
+        },
+        "reader1": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reader1"
+        },
+        "reader2": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reader2"
+        },
+        "reader_bbox": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/BBoxRef"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "reader_ref": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reader Ref"
+        },
+        "reader_source": {
+          "enum": [
+            "digital",
+            "ocr"
+          ],
+          "title": "Reader Source",
+          "type": "string"
+        },
+        "reader_status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reader Status"
+        },
+        "reasons": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Reasons",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "digital",
+            "accepted",
+            "flagged",
+            "flagged-unlinked"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "reader_source",
+        "status",
+        "text",
+        "pdf_page_index",
+        "block_id",
+        "start",
+        "end",
+        "bbox"
+      ],
+      "title": "NumberTokenRef",
+      "type": "object"
+    },
+    "OffsetSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Block Id"
+        },
+        "char_end": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char End"
+        },
+        "char_start": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Char Start"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "kind": {
+          "enum": [
+            "primary",
+            "repeated_context",
+            "separator"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "primary_chunk_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Primary Chunk Id"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "separator": {
+          "anyOf": [
+            {
+              "enum": [
+                "\n\n",
+                "\t",
+                "\n"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Separator"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "start",
+        "end"
+      ],
+      "title": "OffsetSpan",
+      "type": "object"
+    },
+    "PrimarySpan": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "boxes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/BBoxRef"
+          },
+          "title": "Boxes",
+          "type": "array"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "block_id",
+        "start",
+        "end"
+      ],
+      "title": "PrimarySpan",
+      "type": "object"
+    },
+    "RepeatedContextSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "block_id": {
+          "title": "Block Id",
+          "type": "string"
+        },
+        "boxes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/BBoxRef"
+          },
+          "title": "Boxes",
+          "type": "array"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "primary_chunk_id": {
+          "title": "Primary Chunk Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "block_id",
+        "start",
+        "end",
+        "primary_chunk_id"
+      ],
+      "title": "RepeatedContextSpan",
+      "type": "object"
+    },
+    "SentenceSpan": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "flags": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Flags",
+          "type": "array"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "SentenceSpan",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "chunk_id": {
+      "title": "Chunk Id",
+      "type": "string"
+    },
+    "context_prefix": {
+      "title": "Context Prefix",
+      "type": "string"
+    },
+    "doc_id": {
+      "pattern": "^sha256-[0-9a-f]{64}$",
+      "title": "Doc Id",
+      "type": "string"
+    },
+    "estimator": {
+      "default": "unicode-whitespace",
+      "title": "Estimator",
+      "type": "string"
+    },
+    "estimator_version": {
+      "default": "1",
+      "title": "Estimator Version",
+      "type": "string"
+    },
+    "flags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Flags",
+      "type": "array"
+    },
+    "kind": {
+      "enum": [
+        "body",
+        "table",
+        "caption",
+        "footnote"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "next_chunk_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Next Chunk Id"
+    },
+    "numeric_tokens": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/NumberTokenRef"
+      },
+      "title": "Numeric Tokens",
+      "type": "array"
+    },
+    "offset_map": {
+      "items": {
+        "$ref": "#/$defs/OffsetSpan"
+      },
+      "title": "Offset Map",
+      "type": "array"
+    },
+    "prev_chunk_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Prev Chunk Id"
+    },
+    "primary": {
+      "items": {
+        "$ref": "#/$defs/PrimarySpan"
+      },
+      "title": "Primary",
+      "type": "array"
+    },
+    "producer_version": {
+      "default": "r-lite-1",
+      "title": "Producer Version",
+      "type": "string"
+    },
+    "repeated_context": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/RepeatedContextSpan"
+      },
+      "title": "Repeated Context",
+      "type": "array"
+    },
+    "row_range": {
+      "anyOf": [
+        {
+          "maxItems": 2,
+          "minItems": 2,
+          "prefixItems": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "integer"
+            }
+          ],
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Row Range"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "section_id": {
+      "title": "Section Id",
+      "type": "string"
+    },
+    "sentence_spans": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SentenceSpan"
+      },
+      "title": "Sentence Spans",
+      "type": "array"
+    },
+    "table_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Table Id"
+    },
+    "text": {
+      "title": "Text",
+      "type": "string"
+    },
+    "word_count": {
+      "minimum": 0,
+      "title": "Word Count",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "chunk_id",
+    "doc_id",
+    "section_id",
+    "kind",
+    "text",
+    "context_prefix",
+    "offset_map",
+    "primary",
+    "word_count"
+  ],
+  "title": "Chunk",
+  "type": "object"
+}

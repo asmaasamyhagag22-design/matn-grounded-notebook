@@ -1,0 +1,35 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+    },
+    "flags": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Flags",
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "start",
+    "end"
+  ],
+  "title": "SentenceSpan",
+  "type": "object"
+}

@@ -1,0 +1,102 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "block_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Block Id"
+    },
+    "char_end": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Char End"
+    },
+    "char_start": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Char Start"
+    },
+    "end": {
+      "exclusiveMinimum": 0,
+      "title": "End",
+      "type": "integer"
+    },
+    "kind": {
+      "enum": [
+        "primary",
+        "repeated_context",
+        "separator"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "primary_chunk_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Primary Chunk Id"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "separator": {
+      "anyOf": [
+        {
+          "enum": [
+            "\n\n",
+            "\t",
+            "\n"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Separator"
+    },
+    "start": {
+      "minimum": 0,
+      "title": "Start",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "kind",
+    "start",
+    "end"
+  ],
+  "title": "OffsetSpan",
+  "type": "object"
+}
