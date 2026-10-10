@@ -1,6 +1,7 @@
 # OCR setup (Step 4c): exact offline install, for the owner to run
 
-Status (2026-10-06): **installed and hash-verified** for RapidOCR + GLM-OCR + PP-DocLayoutV2 on this laptop.
+Status (2026-10-10): Ubuntu migration in progress. Python 3.12 environments rebuilt; RapidOCR/Paddle imports pass and all 13 local OCR model hashes match. Ollama recovery and final suite results are pending.
+The Windows setup and measurements below are historical records, not this Ubuntu machine's current state.
 Current stack: ADR-0005; current measurements/remaining owner work: `reports/step4c-final.md`.
 The commands in §§1–8 are the historical, specifically approved setup; GPU commands remain future work.
 The unattended close-out approval authorized only rapid-layout 1.2.1, its wheel dependencies, the V2 model,
@@ -425,3 +426,110 @@ If folder access is unavailable, **Download GT JSON** and replace the matching t
 The generator never writes an answer or modifies a GT template. This review verifies numbers only.
 Then run `.venv\Scripts\python.exe -m eval.reading.real.measure` for actual number accuracy/false alarms.
 GAO pages appear only after the original source's SHA-256 verifies; no mirror or WebFetch copy is accepted.
+
+## 11. Ubuntu 24.04 laptop migration (2026-10-10)
+
+التطوير دلوقتي على اللابتوب: i7-1065G7، 4 cores / 8 threads، 15 GiB RAM، Intel iGPU، من غير NVIDIA.
+التسليم لاحقًا على Ubuntu 24.04 / i7-14700 / 32 GB / RTX 2000 Ada 16 GB. Python 3.12 اتحسم للاتنين.
+الشبكة مسموحة في التطوير للمصادر العامة؛ مسار المنتج يفضل قابل للتشغيل بالكامل offline.
+
+### Environments and offline replay
+
+- `.venv/bin/python`: `requirements-linux.lock.txt` (66 pins, unchanged from Windows).
+- `.venv-ocr-rapid/bin/python`: `requirements-ocr-rapid-linux.lock.txt` (23 original pins).
+- `.venv-ocr/bin/python`: `requirements-ocr-linux.lock.txt`; PaddleOCR imports under the egress guard;
+  **no Paddle OCR/parity run**. Linux additionally resolves `setuptools==84.0.0`.
+- Windows locks are retained at the root and copied unchanged to `requirements/archive/windows/`.
+- The 52 Windows native wheels were moved to `wheelhouse/archive/windows/`; universal wheels remain available.
+- Linux wheels: `wheelhouse/linux/{main,rapidocr,paddle}/`. Downloads used the original pinned versions;
+  installs used `--no-index`. Every environment passes `pip check`.
+- `requirements/linux-wheelhouse-sha256.txt` records 162 downloaded/built artifacts, relative to `wheelhouse/`.
+- `antlr4-python3-runtime==4.9.3` retains the documented pure-Python source exception: recorded sdist
+  `f224469b4168294902bb1efa80a8bf7855f24c99aef99cbefc1bcd3cce77881b`, built universal wheel
+  `e7fe53f1dd3d9cd049e69f008ba8415b90a23b64a2c6517c23f20ce469c987c2`.
+  Other pinned native packages have compatible Linux CPython 3.12 / ABI3 wheels; no pin was changed.
+
+```bash
+./scripts/install_offline.sh
+```
+
+الـ13 ملف في `models/ocr/` مطابقين لـ`reports/step4c-environment.json`، لذلك لم نحتج تنزيل OCR models.
+Paddle cp312 Linux wheel hash matches §2.1: `9016fc497213e1101261684321fbb31ef5960019ef39cb07ded27bc70e2a9858`.
+
+### Ollama memory settings
+
+`OLLAMA_MAX_LOADED_MODELS=1`, `OLLAMA_NUM_PARALLEL=1`, `OLLAMA_KEEP_ALIVE=2m`.
+GLM client also explicitly requests `keep_alive=2m`, preserving the frozen OCR recognition options.
+The service drop-in is `scripts/ollama-laptop.conf`. System service settings require root and are **not yet applied**.
+The owner can apply the prepared, non-destructive configuration with:
+
+```bash
+sudo bash /home/asmaa/project/notebooklm/matn/scripts/configure_ollama_laptop.sh
+```
+
+No GPU build is installed. Development model: `qwen3.5:9b` Q4; the delivery bake-off is deferred to the work GPU
+(Qwen3.5-9B Q8 versus Qwen3.8-27B). The model remains a configuration value.
+
+قسم Windows `/dev/nvme0n1p3` mounted read-only at `/media/asmaa/Windows` via udisksctl.
+Old `Users/asmaa/.ollama/models` exists. All source blob digests match their manifests;
+GLM source manifest `6effedd0dc8aec66ad86c94b8099395376e212f22c87a9d7147c422f7e447be4`
+and model blob `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` match §6.
+Copying them is proposed and awaits the owner's choice. Nothing was changed on the Windows partition.
+
+### Linux exports, launchers and fonts
+
+- PNG/PDF export uses LibreOffice Impress headless on Linux and PDFium to render each slide to PNG.
+  `scripts/export_deck.py` supports multiple decks and archives old slide PNGs instead of deleting them.
+  Windows keeps `scripts/export_deck.ps1` / PowerPoint COM.
+- The Office-theme template builder **remains Windows-only** and fails with an explicit message on Linux.
+- `./read_pdf.sh PDF --out DIR`, `./run_demo_site.sh`, `./run_dashboard.sh [PORT]` are Linux launchers.
+- Test fixtures use DejaVu Sans on Linux; this does not select or substitute a product/template font.
+
+| Template font | Installed on Ubuntu | Fontconfig render fallback (not metric-compatible approval) |
+|---|---|---|
+| Bahnschrift / Bahnschrift SemiBold | No | Noto Sans |
+| Cambria | No | Noto Serif |
+| Georgia | No | Noto Serif |
+| Segoe UI / Segoe UI Semibold | No | Noto Sans |
+
+Carlito is installed and is the requested metric-compatible substitute for Calibri (Calibri is not in the current
+six-face template inventory). Selawik is the requested substitute for Segoe UI but is not installed.
+No metric-compatible substitute is recorded for Bahnschrift. Cambria and Georgia also have no approved replacement.
+
+القياس الحالي بـPillow/FreeType يبحث عن اسم الخط نفسه، ويدعم `MATN_FONT_DIR`، ولا يستعمل fontconfig fallback.
+عند غياب الخط يرفع `FontFileNotFound`، بينما LibreOffice قد يعرض ببديل؛ لذلك القياس والعرض قد يختلفان.
+كل الخطوط الأصلية موجودة على قسم Windows read-only. الخيارات للمالكة: استخدام originals من هناك عبر
+`MATN_FONT_DIR`؛ أو اختيار/تثبيت substitutes وتحديث القوالب والـQA في عمل منفصل؛ أو إبقاء مشكلة الخطوط مفتوحة.
+**No template font or substitution decision was applied.**
+
+### Verification so far
+
+- Git flash-copy repair: 193 CRLF-only changes restored byte-for-byte to HEAD; three hook executable bits restored;
+  clean status verified before the first migration commit `4d29fdd`.
+- Hook tests: 41 passed. Real LibreOffice two-slide PDF/PNG integration plus export failure checks: 5 passed.
+- Generated digital PDF via `read_pdf.sh`: exit 0, **2.545 s** on this laptop.
+- Full suite: **763 passed, 11 failed, 11 setup errors, 0 skipped in 278.64 s**; all 22 affected cases
+  require absent Segoe UI/Bahnschrift fonts (including contact-sheet labels). They remain failures, not skips.
+  RapidOCR + actual GLM image smoke is pending model recovery. Details: `reports/ubuntu-migration-environment.json`.
+- No sealed-test reads, tuning, GPU work or Step 4c parity/closure work.
+
+The proposed recovery option is concrete and hash-checked. After the owner chooses to recover the two old tags,
+she can run this **instead of** the configuration-only command above:
+
+```bash
+sudo bash /home/asmaa/project/notebooklm/matn/scripts/configure_ollama_laptop.sh --recover-models
+```
+
+It checks the Windows mount is read-only, validates every source blob, refuses a differing destination, copies
+blobs before manifests, verifies every copied digest, then configures/restarts Ollama. It neither deletes existing
+model files nor changes the Windows partition. The agent must verify the resulting Ollama IDs and run the pulls
+and actual GLM smoke afterwards. The helper is prepared; recovery has not been run.
+
+If the owner selects originals through `MATN_FONT_DIR`, the Linux exporter also includes that same directory in
+an isolated fontconfig configuration, so LibreOffice and Pillow can use the same files. No font path was selected.
+
+`qwen3-embedding:0.6b` downloaded successfully with Ollama 0.40.2: ID `ac6da0dfba84`,
+full current model digest `ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d`;
+model blob `06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439`, 639,150,592 bytes.
+Every blob matches its named digest. The legacy manifest file hash differs from the current v2 model ID;
+`reports/ubuntu-migration-environment.json` records them separately. This tag had no prior expected digest in this doc.
