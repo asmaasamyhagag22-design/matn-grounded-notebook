@@ -108,6 +108,7 @@ class LayoutBlock:
     lines: list[Line] = field(default_factory=list)
     text: str = ""
     raw_text: str = ""
+    digital: bool = False
 
     @property
     def x0(self) -> float:
@@ -150,7 +151,7 @@ class LayoutBlock:
         return self.lines[0].visibility_reasons
 
     def finish(self) -> "LayoutBlock":
-        self.text, self.raw_text = join_hyphenation([line.text for line in self.lines])
+        self.text, self.raw_text = join_hyphenation([line.text for line in self.lines], preserve_lexical=self.digital)
         return self
 
 
@@ -226,7 +227,7 @@ def group_blocks(lines: Sequence[Line], *, digital_body: float | None = None) ->
                 target = block
                 break
         if target is None:
-            blocks.append(LayoutBlock([line]))
+            blocks.append(LayoutBlock([line], digital=digital_body is not None))
         else:
             target.lines.append(line)
     return [block.finish() for block in blocks]
@@ -337,7 +338,7 @@ def order_blocks(blocks: Sequence[LayoutBlock], page_width: float) -> list[Layou
 
 # ---- hyphenation -------------------------------------------------------------------------------------------------
 
-def join_hyphenation(lines: Sequence[str]) -> tuple[str, str]:
+def join_hyphenation(lines: Sequence[str], *, preserve_lexical: bool = False) -> tuple[str, str]:
     """Join lines into one text. A line-end hyphen after a letter, followed by a lowercase letter, is a word break and
     is removed ("govern-" + "ment"). Before a digit or capital it is kept and joined without a space ("2019-2021",
     "COVID-19"). Returns (joined, raw) where raw keeps the original line breaks."""
@@ -350,6 +351,9 @@ def join_hyphenation(lines: Sequence[str]) -> tuple[str, str]:
             continue
         if out.endswith("-") and len(out) >= 2 and line:
             before, after = out[-2], line[0]
+            if preserve_lexical and before.isalpha() and after.islower() and "-" in line.split()[0]:
+                out += line
+                continue
             if before.isalpha() and after.islower():
                 out = out[:-1] + line
                 continue
