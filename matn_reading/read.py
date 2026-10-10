@@ -83,9 +83,10 @@ def _line_box(line: Line) -> BBox:
 
 
 def _table_block(lines: list[Line], rows: list[list[str]]) -> LayoutBlock:
-    block = LayoutBlock(sorted(lines, key=lambda l: (l.top, l.x0))).finish()
-    block.text = "\n".join(" | ".join(cell.replace("\n", " ") for cell in row) for row in rows)
-    return block
+    # Cell extraction is a structure observation, never a source-word ledger.
+    # Some cells already took the prose/visibility branch; copying all rows
+    # here duplicates them and invents local provenance (P1 M3).
+    return LayoutBlock(sorted(lines, key=lambda l: (l.top, l.x0)), digital=True).finish()
 
 
 def _looks_like_code(block: LayoutBlock) -> bool:

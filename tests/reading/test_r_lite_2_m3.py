@@ -18,7 +18,6 @@ def diverted_cells(path):
     return write_pdf(path,content)
 
 
-@pytest.mark.xfail(strict=True,reason='M3: serializer copies diverted cell text without its collected-word ledger')
 def test_table_block_never_copies_text_from_another_source_block(tmp_path):
     p=read_document(diverted_cells(tmp_path/'diverted-cells.pdf')).pages[0]
     assert p.tables
