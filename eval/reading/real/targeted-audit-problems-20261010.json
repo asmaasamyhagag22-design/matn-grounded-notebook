@@ -1,0 +1,570 @@
+{
+  "schema": "matn-targeted-ai-audit/1",
+  "batch": "targeted-audit",
+  "initial_annotation": "GPT (Codex)",
+  "targeted_audit": "pending: asmaa",
+  "sample_manifest_sha256": "1e2c4532b903be1b48f11c92289725aee23eb4de89f8344167eceb84a9f88f8c",
+  "first_reference_sha256": "3add71ee3e377c6fce6f23cbfa040afe6a0dd7e1abd87e52ecc1c6d10b51a53d",
+  "latest_reference_sha256": "b46bbb66bed65503c9c847b0c40c669f783a67a886d99589405c2eb73a6e0a3c",
+  "selection": "Union: changed AI values/kinds, AI illegible, AI mismatch with either reader; missing reader 2 included. Problems only; no random controls by owner instruction.",
+  "random_control_count": 0,
+  "items": [
+    {
+      "id": "initial:statab_1951_part04_p0045:t0028",
+      "original_review_number": 17,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI snapshots differ"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0017",
+      "original_review_number": 67,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI snapshots differ"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0069",
+      "original_review_number": 108,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI snapshots differ",
+        "AI: illegible",
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0019",
+      "original_review_number": 30,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI: illegible",
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0037",
+      "original_review_number": 5,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0002",
+      "original_review_number": 10,
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0035",
+      "original_review_number": 11,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0171",
+      "original_review_number": 18,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0010",
+      "original_review_number": 21,
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0051",
+      "original_review_number": 22,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI differs from reader 1",
+        "Reader 2 unavailable"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0286",
+      "original_review_number": 29,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0110",
+      "original_review_number": 37,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0036",
+      "original_review_number": 43,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0183",
+      "original_review_number": 44,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0277",
+      "original_review_number": 53,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0086",
+      "original_review_number": 54,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0112",
+      "original_review_number": 64,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0331",
+      "original_review_number": 70,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "Reader 2 unavailable"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0063",
+      "original_review_number": 76,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0001",
+      "original_review_number": 80,
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0391",
+      "original_review_number": 85,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0037",
+      "original_review_number": 90,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0313",
+      "original_review_number": 94,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0296",
+      "original_review_number": 98,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0181",
+      "original_review_number": 100,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0365",
+      "original_review_number": 109,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0094",
+      "original_review_number": 111,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0032:t0038",
+      "original_review_number": 114,
+      "page": "nbs_circular_31_e4_1956_p0032",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0099",
+      "original_review_number": 116,
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0168",
+      "original_review_number": 117,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0091",
+      "original_review_number": 123,
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0047",
+      "original_review_number": 127,
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0072",
+      "original_review_number": 134,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0343",
+      "original_review_number": 136,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0052",
+      "original_review_number": 138,
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0015:t0075",
+      "original_review_number": 151,
+      "page": "nbs_circular_31_e4_1956_p0015",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0288",
+      "original_review_number": 154,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0061",
+      "original_review_number": 155,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:nbs_circular_31_e4_1956_p0007:t0009",
+      "original_review_number": 159,
+      "page": "nbs_circular_31_e4_1956_p0007",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0124",
+      "original_review_number": 162,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 1"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0243",
+      "original_review_number": 167,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0045:t0019",
+      "original_review_number": 172,
+      "page": "statab_1951_part04_p0045",
+      "reasons": [
+        "AI differs from reader 1",
+        "AI differs from reader 2"
+      ]
+    },
+    {
+      "id": "initial:statab_1951_part04_p0008:t0305",
+      "original_review_number": 176,
+      "page": "statab_1951_part04_p0008",
+      "reasons": [
+        "AI differs from reader 2"
+      ]
+    }
+  ],
+  "review_order": [
+    "initial:statab_1951_part04_p0045:t0028",
+    "initial:statab_1951_part04_p0008:t0017",
+    "initial:statab_1951_part04_p0045:t0069",
+    "initial:nbs_circular_31_e4_1956_p0032:t0019",
+    "initial:statab_1951_part04_p0008:t0037",
+    "initial:nbs_circular_31_e4_1956_p0007:t0002",
+    "initial:nbs_circular_31_e4_1956_p0032:t0035",
+    "initial:statab_1951_part04_p0008:t0171",
+    "initial:nbs_circular_31_e4_1956_p0007:t0010",
+    "initial:nbs_circular_31_e4_1956_p0032:t0051",
+    "initial:statab_1951_part04_p0008:t0286",
+    "initial:statab_1951_part04_p0045:t0110",
+    "initial:nbs_circular_31_e4_1956_p0032:t0036",
+    "initial:statab_1951_part04_p0008:t0183",
+    "initial:statab_1951_part04_p0008:t0277",
+    "initial:statab_1951_part04_p0008:t0086",
+    "initial:statab_1951_part04_p0045:t0112",
+    "initial:statab_1951_part04_p0008:t0331",
+    "initial:statab_1951_part04_p0008:t0063",
+    "initial:nbs_circular_31_e4_1956_p0007:t0001",
+    "initial:statab_1951_part04_p0008:t0391",
+    "initial:nbs_circular_31_e4_1956_p0032:t0037",
+    "initial:statab_1951_part04_p0008:t0313",
+    "initial:statab_1951_part04_p0008:t0296",
+    "initial:statab_1951_part04_p0008:t0181",
+    "initial:statab_1951_part04_p0008:t0365",
+    "initial:statab_1951_part04_p0045:t0094",
+    "initial:nbs_circular_31_e4_1956_p0032:t0038",
+    "initial:nbs_circular_31_e4_1956_p0015:t0099",
+    "initial:statab_1951_part04_p0008:t0168",
+    "initial:nbs_circular_31_e4_1956_p0015:t0091",
+    "initial:nbs_circular_31_e4_1956_p0015:t0047",
+    "initial:statab_1951_part04_p0045:t0072",
+    "initial:statab_1951_part04_p0008:t0343",
+    "initial:nbs_circular_31_e4_1956_p0015:t0052",
+    "initial:nbs_circular_31_e4_1956_p0015:t0075",
+    "initial:statab_1951_part04_p0008:t0288",
+    "initial:statab_1951_part04_p0008:t0061",
+    "initial:nbs_circular_31_e4_1956_p0007:t0009",
+    "initial:statab_1951_part04_p0008:t0124",
+    "initial:statab_1951_part04_p0008:t0243",
+    "initial:statab_1951_part04_p0045:t0019",
+    "initial:statab_1951_part04_p0008:t0305"
+  ],
+  "three_way_agreement_not_audited": [
+    "initial:statab_1951_part04_p0008:t0323",
+    "initial:nbs_circular_31_e4_1956_p0015:t0124",
+    "initial:nbs_circular_31_e4_1956_p0015:t0057",
+    "initial:nbs_circular_31_e4_1956_p0015:t0098",
+    "initial:nbs_circular_31_e4_1956_p0015:t0081",
+    "initial:nbs_circular_31_e4_1956_p0032:t0006",
+    "initial:statab_1951_part04_p0045:t0088",
+    "initial:statab_1951_part04_p0008:t0024",
+    "initial:statab_1951_part04_p0008:t0219",
+    "initial:nbs_circular_31_e4_1956_p0015:t0050",
+    "initial:nbs_circular_31_e4_1956_p0015:t0027",
+    "initial:nbs_circular_31_e4_1956_p0007:t0056",
+    "initial:statab_1951_part04_p0045:t0085",
+    "initial:statab_1951_part04_p0008:t0161",
+    "initial:nbs_circular_31_e4_1956_p0015:t0063",
+    "initial:statab_1951_part04_p0008:t0230",
+    "initial:statab_1951_part04_p0008:t0094",
+    "initial:statab_1951_part04_p0008:t0019",
+    "initial:statab_1951_part04_p0045:t0063",
+    "initial:statab_1951_part04_p0008:t0239",
+    "initial:statab_1951_part04_p0008:t0301",
+    "initial:nbs_circular_31_e4_1956_p0015:t0073",
+    "initial:statab_1951_part04_p0045:t0007",
+    "initial:nbs_circular_31_e4_1956_p0007:t0077",
+    "initial:nbs_circular_31_e4_1956_p0007:t0040",
+    "initial:nbs_circular_31_e4_1956_p0007:t0064",
+    "initial:statab_1951_part04_p0045:t0039",
+    "initial:statab_1951_part04_p0045:t0061",
+    "initial:nbs_circular_31_e4_1956_p0015:t0020",
+    "initial:statab_1951_part04_p0008:t0119",
+    "initial:nbs_circular_31_e4_1956_p0015:t0053",
+    "initial:statab_1951_part04_p0008:t0123",
+    "initial:nbs_circular_31_e4_1956_p0032:t0057",
+    "initial:nbs_circular_31_e4_1956_p0032:t0054",
+    "initial:statab_1951_part04_p0008:t0364",
+    "initial:nbs_circular_31_e4_1956_p0015:t0131",
+    "initial:statab_1951_part04_p0008:t0328",
+    "initial:statab_1951_part04_p0008:t0395",
+    "initial:nbs_circular_31_e4_1956_p0007:t0069",
+    "initial:statab_1951_part04_p0008:t0340",
+    "initial:statab_1951_part04_p0045:t0009",
+    "initial:nbs_circular_31_e4_1956_p0015:t0128",
+    "initial:nbs_circular_31_e4_1956_p0015:t0095",
+    "initial:nbs_circular_31_e4_1956_p0007:t0086",
+    "initial:statab_1951_part04_p0008:t0291",
+    "initial:nbs_circular_31_e4_1956_p0007:t0036",
+    "initial:statab_1951_part04_p0008:t0268",
+    "initial:statab_1951_part04_p0045:t0001",
+    "initial:statab_1951_part04_p0008:t0336",
+    "initial:nbs_circular_31_e4_1956_p0032:t0056",
+    "initial:statab_1951_part04_p0008:t0006",
+    "initial:statab_1951_part04_p0000:t0019",
+    "initial:nbs_circular_31_e4_1956_p0015:t0068",
+    "initial:statab_1951_part04_p0008:t0042",
+    "initial:nbs_circular_31_e4_1956_p0007:t0011",
+    "initial:statab_1951_part04_p0008:t0164",
+    "initial:nbs_circular_31_e4_1956_p0015:t0032",
+    "initial:statab_1951_part04_p0008:t0001",
+    "initial:statab_1951_part04_p0008:t0363",
+    "initial:statab_1951_part04_p0045:t0011",
+    "initial:nbs_circular_31_e4_1956_p0007:t0007",
+    "initial:statab_1951_part04_p0000:t0007",
+    "initial:nbs_circular_31_e4_1956_p0032:t0055",
+    "initial:statab_1951_part04_p0045:t0109",
+    "initial:statab_1951_part04_p0045:t0031",
+    "initial:statab_1951_part04_p0008:t0379",
+    "initial:statab_1951_part04_p0045:t0062",
+    "initial:statab_1951_part04_p0008:t0176",
+    "initial:statab_1951_part04_p0008:t0342",
+    "initial:statab_1951_part04_p0008:t0206",
+    "initial:statab_1951_part04_p0008:t0002",
+    "initial:statab_1951_part04_p0000:t0011",
+    "initial:statab_1951_part04_p0045:t0065",
+    "initial:statab_1951_part04_p0008:t0385",
+    "initial:nbs_circular_31_e4_1956_p0015:t0082",
+    "initial:nbs_circular_31_e4_1956_p0007:t0087",
+    "initial:statab_1951_part04_p0008:t0126",
+    "initial:statab_1951_part04_p0045:t0070",
+    "initial:statab_1951_part04_p0008:t0394",
+    "initial:nbs_circular_31_e4_1956_p0007:t0071",
+    "initial:statab_1951_part04_p0045:t0113",
+    "initial:statab_1951_part04_p0008:t0139",
+    "initial:statab_1951_part04_p0045:t0025",
+    "initial:statab_1951_part04_p0045:t0027",
+    "initial:statab_1951_part04_p0008:t0165",
+    "initial:nbs_circular_31_e4_1956_p0015:t0029",
+    "initial:statab_1951_part04_p0008:t0085",
+    "initial:nbs_circular_31_e4_1956_p0032:t0005",
+    "initial:statab_1951_part04_p0008:t0284",
+    "initial:statab_1951_part04_p0008:t0289",
+    "initial:statab_1951_part04_p0000:t0018",
+    "initial:statab_1951_part04_p0008:t0320",
+    "initial:nbs_circular_31_e4_1956_p0015:t0034",
+    "initial:nbs_circular_31_e4_1956_p0007:t0058",
+    "initial:nbs_circular_31_e4_1956_p0032:t0034",
+    "initial:statab_1951_part04_p0045:t0117",
+    "initial:statab_1951_part04_p0008:t0214",
+    "initial:statab_1951_part04_p0008:t0127",
+    "initial:nbs_circular_31_e4_1956_p0015:t0021",
+    "initial:nbs_circular_31_e4_1956_p0015:t0118",
+    "initial:statab_1951_part04_p0008:t0025",
+    "initial:nbs_circular_31_e4_1956_p0015:t0112",
+    "initial:nbs_circular_31_e4_1956_p0007:t0035",
+    "initial:statab_1951_part04_p0008:t0248",
+    "initial:statab_1951_part04_p0008:t0013",
+    "initial:statab_1951_part04_p0008:t0204",
+    "initial:statab_1951_part04_p0045:t0080",
+    "initial:statab_1951_part04_p0008:t0384",
+    "initial:nbs_circular_31_e4_1956_p0032:t0047",
+    "initial:nbs_circular_31_e4_1956_p0007:t0039",
+    "initial:statab_1951_part04_p0008:t0045",
+    "initial:statab_1951_part04_p0045:t0003",
+    "initial:statab_1951_part04_p0008:t0226",
+    "initial:statab_1951_part04_p0008:t0209",
+    "initial:nbs_circular_31_e4_1956_p0015:t0030",
+    "initial:nbs_circular_31_e4_1956_p0015:t0031",
+    "initial:statab_1951_part04_p0008:t0235",
+    "initial:statab_1951_part04_p0000:t0004",
+    "initial:statab_1951_part04_p0045:t0076",
+    "initial:statab_1951_part04_p0000:t0016",
+    "initial:nbs_circular_31_e4_1956_p0015:t0130",
+    "initial:statab_1951_part04_p0008:t0231",
+    "initial:nbs_circular_31_e4_1956_p0015:t0002",
+    "initial:statab_1951_part04_p0008:t0027",
+    "initial:nbs_circular_31_e4_1956_p0015:t0065",
+    "initial:statab_1951_part04_p0045:t0090",
+    "initial:statab_1951_part04_p0000:t0010",
+    "initial:statab_1951_part04_p0008:t0009",
+    "initial:statab_1951_part04_p0008:t0131",
+    "initial:nbs_circular_31_e4_1956_p0007:t0085",
+    "initial:nbs_circular_31_e4_1956_p0015:t0059",
+    "initial:statab_1951_part04_p0045:t0044",
+    "initial:nbs_circular_31_e4_1956_p0015:t0064",
+    "initial:nbs_circular_31_e4_1956_p0015:t0046",
+    "initial:nbs_circular_31_e4_1956_p0007:t0027",
+    "initial:nbs_circular_31_e4_1956_p0007:t0021",
+    "initial:nbs_circular_31_e4_1956_p0007:t0074"
+  ],
+  "reason_counts": {
+    "AI snapshots differ": 3,
+    "AI: illegible": 2,
+    "AI differs from reader 1": 20,
+    "AI differs from reader 2": 38,
+    "Reader 2 unavailable": 2
+  }
+}
