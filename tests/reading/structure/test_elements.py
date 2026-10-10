@@ -17,13 +17,13 @@ def test_ocr_unlinked_and_reader_status_are_preserved():
     assert es[0].number_tokens[0].reader2=='13'
     assert es[0].number_tokens[1].reader_ref is None
 
-def test_digital_number_spans_multiple_source_words():
+def test_digital_signed_number_without_exact_source_token_stays_unlinked():
     r=record('-4.5')
     r['lines'][0]['words']=[{'text':'-','bbox':[10.,10.,15.,25.],'size':11.,'bold':False},{'text':'4.5','bbox':[16.,10.,40.,25.],'size':11.,'bold':False}]
     es,_=build_elements(snapshot([r]))
     n=es[0].number_tokens[0]
-    assert n.status=='digital' and n.bbox.bbox_precision=='word'
-    assert n.bbox.coordinates==(10.,10.,40.,25.)
+    assert n.status=='digital-unlinked' and n.bbox.bbox_precision=='region'
+    assert n.reader_ref is None and 'source_numeric_occurrence_count_mismatch' in n.reasons
 
 def test_unmatched_digital_numeric_fragment_is_never_verified():
     r=record('3','table')

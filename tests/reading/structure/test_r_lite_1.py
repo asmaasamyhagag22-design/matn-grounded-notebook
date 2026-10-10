@@ -47,3 +47,11 @@ def test_a1_demoted_heading_becomes_structure_body_without_editing_reader_block(
     assert d.elements[0].role=='text'
     assert d.elements[0].block.block_type.value=='heading'
     assert 'heading_demoted' in d.elements[0].flags
+
+
+def test_a3_character_alignment_cannot_bypass_numeric_count_mismatch():
+    # Exact concatenated glyphs do not supply an exact signed reader token.
+    es,_=build_elements(numeric_table('-4.5',[['-','4.5']]))
+    n=es[0].number_tokens[0]
+    assert n.status=='digital-unlinked' and n.reader_ref is None
+    assert 'source_numeric_occurrence_count_mismatch' in n.reasons

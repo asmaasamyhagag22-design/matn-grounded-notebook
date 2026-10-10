@@ -93,10 +93,10 @@ def build_elements(snapshot):
                 equal_counts=block_counts[token]==source_counts[token]
                 w=(candidates[0][1] if len(candidates)==1 else None) if page.get('ocr') else (matching[ordinal][1] if equal_counts else None)
                 if w is not None: digital_used.add(candidates[0][0] if page.get('ocr') else matching[ordinal][0])
-                if joined==block.text and mapping[start:end]:
+                if joined==block.text and mapping[start:end] and (page.get('ocr') or equal_counts):
                     boxes=[words[i]['bbox'] for i in set(mapping[start:end])]
                     w={'bbox':[min(b[0] for b in boxes),min(b[1] for b in boxes),max(b[2] for b in boxes),max(b[3] for b in boxes)]}
-                if aligned and not page.get('ocr'):
+                if aligned and not page.get('ocr') and equal_counts:
                     indices={compact_indices[raw_to_compact[i]] for i in range(start,end) if i in raw_to_compact}
                     if indices:
                         boxes=[words[i]['bbox'] for i in sorted(indices)]
@@ -112,7 +112,7 @@ def build_elements(snapshot):
                         numbers.append(NumberTokenRef(**common,reader_source='ocr',status='flagged-unlinked',reasons=('no_unique_reader_token',)))
                 else:
                     if w is None:
-                        numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital-unlinked',reasons=('no_exact_source_word_token',)))
+                        numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital-unlinked',reasons=('source_numeric_occurrence_count_mismatch' if not equal_counts else 'no_exact_source_word_token',)))
                         issues.append(StructureIssue(reason='digital_number_unlinked',pdf_page_index=block.page_index,block_id=block.block_id,detail=f'{start}:{end}:{token}'))
                         continue
                     numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital',reader_ref=f"{snapshot['cache_key']}:p{block.page_index}:b{block.reading_order}:n{start}",reader1=token))
