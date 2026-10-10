@@ -44,7 +44,7 @@ def samples(tmp_path: Path) -> dict[str, Path]:
 @pytest.fixture
 def representative_pdf(tmp_path: Path) -> Path:
     if not SYSTEM_ARABIC_FONT.is_file():
-        pytest.skip("Windows Arial font is unavailable for Arabic fixture generation")
+        pytest.skip("Arabic-capable fixture font is unavailable")
     path = tmp_path / "representative.pdf"
     create_representative_pdf(path)
     return path

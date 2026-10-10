@@ -186,6 +186,8 @@ def variant_thmx(path: Path, variant: int, out: Path) -> Path:
 
 
 def build(entry: dict) -> None:
+    if os.name != "nt":
+        raise RuntimeError("Template builder requires Windows, installed Office themes and PowerPoint COM")
     source = theme_path(entry["theme"])
     thmx = source
     if entry.get("variant"):

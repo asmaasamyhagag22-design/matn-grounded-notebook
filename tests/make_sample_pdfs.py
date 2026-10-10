@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import os
 from pathlib import Path
 from typing import Sequence
 
@@ -18,7 +19,8 @@ KNOWN_PAGE_TEXT = (
 IMAGE_ONLY_VISIBLE_TEXT = "IMAGE ONLY: 73 km"
 ARABIC_TEXT = "مرحبا بالعالم"
 MIXED_TEXT = "Matn 2026 - القياس 123 kg"
-SYSTEM_ARABIC_FONT = Path(r"C:\Windows\Fonts\arial.ttf")
+SYSTEM_ARABIC_FONT = (Path(r"C:\Windows\Fonts\arial.ttf") if os.name == "nt" else
+                      Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
 REPRESENTATIVE_PAGE_COUNT = 10
 
 
@@ -78,11 +80,11 @@ def _insert_header_footer(page: pymupdf.Page, pdf_page: int) -> None:
 def _insert_arabic_html(page: pymupdf.Page, text: str, rect: pymupdf.Rect) -> None:
     if not SYSTEM_ARABIC_FONT.is_file():
         raise FileNotFoundError(
-            "Windows Arial font is required for the visually shaped Arabic fixture"
+            "An Arabic-capable fixture font is required for the visually shaped Arabic fixture"
         )
     archive = pymupdf.Archive(str(SYSTEM_ARABIC_FONT.parent))
     css = (
-        "@font-face {font-family: MatnArabic; src: url(arial.ttf);} "
+        f"@font-face {{font-family: MatnArabic; src: url({SYSTEM_ARABIC_FONT.name});}} "
         "* {font-family: MatnArabic; font-size: 18pt; direction: rtl; "
         "text-align: right;}"
     )

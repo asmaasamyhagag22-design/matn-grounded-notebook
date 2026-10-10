@@ -233,9 +233,15 @@ def main() -> int:
         blank_copy(folder / "specimen.pptx", folder / "blank.pptx")
         decks += [folder / "specimen.pptx", folder / "blank.pptx"]
         dirs += [folder / "png", folder / "blank_png"]
-    subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(SRC / "export_png.ps1"),
-                    "-Pptx", ",".join(map(str, decks)), "-OutDir", ",".join(map(str, dirs)),
-                    "-Width", str(EXPORT_W), "-Height", str(EXPORT_H)], check=True, cwd=ROOT)
+    if sys.platform == "win32":
+        subprocess.run(["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(SRC / "export_png.ps1"),
+                        "-Pptx", ",".join(map(str, decks)), "-OutDir", ",".join(map(str, dirs)),
+                        "-Width", str(EXPORT_W), "-Height", str(EXPORT_H)], check=True, cwd=ROOT)
+    else:
+        from scripts.export_deck import export_deck
+        for deck, directory in zip(decks, dirs):
+            export_deck(deck, directory, deck.with_suffix(".pdf"), width=EXPORT_W, height=EXPORT_H)
+
 
     groups = []
     groups_by_id = {}

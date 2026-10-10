@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -10,7 +11,8 @@ from PIL import Image, ImageDraw, ImageFont
 from matn_reading.ocr import reader1
 
 REPO = Path(__file__).resolve().parents[3]
-FONT = Path(r"C:\Windows\Fonts\arial.ttf")
+FONT = (Path(r"C:\Windows\Fonts\arial.ttf") if os.name == "nt" else
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"))
 
 
 def test_settings_keep_every_model_inside_the_local_model_folder():
@@ -33,7 +35,7 @@ def test_model_check_refuses_a_file_whose_hash_differs(tmp_path):
 
 needs_worker = pytest.mark.skipif(
     not reader1.WORKER_PYTHON.is_file() or reader1.check_models(reader1.load_settings()) or not FONT.is_file(),
-    reason="reader 1 not installed here (.venv-ocr-rapid, models/ocr/rapidocr/ with matching sha256, Arial)")
+    reason="reader 1 not installed here (.venv-ocr-rapid, models/ocr/rapidocr/ with matching sha256, fixture font)")
 
 
 @needs_worker

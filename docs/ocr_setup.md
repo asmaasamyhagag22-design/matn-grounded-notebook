@@ -1,6 +1,6 @@
 # OCR setup (Step 4c): exact offline install, for the owner to run
 
-Status (2026-10-10): Ubuntu migration in progress. Python 3.12 environments rebuilt; RapidOCR/Paddle imports pass and all 13 local OCR model hashes match. Ollama recovery and final suite results are pending.
+Status (2026-10-10): Ubuntu laptop migration complete. Python 3.12 environments rebuilt; RapidOCR/Paddle imports pass and all 13 local OCR model hashes match. Owner-approved original development fonts are read from Windows; see §11 for final migration evidence.
 The Windows setup and measurements below are historical records, not this Ubuntu machine's current state.
 Current stack: ADR-0005; current measurements/remaining owner work: `reports/step4c-final.md`.
 The commands in §§1–8 are the historical, specifically approved setup; GPU commands remain future work.
@@ -65,8 +65,7 @@ Installed wheels (sha256 measured; also appended to `wheelhouse/SHA256SUMS.txt`)
 
 For Ubuntu (production), the same pins apply. `paddlepaddle-3.3.1-cp311-cp311-manylinux1_x86_64.whl` has sha256
 `bb22396233d807f6957d9c4a6a1edc76693fb589c4ee3d17caf7e39113ca4047`, and the cp312 wheel has
-`9016fc497213e1101261684321fbb31ef5960019ef39cb07ded27bc70e2a9858`. Which Python version Ubuntu uses is still the
-open packaging decision (HANDOFF, known risks).
+`9016fc497213e1101261684321fbb31ef5960019ef39cb07ded27bc70e2a9858`. Python 3.12 was selected on 2026-10-10; §11 records the installed Linux environment.
 
 ### 2.2 Install (Windows, one command)
 
@@ -330,8 +329,7 @@ for f in onnx/PP-OCRv5/det/ch_PP-OCRv5_det_mobile.onnx onnx/PP-OCRv5/rec/ch_PP-O
 sha256sum models/ocr/rapidocr/*
 ```
 
-On Ubuntu, the onnxruntime wheel is `manylinux_2_28_x86_64` (sha256 in §8.1, cp311 or cp312 depending on the open
-Python-version decision). Windows wheels do not install on Linux, so run the download on Linux or add
+On Ubuntu, the onnxruntime wheel is `manylinux_2_28_x86_64` (sha256 in §8.1; cp312 selected on 2026-10-10). Windows wheels do not install on Linux, so run the download on Linux or add
 `--platform manylinux_2_28_x86_64 --python-version 3.12`.
 
 **Installed 2026-10-05 by the owner** (transcript `out/ocr_setup_log.txt`; PowerShell 5.1 transcripts do not capture
@@ -460,8 +458,8 @@ Paddle cp312 Linux wheel hash matches §2.1: `9016fc497213e1101261684321fbb31ef5
 
 `OLLAMA_MAX_LOADED_MODELS=1`, `OLLAMA_NUM_PARALLEL=1`, `OLLAMA_KEEP_ALIVE=2m`.
 GLM client also explicitly requests `keep_alive=2m`, preserving the frozen OCR recognition options.
-The service drop-in is `scripts/ollama-laptop.conf`. System service settings require root and are **not yet applied**.
-The owner can apply the prepared, non-destructive configuration with:
+The service drop-in is `scripts/ollama-laptop.conf`. The owner applied it with `--recover-models`;
+`systemctl show ollama -p Environment` confirms all three settings. For configuration-only replay:
 
 ```bash
 sudo bash /home/asmaa/project/notebooklm/matn/scripts/configure_ollama_laptop.sh
@@ -474,7 +472,8 @@ No GPU build is installed. Development model: `qwen3.5:9b` Q4; the delivery bake
 Old `Users/asmaa/.ollama/models` exists. All source blob digests match their manifests;
 GLM source manifest `6effedd0dc8aec66ad86c94b8099395376e212f22c87a9d7147c422f7e447be4`
 and model blob `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` match §6.
-Copying them is proposed and awaits the owner's choice. Nothing was changed on the Windows partition.
+The owner ran the recovery helper. Destination hashes and recovered IDs match these sources; nothing was
+changed on the Windows partition. Subsequent registry pulls are recorded separately from recovered manifests.
 
 ### Linux exports, launchers and fonts
 
@@ -494,42 +493,87 @@ Copying them is proposed and awaits the owner's choice. Nothing was changed on t
 
 Carlito is installed and is the requested metric-compatible substitute for Calibri (Calibri is not in the current
 six-face template inventory). Selawik is the requested substitute for Segoe UI but is not installed.
-No metric-compatible substitute is recorded for Bahnschrift. Cambria and Georgia also have no approved replacement.
+No metric-compatible substitute is recorded for Bahnschrift. Delivery substitutions are an owner decision
+recorded in `docs/PRE_DELIVERY_CHECKLIST.md`: Carlito/Calibri, Caladea/Cambria, Gelasio/Georgia and
+Selawik/Segoe UI; Selawik requires a measured safety margin. Bahnschrift templates must be rebuilt.
+Microsoft fonts must not be installed on the Ubuntu delivery server. Specimen tests must prove original versus
+substitute fit agreement before delivery; this migration does not implement that plan.
 
-القياس الحالي بـPillow/FreeType يبحث عن اسم الخط نفسه، ويدعم `MATN_FONT_DIR`، ولا يستعمل fontconfig fallback.
-عند غياب الخط يرفع `FontFileNotFound`، بينما LibreOffice قد يعرض ببديل؛ لذلك القياس والعرض قد يختلفان.
-كل الخطوط الأصلية موجودة على قسم Windows read-only. الخيارات للمالكة: استخدام originals من هناك عبر
-`MATN_FONT_DIR`؛ أو اختيار/تثبيت substitutes وتحديث القوالب والـQA في عمل منفصل؛ أو إبقاء مشكلة الخطوط مفتوحة.
-**No template font or substitution decision was applied.**
+القياس الحالي بـPillow/FreeType يبحث عن اسم الخط نفسه في `MATN_FONT_DIR`؛ عند غيابه يرفع
+`FontFileNotFound` ولا يختار fontconfig fallback. Linux export adds the same directory to an isolated
+fontconfig configuration, so LibreOffice rendering can use the originals too.
 
-### Verification so far
+**Development only: owner selected original Windows fonts on the read-only partition.** All six template
+faces load: Bahnschrift, Bahnschrift SemiBold, Cambria, Georgia, Segoe UI and Segoe UI Semibold.
+No font file was copied into the repository, wheelhouse or another directory.
+
+```bash
+# Mount the Windows partition read-only first; this is this laptop's verified mount path.
+export MATN_FONT_DIR="/media/asmaa/Windows/Windows/Fonts"
+source "${XDG_CONFIG_HOME:-$HOME/.config}/matn/dev.env"  # saved laptop setting, outside the repo
+.venv/bin/python -m pytest -q
+```
+
+The three bash launchers source `scripts/dev_environment.sh`. They inherit an explicit `MATN_FONT_DIR`,
+or load it from `${XDG_CONFIG_HOME:-$HOME/.config}/matn/dev.env` when unset, and fail clearly if the
+directory is unavailable. That external file holds the laptop path; no path is hard-coded in the launchers.
+Direct Python commands and commits should export the setting (or source the external file) so tests/hooks inherit it.
+The Windows mount must remain read-only; this is not a delivery font installation.
+
+### Verification on this laptop
 
 - Git flash-copy repair: 193 CRLF-only changes restored byte-for-byte to HEAD; three hook executable bits restored;
   clean status verified before the first migration commit `4d29fdd`.
 - Hook tests: 41 passed. Real LibreOffice two-slide PDF/PNG integration plus export failure checks: 5 passed.
-- Generated digital PDF via `read_pdf.sh`: exit 0, **2.545 s** on this laptop.
-- Full suite: **763 passed, 11 failed, 11 setup errors, 0 skipped in 278.64 s**; all 22 affected cases
-  require absent Segoe UI/Bahnschrift fonts (including contact-sheet labels). They remain failures, not skips.
-  RapidOCR + actual GLM image smoke is pending model recovery. Details: `reports/ubuntu-migration-environment.json`.
-- No sealed-test reads, tuning, GPU work or Step 4c parity/closure work.
+- Generated digital PDF via `read_pdf.sh`: exit 0, **2.545 s**.
+- Generated image-only PDF: RapidOCR + actual GLM, offline under `block_egress`, fresh cache, **35.678 s**;
+  one uncached GLM request, `1,240` and `2020` read with no flags. Bash reader also passed, **32.899 s**.
+- Initial suite without approved fonts: 763 passed / 11 failed / 11 setup errors / 0 skipped, 278.64 s.
+  Every affected case and reason is retained in `reports/ubuntu-migration.md`; those font failures are resolved.
+- Rerun with originals: main 672 passed (813.83 s), hidden hook suites 114 passed (24.25 s), no failures/skips.
+  The final post-pull single-invocation result is recorded below and in `reports/ubuntu-migration-environment.json`.
+- No sealed-test reads, tuning, GPU work or Step 4c parity/closure work. Paddle validation remains import-only.
 
-The proposed recovery option is concrete and hash-checked. After the owner chooses to recover the two old tags,
-she can run this **instead of** the configuration-only command above:
+The owner executed:
 
 ```bash
-sudo bash /home/asmaa/project/notebooklm/matn/scripts/configure_ollama_laptop.sh --recover-models
+sudo bash scripts/configure_ollama_laptop.sh --recover-models
 ```
 
-It checks the Windows mount is read-only, validates every source blob, refuses a differing destination, copies
-blobs before manifests, verifies every copied digest, then configures/restarts Ollama. It neither deletes existing
-model files nor changes the Windows partition. The agent must verify the resulting Ollama IDs and run the pulls
-and actual GLM smoke afterwards. The helper is prepared; recovery has not been run.
-
-If the owner selects originals through `MATN_FONT_DIR`, the Linux exporter also includes that same directory in
-an isolated fontconfig configuration, so LibreOffice and Pillow can use the same files. No font path was selected.
+The helper checks the read-only mount, validates source blobs and existing destinations, copies blobs before
+manifests and verifies copied hashes. It preserves existing model files. The recovered Qwen ID was
+`6488c96fa5faab64bb65cbd30d4289e20e6130ef535a93ef9a49f42eda893ea7` (Q4_K_M); recovered GLM ID and
+main blob match §6. Current registry pull IDs/digests and every layer's verification are in
+`reports/ubuntu-migration-environment.json`; legacy and v2 manifest hashes are kept distinct.
 
 `qwen3-embedding:0.6b` downloaded successfully with Ollama 0.40.2: ID `ac6da0dfba84`,
 full current model digest `ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d`;
 model blob `06507c7b42688469c4e7298b0a1e16deff06caf291cf0a5b278c308249c3e439`, 639,150,592 bytes.
 Every blob matches its named digest. The legacy manifest file hash differs from the current v2 model ID;
 `reports/ubuntu-migration-environment.json` records them separately. This tag had no prior expected digest in this doc.
+
+### Final pulled models and manifest verification
+
+All three pulls succeeded. Every installed Linux layer matches its SHA-256 and recorded size.
+The registry's Apple-only MLX Qwen variant is not installed or selected on Linux; this is recorded explicitly.
+Full manifest, runner and layer digests: `reports/ubuntu-migration-environment.json`.
+
+| Tag | Selected model ID / SHA-256 | Actual quantization |
+|---|---|---|
+| `qwen3.5:9b` | `56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90` | Q4_K_M |
+| `glm-ocr:bf16` | `12c54d1b823a9a151957273c8b7a5e57fcaa23a640981f25822cda4b3a1d5edb` | F16 |
+| `qwen3-embedding:0.6b` | `ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d` | Q8_0 |
+
+GLM's recovered and freshly pulled legacy ID `6effedd0dc8a` and combined blob in §6 still match the
+recorded source. On first use Ollama 0.40.2 converts it for the llamacpp runner: selected manifest
+`12c54d1b823a9a151957273c8b7a5e57fcaa23a640981f25822cda4b3a1d5edb`, model blob
+`c67cd78fd5085fe9d409039853f3b6a8495aac36e4a76b651ba30e3aa753b0dc` and projector
+`4d284133151aa52d14d505b0ed41200cd5527edb85029b502eac527618e9a6a2`. The v2 manifest-list
+hash differs from the selected runner ID. This packaging conversion explains the ID change; original
+and current hashes are recorded separately. The post-pull fresh-cache smoke above exercises the actual runner.
+Qwen's current registry packaging differs from the recovered `6488c96fa5fa` version, so the remaining pull
+downloaded its model/projector; actual dev quantization remains Q4_K_M. No model bake-off was run.
+
+Final post-pull full suite (all five directories in one invocation): **786 passed / 0 failed / 0 errors / 0 skipped**,
+509.89 s. Evidence: `out/migration/complete-suite-final.xml` and `.txt`. Every earlier font failure is resolved;
+no failing tests were converted to skips. Next action: **Close Step 4c (sampled real-scan review)**.

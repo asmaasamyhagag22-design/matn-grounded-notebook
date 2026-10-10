@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 import time
@@ -85,10 +86,14 @@ def export(decks: list[Path], *, timeout: float = 1800) -> tuple[bool, str]:
     pdfs = [str(d / "deck.pdf") for d in decks]
     ppts = [str(d / "deck.pptx") for d in decks]
     try:
-        result = subprocess.run(
-            ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(EXPORT_PS1),
-             "-Pptx", ",".join(ppts), "-OutDir", ",".join(pngs), "-Pdf", ",".join(pdfs)],
-            capture_output=True, text=True, timeout=timeout)
+        if os.name == "nt":
+            command = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", str(EXPORT_PS1),
+                       "-Pptx", ",".join(ppts), "-OutDir", ",".join(pngs), "-Pdf", ",".join(pdfs)]
+        else:
+            command = [sys.executable, str(REPO / "scripts" / "export_deck.py")]
+            for pptx, png, pdf in zip(ppts, pngs, pdfs):
+                command += ["--pptx", pptx, "--out-dir", png, "--pdf", pdf]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=timeout)
     except (OSError, subprocess.TimeoutExpired) as exc:
         return False, f"EXPORT_FAILED:{type(exc).__name__}"
     log = (result.stdout + result.stderr)[-2000:]

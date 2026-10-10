@@ -34,7 +34,7 @@ class GlmConfig:
     host: str = "127.0.0.1"
     port: int = 11434
     timeout_s: float = 300.0
-    keep_alive: str = "30m"                 # keep the model loaded between lines
+    keep_alive: str = "2m"                 # keep the model loaded between lines
     cache_dir: Path = field(default=REPO / "out" / "ocr_cache" / "glm")
 
     def options(self) -> dict:

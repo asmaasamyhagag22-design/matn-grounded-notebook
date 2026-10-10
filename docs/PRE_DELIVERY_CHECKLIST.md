@@ -17,8 +17,8 @@ to the ministry. Tick an item only with evidence (a commit, a test, or a report 
 ## Deferred hardening
 
 - [ ] **Network block plus an egress test.** A check that proves the pipeline opens no socket except 127.0.0.1.
-- [ ] **Offline install on Ubuntu.** A Linux wheelhouse for one chosen Python version (3.11 vs 3.12, `pydantic-core`
-      and `hypothesis` are compiled wheels), installed with `--no-index`, then verified (audit F-04).
+- [ ] **Offline install on Ubuntu.** Python 3.12 is selected on both Ubuntu machines. Verify the recorded Linux
+      wheelhouse and `--no-index` install on the delivery machine; prepare GPU builds there (audit F-04).
 - [ ] **F-03 no-proxy opener** for every Ollama call (`audit/proposed-diffs/`).
 - [ ] **Streamlit bound to loopback** (127.0.0.1), with its startup network call disabled.
 - [ ] **Ollama:** auto-update off and cloud models disabled (audit F-53).
@@ -39,3 +39,16 @@ to the ministry. Tick an item only with evidence (a commit, a test, or a report 
       ممنوع تحويل توقع السرعة لنتيجة مقاسة.
 - [ ] **Human real-scan GT:** مراجعة كل رقم من الصور والتوقيع في الأداة قبل إعلان real-scan accuracy أو true
       false-alarm rate. إغلاق Step 4c يتطلب إنهاء البنود المحجوبة وقرار gate لو فشل.
+
+## الخطوط قبل التسليم — قرار المالكة 2026-10-10 (لم يُنفّذ بعد)
+
+- [ ] **Microsoft fonts لا يمكن تثبيتها على Ubuntu delivery server.** إعداد MATN_FONT_DIR الذي يقرأ originals
+      من Windows read-only هو للتطوير على اللابتوب فقط؛ لا تنقل ملفات الخطوط مع repo أو wheelhouse أو التسليم.
+- [ ] **القوالب تحتفظ بالخطوط الموجودة على أجهزة Windows في الوزارة**؛ السيرفر يقيس بخطوط open metric-compatible:
+      Carlito بدل Calibri، Caladea بدل Cambria، Gelasio بدل Georgia، Selawik بدل Segoe UI.
+- [ ] **Selawik تقريبي:** قِس فرق القياس وأضف safety margin مقاسًا؛ لا تفترض تطابقه التام مع Segoe UI.
+- [ ] **أعد بناء قوالب Bahnschrift** بخط له substitute؛ لا تضع fallback غير متحقق منه مكانه.
+- [ ] **Specimen fit parity test:** يثبت أن fit/overflow يوافق بين original وsubstitute fonts على specimen،
+      ويغطي الأنماط والأحجام والهوامش المستخدمة فعليًا؛ سجّل الأدلة ونتيجة safety margin قبل التسليم.
+
+هذه خطة تسليم مسجلة فقط؛ لا substitutions أو template rebuild أو parity test الآن.
