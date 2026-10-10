@@ -37,3 +37,11 @@ def test_ocr_ambiguous_assignment_unavailable():
     es,_=build_elements(s);tables=build_tables(s,es)
     assert tables[0].structure=='unavailable'
     assert tables[0].unavailable_reason and not tables[0].cells
+
+def test_overlapping_regions_do_not_duplicate_primary_characters():
+    from matn_reading.structure.document import assemble
+    s=snapshot([record('A 12','table')])
+    s['pages'][0]['tables']=[[9,9,201,26],[8,8,202,27]]
+    d=assemble(s)
+    assert len(d.chunks)==1
+    assert all(t.structure=='unavailable' and 'ambiguous' in t.unavailable_reason for t in d.tables)

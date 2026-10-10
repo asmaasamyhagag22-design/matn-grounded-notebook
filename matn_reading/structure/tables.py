@@ -92,16 +92,20 @@ def build_tables(snapshot,elements,pdf_path=None):
             regions=list(p.get('tables',[]))
             for e in candidates:
                 if not any(inside(e.block.bbox,r) or inside(r,e.block.bbox) for r in regions): regions.append(e.block.bbox)
+            regions=list(dict.fromkeys(tuple(r) for r in regions))
+            assignments={e.block.block_id:[r for r in regions if inside(e.block.bbox,r,2.) or inside(r,e.block.bbox,2.)] for e in candidates}
             for raw in regions:
                 if tuple(raw) in seen: continue
                 # Region identity includes page, not geometry alone.
                 key=(p['page_index'],tuple(raw))
                 if key in seen: continue
                 seen.add(key)
-                owned=[e for e in candidates if inside(e.block.bbox,raw,2.) or inside(raw,e.block.bbox,2.)]
+                ambiguous=[e for e in candidates if raw in assignments[e.block.block_id] and len(assignments[e.block.block_id])>1]
+                owned=[e for e in candidates if assignments[e.block.block_id]==[raw]]
                 box=box_ref(raw,'region',p)
                 base=dict(doc_id=snapshot['doc_id'],pdf_page_index=p['page_index'],bbox=box,block_ids=tuple(e.block.block_id for e in owned))
                 try:
+                    if ambiguous: raise ValueError('table_region_assignment_ambiguous:'+','.join(e.block.block_id for e in ambiguous))
                     if not owned: raise ValueError('no_citable_table_blocks')
                     if p.get('ocr'): rows,cols,headers,cells=_ocr_cells(p,raw,owned)
                     elif pdf: rows,cols,headers,cells=_digital_cells(pdf.pages[p['page_index']],raw,owned)
