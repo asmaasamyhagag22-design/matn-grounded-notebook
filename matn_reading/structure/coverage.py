@@ -46,6 +46,7 @@ def validate_coverage(elements,sections,chunks):
     ownership=Counter(b for s in sections for b in s.block_ids)
     if set(ownership)!=set(citable) or any(v!=1 for v in ownership.values()): raise ValueError('LEAF_OWNERSHIP')
     by_section={s.section_id:s for s in sections};texts={e.block.block_id:e.block.text for e in elements}
+    primary_numbers=Counter()
     for c in chunks:
         if c.section_id not in by_section: raise ValueError('UNKNOWN_SECTION')
         if reconstruct(c,texts)!=c.text: raise ValueError('ROUND_TRIP')
@@ -61,5 +62,8 @@ def validate_coverage(elements,sections,chunks):
         for n in c.numeric_tokens:
             matches=[t for t in citable[n.block_id].number_tokens if t.start==n.start and t.end==n.end]
             if len(matches)!=1 or n.model_dump(exclude={'chunk_start','chunk_end'})!=matches[0].model_dump(exclude={'chunk_start','chunk_end'}): raise ValueError('NUMBER_LEDGER')
+            if any(m.kind=='primary' and m.block_id==n.block_id and m.char_start<=n.start and m.char_end>=n.end and m.start+n.start-m.char_start==n.chunk_start for m in c.offset_map): primary_numbers[(n.block_id,n.start,n.end)]+=1
             if not any(m.block_id==n.block_id and m.char_start<=n.start and m.char_end>=n.end for m in c.offset_map if m.kind!='separator'): raise ValueError('NUMBER_MAP')
+    expected=Counter((n.block_id,n.start,n.end) for e in citable.values() for n in e.number_tokens)
+    if primary_numbers!=expected: raise ValueError('NUMBER_COVERAGE')
     return True

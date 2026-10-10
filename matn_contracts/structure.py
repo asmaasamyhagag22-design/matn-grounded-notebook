@@ -4,6 +4,8 @@ Number dispositions for verifiers: digital = exact digital reader text, not OCR
 consensus; accepted = unflagged OCR reader verdict (not independently verified);
 flagged = linked OCR uncertainty; flagged-unlinked = OCR text lacking a unique
 reader record. Neither flagged disposition may be treated as verified.
+digital-unlinked = digital Block numeric text without an exact source-word link;
+coarse geometry only, no reader value or verification claim.
 Separators are typed synthetic text, never evidence.
 """
 from typing import Literal
@@ -73,7 +75,7 @@ class SentenceSpan(VersionedContract):
 
 class NumberTokenRef(VersionedContract):
     reader_source: Literal['digital','ocr']
-    status: Literal['digital','accepted','flagged','flagged-unlinked']
+    status: Literal['digital','digital-unlinked','accepted','flagged','flagged-unlinked']
     text: str
     pdf_page_index: int=Field(ge=0)
     block_id: str
@@ -91,7 +93,9 @@ class NumberTokenRef(VersionedContract):
     @model_validator(mode='after')
     def valid(self):
         if self.start>=self.end: raise ValueError('empty number')
-        if self.reader_source=='digital':
+        if self.status=='digital-unlinked':
+            if self.reader_source!='digital' or any(v is not None for v in (self.reader_ref,self.reader_status,self.reader1,self.reader2,self.reader_bbox)) or not self.reasons: raise ValueError('digital-unlinked has reader verdict or no reason')
+        elif self.reader_source=='digital':
             if self.status!='digital' or self.bbox.bbox_precision not in ('char','word') or self.reader_ref is None: raise ValueError('digital disposition/geometry')
         elif self.status=='digital': raise ValueError('OCR digital disposition')
         elif self.status=='flagged-unlinked':

@@ -25,7 +25,7 @@ def _source_cell(text,box,elements,used):
     e,start,end=matches[0];used.add((e.block.block_id,start,end))
     spans=[BlockSpan(block_id=e.block.block_id,start=start,end=end,boxes=(box_ref(box,'region'),))]
     numbers=[n for n in e.number_tokens if n.start>=start and n.end<=end]
-    if any(n.status=='flagged-unlinked' for n in numbers): raise ValueError('cell_number_unlinked')
+    if any(n.status in ('flagged-unlinked','digital-unlinked') for n in numbers): raise ValueError('cell_number_unlinked')
     return tuple(spans),tuple(numbers)
 
 
@@ -106,6 +106,8 @@ def build_tables(snapshot,elements,pdf_path=None):
                     if p.get('ocr'): rows,cols,headers,cells=_ocr_cells(p,raw,owned)
                     elif pdf: rows,cols,headers,cells=_digital_cells(pdf.pages[p['page_index']],raw,owned)
                     else: raise ValueError('digital_cells_not_cached')
+                    represented={span.block_id for cell in cells for span in cell.source_spans}
+                    if any(e.block.text and e.block.block_id not in represented for e in owned): raise ValueError('table_block_not_in_cells')
                     check_rows=[[Cell(c.text,c.bbox.coordinates) for c in cells if c.row==r] for r in range(rows)]
                     failures=check_table_totals(check_rows)
                     if failures: raise ValueError('table_total_mismatch')

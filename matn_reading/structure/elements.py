@@ -71,10 +71,29 @@ def build_elements(snapshot):
             for w in words:
                 for token,_,_ in normalized_spans(w['text']): candidate_words.append((token,w))
             digital_used=set()
+            # Frozen grouping may remove spacing between sign/digits. Align the
+            # ordered source glyphs without inventing character geometry.
+            compact_words=[];compact_indices=[]
+            for wi,word in enumerate(words):
+                for ch in word['text']:
+                    if not ch.isspace(): compact_words.append(ch);compact_indices.append(wi)
+            compact_block=''.join(ch for ch in block.text if not ch.isspace())
+            aligned=compact_block==''.join(compact_words)
+            raw_to_compact={};ci=0
+            for ri,ch in enumerate(block.text):
+                if not ch.isspace(): raw_to_compact[ri]=ci;ci+=1
             for token,start,end in normalized_spans(block.text):
                 candidates=[(j,w) for j,(value,w) in enumerate(candidate_words) if value==token and j not in digital_used]
-                w=candidates[0][1] if candidates else None
-                if candidates: digital_used.add(candidates[0][0])
+                w=candidates[0][1] if len(candidates)==1 else None
+                if w is not None: digital_used.add(candidates[0][0])
+                if joined==block.text and mapping[start:end]:
+                    boxes=[words[i]['bbox'] for i in set(mapping[start:end])]
+                    w={'bbox':[min(b[0] for b in boxes),min(b[1] for b in boxes),max(b[2] for b in boxes),max(b[3] for b in boxes)]}
+                if aligned and not page.get('ocr'):
+                    indices={compact_indices[raw_to_compact[i]] for i in range(start,end) if i in raw_to_compact}
+                    if indices:
+                        boxes=[words[i]['bbox'] for i in sorted(indices)]
+                        w={'bbox':[min(b[0] for b in boxes),min(b[1] for b in boxes),max(b[2] for b in boxes),max(b[3] for b in boxes)]}
                 geometry=box_ref(w['bbox'],'word',page) if w else box_ref(block.bbox,'region',page)
                 common=dict(text=token,pdf_page_index=block.page_index,block_id=block.block_id,start=start,end=end,bbox=geometry)
                 if page.get('ocr'):
@@ -85,7 +104,10 @@ def build_elements(snapshot):
                     else:
                         numbers.append(NumberTokenRef(**common,reader_source='ocr',status='flagged-unlinked',reasons=('no_unique_reader_token',)))
                 else:
-                    if w is None: raise ValueError(f'DIGITAL_NUMBER_UNPLACED:{block.page_index}:{block.block_id}:{token}')
+                    if w is None:
+                        numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital-unlinked',reasons=('no_exact_source_word_token',)))
+                        issues.append(StructureIssue(reason='digital_number_unlinked',pdf_page_index=block.page_index,block_id=block.block_id,detail=f'{start}:{end}:{token}'))
+                        continue
                     numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital',reader_ref=f"{snapshot['cache_key']}:p{block.page_index}:b{block.reading_order}:n{start}",reader1=token))
             elements.append(Element(block=block,role=role,citable=not reasons,exclusion_reasons=tuple(dict.fromkeys(reasons)),flags=tuple(sorted(set(flags))),source_spans=tuple(source),number_tokens=tuple(numbers),bbox=box_ref(block.bbox,'region',page),reader_frame='deskewed_points' if page.get('ocr') else 'pdf_points'))
     return tuple(elements),tuple(issues)

@@ -21,6 +21,15 @@ def test_digital_fixture_exact_cells(tmp_path):
     assert [(c.row,c.col,c.text) for c in ts[0].cells]==[(0,0,'Label'),(0,1,'Value'),(1,0,'A'),(1,1,'12'),(2,0,'B'),(2,1,'24')]
     assert ts[0].header_rows==(0,)
     assert all(n.status=='digital' for c in ts[0].cells for n in c.numeric_tokens)
+    extra=record('unrepresented legend','table',order=99)
+    from matn_contracts.domain import Block
+    data={k:v for k,v in extra['block'].items() if k not in ('block_id','schema_version')}
+    data['bbox']=s['pages'][0]['tables'][0]
+    extra['block']=Block.create(**data).model_dump(mode='json')
+    s['pages'][0]['blocks'].append(extra)
+    es,_=build_elements(s);ts=build_tables(s,es,pdf)
+    assert ts[0].structure=='unavailable'
+    assert ts[0].unavailable_reason=='table_block_not_in_cells'
 
 def test_ocr_ambiguous_assignment_unavailable():
     ocr={'tokens':[],'preprocess':{'size':[2550,3300],'rotation_deg':0},'lines':[]}

@@ -692,6 +692,7 @@
         "status": {
           "enum": [
             "digital",
+            "digital-unlinked",
             "accepted",
             "flagged",
             "flagged-unlinked"
