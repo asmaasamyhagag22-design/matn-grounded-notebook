@@ -7,6 +7,7 @@ import argparse
 import base64
 import hashlib
 import json
+import re
 from collections import Counter
 from .review import HERE, REPO
 from .sample import INITIAL, digest, freeze
@@ -99,6 +100,23 @@ def render_targeted(payload):
     return source
 
 
+def original_embedded_images(sample, reference, annotation_html):
+    """Use the archived original PNG bytes, independent of Linux crop regeneration."""
+    encoded = re.findall(r'src="data:image/png;base64,([^"\s]+)"', annotation_html)
+    if len(encoded) != 2 * len(sample['review_order']):
+        raise ValueError('Wrong archived annotation image count')
+    images = {}
+    for index, item_id in enumerate(sample['review_order']):
+        images[item_id] = {}
+        for offset, (key, sha) in enumerate([('crop', 'crop_sha256'), ('context_crop', 'context_sha256')]):
+            content = encoded[2 * index + offset]
+            data = base64.b64decode(content, validate=True)
+            if hashlib.sha256(data).hexdigest() != reference['answers'][item_id]['images'][sha]:
+                raise ValueError('Changed archived AI scan image: ' + item_id)
+            images[item_id][key] = 'data:image/png;base64,' + content
+    return images
+
+
 def generate():
     for path in (INITIAL, FIRST, LATEST, PLAN):
         require_committed(path)
@@ -107,18 +125,11 @@ def generate():
     if plan != select_problems(sample, first, latest):
         raise ValueError('Frozen targeted audit changed')
     by_id = {i['id']: i for i in sample['items']}
+    originals = original_embedded_images(sample, latest, (HERE / 'gpt-annotations.html').read_text(encoding='utf8'))
     items = []
     for selected in plan['items']:
         item_id = selected['id']; item = by_id[item_id]; after = latest['answers'][item_id]; before = first['answers'][item_id]
-        images = {}
-        for key, sha in [('crop', 'crop_sha256'), ('context_crop', 'context_sha256')]:
-            path = (REPO / after['images'][key].replace('\\', '/')).resolve()
-            if not path.is_relative_to(REPO):
-                raise ValueError('Image outside repository')
-            data = path.read_bytes()
-            if hashlib.sha256(data).hexdigest() != after['images'][sha]:
-                raise ValueError('Changed AI scan image: ' + item_id)
-            images[key] = 'data:image/png;base64,' + base64.b64encode(data).decode('ascii')
+        images = originals[item_id]
         label = lambda a: a['value_as_printed'] if a['kind'] == 'number' else a['kind']
         items.append({**{k: item[k] for k in ('id', 'page', 'reader1', 'reader2', 'layer', 'context', 'bbox')},
                       **images, 'ai_before': label(before), 'ai_current': label(after),

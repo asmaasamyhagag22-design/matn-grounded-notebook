@@ -57,3 +57,19 @@ def test_render_separates_audit_storage_and_exposes_current_ai_as_suggestion_onl
     assert 'confirm-ai-after-scan-review' in html
     assert 'Initial annotation: GPT (Codex)' in html
     assert 'answers={}' in html and 'indexedDB' in html
+
+
+def test_archived_images_are_verified_in_order_and_tampering_refused():
+    import base64
+    import hashlib
+    from eval.reading.real.targeted_audit import original_embedded_images
+    sample = {'review_order': ['a']}
+    values = [b'original crop bytes', b'original context bytes']
+    reference = {'answers': {'a': {'images': dict(zip(('crop_sha256', 'context_sha256'),
+                  [hashlib.sha256(v).hexdigest() for v in values]))}}}
+    html = ''.join('<img src="data:image/png;base64,' + base64.b64encode(v).decode() + '">' for v in values)
+    images = original_embedded_images(sample, reference, html)
+    assert base64.b64decode(images['a']['crop'].split(',')[1]) == values[0]
+    with pytest.raises(ValueError, match='count'): original_embedded_images(sample, reference, '')
+    reference['answers']['a']['images']['crop_sha256'] = 'wrong'
+    with pytest.raises(ValueError, match='Changed archived'): original_embedded_images(sample, reference, html)
