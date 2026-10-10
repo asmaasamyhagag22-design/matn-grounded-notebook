@@ -15,7 +15,7 @@ import ctypes
 import hashlib
 import json
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from statistics import median
 
@@ -411,6 +411,23 @@ def _words_from_chars(chars: list[dict]) -> list[Word]:
     return sorted(words, key=lambda word: (word.top, word.x0))
 
 
+def _link_text_objects(words: list[Word], objects: list[TextObject]) -> list[Word]:
+    """Unique printed-object membership; ambiguous or fragmented runs stay unlinked.
+
+    Word boxes are font bounds; text-object boxes are ink bounds. Match a word's
+    horizontal centre and intersecting y bounds, plus its exact source text.
+    No finer geometry or new word segmentation is inferred.
+    """
+    linked = []
+    for word in words:
+        candidates = [obj.index for obj in objects
+                      if not word.vertical and word.text in obj.text
+                      and obj.bbox[0] <= (word.x0 + word.x1) / 2 <= obj.bbox[2]
+                      and min(obj.bbox[3], word.bottom) > max(obj.bbox[1], word.top)]
+        linked.append(replace(word, text_object_id=candidates[0]) if len(candidates) == 1 else word)
+    return linked
+
+
 def read_page(plumber_page: pdfplumber.page.Page, pdfium_page: pdfium.PdfPage, page_index: int,
               page_label: str | None) -> PageData:
     width, height = float(plumber_page.width), float(plumber_page.height)
@@ -431,7 +448,7 @@ def read_page(plumber_page: pdfplumber.page.Page, pdfium_page: pdfium.PdfPage, p
                     page_label, [], chars, images, drawings, tables, text_objects, paint_objects,
                     plumber_page.extract_text() or "", textpage.get_text_range())
     data.filled_boxes = [(float(r["x0"]),float(r["top"]),float(r["x1"]),float(r["bottom"])) for r in plumber_page.rects if r.get("fill")]
-    data.words = _words_from_chars(chars)
+    data.words = _link_text_objects(_words_from_chars(chars), text_objects)
     data.signals = _signals(data)
     data.edge_cases = edge_case_counts(data)
     return data
@@ -496,5 +513,5 @@ class OpenPdf:
         label = self.pdfium.get_page_label(index) or None
         data = read_page(self.plumber.pages[index], self.pdfium[index], index, label)
         _apply_differential_visibility(data, Path(self.path))
-        data.words = _words_from_chars(data.chars)
+        data.words = _link_text_objects(_words_from_chars(data.chars), data.text_objects)
         return data

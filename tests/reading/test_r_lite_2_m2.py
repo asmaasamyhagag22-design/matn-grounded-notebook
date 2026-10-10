@@ -15,7 +15,6 @@ def justified_line(path,bold=False):
 
 
 @pytest.mark.parametrize('bold',[False,True])
-@pytest.mark.xfail(strict=True,reason='M2: same-face justified gaps split a single source text object')
 def test_same_text_object_justification_preserves_sentence(tmp_path,bold):
     path=justified_line(tmp_path/'justified.pdf',bold)
     with OpenPdf(path) as pdf:

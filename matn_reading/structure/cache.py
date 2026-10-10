@@ -59,7 +59,8 @@ def page_record(page):
     for b in page.blocks:
         blocks.append({'block':b.contract.model_dump(mode='json'),'flagged':b.flagged,
           'lines':[{'words':[{'text':w.text,'bbox':[w.x0,w.top,w.x1,w.bottom],'size':w.size,'bold':w.bold,
-                 'vertical':w.vertical,'visibility':w.visibility} for w in line.words]} for line in b.layout.lines]})
+                 'vertical':w.vertical,'visibility':w.visibility,'visibility_reasons':list(w.visibility_reasons),
+                 'font_face':w.font_face,'text_object_id':w.text_object_id} for w in line.words]} for line in b.layout.lines]})
     return {'page_index':page.page_index,'page_label':page.page_label,'width':page.width,'height':page.height,
        'cropbox':list(page.cropbox),'route':page.route.value,'reasons':page.reasons,'blocks':blocks,
        'flags':page.flags,'tables':page.tables,'figure_regions':page.figure_regions,'ocr':page.ocr}

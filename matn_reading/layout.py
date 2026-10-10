@@ -51,6 +51,7 @@ class Word:
     visibility: str = "visible"
     visibility_reasons: tuple[str, ...] = ()
     font_face: str = ""
+    text_object_id: int | None = None
 
 
 @dataclass
@@ -185,13 +186,19 @@ def group_lines(words: Sequence[Word], *, digital_body: float | None = None) -> 
         for previous, word in zip(row, row[1:]):
             state_changed = (word.visibility, word.visibility_reasons, word.vertical) != (
                 previous.visibility, previous.visibility_reasons, previous.vertical)
+            same_object = (digital_body is not None and previous.text_object_id is not None
+                           and previous.text_object_id == word.text_object_id
+                           and not any(previous.x1 <= left and right <= word.x0 for left, right in gutters)
+                           and abs(previous.size-digital_body)<=SIZE_TOLERANCE_PT
+                           and abs(word.size-digital_body)<=SIZE_TOLERANCE_PT
+                           and abs(previous.bottom-word.bottom)<=0.2*digital_body)
             inline_face = (digital_body is not None and previous.font_face != word.font_face
                            and not any(previous.x1 <= left and right <= word.x0 for left, right in gutters)
                            and abs(previous.size-digital_body)<=SIZE_TOLERANCE_PT
                            and abs(word.size-digital_body)<=SIZE_TOLERANCE_PT
                            and abs(previous.bottom-word.bottom)<=0.2*digital_body
                            and word.x0-previous.x1<=2.0*digital_body)
-            if state_changed or (word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size) and not inline_face):
+            if state_changed or (word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size) and not (inline_face or same_object)):
                 lines.append(Line(current))
                 current = []
             current.append(word)
