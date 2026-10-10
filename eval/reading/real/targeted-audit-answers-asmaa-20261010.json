@@ -1,0 +1,739 @@
+{
+  "schema": "matn-human-sample-answers/1",
+  "manifest_key": "[[\"targeted-audit\",\"4055049e974166f1d421471ac8093b51af199601e86af76d0e6c71e748d7cd37\"]]",
+  "answers": {
+    "initial:statab_1951_part04_p0045:t0028": {
+      "kind": "number",
+      "value_as_printed": "871",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:01:48.872Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0017": {
+      "kind": "number",
+      "value_as_printed": "53,041",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:01:56.131Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0069": {
+      "kind": "number",
+      "value_as_printed": "15,823",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:08.419Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0019": {
+      "kind": "number",
+      "value_as_printed": "50763",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:13.321Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0037": {
+      "kind": "number",
+      "value_as_printed": "33,791",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:18.627Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0002": {
+      "kind": "number",
+      "value_as_printed": "597",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:43.914Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0035": {
+      "kind": "number",
+      "value_as_printed": "15.279",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:48.126Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0171": {
+      "kind": "number",
+      "value_as_printed": "2,596",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:02:53.140Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0010": {
+      "kind": "number",
+      "value_as_printed": "0681",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:02.987Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0051": {
+      "kind": "not_number",
+      "value_as_printed": null,
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:08.470Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0286": {
+      "kind": "number",
+      "value_as_printed": "75",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:10.695Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0110": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:15.020Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0036": {
+      "kind": "number",
+      "value_as_printed": "67.879",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:18.325Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0183": {
+      "kind": "number",
+      "value_as_printed": "929",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:22.031Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0277": {
+      "kind": "number",
+      "value_as_printed": "162",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:42.296Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0086": {
+      "kind": "number",
+      "value_as_printed": "384",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:44.698Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0112": {
+      "kind": "number",
+      "value_as_printed": "2",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:46.047Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0331": {
+      "kind": "number",
+      "value_as_printed": "3",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:47.311Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0063": {
+      "kind": "number",
+      "value_as_printed": "11,554",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:49.563Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0001": {
+      "kind": "number",
+      "value_as_printed": "0.000",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:52.825Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0391": {
+      "kind": "number",
+      "value_as_printed": "337",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:03:55.516Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0037": {
+      "kind": "number",
+      "value_as_printed": ".014780",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:03.786Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0313": {
+      "kind": "number",
+      "value_as_printed": "3881",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:19.228Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0296": {
+      "kind": "number",
+      "value_as_printed": "3199",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:22.863Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0181": {
+      "kind": "number",
+      "value_as_printed": "1",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:28.902Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0365": {
+      "kind": "number",
+      "value_as_printed": "93",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:37.797Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0094": {
+      "kind": "number",
+      "value_as_printed": "62",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:42.804Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0032:t0038": {
+      "kind": "number",
+      "value_as_printed": "84.389",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:48.146Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0099": {
+      "kind": "number",
+      "value_as_printed": "47",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:52.685Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0168": {
+      "kind": "number",
+      "value_as_printed": "2,122",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:54.518Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0091": {
+      "kind": "number",
+      "value_as_printed": "46",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:04:56.016Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0047": {
+      "kind": "number",
+      "value_as_printed": "3.1",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:11.533Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0072": {
+      "kind": "number",
+      "value_as_printed": "1,799",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:15.857Z",
+      "method": "reader2"
+    },
+    "initial:statab_1951_part04_p0008:t0343": {
+      "kind": "number",
+      "value_as_printed": "15",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:20.794Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0052": {
+      "kind": "number",
+      "value_as_printed": "27",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:22.569Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:nbs_circular_31_e4_1956_p0015:t0075": {
+      "kind": "number",
+      "value_as_printed": "30",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:23.699Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0288": {
+      "kind": "number",
+      "value_as_printed": "83",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:25.553Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0061": {
+      "kind": "number",
+      "value_as_printed": "10",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:29.347Z",
+      "method": "reader1"
+    },
+    "initial:nbs_circular_31_e4_1956_p0007:t0009": {
+      "kind": "number",
+      "value_as_printed": "0.000",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:31.287Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0124": {
+      "kind": "number",
+      "value_as_printed": "45,134",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:35.150Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0008:t0243": {
+      "kind": "number",
+      "value_as_printed": "2,213",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:37.437Z",
+      "method": "confirm-ai-after-scan-review"
+    },
+    "initial:statab_1951_part04_p0045:t0019": {
+      "kind": "number",
+      "value_as_printed": "31",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:39.305Z",
+      "method": "reader1"
+    },
+    "initial:statab_1951_part04_p0008:t0305": {
+      "kind": "number",
+      "value_as_printed": "413",
+      "verified_by": "asmaa",
+      "verified_at": "2026-10-10T12:05:44.775Z",
+      "method": "confirm-ai-after-scan-review"
+    }
+  },
+  "history": [
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0028",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "871",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:01:48.872Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0017",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "53,041",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:01:56.131Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0069",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "15,823",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:08.419Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0019",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "50763",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:13.321Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0037",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "33,791",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:18.627Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0007:t0002",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "597",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:43.914Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0035",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "15.279",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:48.126Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0171",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "2,596",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:02:53.140Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0007:t0010",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "0681",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:02.987Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0051",
+      "answer": {
+        "kind": "not_number",
+        "value_as_printed": null,
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:08.470Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0286",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "75",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:10.695Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0110",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "3",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:15.020Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0036",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "67.879",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:18.325Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0183",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "929",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:22.031Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0277",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "162",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:42.296Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0086",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "384",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:44.698Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0112",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "2",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:46.047Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0331",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "3",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:47.311Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0063",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "11,554",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:49.563Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0007:t0001",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "0.000",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:52.825Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0391",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "337",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:03:55.516Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0037",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": ".014780",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:03.786Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0313",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "3881",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:19.228Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0296",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "3199",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:22.863Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0181",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "1",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:28.902Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0365",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "93",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:37.797Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0094",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "62",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:42.804Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0032:t0038",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "84.389",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:48.146Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0015:t0099",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "47",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:52.685Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0168",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "2,122",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:54.518Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0015:t0091",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "46",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:04:56.016Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0015:t0047",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "3.1",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:11.533Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0072",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "1,799",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:15.857Z",
+        "method": "reader2"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0343",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "15",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:20.794Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0015:t0052",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "27",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:22.569Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0015:t0075",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "30",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:23.699Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0288",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "83",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:25.553Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0061",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "10",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:29.347Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:nbs_circular_31_e4_1956_p0007:t0009",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "0.000",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:31.287Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0124",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "45,134",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:35.150Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0243",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "2,213",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:37.437Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0045:t0019",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "31",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:39.305Z",
+        "method": "reader1"
+      }
+    },
+    {
+      "item_id": "initial:statab_1951_part04_p0008:t0305",
+      "answer": {
+        "kind": "number",
+        "value_as_printed": "413",
+        "verified_by": "asmaa",
+        "verified_at": "2026-10-10T12:05:44.775Z",
+        "method": "confirm-ai-after-scan-review"
+      }
+    }
+  ]
+}
