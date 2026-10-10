@@ -29,6 +29,8 @@ def prepare_snapshot(snapshot,pdf_path):
 
 def assemble(snapshot):
     elements,ei=build_elements(snapshot);sections,si=build_sections(snapshot,elements)
+    demoted={i.block_id for i in si if i.reason=='heading_demoted'}
+    elements=tuple(e.model_copy(update={'role':'text','flags':e.flags+('heading_demoted',)}) if e.block.block_id in demoted else e for e in elements)
     tables=tuple(Table.model_validate(t) for t in snapshot['table_structures']) if 'table_structures' in snapshot else build_tables(snapshot,elements)
     chunks=build_chunks(snapshot,elements,sections,tables)
     validate_coverage(elements,sections,chunks)

@@ -1,5 +1,6 @@
 """Exact Block text with conservative source geometry and unchanged reader verdicts."""
 import re
+from collections import Counter,defaultdict
 import unicodedata
 from matn_contracts.domain import Block
 from matn_contracts.structure import Element,BlockSpan,NumberTokenRef,StructureIssue,BBoxRef
@@ -19,7 +20,7 @@ def normalized_spans(text):
         yield m.group(),positions[m.start()],positions[m.end()-1]+1
 
 
-def word_ledger(record):
+def word_ledger(record, *, digital=False):
     """Frozen line joining with a parallel character->word ledger."""
     text='';mapping=[];words=[]
     for line in record['lines']:
@@ -33,6 +34,7 @@ def word_ledger(record):
         line_text=line_text[start:end];line_map=line_map[start:end]
         if not text: text=line_text;mapping=line_map;continue
         if text.endswith('-') and len(text)>=2 and line_text:
+            if digital and text[-2].isalpha() and line_text[0].islower() and '-' in line_text.split()[0]: text+=line_text;mapping+=line_map;continue
             if text[-2].isalpha() and line_text[0].islower(): text=text[:-1]+line_text;mapping=mapping[:-1]+line_map;continue
             if text[-2].isalnum() and (line_text[0].isdigit() or line_text[0].isupper()): text+=line_text;mapping+=line_map;continue
         text+=' '+line_text;mapping+=[line_map[0] if line_map else mapping[-1]]+line_map
@@ -51,7 +53,7 @@ def build_elements(snapshot):
             if role in ('header','footer','figure'): reasons.append('figure_text' if role=='figure' else role)
             if any(k in flags for k in ('marginalia','figure_text','vertical_text')): reasons.extend(k for k in flags if k in ('marginalia','figure_text','vertical_text'))
             if role in ('header','footer') and re.fullmatch(r'\s*[\divxlcdmIVXLCDM]+\s*',block.text): reasons.append('page_number')
-            joined,mapping,words=word_ledger(record)
+            joined,mapping,words=word_ledger(record,digital=not page.get('ocr'))
             # Tables can contain reader-created pipes/newlines; geometry is honestly region precision.
             source=[]
             if block.text:
@@ -71,6 +73,8 @@ def build_elements(snapshot):
             for w in words:
                 for token,_,_ in normalized_spans(w['text']): candidate_words.append((token,w))
             digital_used=set()
+            block_tokens=list(normalized_spans(block.text));block_counts=Counter(t[0] for t in block_tokens)
+            source_counts=Counter(t[0] for t in candidate_words);ordinals=defaultdict(int)
             # Frozen grouping may remove spacing between sign/digits. Align the
             # ordered source glyphs without inventing character geometry.
             compact_words=[];compact_indices=[]
@@ -82,10 +86,13 @@ def build_elements(snapshot):
             raw_to_compact={};ci=0
             for ri,ch in enumerate(block.text):
                 if not ch.isspace(): raw_to_compact[ri]=ci;ci+=1
-            for token,start,end in normalized_spans(block.text):
+            for token,start,end in block_tokens:
                 candidates=[(j,w) for j,(value,w) in enumerate(candidate_words) if value==token and j not in digital_used]
-                w=candidates[0][1] if len(candidates)==1 else None
-                if w is not None: digital_used.add(candidates[0][0])
+                matching=[(j,w) for j,(value,w) in enumerate(candidate_words) if value==token]
+                ordinal=ordinals[token];ordinals[token]+=1
+                equal_counts=block_counts[token]==source_counts[token]
+                w=(candidates[0][1] if len(candidates)==1 else None) if page.get('ocr') else (matching[ordinal][1] if equal_counts else None)
+                if w is not None: digital_used.add(candidates[0][0] if page.get('ocr') else matching[ordinal][0])
                 if joined==block.text and mapping[start:end]:
                     boxes=[words[i]['bbox'] for i in set(mapping[start:end])]
                     w={'bbox':[min(b[0] for b in boxes),min(b[1] for b in boxes),max(b[2] for b in boxes),max(b[3] for b in boxes)]}
@@ -109,5 +116,8 @@ def build_elements(snapshot):
                         issues.append(StructureIssue(reason='digital_number_unlinked',pdf_page_index=block.page_index,block_id=block.block_id,detail=f'{start}:{end}:{token}'))
                         continue
                     numbers.append(NumberTokenRef(**common,reader_source='digital',status='digital',reader_ref=f"{snapshot['cache_key']}:p{block.page_index}:b{block.reading_order}:n{start}",reader1=token))
+            for flag in page['flags']:
+                if flag['kind']=='possible_prose_in_figure' and inside(block.bbox,flag['bbox']):
+                    issues.append(StructureIssue(reason='possible_prose_in_figure',pdf_page_index=block.page_index,block_id=block.block_id))
             elements.append(Element(block=block,role=role,citable=not reasons,exclusion_reasons=tuple(dict.fromkeys(reasons)),flags=tuple(sorted(set(flags))),source_spans=tuple(source),number_tokens=tuple(numbers),bbox=box_ref(block.bbox,'region',page),reader_frame='deskewed_points' if page.get('ocr') else 'pdf_points'))
     return tuple(elements),tuple(issues)

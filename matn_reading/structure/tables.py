@@ -4,6 +4,7 @@ import pdfplumber
 from matn_contracts.structure import Table,TableCell,BlockSpan,StructureIssue
 from matn_reading.ocr.consistency import Cell,check_table_totals
 from .geometry import box_ref,inside
+from .versions import VERSION
 
 
 def _source_cell(text,box,elements,used):
@@ -115,7 +116,7 @@ def build_tables(snapshot,elements,pdf_path=None):
                     check_rows=[[Cell(c.text,c.bbox.coordinates) for c in cells if c.row==r] for r in range(rows)]
                     failures=check_table_totals(check_rows)
                     if failures: raise ValueError('table_total_mismatch')
-                    result.append(Table.create(**base,structure='available',rows=rows,cols=cols,header_rows=headers,cells=cells))
+                    result.append(Table.create(producer_version=VERSION,**base,structure='available',rows=rows,cols=cols,header_rows=headers,cells=cells))
                 except ValueError as error:
-                    result.append(Table.create(**base,structure='unavailable',unavailable_reason=str(error)))
+                    result.append(Table.create(producer_version=VERSION,**base,structure='unavailable',unavailable_reason=str(error)))
     return tuple(result)

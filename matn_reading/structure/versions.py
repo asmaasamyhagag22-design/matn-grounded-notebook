@@ -1,5 +1,5 @@
 """Parameters fixed before dev-gold measurement."""
-VERSION='r-lite-1'
+VERSION='r-lite-1.1'
 TARGET_WORDS=250
 MAX_WORDS=350
 TINY_WORDS=50

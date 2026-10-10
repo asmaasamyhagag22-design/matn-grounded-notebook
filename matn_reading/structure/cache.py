@@ -65,7 +65,7 @@ def page_record(page):
        'flags':page.flags,'tables':page.tables,'figure_regions':page.figure_regions,'ocr':page.ocr}
 
 
-def acquire_dev(folder):
+def acquire_dev(folder, *, reuse_ocr_from=None):
     """Read each dev PDF once; checkpoint digital results before global OCR preflight."""
     from checks.egress_guard import block_egress
     from matn_reading.read import read_document
@@ -101,13 +101,26 @@ def acquire_dev(folder):
         (folder/'routes-before-ocr.json').write_text(canonical(route_log)+'\n')
         pending=preflight_ocr(snapshots)
         print('OCR_PREFLIGHT',canonical(pending),flush=True)
+        if reuse_ocr_from is not None:
+            for s in snapshots:
+                old=load_snapshot(Path(reuse_ocr_from)/s['dev_key']/'00_reading.json')
+                if old['doc_id']!=s['doc_id']: raise ValueError('OCR_REPLAY_SOURCE')
+                previous={p['page_index']:p for p in old['pages']}
+                replay=[]
+                for i,p in enumerate(s['pages']):
+                    before=previous[p['page_index']]
+                    if before.get('ocr'):
+                        if p['cropbox']!=before['cropbox']:raise ValueError('OCR_REPLAY_FRAME')
+                        s['pages'][i]=before;replay.append(p['page_index'])
+                    elif p['route'] in OCR_ROUTES:raise ValueError('OCR_CACHE_MISS:'+s['dev_key']+':'+str(i))
+                s['ocr_replay']={'source_cache_key':old['cache_key'],'page_indices':replay}
         from matn_reading.ocr.route import read_scan_page,OcrConfig
         from matn_reading.ocr.preprocess import render_page_image
         from matn_reading.ocr.reader1 import RapidOcrWorker
         from matn_reading.ocr.glm import GlmReader
         config=OcrConfig()
         # Complete existing target means no inference. Per-page checkpoints prevent repeats.
-        need=any(not target.exists() and any(p['route'] in OCR_ROUTES for p in s['pages']) for s,target in zip(snapshots,paths))
+        need=reuse_ocr_from is None and any(not target.exists() and any(p['route'] in OCR_ROUTES for p in s['pages']) for s,target in zip(snapshots,paths))
         if need:
             with RapidOcrWorker() as worker:
                 glm=GlmReader()

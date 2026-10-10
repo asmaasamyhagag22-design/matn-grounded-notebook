@@ -22,7 +22,7 @@ def _make(snapshot,section,kind,parts,elements,table_id=None,row_range=None,flag
         for s in sentence_spans(piece): sentences.append(SentenceSpan(start=offset+s.start,end=offset+s.end,flags=s.flags))
         text+=piece
     identity=[section.section_id,kind,text,[m.model_dump(exclude={'primary_chunk_id'}) for m in maps],table_id,row_range]
-    return Chunk(chunk_id=structure_id(snapshot['doc_id'],'c',VERSION,identity),doc_id=snapshot['doc_id'],section_id=section.section_id,
+    return Chunk(producer_version=VERSION,chunk_id=structure_id(snapshot['doc_id'],'c',VERSION,identity),doc_id=snapshot['doc_id'],section_id=section.section_id,
       kind=kind,text=text,context_prefix=snapshot['title']+' / '+' / '.join(section.path),offset_map=tuple(maps),primary=tuple(primary),
       repeated_context=tuple(repeats),sentence_spans=tuple(sentences),numeric_tokens=tuple(numbers),table_id=table_id,row_range=row_range,word_count=len(text.split()),flags=tuple(flags))
 

@@ -33,8 +33,8 @@ def test_unmatched_digital_numeric_fragment_is_never_verified():
     assert n.status=='digital-unlinked' and n.reader_ref is None
     assert n.bbox.bbox_precision=='region' and n.reader1 is None
 
-def test_reordered_duplicate_digital_numbers_are_not_guessed():
+def test_matching_duplicate_digital_numbers_link_in_source_order():
     r=record('12 | 12','table')
     r['lines'][0]['words']=[{'text':'12','bbox':[10.,10.,30.,25.],'size':11.,'bold':False},{'text':'12','bbox':[50.,10.,70.,25.],'size':11.,'bold':False}]
     es,_=build_elements(snapshot([r]))
-    assert all(n.status=='digital-unlinked' for n in es[0].number_tokens)
+    assert all(n.status=='digital' for n in es[0].number_tokens)
