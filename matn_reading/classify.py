@@ -142,3 +142,26 @@ def block_type(block: LayoutBlock, body: float, page_height: float, in_figure: b
     if block.size <= body - FOOTNOTE_SIZE_DELTA_PT and block.top >= FOOTNOTE_TOP_SHARE * page_height:
         return "footnote"
     return "text"
+
+
+# R-lite.1: precision-first prose-box thresholds fixed by synthetic fixtures.
+PROSE_MIN_LINES=3
+PROSE_MIN_WORDS_PER_LINE=4
+PROSE_MULTIWORD_SHARE=0.8
+PROSE_MIN_SENTENCE_ENDINGS=2
+PROSE_MAX_NUMERIC_LABEL_LINES=3
+PROSE_SIZE_TOLERANCE=0.6
+
+def prose_box(region,lines,body,drawings=()):
+    """No chart recovery: uncertain boxes remain figures with an explicit issue."""
+    axes=[r for r in drawings if all((r[0]>=region[0],r[1]>=region[1],r[2]<=region[2],r[3]<=region[3])) and
+          ((r[2]-r[0]<=1 and r[3]-r[1]>=30 and region[0]+3<r[0]<region[2]-3) or
+           (r[3]-r[1]<=1 and r[2]-r[0]>=30 and region[1]+3<r[1]<region[3]-3))]
+    if axes:return False
+    members=[l for l in lines if _centre_in((l.x0,l.top,l.x1,l.bottom),[region])]
+    if len(members)<PROSE_MIN_LINES or any(l.vertical for l in members):return False
+    multi=[l for l in members if len(l.words)>=PROSE_MIN_WORDS_PER_LINE and abs(l.size-body)<=PROSE_SIZE_TOLERANCE]
+    labels=[l for l in members if len(l.words)<=2 and re.search(r'\d',l.text)]
+    endings=sum(bool(re.search(r'[.!?](?:[\"\']?)$',l.text.strip())) for l in members)
+    return (len(multi)/len(members)>=PROSE_MULTIWORD_SHARE and endings>=PROSE_MIN_SENTENCE_ENDINGS
+            and len(labels)<=PROSE_MAX_NUMERIC_LABEL_LINES)

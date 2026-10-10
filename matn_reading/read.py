@@ -14,7 +14,7 @@ from pathlib import Path
 from matn_contracts.domain import Block, BlockStyle, ExtractorInfo
 from matn_contracts.enums import BlockType, ExtractionRoute, HiddenReason, Visibility
 
-from .classify import body_size, block_type, figure_regions
+from .classify import body_size, block_type, figure_regions, prose_box
 from .layout import LayoutBlock, Line, Word, detect_furniture, group_blocks, group_lines, order_blocks
 from .pdf_page import EXTRACTOR_VERSION, OpenPdf, PageData
 from .triage import Route, decide_route, glyph_issues
@@ -121,8 +121,12 @@ def _read_page(page: PageData, lines: list[Line], furniture: dict[int, str], bod
     route, reasons = decide_route(page.signals)
     tables = [t["bbox"] for t in page.tables]
     regions = figure_regions(page.images, page.drawings, tables, page.width, page.height, page.words)
+    filled=[r for r in page.filled_boxes if r[2]-r[0]>30 and r[3]-r[1]>30]
+    prose_regions=[r for r in filled if prose_box(r,lines,body,page.drawings)]
+    regions=[r for r in regions if not _centre_in(r,prose_regions)]
+    possible=[r for r in filled if r not in prose_regions and any(len(l.words)>=4 and _centre_in(_line_box(l),[r]) for l in lines)]
     read: list[ReadBlock] = []
-    flags: list[dict] = []
+    flags: list[dict] = [{"kind":"possible_prose_in_figure","bbox":r} for r in possible]
 
     furniture_blocks, table_lines, figure_lines, marginalia_lines, prose_lines = [], {
         i: [] for i in range(len(tables))}, [], [], []
@@ -133,7 +137,9 @@ def _read_page(page: PageData, lines: list[Line], furniture: dict[int, str], bod
         if index in furniture:
             furniture_blocks.append((LayoutBlock([line]).finish(), furniture[index]))
             continue
-        if _centre_in(_line_box(line), regions):
+        if _centre_in(_line_box(line), prose_regions):
+            prose_lines.append(line)
+        elif _centre_in(_line_box(line), regions):
             figure_lines.append(line)
         else:
             table_index = next((i for i, t in enumerate(tables) if _centre_in(_line_box(line), [t])), None)

@@ -81,6 +81,7 @@ class PageData:
     pdfium_text: str
     signals: PageSignals | None = None
     edge_cases: dict = field(default_factory=dict)
+    filled_boxes: list[tuple[float,float,float,float]] = field(default_factory=list)
 
 
 def _is_bold(fontname: str) -> bool:
@@ -429,6 +430,7 @@ def read_page(plumber_page: pdfplumber.page.Page, pdfium_page: pdfium.PdfPage, p
     data = PageData(page_index, width, height, (float(crop[0]), float(crop[1]), float(crop[2]), float(crop[3])),
                     page_label, [], chars, images, drawings, tables, text_objects, paint_objects,
                     plumber_page.extract_text() or "", textpage.get_text_range())
+    data.filled_boxes = [(float(r["x0"]),float(r["top"]),float(r["x1"]),float(r["bottom"])) for r in plumber_page.rects if r.get("fill")]
     data.words = _words_from_chars(chars)
     data.signals = _signals(data)
     data.edge_cases = edge_case_counts(data)
