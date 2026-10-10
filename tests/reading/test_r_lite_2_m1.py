@@ -16,7 +16,6 @@ def local_font_cells(path):
     return write_pdf(path,content)
 
 
-@pytest.mark.xfail(strict=True,reason='M1: eligible filled prose cells use local10pt, document body11pt')
 def test_local_font_filled_cells_remain_prose(tmp_path):
     p=read_document(local_font_cells(tmp_path/'local-font.pdf')).pages[0]
     assert p.figure_regions

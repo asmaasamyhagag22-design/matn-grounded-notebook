@@ -160,7 +160,10 @@ def prose_box(region,lines,body,drawings=()):
     if axes:return False
     members=[l for l in lines if _centre_in((l.x0,l.top,l.x1,l.bottom),[region])]
     if len(members)<PROSE_MIN_LINES or any(l.vertical for l in members):return False
-    multi=[l for l in members if len(l.words)>=PROSE_MIN_WORDS_PER_LINE and abs(l.size-body)<=PROSE_SIZE_TOLERANCE]
+    # A filled cell has its own typographic body (P1 M1); global prose can
+    # use a different face/size. All geometry and prose gates stay fixed.
+    local_body = body_size(w for line in members for w in line.words)
+    multi=[l for l in members if len(l.words)>=PROSE_MIN_WORDS_PER_LINE and abs(l.size-local_body)<=PROSE_SIZE_TOLERANCE]
     labels=[l for l in members if len(l.words)<=2 and re.search(r'\d',l.text)]
     endings=sum(bool(re.search(r'[.!?](?:[\"\']?)$',l.text.strip())) for l in members)
     return (len(multi)/len(members)>=PROSE_MULTIWORD_SHARE and endings>=PROSE_MIN_SENTENCE_ENDINGS
