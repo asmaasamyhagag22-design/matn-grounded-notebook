@@ -118,9 +118,12 @@ def figure_regions(images: list[BBox], drawings: list[BBox], tables: list[BBox],
             labels = [word for word in words if len(word.text) <= FIGURE_MAX_SHORT_LABEL_CHARS
                       and re.search(r"\d", word.text)
                       and _centre_in((word.x0, word.top, word.x1, word.bottom), [box])]
-            if len(labels) >= FIGURE_MIN_SHORT_NUMERIC_LABELS:
+            axis_labels = any(word.vertical and _centre_in((word.x0, word.top, word.x1, word.bottom), [box])
+                              for word in words)
+            if axis_labels or len(labels) >= FIGURE_MIN_SHORT_NUMERIC_LABELS:
                 regions.append(box)
-    return [r for r in regions if not any(_overlap_share(r, t) > 0.5 for t in tables)]
+    return [r for r in regions if (any(w.vertical and _centre_in((w.x0,w.top,w.x1,w.bottom),[r]) for w in (words or []))
+                                   or not any(_overlap_share(r, t) > 0.5 for t in tables))]
 
 
 def block_type(block: LayoutBlock, body: float, page_height: float, in_figure: bool) -> str:

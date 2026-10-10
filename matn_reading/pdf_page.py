@@ -277,7 +277,8 @@ def _words_from_chars(chars: list[dict]) -> list[Word]:
     visible_chars = [char for char in chars if char.get("text")]
     def is_vertical(char: dict) -> bool:
         matrix = char.get("matrix", (1, 0, 0, 1, 0, 0))
-        return (not char.get("upright", True)
+        return (float(matrix[0]) < 0 and float(matrix[3]) < 0
+                or not char.get("upright", True)
                 or abs(float(matrix[1])) + abs(float(matrix[2]))
                 > abs(float(matrix[0])) + abs(float(matrix[3])))
 
