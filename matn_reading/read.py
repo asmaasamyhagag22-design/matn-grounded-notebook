@@ -146,11 +146,11 @@ def _read_page(page: PageData, lines: list[Line], furniture: dict[int, str], bod
     for index, collected in table_lines.items():
         if collected:
             body_blocks.append((_table_block(collected, page.tables[index]["rows"]), "table"))
-    for block in group_blocks(figure_lines):
+    for block in group_blocks(figure_lines, digital_body=body):
         body_blocks.append((block, block_type(block, body, page.height, in_figure=True)))
-    for block in group_blocks(marginalia_lines):
+    for block in group_blocks(marginalia_lines, digital_body=body):
         body_blocks.append((block, "figure"))  # contract figure = non-prose; the flag records the marginalia role
-    for block in group_blocks(prose_lines):
+    for block in group_blocks(prose_lines, digital_body=body):
         body_blocks.append((block, block_type(block, body, page.height, in_figure=False)))
 
     ordered = order_blocks([b for b, _ in body_blocks], page.width)
@@ -215,7 +215,8 @@ def read_document(path: Path, *, pages: list[int] | None = None) -> DocumentRead
         indices = list(range(len(pdf))) if pages is None else pages
         page_data = [pdf.page(i) for i in indices]
     markers = [[word for word in page.words if word.kind == "footnote_marker"] for page in page_data]
-    page_lines = [group_lines([word for word in page.words if word.kind != "footnote_marker"]) for page in page_data]
+    preliminary_body=body_size(w for p in page_data for w in p.words if not w.vertical)
+    page_lines = [group_lines([word for word in page.words if word.kind != "footnote_marker"],digital_body=preliminary_body) for page in page_data]
     height = page_data[0].height if page_data else 792.0
     furniture = detect_furniture(page_lines, height)
     body = body_size(w for p, marks, lines in zip(page_data, furniture, page_lines)

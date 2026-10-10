@@ -50,6 +50,7 @@ class Word:
     vertical: bool = False
     visibility: str = "visible"
     visibility_reasons: tuple[str, ...] = ()
+    font_face: str = ""
 
 
 @dataclass
@@ -155,7 +156,7 @@ class LayoutBlock:
 
 # ---- lines -------------------------------------------------------------------------------------------------------
 
-def group_lines(words: Sequence[Word]) -> list[Line]:
+def group_lines(words: Sequence[Word], *, digital_body: float | None = None) -> list[Line]:
     """Words whose vertical centres fall within half a line height form a row; a wide horizontal gap splits the row."""
     rows: list[list[Word]] = []
     for word in sorted(words, key=lambda w: ((w.top + w.bottom) / 2, w.x0)):
@@ -175,7 +176,12 @@ def group_lines(words: Sequence[Word]) -> list[Line]:
         for previous, word in zip(row, row[1:]):
             state_changed = (word.visibility, word.visibility_reasons, word.vertical) != (
                 previous.visibility, previous.visibility_reasons, previous.vertical)
-            if state_changed or word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size):
+            inline_face = (digital_body is not None and previous.font_face != word.font_face
+                           and abs(previous.size-digital_body)<=SIZE_TOLERANCE_PT
+                           and abs(word.size-digital_body)<=SIZE_TOLERANCE_PT
+                           and abs(previous.bottom-word.bottom)<=0.2*digital_body
+                           and word.x0-previous.x1<=2.0*digital_body)
+            if state_changed or (word.x0 - previous.x1 > LINE_SPLIT_GAP_EM * max(previous.size, word.size) and not inline_face):
                 lines.append(Line(current))
                 current = []
             current.append(word)
@@ -190,7 +196,7 @@ def _x_overlap(a: Line, b: Line) -> float:
     return overlap / max(min(a.x1 - a.x0, b.x1 - b.x0), 1e-6)
 
 
-def _continues(block: LayoutBlock, line: Line) -> bool:
+def _continues(block: LayoutBlock, line: Line, digital_body: float | None = None) -> bool:
     last = block.lines[-1]
     gap = line.top - last.bottom
     if gap < -0.5 * line.size or gap > PARA_GAP_EM * max(line.size, last.size):
@@ -199,7 +205,8 @@ def _continues(block: LayoutBlock, line: Line) -> bool:
         return False
     if line.bold != last.bold:
         bold_lead = block.lines[0].bold and not line.bold and block.lines[-1].text.rstrip().endswith((".", ":"))
-        if not bold_lead:
+        body_run = digital_body is not None and abs(line.size-digital_body)<=SIZE_TOLERANCE_PT and abs(last.size-digital_body)<=SIZE_TOLERANCE_PT
+        if not bold_lead and not body_run:
             return False
     if (line.visibility, line.visibility_reasons, line.vertical) != (
             last.visibility, last.visibility_reasons, last.vertical):
@@ -209,13 +216,13 @@ def _continues(block: LayoutBlock, line: Line) -> bool:
     return _x_overlap(last, line) >= 0.5 or abs(line.x0 - last.x0) <= 2.0
 
 
-def group_blocks(lines: Sequence[Line]) -> list[LayoutBlock]:
+def group_blocks(lines: Sequence[Line], *, digital_body: float | None = None) -> list[LayoutBlock]:
     """Consecutive lines that sit directly under each other with the same style form a block."""
     blocks: list[LayoutBlock] = []
     for line in sorted(lines, key=lambda line: (line.top, line.x0)):
         target = None
         for block in reversed(blocks[-8:]):  # only recent blocks can be directly above
-            if _continues(block, line):
+            if _continues(block, line, digital_body):
                 target = block
                 break
         if target is None:

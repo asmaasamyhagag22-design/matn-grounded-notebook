@@ -337,7 +337,8 @@ def _words_from_chars(chars: list[dict]) -> list[Word]:
                               max(float(char["bottom"]) for char in current),
                               round(median(float(char["size"]) for char in current), 2),
                               any(_is_bold(str(char["fontname"])) for char in current),
-                              "footnote_marker" if marker else "word", False, state, reasons))
+                              "footnote_marker" if marker else "word", False, state, reasons,
+                              str(current[0]["fontname"])))
             current.clear()
 
         previous_nonspace = None
