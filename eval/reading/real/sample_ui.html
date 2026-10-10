@@ -13,9 +13,9 @@ progress{width:100%;height:16px;accent-color:#e0b663}#status{white-space:pre-wra
 </style>
 <body onerror="document.getElementById('status').textContent='Review failed to start: '+event+'. Copy this error so it can be fixed; no answer has been saved.'">
 <header><h1>Sampled number review · مراجعة العينة</h1>
-<div>Read the scan; never guess. Answers save to the GT JSON after every choice. Sampling status is hidden.</div>
+<div>Read the scan; never guess. Answers save after every choice. Firefox: start browser saving, then export JSON when finished. Sampling status is hidden.</div>
 <label>Your name <input id="owner" autocomplete="name" aria-label="Reviewer name"></label>
-<button id="folder">Choose existing gt folder</button><div id="progress" aria-live="polite"></div><progress id="bar" max="1" value="0"></progress></header>
+<button id="browserSave">Start / resume browser saving (Firefox)</button><button id="export">Export answers</button><button id="folder">Choose existing gt folder (Chrome/Edge)</button><div id="progress" aria-live="polite"></div><progress id="bar" max="1" value="0"></progress></header>
 <main><p id="status" role="status">Loading the frozen review… If this message remains, the page script did not start. No answer has been saved.</p>
 <noscript>This review needs JavaScript to display the sampled items and save answers. No answer has been saved.</noscript>
 <article id="card" hidden><div id="location"></div><p>The blue outline identifies the sampled detection. Context is shown below.</p><div class="crop"><img id="crop" alt="Large crop; blue outline marks the sampled detection"></div>
@@ -24,15 +24,61 @@ progress{width:100%;height:16px;accent-color:#e0b663}#status{white-space:pre-wra
 <button id="type">T · Type correct value</button><button id="illegible">X · Illegible</button><button id="notNumber">Not a number / duplicate / partial detection</button><button id="back">Backspace · Go back</button></div>
 <div id="layerPick" hidden></div>
 <div id="typedBox" hidden><label>Value exactly as printed <input id="typed" aria-label="Correct printed value"></label><button id="typedSave">Save value ↵</button><button id="typedCancel">Cancel</button></div>
-<p id="saved"></p><p>1 / 2 / 3 choose that reading; T opens typing; X records illegible; Backspace goes back. Each successful save advances. You can close and resume by selecting the same gt folder. No full-page review is required.</p></article>
-<p id="finished" hidden>Sample complete. Your answers are saved. You can go back to correct an answer. Run the sample measurement command from the repository.</p></main>
+<p id="saved"></p><p>1 / 2 / 3 choose that reading; T opens typing; X records illegible; Backspace goes back. Each successful save advances. You can close and resume in the same browser using Start / resume browser saving. Export answers before clearing browser data; keep this file at the same path. No full-page review is required.</p></article>
+<p id="finished" hidden>Sample complete. Your answers are saved. You can go back to correct an answer. Click Export answers and tell the agent "review done" with the JSON location.</p></main>
 <script>
 'use strict';
 const batches=__SAMPLE_DATA__;
 const items=batches.flatMap(b=>b.items.map(i=>({...i,batch:b.batch,manifest_sha256:b.manifest_sha256})));
 const byBatch=new Map(batches.map(b=>[b.batch,b]));
 const el=id=>document.getElementById(id);
-let answers={},handles=new Map(),position=0,busy=false,ready=false;
+let answers={},handles=new Map(),position=0,busy=false,ready=false,browserDB=null,browserMode=false,history=[];
+const browserKey=JSON.stringify(batches.map(b=>[b.batch,b.manifest_sha256]));
+function browserTransaction(mode, action){
+ return new Promise((resolve,reject)=>{
+  const tx=browserDB.transaction('reviews',mode),store=tx.objectStore('reviews');let result;
+  const request=action(store);request.onsuccess=()=>{result=request.result;};
+  tx.oncomplete=()=>resolve(result);tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error||Error('Browser save aborted'));
+ });
+}
+function validateBrowserState(state){
+ if(state.schema!=='matn-human-sample-answers/1'||state.manifest_key!==browserKey)throw Error('Frozen manifest mismatch in browser answers');
+ const allowed=new Set(items.map(i=>i.id));
+ if(!state.answers||Object.entries(state.answers).some(([id,a])=>!allowed.has(id)||!validAnswer(a)))throw Error('Invalid browser answers');
+ if(!Array.isArray(state.history)||state.history.some(h=>!allowed.has(h.item_id)||!validAnswer(h.answer)))throw Error('Invalid browser history');
+ return state;
+}
+function browserState(nextAnswers=answers,nextHistory=history){
+ return {schema:'matn-human-sample-answers/1',manifest_key:browserKey,answers:nextAnswers,history:nextHistory};
+}
+el('browserSave').onclick=async()=>{
+ if(busy)return;busy=true;ready=false;show();
+ try{
+  if(!window.indexedDB)throw Error('Browser storage unavailable. Use a normal Firefox window with storage enabled.');
+  browserDB=await new Promise((resolve,reject)=>{
+   const request=window.indexedDB.open('matn-human-sample-review',1);
+   request.onupgradeneeded=()=>request.result.createObjectStore('reviews');
+   request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);
+  });
+  const saved=await browserTransaction('readonly',store=>store.get(browserKey));
+  const state=saved?validateBrowserState(saved):browserState({},[]);
+  // Prove persistence is available before enabling any answer controls.
+  await browserTransaction('readwrite',store=>store.put(state,browserKey));
+  answers=state.answers;history=state.history;browserMode=true;ready=true;
+  position=items.findIndex(i=>!answers[i.id]);if(position===-1)position=items.length;
+  if(!el('owner').value&&Object.values(answers)[0])el('owner').value=Object.values(answers)[0].verified_by;
+  el('status').textContent='Browser saving ready. Every answer saves before advancing. Export answers when finished or as a backup.';
+ }catch(error){el('status').textContent='Browser saving failed: '+error.message;}
+ finally{busy=false;show();}
+};
+el('export').onclick=()=>{
+ if(busy||!ready){el('status').textContent='Start browser saving or choose the GT folder first.';return;}
+ const state=browserState();validateBrowserState(state);
+ const blob=new Blob([JSON.stringify(state,null,2)+'\n'],{type:'application/json'});
+ const url=URL.createObjectURL(blob),link=document.createElement('a');
+ link.href=url;link.download='matn-human-sample-answers.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ el('status').textContent='Exported '+Object.keys(answers).length+' answers. Keep the JSON and tell the agent its location when review is done.';
+};
 const current=()=>items[position];
 function validAnswer(a){return a&&typeof a.verified_by==='string'&&a.verified_by.trim()&&['number','not_number','illegible'].includes(a.kind)&&(a.kind!=='number'||(typeof a.value_as_printed==='string'&&a.value_as_printed.trim()));}
 function checkedReview(gt,batch,page){
@@ -66,13 +112,22 @@ function show(){
 }
 async function choose(kind,value,method){
  if(busy||!current())return;
- if(!ready){el('status').textContent='Choose the existing gt folder before answering. Nothing saved.';return;}
+ if(!ready){el('status').textContent='Start browser saving or choose the existing gt folder before answering. Nothing saved.';return;}
  const owner=el('owner').value.trim();if(!owner){el('status').textContent='Enter your name before answering.';return;}
  if(kind==='number'&&!String(value??'').trim()){el('status').textContent='Enter the correct printed value.';return;}
  const item=current(),batch=byBatch.get(item.batch),handle=handles.get(item.page);
  const answer={kind,value_as_printed:kind==='number'?String(value).trim():null,verified_by:owner,verified_at:new Date().toISOString(),method};
  busy=true;show();el('status').textContent='Saving…';
  try{
+  if(browserMode){
+   const stored=validateBrowserState(await browserTransaction('readonly',store=>store.get(browserKey)));
+   const nextAnswers={...stored.answers,[item.id]:answer},nextHistory=[...stored.history,{item_id:item.id,answer}];
+   await browserTransaction('readwrite',store=>store.put(browserState(nextAnswers,nextHistory),browserKey));
+   answers=nextAnswers;history=nextHistory;
+   position++;while(position<items.length&&answers[items[position].id])position++;
+   el('status').textContent='Saved in this browser. You can stop and resume; Export answers for import into GT.';
+   return;
+  }
   // Reload before each write: preserve full-page data and any other saved sample answers.
   const gt=JSON.parse(await(await handle.getFile()).text()),old=checkedReview(gt,batch,item.page);
   const review=old??{manifest_sha256:batch.manifest_sha256,scope:'frozen_sample_only',answers:{},history:[]};
@@ -80,25 +135,25 @@ async function choose(kind,value,method){
   review.status=batch.items.filter(i=>i.page===item.page).every(i=>review.answers[i.id])?'sampled GT complete':'sampled GT partial';
   gt.sample_reviews={...(gt.sample_reviews??{}),[item.batch]:review};
   const writable=await handle.createWritable();await writable.write(JSON.stringify(gt,null,2)+'\n');await writable.close();
-  Object.assign(answers,review.answers);position++;
+  Object.assign(answers,review.answers);history.push({item_id:item.id,answer});position++;
   while(position<items.length&&answers[items[position].id])position++;
   el('status').textContent='Saved '+item.page+'.json. You can stop and resume.';
  }catch(error){el('status').textContent='Save failed; item has not advanced: '+error.message;}
  finally{busy=false;show();}
 }
 el('folder').onclick=async()=>{
- if(busy)return;ready=false;handles=new Map();answers={};position=0;
+ if(busy)return;ready=false;browserMode=false;handles=new Map();answers={};history=[];position=0;
  try{
   if(!window.showDirectoryPicker)throw Error('Folder writing requires Chrome or Edge. Open this file there and choose the existing gt folder.');
   const folder=await window.showDirectoryPicker({mode:'readwrite'});
-  const loaded={},selected=new Map();
+  const loaded={},loadedHistory=[],selected=new Map();
   for(const page of new Set(items.map(i=>i.page))){
    const handle=await folder.getFileHandle(page+'.json',{create:false});
    const gt=JSON.parse(await(await handle.getFile()).text());
-   for(const batch of batches.filter(b=>b.items.some(i=>i.page===page))){const r=checkedReview(gt,batch,page);if(r)Object.assign(loaded,r.answers);}
+   for(const batch of batches.filter(b=>b.items.some(i=>i.page===page))){const r=checkedReview(gt,batch,page);if(r){Object.assign(loaded,r.answers);loadedHistory.push(...(r.history??[]));}}
    selected.set(page,handle);
   }
-  handles=selected;answers=loaded;ready=true;
+  handles=selected;answers=loaded;history=loadedHistory;ready=true;
   position=items.findIndex(i=>!answers[i.id]);if(position===-1)position=items.length;
   if(!el('owner').value&&Object.values(answers)[0])el('owner').value=Object.values(answers)[0].verified_by;
   el('status').textContent='GT folder connected. Every answer saves before advancing.';
@@ -121,5 +176,5 @@ document.addEventListener('keydown',async event=>{
  if(action){event.preventDefault();await el(action).onclick();}
 });
 show();
-el('status').textContent='Open in Chrome or Edge, enter your name, then choose eval/reading/real/gt. Grant file-write access when prompted.';
+el('status').textContent='Firefox: enter your name, then Start / resume browser saving. Chrome/Edge can also choose eval/reading/real/gt for direct saving. Export answers when finished.';
 </script></body></html>
