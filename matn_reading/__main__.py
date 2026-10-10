@@ -1,6 +1,4 @@
-"""``python -m matn_reading read <pdf> --out <folder>``: see matn_reading/cli.py."""
-import sys
+from .structure.cli import main
 
-from .cli import main
-
-sys.exit(main())
+if __name__ == '__main__':
+    raise SystemExit(main())

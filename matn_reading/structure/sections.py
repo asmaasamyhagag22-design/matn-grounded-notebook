@@ -32,7 +32,7 @@ def build_sections(snapshot,elements):
     def node(title,depth,source,path,parent,indices,anchor=None):
         blocks=tuple(citable[i].block.block_id for i in indices)
         pages=[citable[i].block.page_index for i in indices] or [0]
-        sid=structure_id(doc,'s',VERSION,[source,list(path),anchor,list(blocks)])
+        sid=structure_id(doc,'s',VERSION,[source,list(path),anchor])
         n={'section_id':sid,'doc_id':doc,'title':title,'parent_id':parent,'child_ids':(), 'level':depth,'path':path,'source':source,'heading_block_id':anchor,'block_ids':blocks,'page_range':(min(pages),max(pages))}
         nodes.append(n);return n
     if not anchors:

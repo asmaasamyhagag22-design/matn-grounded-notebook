@@ -150,6 +150,7 @@ class Section(VersionedContract):
     producer_version: str=VERSION
     @model_validator(mode='after')
     def valid(self):
+        if self.section_id!=structure_id(self.doc_id,'s',self.producer_version,[self.source,list(self.path),self.heading_block_id]): raise ValueError('section identity')
         if self.child_ids and self.block_ids: raise ValueError('internal ownership')
         if self.page_range[0]>self.page_range[1]: raise ValueError('page range')
         return self
@@ -237,6 +238,8 @@ class Chunk(VersionedContract):
         if cursor!=len(self.text): raise ValueError('offset length')
         if any(s.end>len(self.text) for s in self.sentence_spans): raise ValueError('sentence outside chunk')
         if self.word_count!=len(self.text.split()): raise ValueError('word count')
+        material=[self.section_id,self.kind,self.text,[m.model_dump(exclude={'primary_chunk_id'}) for m in self.offset_map],self.table_id,self.row_range]
+        if self.chunk_id!=structure_id(self.doc_id,'c',self.producer_version,material): raise ValueError('chunk identity')
         return self
 
 class DocumentStructure(VersionedContract):
@@ -252,6 +255,28 @@ class DocumentStructure(VersionedContract):
     chunks: tuple[Chunk,...]
     excluded_blocks: dict[str,tuple[str,...]]
     issues: tuple[StructureIssue,...]=()
+    @model_validator(mode='after')
+    def valid(self):
+        expected={e.block.block_id:e.exclusion_reasons for e in self.elements if not e.citable}
+        if self.excluded_blocks!=expected: raise ValueError('excluded ledger')
+        for values,key in [(self.elements,lambda e:e.block.block_id),(self.sections,lambda s:s.section_id),(self.tables,lambda t:t.table_id),(self.chunks,lambda c:c.chunk_id)]:
+            if len({key(v) for v in values})!=len(values): raise ValueError('duplicate structure id')
+        by_id={s.section_id:s for s in self.sections}
+        for s in self.sections:
+            if s.doc_id!=self.doc_id: raise ValueError('section document')
+            seen=set();parent=s
+            while parent.parent_id:
+                if parent.section_id in seen: raise ValueError('section cycle')
+                seen.add(parent.section_id)
+                if parent.parent_id not in by_id: raise ValueError('missing parent')
+                above=by_id[parent.parent_id]
+                if parent.section_id not in above.child_ids: raise ValueError('parent/child mismatch')
+                parent=above
+            for child in s.child_ids:
+                if child not in by_id or by_id[child].parent_id!=s.section_id: raise ValueError('missing child')
+        if any(e.block.doc_id!=self.doc_id for e in self.elements): raise ValueError('element document')
+        if any(c.section_id not in by_id or c.doc_id!=self.doc_id for c in self.chunks): raise ValueError('chunk document/section')
+        return self
 
 class OfflineRunManifest(VersionedContract):
     doc_id: DocId
