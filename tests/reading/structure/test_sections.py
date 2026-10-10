@@ -18,3 +18,19 @@ def test_page_windows_and_fused_heading_findings():
     sections,issues=build_sections(s,elements)
     assert sections[0].source=='page_window'
     assert any(i.reason=='fused_heading' and i.block_id==elements[0].block.block_id for i in issues)
+
+def test_numbered_table_rows_are_not_layout_headings():
+    from .conftest import record,snapshot
+    from matn_reading.structure.elements import build_elements
+    from matn_reading.structure.sections import build_sections
+    s=snapshot([record('1 Revenue','table'),record('2 Costs','table',order=1)])
+    es,_=build_elements(s);sections,_=build_sections(s,es)
+    assert len(sections)==1 and sections[0].source=='page_window'
+
+def test_isolated_currency_heading_is_not_a_section_title():
+    from .conftest import record,snapshot
+    from matn_reading.structure.elements import build_elements
+    from matn_reading.structure.sections import build_sections
+    s=snapshot([record('Body prose.'),record('$','heading',order=1),record('12','table',order=2)])
+    es,_=build_elements(s);sections,_=build_sections(s,es)
+    assert len(sections)==1 and sections[0].source=='page_window'

@@ -14,11 +14,14 @@ def build_sections(snapshot,elements):
     sizes=sorted({e.block.style.font_size_pt for e in citable if e.role=='heading' and e.block.style.font_size_pt},reverse=True)
     for i,e in enumerate(citable):
         text=e.block.text.strip();num=_NUMBER.match(text)
-        supplemental=(num or _CHAPTER.match(text)) and len(text)<=150
-        if e.role=='heading' or supplemental:
+        supplemental=e.role=='text' and (num or _CHAPTER.match(text)) and len(text)<=150
+        meaningful=any(ch.isalpha() for ch in text)
+        if e.role=='heading' and not meaningful:
+            issues.append(StructureIssue(reason='heading_without_title',pdf_page_index=e.block.page_index,block_id=e.block.block_id))
+        if (e.role=='heading' and meaningful) or supplemental:
             depth=len(num.group(1).split('.')) if num else (sizes.index(e.block.style.font_size_pt)+1 if e.block.style.font_size_pt in sizes else 1)
             anchors[i]=[depth,'layout_heading',text]
-        elif num and len(text)>150:
+        elif e.role=='text' and num and len(text)>150:
             issues.append(StructureIssue(reason='fused_heading',pdf_page_index=e.block.page_index,block_id=e.block.block_id))
     last=-1
     for mark in snapshot.get('outline',[]):
