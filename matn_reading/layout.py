@@ -159,6 +159,14 @@ class LayoutBlock:
 
 def group_lines(words: Sequence[Word], *, digital_body: float | None = None) -> list[Line]:
     """Words whose vertical centres fall within half a line height form a row; a wide horizontal gap splits the row."""
+    # Detect persistent columns with the original grouping before a font-face
+    # join can erase their gutter. Single-line fragments remain eligible for
+    # inline joining; OCR keeps the original path and all geometry thresholds.
+    gutters = []
+    if digital_body is not None:
+        base = group_blocks(group_lines(words))
+        gutters = find_gutters([b for b in base if len(b.lines) > 1
+                               and abs(b.size - digital_body) <= SIZE_TOLERANCE_PT])
     rows: list[list[Word]] = []
     for word in sorted(words, key=lambda w: ((w.top + w.bottom) / 2, w.x0)):
         centre = (word.top + word.bottom) / 2
@@ -178,6 +186,7 @@ def group_lines(words: Sequence[Word], *, digital_body: float | None = None) -> 
             state_changed = (word.visibility, word.visibility_reasons, word.vertical) != (
                 previous.visibility, previous.visibility_reasons, previous.vertical)
             inline_face = (digital_body is not None and previous.font_face != word.font_face
+                           and not any(previous.x1 <= left and right <= word.x0 for left, right in gutters)
                            and abs(previous.size-digital_body)<=SIZE_TOLERANCE_PT
                            and abs(word.size-digital_body)<=SIZE_TOLERANCE_PT
                            and abs(previous.bottom-word.bottom)<=0.2*digital_body

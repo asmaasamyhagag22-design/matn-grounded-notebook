@@ -34,3 +34,21 @@ def test_b1_nonadjacent_bold_pdf_run_rejoins_same_line(tmp_path):
     assert not any(b.layout.text=='evidence' for b in page.blocks)
 
 
+
+
+def test_b1_inline_face_join_preserves_detected_multiline_column_gutter(tmp_path):
+    import pdfplumber
+    left='Left words stay in their column.'
+    content=b''.join(text(72,y,left) for y in [700,686,672])
+    path=write_pdf(tmp_path/'narrow-columns.pdf',content)
+    with pdfplumber.open(path) as pdf:
+        right=max(c['x1'] for c in pdf.pages[0].chars if c['top']<100)+17
+    # Same 17pt face boundary as the late-inline fixture, but these are
+    # persistent multiline columns rather than fragments of one body line.
+    content+=text(right,700,'Right heading','F2')
+    content+=text(right,686,'Right words stay in their column.')
+    content+=text(right,672,'Right words stay in their column.')
+    page=read_document(write_pdf(path,content)).pages[0]
+    left_blocks=[b for b in page.blocks if 'Left words' in b.layout.text]
+    assert left_blocks and all('Right' not in b.layout.text for b in left_blocks)
+    assert any(b.layout.text.startswith('Right heading') for b in page.blocks)
