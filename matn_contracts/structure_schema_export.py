@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from . import structure
 
-NAMES=('BBoxRef','BlockSpan','PrimarySpan','RepeatedContextSpan','OffsetSpan','SentenceSpan','NumberTokenRef','StructureIssue','Element','PageGeometry','Section','TableCell','Table','Chunk','DocumentStructure','OfflineRunManifest')
+NAMES=('BBoxRef','BlockSpan','PrimarySpan','RepeatedContextSpan','OffsetSpan','SentenceSpan','NumberTokenRef','StructureIssue','Element','PageGeometry','Section','TableCell','Table','Chunk','PageCoverage','CoverageSummary','DocumentStructure','OfflineRunManifest')
 
 def render_schema_files():
     result={}

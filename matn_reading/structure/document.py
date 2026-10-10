@@ -11,6 +11,7 @@ from .sections import build_sections
 from .tables import build_tables
 from .chunks import build_chunks
 from .coverage import validate_coverage
+from .page_coverage import build_page_coverage
 from .versions import VERSION
 
 COORDINATES='PDF points; MediaBox top-left origin; x right, y down; per-page cropbox and size; OCR inverse deskew applied; bbox_precision explicit'
@@ -36,7 +37,8 @@ def assemble(snapshot):
     validate_coverage(elements,sections,chunks)
     meta={p['page_index']:p for p in snapshot.get('pdf_metadata_pages',[])}
     pages=tuple(PageGeometry(pdf_page_index=p['page_index'],page_label=p['page_label'],width=p['width'],height=p['height'],cropbox=BBoxRef(coordinates=tuple(p['cropbox']),bbox_precision='region'),rotation=meta.get(p['page_index'],{}).get('rotation',0),route=p['route']) for p in snapshot['pages'])
-    return DocumentStructure(doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={s:VERSION for s in ('elements','sections','tables','chunks','document')},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
+    coverage,summary=build_page_coverage(snapshot,elements)
+    return DocumentStructure(coverage=coverage,coverage_summary=summary,doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={s:VERSION for s in ('elements','sections','tables','chunks','document')},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
 
 
 def write_structure(snapshot,folder):

@@ -246,7 +246,42 @@ class Chunk(VersionedContract):
         if self.chunk_id!=structure_id(self.doc_id,'c',self.producer_version,material): raise ValueError('chunk identity')
         return self
 
+class PageCoverage(VersionedContract):
+    pdf_page_index: int=Field(ge=0)
+    excluded_words_by_reason: dict[str,int]
+    possible_prose_in_figure_count: int=Field(ge=0)
+    possible_prose_in_figure_block_ids: tuple[str,...]
+    suspected_order_break_count: int=Field(ge=0)
+    suspected_order_break_block_ids: tuple[str,...]
+    unlinked_numbers_by_disposition: dict[Literal['digital-unlinked','flagged-unlinked'],int]
+    @model_validator(mode='after')
+    def valid(self):
+        for count,ids in [(self.possible_prose_in_figure_count,self.possible_prose_in_figure_block_ids),
+                          (self.suspected_order_break_count,self.suspected_order_break_block_ids)]:
+            if count!=len(ids) or len(set(ids))!=len(ids): raise ValueError('coverage count/ids')
+        if any(v<0 for values in (self.excluded_words_by_reason,self.unlinked_numbers_by_disposition) for v in values.values()): raise ValueError('negative coverage count')
+        return self
+
+class CoverageSummary(VersionedContract):
+    excluded_words_by_reason: dict[str,int]
+    possible_prose_in_figure_count: int=Field(ge=0)
+    suspected_order_break_count: int=Field(ge=0)
+    unlinked_numbers_by_disposition: dict[Literal['digital-unlinked','flagged-unlinked'],int]
+    @classmethod
+    def from_pages(cls,pages):
+        from collections import Counter
+        excluded=Counter();unlinked=Counter()
+        for page in pages:
+            excluded.update(page.excluded_words_by_reason);unlinked.update(page.unlinked_numbers_by_disposition)
+        return cls(excluded_words_by_reason=dict(sorted(excluded.items())),
+                   possible_prose_in_figure_count=sum(p.possible_prose_in_figure_count for p in pages),
+                   suspected_order_break_count=sum(p.suspected_order_break_count for p in pages),
+                   unlinked_numbers_by_disposition=dict(sorted(unlinked.items())))
+
 class DocumentStructure(VersionedContract):
+    schema_version: Literal[2]=2
+    coverage: tuple[PageCoverage,...]
+    coverage_summary: CoverageSummary
     doc_id: DocId
     title: str
     producer_versions: dict[str,str]
@@ -261,6 +296,20 @@ class DocumentStructure(VersionedContract):
     issues: tuple[StructureIssue,...]=()
     @model_validator(mode='after')
     def valid(self):
+        page_indices={p.pdf_page_index for p in self.pages}
+        if len(self.coverage)!=len(page_indices) or {p.pdf_page_index for p in self.coverage}!=page_indices: raise ValueError('coverage pages')
+        if self.coverage_summary!=CoverageSummary.from_pages(self.coverage): raise ValueError('coverage summary')
+        element_pages={e.block.block_id:e.block.page_index for e in self.elements}
+        for page in self.coverage:
+            from collections import Counter
+            excluded=Counter();unlinked=Counter()
+            for element in self.elements:
+                if element.block.page_index!=page.pdf_page_index: continue
+                for reason in element.exclusion_reasons: excluded[reason]+=len(element.block.text.split())
+                for number in element.number_tokens:
+                    if element.citable and number.status in ('digital-unlinked','flagged-unlinked'): unlinked[number.status]+=1
+            if page.excluded_words_by_reason!=dict(excluded) or page.unlinked_numbers_by_disposition!=dict(unlinked): raise ValueError('coverage source counts')
+            if any(element_pages.get(bid)!=page.pdf_page_index for bid in page.possible_prose_in_figure_block_ids+page.suspected_order_break_block_ids): raise ValueError('coverage block/page')
         expected={e.block.block_id:e.exclusion_reasons for e in self.elements if not e.citable}
         if self.excluded_blocks!=expected: raise ValueError('excluded ledger')
         for values,key in [(self.elements,lambda e:e.block.block_id),(self.sections,lambda s:s.section_id),(self.tables,lambda t:t.table_id),(self.chunks,lambda c:c.chunk_id)]:

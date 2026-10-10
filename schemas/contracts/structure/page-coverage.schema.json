@@ -1,0 +1,71 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "excluded_words_by_reason": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "title": "Excluded Words By Reason",
+      "type": "object"
+    },
+    "pdf_page_index": {
+      "minimum": 0,
+      "title": "Pdf Page Index",
+      "type": "integer"
+    },
+    "possible_prose_in_figure_block_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Possible Prose In Figure Block Ids",
+      "type": "array"
+    },
+    "possible_prose_in_figure_count": {
+      "minimum": 0,
+      "title": "Possible Prose In Figure Count",
+      "type": "integer"
+    },
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "suspected_order_break_block_ids": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Suspected Order Break Block Ids",
+      "type": "array"
+    },
+    "suspected_order_break_count": {
+      "minimum": 0,
+      "title": "Suspected Order Break Count",
+      "type": "integer"
+    },
+    "unlinked_numbers_by_disposition": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "propertyNames": {
+        "enum": [
+          "digital-unlinked",
+          "flagged-unlinked"
+        ]
+      },
+      "title": "Unlinked Numbers By Disposition",
+      "type": "object"
+    }
+  },
+  "required": [
+    "pdf_page_index",
+    "excluded_words_by_reason",
+    "possible_prose_in_figure_count",
+    "possible_prose_in_figure_block_ids",
+    "suspected_order_break_count",
+    "suspected_order_break_block_ids",
+    "unlinked_numbers_by_disposition"
+  ],
+  "title": "PageCoverage",
+  "type": "object"
+}
