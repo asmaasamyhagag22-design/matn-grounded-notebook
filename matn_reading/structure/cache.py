@@ -47,10 +47,19 @@ def load_snapshot(path):
     return value
 
 
-def preflight_ocr(snapshots):
+def preflight_ocr(snapshots, *, approval_file=None):
     pages=[{'doc_id':s.get('doc_id'),'page_index':p['page_index'],'route':p['route'],'reasons':p['reasons']}
            for s in snapshots for p in s['pages'] if p['route'] in OCR_ROUTES]
-    if len(pages)>10: raise ValueError('OCR_CAP:'+canonical(pages))
+    if approval_file is not None:
+        approval=json.loads(Path(approval_file).read_text(encoding='utf-8'))
+        identity='sha256-'+approval['sha256']
+        if len(snapshots)!=1 or snapshots[0].get('doc_id')!=identity:
+            raise ValueError('OCR_APPROVAL_SHA')
+        approved=approval['pdf_page_indices']
+        routed=[p['page_index'] for p in pages]
+        if len(approved)!=len(set(approved)) or len(routed)!=len(set(routed)) or set(routed)!=set(approved):
+            raise ValueError('OCR_APPROVAL_SET')
+    elif len(pages)>10: raise ValueError('OCR_CAP:'+canonical(pages))
     return pages
 
 
