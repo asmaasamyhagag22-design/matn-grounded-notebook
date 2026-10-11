@@ -1,8 +1,8 @@
-# R-lite v1 — من القراية لنص ينفع يتراجع ويتستشهد بيه
+# R-lite — من القراية لنص ينفع يتراجع ويتستشهد بيه
 
 R-lite بياخد Blocks القارئ المجمّد ويطلع elements، شجرة sections، tables، chunks و`document.json`. الشغل ده deterministic: مفيش LLM، embeddings، شبكة، تنزيلات أو dependencies جديدة. السبب إن الاستشهاد لازم يرجع لنص موجود ومكان معروف، والأرقام لازم تتنقل بالكود بدل ما model يعيد كتابتها.
 
-القارئ وOCR ليهم قراراتهم المجمّدة. R-lite ما بيصلّحش النص ولا بيغيّر رقم. acquisition المعتمد قرا الـ3 dev documents مرة واحدة، وسجّل routes قبل OCR، واستخدم 8 صفحات من الحد العالمي10 تحت egress guard. باقي البناء بيستخدم cache. الـ6 real-scan pages اتعمل لها replay؛ مفيش OCR جديد ليها. Test split مقفول.
+بناء structure ما بيصلّحش نص snapshot ولا بيغيّر رقم. تغييرات القارئ الرقمية المحدودة في R-lite.1 وR-lite.2 اتوافقت بالاسم وليها fingerprint جديد؛OCR/rules ثابتين. acquisition المعتمد قرا الـ3 dev documents مرة واحدة، وسجّل routes قبل OCR، واستخدم 8 صفحات من الحد العالمي10 تحت egress guard. باقي البناء بيستخدم cache. الـ6 real-scan pages اتعمل لها replay؛ مفيش OCR جديد ليها. Test split مقفول.
 
 ## تشغيل وإعادة بناء
 
@@ -16,7 +16,7 @@ R-lite بياخد Blocks القارئ المجمّد ويطلع elements، شج�
 
 ## العقود
 
-كل العقود الجديدة `schema_version: 1` في `matn_contracts/structure.py`، والـJSON Schema snapshots في `schemas/contracts/structure/`. الـBlock الأصلي بيفضل بعقده القديم من غير تغيير enums أو fields.
+`DocumentStructure` بقى `schema_version: 2` في R-lite.2؛باقي العقود `schema_version: 1` في `matn_contracts/structure.py`، والـJSON Schema snapshots في `schemas/contracts/structure/`. الـBlock الأصلي بيفضل بعقده القديم من غير تغيير enums أو fields.
 
 | عقد | أهم fields | ليه والـinvariants |
 |---|---|---|
@@ -25,7 +25,7 @@ R-lite بياخد Blocks القارئ المجمّد ويطلع elements، شج�
 | Table | table_id، pdf_page_index، bbox، block_ids، structure، unavailable_reason، rows، cols، header_rows، cells | available لازم grid صالح؛ unavailable لازم reason وخلايا فاضية. مفيش خلية متخمنة. |
 | TableCell | row، col، row_span، col_span، text، bbox، source_spans، numeric_tokens، is_header | bbox جوه region، مفيش grid assignment مكرر، والنص مرتبط بمصدره. merged bounds المبهمة بتخلي البنية unavailable. |
 | Chunk | chunk_id، section_id، kind، text، context_prefix، offset_map، primary، repeated_context، sentence_spans، numeric_tokens، prev/next_chunk_id، word_count، flags، table_id، row_range | retrieval unit مستقلة عن citation. map يعيد نفس النص حرفيًا، وneighbors في نفس section. |
-| DocumentStructure | doc_id، title، producer_versions، reader_fingerprint، coordinate_convention، pages، elements، sections، tables، chunks، excluded_blocks، issues | يجمع provenance graph؛ ids وعلاقات الشجرة وسبب كل استبعاد بيتراجعوا. |
+| DocumentStructure | doc_id، title، producer_versions، reader_fingerprint، coordinate_convention، pages، elements، sections، tables، chunks، excluded_blocks، issues، coverage، coverage_summary | يجمع provenance graph؛ ids وعلاقات الشجرة وسبب كل استبعاد بيتراجعوا. |
 
 `BlockSpan` و`PrimarySpan`: block_id، start، end، boxes. الـoffsets Unicode code points، والـend مش داخل المدى. `RepeatedContextSpan` بيزود primary_chunk_id. `OffsetSpan` نوعه primary/repeated_context/separator. `SentenceSpan` له start/end/flags جوه الـchunk.
 
@@ -112,6 +112,24 @@ B3 digital lexical line break زي end- +to-end يحتفظ بالـhyphen لما
 Reader fingerprint جديد يعني caches جديدة؛ القديمة immutable. الـacquisition كاملة؛ subset reads بتاعة guards ممكن تغيّر body size/furniture وتجزئة word، لأن دول محسوبين على الصفحات المختارة. ما نخلطش subsets عشان نبني مستند كامل؛ G5 يقارن نفس snapshot ونفس page selection. Acquisition يعيد digital فقط وينقل صفحات OCR القديمة كاملة بلا worker/inference. G-R1 يقارن مجموعة raw silent items مع HEAD بنفس doc/page/token/reference bbox/reader bbox؛ bbox tuples/lists تتحول JSON arrays بلا rounding. G-R2 reader-attributed errors=0. arXiv p19 signed +30.45% artifact متراجع بصريًا من4b.2؛ raw1/1 منفصل عن reader-attributed0/0. أي raw item جديد أو مختلف يوقف الشغل.
 
 القياس الجديد في reports/r-lite-1.md وreports/r-lite-1-diff.md؛ G4 مسمّى seen after R-lite diagnostics. Before/after block ids ممكن تتغير لما النص أو geometry تتغير؛ citations القديمة تخص الـsnapshot القديم، مش نسخة reader جديدة. Chunk target250/max350/tiny50/page-window3 والـgold normalization ثابتين.
+
+## R-lite.2: الـPDF نفسه وضّح إيه؟
+
+P1 اتعمل قبل أي إصلاح، من chars/fonts/sizes/baselines، ترتيب text objects، الـfilled rects والـregions. `reports/r-lite-2-p1.md` و`out/r-lite-2/p1-evidence.json` فيهم الصفحة وsplit وكل branch. Dev-tune فقط لفهم الميكانيزم وبناء fixture؛dev-check تقرير، مش مصدر thresholds. المالكة حددت دي آخر خطوة reading قبل RAG core.
+
+M3 كان defect في provenance: B2 حوّل prose داخل خلايا GAO لمسار prose، لكن `_table_block` كتب **كل** خلايا pdfplumber فوق نص block اللي سجله فيه headings بس. نفس الممارسات اتنسخت مرتين، والنسخة الجدولية فيها31 رقم بلا source-word record محلي. الإصلاح بيخلي نص الجدول من الكلمات اللي اتجمعت فعلًا؛الخلايا ملاحظات structure منفصلة. مفيش نسخ نص من block تاني، ولا pipes متصنّعة جوا مصدر القارئ. لو ربط الخلية بالنص مش واضح، الجدول يفضل unavailable بدل geometry مضللة.
+
+M2 في WB p18 مش bold متأخر: `account / deficit / widened` كلمات بخط عادي جوه نفس text object، والـPDF مبرر السطر بفراغات أكبر من1.5em. B1 كان بيسمح بالjoin لما font face يتغير، فمطبقش. الفراغات قسمت السطر، ورفض `_continues` ضم fragments على نفس baseline؛block الفقرة الأقدم ظهر قبل الكلمات المنفصلة. دلوقتي join ينفع لكلمات body على نفس baseline ليها **unique text-object membership**، من غير توسيع gap threshold. Visibility والـcolumn gutters لسه حدود؛heading مستقل وأكبر يفضل مستقل. Cache بيحتفظ بـfont_face وtext_object_id وvisibility_reasons كمعلومات إضافية للكلمات، من غير تعديل عقد Block. Object مبهم أو تداخل طبقات ما يتصلّحش بالتخمين.
+
+M1 الـ20 C3 samples دخلت figure من sparse connected drawing rectangles مع >=4 numeric labels؛ده جمع مناطق prose كأنها chart. 13 samples عندها prose10.02pt جوه cells، لكن document body11pt، فشرط global font رفضها. الإصلاح يستخدم modal font داخل كل filled region بنفس tolerance القديمة0.6pt؛عدد السطور والكلمات ونهايات الجمل والـnumeric-label/axis/rotation gates ثابتة. أربع samples بلا filled rect مؤهل وثلاث headings قصيرة؛دي حدود معلنة، مش سبب لتوسيع recovery rule. Counter-case chart بمحاور داخلية لسه figure_text.
+
+`coverage` في document v2 فيها record لكل صفحة: excluded_words_by_reason، possible_prose_in_figure_count/block_ids، suspected_order_break_count/block_ids، unlinked_numbers_by_disposition. `coverage_summary` لازم يساوي مجموع الصفحات. Counts الاستبعاد بتستخدم whitespace words؛الأسباب غير حصرية، فblock عليه سببين يتعد في الاثنين. Unlinked counts للأرقام في **citable** elements فقط. Counts الاستبعاد والأرقام لازم تطابق المصدر، مش مجرد مجموع شكله سليم.
+
+صفر source-word deficits معناه إن canonical reader text بيتبني من سجله، مش شهادة إن ترتيب كل كلمة في الورق صحيح. WB p34 فيها footnotes مسترجعة ونص القارئ القديم خالط فيها Box/title text؛دي limitation ظاهرة في crops/report. Detector ترتيب M2 بيرصد splits بين blocks، مش كل فساد ترتيب جوه block واحدة. ومثال unlinked الجديد WB p16: `19 percent` له source word، لكن paragraph merge جمع معاه COVID- /19، فشرط A3 لعدد numeric occurrences رفض link. القيمة ما اتغيّرتش والflag ما اتشالش. جداول GAO structured بقت12 بدل19 لأن cells مبهمة ما تتربطش بالنص بالتخمين.
+
+Detectors flags فقط: figure visible فيها >=4 words ممكن تحتوي prose؛وdetector ترتيب M2 يرصد split بين blocks على baseline واحدة عند wide gap أو visibility change، داخل column boundaries، خصوصًا لما object link مفقود. ده احتمال يحتاج مراجعة، مش حكم إن الشكل prose ولا تصريح باستخدام hidden/uncertain. ولا detector بيغيّر Element.citable أو chunk text. RAG core يقدر يعرض نقص التغطية بدل ما loss يفضل صامت، من غير تحويل flags لدليل.
+
+النتائج الفعلية والـbuckets والـbefore/after crops في `reports/r-lite-2.md` و`out/r-lite-2/`. G4 معلّم seen؛أي miss باقٍ مش تصريح بإعادة tuning. OCR/rules/gold وchunk parameters ثابتين، وقراءات OCR الموجودة اتعمل لها replay byte-identical. الإصلاحات الرقمية فقط لها fingerprint جديد. Citation يفضل block_id + span؛reader update ممكن يغيّر block ids، فلازم RAG يعيد الفهرسة من snapshot الجديدة.
 
 ## 9 أسئلة مقابلة
 
