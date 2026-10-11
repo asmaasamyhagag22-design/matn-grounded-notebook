@@ -2,8 +2,8 @@
 import re
 from collections import Counter
 from matn_contracts.structure import Section,StructureIssue
-from matn_contracts.structure_ids import structure_id
-from .versions import VERSION,PAGE_WINDOW
+from matn_contracts.structure_ids import structure_id,section_material,SECTION_IDENTITY_VERSION
+from .versions import PAGE_WINDOW
 
 _NUMBER=re.compile(r'^\s*(\d+(?:\.\d+)*)(?:[.)]?\s+)(?=[A-Za-z])')
 _CHAPTER=re.compile(r'^\s*Chapter\s+\w+',re.I)
@@ -55,12 +55,15 @@ def build_sections(snapshot,elements):
         else:
             i=matches[0];anchors[i]=[mark['level']+1,'outline',mark['title']];last=i
     if not citable: return (),tuple(issues)
-    doc=snapshot['doc_id'];nodes=[]
+    doc=snapshot['doc_id'];nodes=[];ids=set()
     def node(title,depth,source,path,parent,indices,anchor=None):
         blocks=tuple(citable[i].block.block_id for i in indices)
         pages=[citable[i].block.page_index for i in indices] or [0]
-        sid=structure_id(doc,'s',VERSION,[source,list(path),anchor])
-        n={'producer_version':VERSION,'section_id':sid,'doc_id':doc,'title':title,'parent_id':parent,'child_ids':(), 'level':depth,'path':path,'source':source,'heading_block_id':anchor,'block_ids':blocks,'page_range':(min(pages),max(pages))}
+        page_range=(min(pages),max(pages))
+        sid=structure_id(doc,'s',SECTION_IDENTITY_VERSION,section_material(source,path,anchor,parent,page_range))
+        if sid in ids: raise ValueError('DUPLICATE_SECTION_ID')
+        ids.add(sid)
+        n={'producer_version':SECTION_IDENTITY_VERSION,'section_id':sid,'doc_id':doc,'title':title,'parent_id':parent,'child_ids':(), 'level':depth,'path':path,'source':source,'heading_block_id':anchor,'block_ids':blocks,'page_range':page_range}
         nodes.append(n);return n
     if not anchors:
         group=[];window=None

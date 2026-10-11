@@ -4,7 +4,7 @@ import hashlib
 import time
 from pathlib import Path
 from matn_contracts.structure import DocumentStructure,PageGeometry,BBoxRef,Table
-from matn_contracts.structure_ids import canonical
+from matn_contracts.structure_ids import canonical,SECTION_IDENTITY_VERSION
 from .cache import save_snapshot,load_snapshot,core_fingerprint,cache_key,page_record
 from .elements import build_elements
 from .sections import build_sections
@@ -38,7 +38,7 @@ def assemble(snapshot):
     meta={p['page_index']:p for p in snapshot.get('pdf_metadata_pages',[])}
     pages=tuple(PageGeometry(pdf_page_index=p['page_index'],page_label=p['page_label'],width=p['width'],height=p['height'],cropbox=BBoxRef(coordinates=tuple(p['cropbox']),bbox_precision='region'),rotation=meta.get(p['page_index'],{}).get('rotation',0),route=p['route']) for p in snapshot['pages'])
     coverage,summary=build_page_coverage(snapshot,elements)
-    return DocumentStructure(coverage=coverage,coverage_summary=summary,doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={s:VERSION for s in ('elements','sections','tables','chunks','document')},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
+    return DocumentStructure(coverage=coverage,coverage_summary=summary,doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={**{s:VERSION for s in ('elements','tables','chunks','document')},'sections':SECTION_IDENTITY_VERSION},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
 
 
 def write_structure(snapshot,folder):

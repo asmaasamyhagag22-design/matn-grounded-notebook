@@ -13,7 +13,7 @@ from pydantic import Field, model_validator
 from .base import VersionedContract
 from .domain import Block, DocId
 from .ids import validate_bbox
-from .structure_ids import structure_id
+from .structure_ids import structure_id,section_material,SECTION_IDENTITY_VERSION
 
 VERSION='r-lite-1'
 
@@ -154,7 +154,8 @@ class Section(VersionedContract):
     producer_version: str=VERSION
     @model_validator(mode='after')
     def valid(self):
-        if self.section_id!=structure_id(self.doc_id,'s',self.producer_version,[self.source,list(self.path),self.heading_block_id]): raise ValueError('section identity')
+        material=section_material(self.source,self.path,self.heading_block_id,self.parent_id,self.page_range) if self.producer_version==SECTION_IDENTITY_VERSION else [self.source,list(self.path),self.heading_block_id]
+        if self.section_id!=structure_id(self.doc_id,'s',self.producer_version,material): raise ValueError('section identity')
         if self.child_ids and self.block_ids: raise ValueError('internal ownership')
         if self.page_range[0]>self.page_range[1]: raise ValueError('page range')
         return self
