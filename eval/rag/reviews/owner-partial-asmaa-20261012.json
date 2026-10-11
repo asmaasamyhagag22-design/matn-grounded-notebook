@@ -1,0 +1,133 @@
+{
+  "schema": "matn-rag-owner-answers/1",
+  "manifest": "ff02ca92eafb6ffc8bab58be0e7a23bf4bfb337a17dbbec5f5d790ad4572c272",
+  "answers": {
+    "2601-14525v1-kp-04": {
+      "answerable_from_target": "y",
+      "answer_leaked": "y",
+      "also_answered_elsewhere": "unsure",
+      "comment": "",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T20:51:02.079Z"
+    },
+    "2601-14525v1-kn-01": {
+      "answerable_from_target": "y",
+      "answer_leaked": "n",
+      "also_answered_elsewhere": "y",
+      "comment": "",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T20:52:34.844Z"
+    },
+    "2601-14525v1-kn-02": {
+      "answerable_from_target": "y",
+      "answer_leaked": "n",
+      "also_answered_elsewhere": "y",
+      "comment": "المقدمة بتقول “over 90%”، لكن الرسم بيحدد 96% لـOpus و90% لـSonnet؛ يعني Sonnet عند 90% بالضبط.",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T20:55:33.319Z"
+    },
+    "2601-14525v1-kp-09": {
+      "answerable_from_target": "y",
+      "answer_leaked": "n",
+      "also_answered_elsewhere": "n",
+      "comment": "",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T20:56:37.621Z"
+    },
+    "2601-14525v1-kp-17": {
+      "answerable_from_target": "y",
+      "answer_leaked": "n",
+      "also_answered_elsewhere": "y",
+      "comment": "",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T21:00:39.033Z"
+    },
+    "gao-21-519sp-kp-10": {
+      "answerable_from_target": "y",
+      "answer_leaked": "y",
+      "also_answered_elsewhere": "y",
+      "comment": "",
+      "verified_by": "asmaa",
+      "timestamp": "2026-10-11T21:04:05.856Z"
+    }
+  },
+  "history": [
+    {
+      "id": "2601-14525v1-kp-04",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "y",
+        "also_answered_elsewhere": "unsure",
+        "comment": "",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T20:51:02.079Z"
+      }
+    },
+    {
+      "id": "2601-14525v1-kn-01",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "n",
+        "also_answered_elsewhere": "y",
+        "comment": "",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T20:52:34.844Z"
+      }
+    },
+    {
+      "id": "2601-14525v1-kn-02",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "n",
+        "also_answered_elsewhere": "y",
+        "comment": "المقدمة بتقول “over 90%”، لكن الرسم بيحدد 96% لـOpus و90% لـSonnet؛ يعني Sonnet عند 90% بالضبط.",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T20:54:33.382Z"
+      }
+    },
+    {
+      "id": "2601-14525v1-kn-02",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "n",
+        "also_answered_elsewhere": "y",
+        "comment": "المقدمة بتقول “over 90%”، لكن الرسم بيحدد 96% لـOpus و90% لـSonnet؛ يعني Sonnet عند 90% بالضبط.",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T20:55:33.319Z"
+      }
+    },
+    {
+      "id": "2601-14525v1-kp-09",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "n",
+        "also_answered_elsewhere": "n",
+        "comment": "",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T20:56:37.621Z"
+      }
+    },
+    {
+      "id": "2601-14525v1-kp-17",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "n",
+        "also_answered_elsewhere": "y",
+        "comment": "",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T21:00:39.033Z"
+      }
+    },
+    {
+      "id": "gao-21-519sp-kp-10",
+      "answer": {
+        "answerable_from_target": "y",
+        "answer_leaked": "y",
+        "also_answered_elsewhere": "y",
+        "comment": "",
+        "verified_by": "asmaa",
+        "timestamp": "2026-10-11T21:04:05.856Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,352 @@
+{
+  "manifest": "ff02ca92eafb6ffc8bab58be0e7a23bf4bfb337a17dbbec5f5d790ad4572c272",
+  "reviewer": "GPT (Codex)",
+  "items": [
+    {
+      "id": "gao-21-519sp-kp-15",
+      "target_spans": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0078:c3d85ffd5f145ed9",
+          "start": 113,
+          "end": 317,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:8d5c188f76a25105",
+          "pdf_page_index": 78,
+          "page_label": null,
+          "bbox": [
+            36.72,
+            256.2885,
+            575.4248100000003,
+            396.87642000000005
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "gao-21-519sp-kn-03",
+      "target_spans": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0069:4956ebb5629028b0",
+          "start": 35,
+          "end": 94,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:f0ad707081d49576",
+          "pdf_page_index": 69,
+          "page_label": null,
+          "bbox": [
+            36.72,
+            331.2946200000001,
+            565.212312,
+            351.3585
+          ]
+        },
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0069:a2c07f115bf0aab1",
+          "start": 0,
+          "end": 48,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:f0ad707081d49576",
+          "pdf_page_index": 69,
+          "page_label": null,
+          "bbox": [
+            215.97804000000008,
+            344.31690000000015,
+            571.1173560000005,
+            485.2561800000002
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "gao-21-519sp-kn-09",
+      "target_spans": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0073:2105d7204da97689",
+          "start": 466,
+          "end": 530,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:9df262d99c3b648d",
+          "pdf_page_index": 73,
+          "page_label": null,
+          "bbox": [
+            216.0,
+            162.2684999999999,
+            575.5159440000004,
+            420.2106600000002
+          ]
+        },
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0073:2105d7204da97689",
+          "start": 530,
+          "end": 587,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:9df262d99c3b648d",
+          "pdf_page_index": 73,
+          "page_label": null,
+          "bbox": [
+            216.0,
+            162.2684999999999,
+            575.5159440000004,
+            420.2106600000002
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "gao-21-519sp-kp-06",
+      "target_spans": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0029:a37ce0dd7e4b18f5",
+          "start": 0,
+          "end": 240,
+          "primary_chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:e50a1a7e76f59420",
+          "pdf_page_index": 29,
+          "page_label": null,
+          "bbox": [
+            217.01987999999994,
+            209.3120399999999,
+            561.2472720000001,
+            272.31528000000003
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wb-eem-2021-12-kn-02",
+      "target_spans": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0006:1b180aa23e72c3cc",
+          "start": 95,
+          "end": 205,
+          "primary_chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:7fd1662b3aabfe56",
+          "pdf_page_index": 6,
+          "page_label": null,
+          "bbox": [
+            72.024,
+            575.00464,
+            540.22,
+            668.00464
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0012:57ff3e9c42148aa9",
+          "pdf_page_index": 12,
+          "text": "The unemployment rate moderated after the initial spike at the beginning of the COVIDshock. However, the pandemic continues to adversely affect employment (especially for women), and is exacerbating long-standing structural challenges. Unemployment (as a share of the labor force) declined from 9.6 percent a year earlier (at the height of the COVID-shock) to 7.3 percent by Q4-FY2020/21, before inching up to 7.5 percent in Q1-FY2021/22. Female and youth unemployment rates (at 15 percent and 19.2 percent, respectively) have also broadly moderated, although partially explained by withdrawals of women from the labor force, notably during Q3- and Q4-FY2020/21 (CAPMAS Quarterly Labor Force Survey). These labor market outturns are generally supported by the results from the Monthly Phone Surveys in Egypt (MPSE) conducted in February and July 2021 which similarly indicate that the impact of the COVID-shock started to wind down, although the recovery is still underway. Among the surveyed “Main Income Earners” (MIEs), 72 percent of men in the sample reported to be employed in July 2021, up from 67 percent during lockdown; albeit still 5 PPT lower than the"
+        }
+      ]
+    },
+    {
+      "id": "wb-eem-2021-12-kn-06",
+      "target_spans": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0018:3a95c9371d1cf77c",
+          "start": 847,
+          "end": 986,
+          "primary_chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:dbd7589c2d6b8ea5",
+          "pdf_page_index": 18,
+          "page_label": null,
+          "bbox": [
+            72.024,
+            73.68464000000006,
+            294.96632,
+            439.73464
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wb-eem-2021-12-kn-08",
+      "target_spans": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0024:2ca378b397a702ae",
+          "start": 625,
+          "end": 715,
+          "primary_chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:bb078ba967842eab",
+          "pdf_page_index": 24,
+          "page_label": null,
+          "bbox": [
+            72.024,
+            103.68464000000006,
+            294.93967999999995,
+            578.93464
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0007:1b6361cf629e29df",
+          "pdf_page_index": 7,
+          "text": "Under the baseline scenario that assumes a gradually improving COVID-19 situation, Egypt is expected to revert to its pre-pandemic growth path and push ahead with reforms to contain the budget deficit- and government debt-to-GDP ratios. The outlook still remains clouded by the global challenges related to disease variants and vaccine deployment. Similar to the global outlook, Egypt’s near- and medium-term prospects depend, in large part, on the containment of the pandemic. The baseline scenario assumes that the vaccination process would accelerate both domestically and abroad, and reinstated lockdowns would be temporary, such that the overall COVID-stringy measures would be on a generally declining trend. Under this scenario, Egypt’s growth would revert to its pre-pandemic path, reaching a pace of 5.5 percent in FY2021/22. While exports of goods and services are projected to continue recovering, external financing requirements are expected to remain rather elevated through FY2021/22— 23, as imports are also forecast to increase in tandem with the resumption of growth in addition to the recent appreciation in the real exchange rate. Further, global financial conditions may tighten and in turn may raise the cost of foreign financing. On the fiscal front, the government debt-to-GDP ratio is expected to resume"
+        }
+      ]
+    },
+    {
+      "id": "wb-eem-2021-12-kp-09",
+      "target_spans": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0024:2ca378b397a702ae",
+          "start": 0,
+          "end": 160,
+          "primary_chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:bb078ba967842eab",
+          "pdf_page_index": 24,
+          "page_label": null,
+          "bbox": [
+            72.024,
+            103.68464000000006,
+            294.93967999999995,
+            578.93464
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0007:1b6361cf629e29df",
+          "pdf_page_index": 7,
+          "text": "Under the baseline scenario that assumes a gradually improving COVID-19 situation, Egypt is expected to revert to its pre-pandemic growth path and push ahead with reforms to contain the budget deficit- and government debt-to-GDP ratios. The outlook still remains clouded by the global challenges related to disease variants and vaccine deployment. Similar to the global outlook, Egypt’s near- and medium-term prospects depend, in large part, on the containment of the pandemic. The baseline scenario assumes that the vaccination process would accelerate both domestically and abroad, and reinstated lockdowns would be temporary, such that the overall COVID-stringy measures would be on a generally declining trend. Under this scenario, Egypt’s growth would revert to its pre-pandemic path, reaching a pace of 5.5 percent in FY2021/22. While exports of goods and services are projected to continue recovering, external financing requirements are expected to remain rather elevated through FY2021/22— 23, as imports are also forecast to increase in tandem with the resumption of growth in addition to the recent appreciation in the real exchange rate. Further, global financial conditions may tighten and in turn may raise the cost of foreign financing. On the fiscal front, the government debt-to-GDP ratio is expected to resume"
+        }
+      ]
+    },
+    {
+      "id": "wb-eem-2021-12-kn-03",
+      "target_spans": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0007:2ba9a1465a3abca0",
+          "start": 200,
+          "end": 305,
+          "primary_chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:acef0bcdffd130a1",
+          "pdf_page_index": 7,
+          "page_label": null,
+          "bbox": [
+            72.024,
+            73.68464000000006,
+            540.27088,
+            207.60464000000002
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0017:a2634280e7de5d26",
+          "pdf_page_index": 17,
+          "text": "Foreign reserves were supported by the substantial remittances as well as capital and financial inflows. While foreign reserves continue to be below the pre-pandemic peak of US$45.5 billion at end-February 2020, they have been inching upwards since end-FY2019/20, and remain at rather comfortable levels, recorded at 40.8 billion at end-October 2021 (covering 7"
+        }
+      ]
+    },
+    {
+      "id": "wef-q-39",
+      "target_spans": [
+        {
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0108:8a8e2e5142b0ad5c",
+          "start": 0,
+          "end": 167,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ef7ab1389579e1b2",
+          "pdf_page_index": 108,
+          "page_label": null,
+          "bbox": [
+            358.5826,
+            481.4766999999992,
+            559.8316,
+            582.4926999999993
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wef-q-35",
+      "target_spans": [
+        {
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0239:3e39262ff48afbf1",
+          "start": 0,
+          "end": 2118,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:753b0d37224f72f2",
+          "pdf_page_index": 239,
+          "page_label": null,
+          "bbox": [
+            17.249999999999986,
+            27.650449999999978,
+            575.9985999999999,
+            768.6362
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wef-q-21",
+      "target_spans": [
+        {
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0184:4f99e4b70da5508b",
+          "start": 0,
+          "end": 2671,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b2850807605cd21f",
+          "pdf_page_index": 184,
+          "page_label": null,
+          "bbox": [
+            17.25,
+            43.462999999999965,
+            575.9980999999999,
+            675.4727
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wef-q-28",
+      "target_spans": [
+        {
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:b3f7ccd08d548f29",
+          "start": 0,
+          "end": 292,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eaa55fa4db369be8",
+          "pdf_page_index": 286,
+          "page_label": null,
+          "bbox": [
+            143.1496,
+            113.36769999999967,
+            336.8728,
+            214.3026999999994
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    },
+    {
+      "id": "wef-q-08",
+      "target_spans": [
+        {
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0258:ac335685fb521cdd",
+          "start": 0,
+          "end": 2476,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:6f1b5beaa9686451",
+          "pdf_page_index": 258,
+          "page_label": null,
+          "bbox": [
+            17.25,
+            27.650449999999978,
+            575.9943,
+            578.7227
+          ]
+        }
+      ],
+      "native_crops_inspected": true,
+      "elsewhere_evidence": []
+    }
+  ]
+}
