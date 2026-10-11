@@ -1,0 +1,86 @@
+[
+  {
+    "name": "exact_approved_set",
+    "sha256": "f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271",
+    "routed_indices": [
+      0,
+      19,
+      21,
+      32,
+      35,
+      37,
+      65,
+      66,
+      74,
+      75,
+      80,
+      83,
+      85,
+      87
+    ],
+    "error": null
+  },
+  {
+    "name": "routed_missing_from_approval",
+    "sha256": "f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271",
+    "routed_indices": [
+      0,
+      19,
+      21,
+      32,
+      35,
+      37,
+      65,
+      66,
+      74,
+      75,
+      80,
+      83,
+      85,
+      87,
+      88
+    ],
+    "error": "OCR_APPROVAL_SET"
+  },
+  {
+    "name": "stale_approved_page",
+    "sha256": "f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271",
+    "routed_indices": [
+      0,
+      19,
+      21,
+      32,
+      35,
+      37,
+      65,
+      66,
+      74,
+      75,
+      80,
+      83,
+      85
+    ],
+    "error": "OCR_APPROVAL_SET"
+  },
+  {
+    "name": "sha_mismatch",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+    "routed_indices": [
+      0,
+      19,
+      21,
+      32,
+      35,
+      37,
+      65,
+      66,
+      74,
+      75,
+      80,
+      83,
+      85,
+      87
+    ],
+    "error": "OCR_APPROVAL_SHA"
+  }
+]
