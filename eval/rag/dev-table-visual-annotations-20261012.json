@@ -1,0 +1,768 @@
+{
+  "seed": 20261012,
+  "state": "report-only-not-frozen",
+  "sampling": "Random(20261012).sample(pool,20); pool sorted by (source key, chunk_id); all table-kind chunks from final rebuilt dev3 structures; no stratification or replacement",
+  "pool_count": 59,
+  "pool_counts_by_source": {
+    "2601-14525v1": 0,
+    "gao-21-519sp": 55,
+    "wb-eem-2021-12": 4
+  },
+  "provenance": "Codex visual judgment",
+  "render_scale_px_per_pt": 1.5,
+  "items": [
+    {
+      "sample_index": 0,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:749caefd7d139351",
+      "text": "1.1 Clear goals: Define clear goals and objectives for the AI system to ensure intended outcomes are achieved. 1.2 Roles and responsibilities: Define clear roles, responsibilities, and delegation of authority for the AI system to ensure effective operations, timely corrections, and sustained oversight.",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0029:dc6baa95f65378d3",
+          "boxes": [],
+          "end": 303,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        29
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-00-p0029.png",
+          "pdf_page_index": 29,
+          "bbox": [
+            31.1200008392334,
+            563.7249755859375,
+            570.1823120117188,
+            616.5650024414062
+          ],
+          "sha256": "1609d5c3d6a2667626c704b2936ec9096dd0b126e50c7ca9b83d736dbfb2c5d4"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 1,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:03c7000bb9d6f636",
+      "text": "Data Used for Model Development 2.3 Categorization: Assess attributes used to categorize data. Questions to Consider Audit Procedures • Collect data schemas that describe how data are categorized and • What attributes are used to categorize data? organized. • To what extent are the data attributes accurate, • Review data schemas and processes to identify sensitive data complete, and valid? sets/fields and assess whether the data are complete, accurate, and • What is the method for segregating data into training, valid. validation, and testing sets? • Interview data stakeholders to understand how data attributes are • To what extent is the training, validation, and testing defined. data representative of the operational environment? • What assumptions, if any, were made about the operational environment? 2.4 Variable Selection: Assess data variables used in the AI component models. Questions to Consider Audit Procedures • What is the variable selection and evaluation process? • Collect original, derived, or filtered data, and processes used or evaluations applied to select variables. • How were sensitive variables (e.g., demographic and • Review the independence and suitability of statistical properties. socioeconomic categories) that may be subject to regulatory compliance specifically selected or not • Interview data stakeholders to understand data variable selection selected for modeling purposes? and assessment process. 2.5 Enhancement: Assess the use of synthetic, imputed, and/or augmented data. Questions to Consider Audit Procedures • What is the entity’s rationale for using synthetic, imputed, and/or augmented data? generated, maintained, and integrated? • What assumptions, if any, were made in the process of generating synthetic, imputed, and/or augmented data?",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0049:561511c1423618b6",
+          "boxes": [],
+          "end": 1798,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        49
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-01-p0049.png",
+          "pdf_page_index": 49,
+          "bbox": [
+            30.15999984741211,
+            63.4119987487793,
+            572.43896484375,
+            615.8062133789062
+          ],
+          "sha256": "cf331db28c5b72beb03f3e8504febfc4b661681f2b08276b015966acc883c869"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 2,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:e3aeda959efca25c",
+      "text": "3.1 Documentation: Catalog model and non-model components along with operating specifications and parameters.\n",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0053:a6b3444d2dc56957",
+          "boxes": [],
+          "end": 109,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        53
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-02-p0053.png",
+          "pdf_page_index": 53,
+          "bbox": [
+            31.1200008392334,
+            223.34500122070312,
+            512.7385864257812,
+            248.8040008544922
+          ],
+          "sha256": "cfce016ddcfd3a6b50469e5a13dfc43137857e924b521d2465d0f4ea6993ecc9"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 3,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:0cd5750839b6d2a5",
+      "text": "Governance at the Systems Level 1.7 Specifications: Establish and document technical specifications to ensure the AI system meets its intended purpose. Questions to Consider Audit Procedures to solve? • To what extent has the entity clearly defined technical specifications and requirements for the AI system? • How do the technical specifications and requirements align with the AI system’s goals and objectives? • What justifications, if any, has the entity provided for the assumptions, boundaries, and limitations of the AI system? 1.8 Compliance: Ensure the AI system complies with relevant laws, regulations, standards, and guidance. Questions to Consider Audit Procedures",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0038:6a5f5c57cff894bf",
+          "boxes": [],
+          "end": 678,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        38
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-03-p0038.png",
+          "pdf_page_index": 38,
+          "bbox": [
+            30.15999984741211,
+            62.93199920654297,
+            538.1375732421875,
+            375.37200927734375
+          ],
+          "sha256": "073d11d5df48ef0c10ae9ed6650b50e7d77096f44f2c18e897fd53ec1ea10306"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 4,
+      "source": "wb-eem-2021-12",
+      "chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:8ef1512683cc2ce8",
+      "text": "FY16 FY17 FY18 FY19 FY20 FY21 FY22 FY23 Actual Actual Actual Actual Actual Pre-Actual Forecast Forecast Real Sector and Prices GDP at market prices (Current prices, LE bn) 2,709.4 3,470.0 4,437.4 5,322.1 5,855.0 6,341.0 7,165.3 8,168.5 GDP growth rate (Constant prices) 4.3 4.2 5.3 5.6 3.6 3.3 5.5 5.5 GDP deflator growth (%) 6.2 22.9 21.4 13.6 6.2 4.8 7.1 8.1 Population (in millions) (mid-year CAPMAS data) 91.0 95.2 97.1 98.9 100.5 101.9 103.6 105.5 Unemployment rate (Last quarter in fiscal year) (%) 12.5 12.0 9.9 7.5 9.6 7.3 7.4 7.2 CPI inflation, (Urban, Period average) 10.2 23.3 21.6 13.9 5.7 4.5 7.0 8.0 GDP per capita (Current prices, US$) 3,652.3 2,476.1 2,570.5 3,064.5 3,634.4 3,963.5 4,190.4 4,554.6 Public finance (% of GDP) Total revenues 18.1 19.0 18.5 17.7 16.7 17.2 17.3 17.7 Tax revenues 13.0 13.3 14.2 13.8 12.6 13.0 13.3 13.7 Grants 0.1 0.5 0.1 0.0 0.1 0.0 0.0 0.0 Other non-tax revenues 5.0 5.2 4.3 3.8 3.9 4.2 4.0 4.0 Total Expenditures (excl. NAFA) 30.2 29.7 28.0 25.7 24.5 24.6 24.5 24.4 Current expenditures 27.6 26.6 25.6 23.0 21.2 20.8 21.1 20.9 Capital expenditures 2.6 3.1 2.5 2.7 3.3 3.8 3.5 3.5 Net Acquisition of Financial Assets (NAFA) 0.5 0.2 0.2 0.0 0.1 0.0 0.0 0.1 Overall Budget Balance -12.5 -10.9 -9.7 -8.1 -7.9 -7.4 -7.2 -6.8 Primary Balance -3.5 -1.8 0.1 1.9 1.8 1.5 1.8 2.0 Gross Domestic Budget Sector Debt 94.9 90.0 78.2 72.5 68.1 71.6 71.5 69.1 Gross Budget Sector Debt (Domestic + External) 102.8 108.0 97.3 90.2 87.0 91.6 93.0 90.0 External sector Trade Balance (% of GDP) -11.6 -15.8 -14.9 -12.5 -10.0 -10.4 -10.5 -9.6 Current Account Balance (% of GDP) -6.0 -6.1 -2.4 -3.6 -3.1 -4.6 -4.4 -4.1 Net Foreign Direct Investment Inflows (% of GDP) 2.1 3.4 3.1 2.7 2.0 1.3 1.5 1.9 Capital and Financial Account Balance (% of GDP) (excludes 6.4 13.2 8.8 3.6 1.5 5.8 4.3 3.7 errors and omissions) Overall Balance of Payments (% of GDP) -0.8 5.8 5.1 0.0 -2.4 0.5 -0.1 -0.4 Net international reserves (NIR) (end of period, US$ bn) 17.5 31.3 44.3 44.5 38.2 40.6 39.9 38.2 NIR in months of same year's merchandise imports 3.7 6.4 8.4 8.0 7.3 6.9 6.1 5.6 External Debt (% of GDP) 18.3 41.1 37.2 34.0 33.9 34.0 34.3 32.4 External Government Debt (Serviced by MoF) (% of GDP) 7.9 18.0 19.0 17.8 18.9 20.0 21.5 20.9 Monetary sector Domestic Liquidity (M2) annual growth rate 18.6 39.3 18.4 11.8 17.5 18.0 18.0 17.0 Private Sector Credit annual growth rate 14.2 38.0 10.1 12.4 19.5 20.5 21.0 21.0 Private sector credit annual real growth rate (%) 4.0 14.7 -11.4 -1.5 13.8 16.0 14.0 13.0",
+      "primary": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0026:0938e7869f42e2cc",
+          "boxes": [],
+          "end": 2520,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        26
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-04-p0026.png",
+          "pdf_page_index": 26,
+          "bbox": [
+            71.15188598632812,
+            129.3001708984375,
+            561.9550170898438,
+            703.2302856445312
+          ],
+          "sha256": "e7a0c8c68c8e8bf029cd067c789c24479caefc51870fbfd3f92d5eeb13a1ebdf"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a bordered metric-by-fiscal-year numeric table, with labelled rows and columns.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 5,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:0a4448d9b295aa24",
+      "text": "3.7 Assessment: Assess performance against defined metrics to ensure the AI system functions as intended and is sufficiently robust. Questions to Consider Audit Procedures • What testing, if any, has the entity conducted on the • Collect documentation on testing methodology and data on AI system to identify errors and limitations (i.e. performance testing. adversarial or stress testing)? • Review documentation and data to assess whether the testing was • Who is responsible for testing the AI system? sufficient to ensure system performance, robustness, and detection of unwanted biases or other concerns. • To what extent can users or parties affected by the • Interview AI technical stakeholders to assess whether system tests outputs of the AI system test the AI system and provide feedback? were appropriate and sufficient.",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0060:4a22214f8617d650",
+          "boxes": [],
+          "end": 831,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        60
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-05-p0060.png",
+          "pdf_page_index": 60,
+          "bbox": [
+            30.15999984741211,
+            463.7857666015625,
+            571.6884155273438,
+            653.2462158203125
+          ],
+          "sha256": "007beb13a52e8095c455d6961664350e5fb88db79a5d4e24ab2c8a6d0b13e362"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 6,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:af0e556b33f490d7",
+      "text": "3.2 Metrics: Define performance metrics that are precise, consistent, and reproducible. Questions to Consider Audit Procedures • What metrics has the entity developed to measure performance of various components? • What is the justification for the metrics selected? • Who is responsible for developing the performance metrics? • To what extent do the metrics provide accurate and useful measure of performance? • To what extent are the metrics consistent with goals, objectives, and constraints?",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0058:4387710a86adb921",
+          "boxes": [],
+          "end": 496,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        58
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-06-p0058.png",
+          "pdf_page_index": 58,
+          "bbox": [
+            30.15999984741211,
+            288.22576904296875,
+            436.57806396484375,
+            499.70623779296875
+          ],
+          "sha256": "801ddbc595b00a344a2162ac39e7aa8f270801f3856d3ee1946f33b3d717061c"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 7,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:dc6981f45cd25370",
+      "text": "3.6 Metrics: Define performance metrics that are precise, consistent, and reproducible. Questions to Consider Audit Procedures • What metrics has the entity developed to measure performance of the AI system? • What is the justification for the metrics selected? • Who is responsible for developing the performance metrics? • To what extent are the metrics consistent with system goals, objectives, and constraints, including ethical and compliance considerations?",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0060:ddac9e850203ec6d",
+          "boxes": [],
+          "end": 463,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        60
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-07-p0060.png",
+          "pdf_page_index": 60,
+          "bbox": [
+            30.15999984741211,
+            271.72576904296875,
+            436.56707763671875,
+            465.44622802734375
+          ],
+          "sha256": "caedbf5f1afe3cf12a6b462829247c81c4d918482674d24fbf357321c25a3a30"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 8,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:ad84287bee55f465",
+      "text": "2.4 Variable Selection: Assess data variables used in the AI component models.\n",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0044:08308bdb1517f52c",
+          "boxes": [],
+          "end": 78,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        44
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-08-p0044.png",
+          "pdf_page_index": 44,
+          "bbox": [
+            31.1200008392334,
+            197.96499633789062,
+            371.2253112792969,
+            223.4239959716797
+          ],
+          "sha256": "1b857aff426770d791cea016b0064c2072a185915827d1aa4eb3e5ca464bdbfd"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 9,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:c3354958afb88816",
+      "text": "3.9 Human supervision: Define and develop procedures for human supervision of the AI system to ensure accountability. Questions to Consider Audit Procedures of human involvement in the automated decisionmaking processes? • What procedures have been established for human supervision of the AI system? • To what extent has the entity followed its procedures for human supervision to ensure accountability? Source: GAO analysis of U.S. and foreign government, industry, academic, and nonprofit organization documents; interviews; and forum discussion. | GAO-21-519SP Notes: In this table AI technical stakeholders can include data scientists, data engineers, developers, and program managers.",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0061:aa3aaf294e2dc9ff",
+          "boxes": [],
+          "end": 690,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        61
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-09-p0061.png",
+          "pdf_page_index": 61,
+          "bbox": [
+            30.15999984741211,
+            355.96575927734375,
+            519.0631103515625,
+            598.3702392578125
+          ],
+          "sha256": "a68445b2f0385009aa5e2c1ce4b86df54c60ee41f80fbf94ff7c2619dcd9e592"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 10,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:0d6f548f309d07c3",
+      "text": "1.3 Values: Demonstrate a commitment to values and principles established by the entity to foster public trust in responsible use of the AI system. 1.4 Workforce: Recruit, develop, and retain personnel with multidisciplinary skills and experiences in design, development, deployment, assessment, and monitoring of AI systems.",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0030:79c0c42c30e7e93a",
+          "boxes": [],
+          "end": 325,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        30
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-10-p0030.png",
+          "pdf_page_index": 30,
+          "bbox": [
+            31.1200008392334,
+            299.2449951171875,
+            567.434326171875,
+            360.6650085449219
+          ],
+          "sha256": "cc83fb01924cc3e9f0821314e121524ab508d134ca61063706029a84c2878fb3"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 11,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:39d5344bb53df466",
+      "text": "Governance at the Organizational Level 1.5 Stakeholder involvement: Include diverse perspectives from a community of stakeholders throughout the AI life cycle to mitigate risks. Questions to Consider Audit Procedures 1.6 Risk management: Implement an AI-specific risk management plan to systematically identify, analyze, and mitigate risks. Questions to Consider Audit Procedures",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0037:55d21dafb4b18057",
+          "boxes": [],
+          "end": 379,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        37
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-11-p0037.png",
+          "pdf_page_index": 37,
+          "bbox": [
+            30.15999984741211,
+            62.93199920654297,
+            565.1055297851562,
+            473.1120300292969
+          ],
+          "sha256": "2f2918ddcfb3da0673dc1da46dff80fe6182a147d7ac1dfe8cfdbccd5f1c8149"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 12,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:6d5d9c56fcd6fefc",
+      "text": "AI Life Cycle\nAccording to a review of literature, the life cycle of an Al system can\ninvolve several phases: design, development, deployment, and",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0018:5ca5b5ed0cbd5d67",
+          "boxes": [],
+          "end": 13,
+          "schema_version": 1,
+          "start": 0
+        },
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0018:1df0f231c99018e3",
+          "boxes": [],
+          "end": 71,
+          "schema_version": 1,
+          "start": 0
+        },
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0018:d2ea720a75a60537",
+          "boxes": [],
+          "end": 60,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        18
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-12-p0018.png",
+          "pdf_page_index": 18,
+          "bbox": [
+            30.400001525878906,
+            617.6799926757812,
+            552.3200073242188,
+            665.5999755859375
+          ],
+          "sha256": "8a2c10f406836492756a7b137c4a1ed2c509df4d5d216e38ce002b0600177650"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a glossary table row: term in left cell and definition in right cell; textual table fragment, not chart.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 13,
+      "source": "wb-eem-2021-12",
+      "chunk_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:c:30b3a3aa918a3f07",
+      "text": "Chapter 2 – The Far-Reaching Impact of Government Digital \nTransformation in Egypt",
+      "primary": [
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0027:58c8a0a31ae31e84",
+          "boxes": [],
+          "end": 58,
+          "schema_version": 1,
+          "start": 0
+        },
+        {
+          "block_id": "sha256-2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a:p0027:58c8a0a31ae31e84",
+          "boxes": [],
+          "end": 81,
+          "schema_version": 1,
+          "start": 58
+        }
+      ],
+      "pages": [
+        27
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-13-p0027.png",
+          "pdf_page_index": 27,
+          "bbox": [
+            64.02400207519531,
+            66.70800018310547,
+            553.4760131835938,
+            123.02799987792969
+          ],
+          "sha256": "e63dedd369cc294663d675dc89ff20fd4aba29cd46cb2431f5728033553e994b"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chapter/appendix heading, not data cells or chart; prose class includes headings.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 14,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:21d25d01d3d268fb",
+      "text": "1.9 Transparency: Promote transparency by enabling external stakeholders to access information on the design, operation, and limitations of the AI system.",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0033:c635298366a0e8c3",
+          "boxes": [],
+          "end": 154,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        33
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-14-p0033.png",
+          "pdf_page_index": 33,
+          "bbox": [
+            31.1200008392334,
+            391.885009765625,
+            558.2138061523438,
+            429.9257507324219
+          ],
+          "sha256": "e8f7fc60f1cd68be972c84a60fb497b9fd1083da1457313be6144f988d084c8c"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 15,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:d7edd19d104fd793",
+      "text": "Governance at the Organizational Level 1.3 Values: Demonstrate a commitment to values and principles established by the entity to foster public trust in responsible use of the AI system. Questions to Consider Audit Procedures • How does the entity demonstrate a commitment to stated values and principles? • To what extent has the entity operationalized its stated core values and principles for the AI system? • What policies has the entity developed to ensure the use of the AI system is consistent with its stated values and principles? • To what extent do these policies foster public trust and confidence in the use of the AI system? 1.4 Workforce: Recruit, develop, and retain personnel with multidisciplinary skills and experiences in design, development, deployment, assessment, and monitoring of AI systems. Questions to Consider Audit Procedures",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0036:e989b374e7a9f00e",
+          "boxes": [],
+          "end": 855,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        36
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-15-p0036.png",
+          "pdf_page_index": 36,
+          "bbox": [
+            30.15999984741211,
+            62.93199920654297,
+            551.045654296875,
+            388.81201171875
+          ],
+          "sha256": "58bd1c136a14ef9a35b6c9d5a632b0100f35d2e4c041c367d54ca873bce84991"
+        }
+      ],
+      "classification": "real table",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 16,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:f5ca7221e9dc8c24",
+      "text": "1.6 Risk management: Implement an AI-specific risk management plan to systematically identify, analyze, and mitigate risks.\n",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0031:886261d502f02d09",
+          "boxes": [],
+          "end": 123,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        31
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-16-p0031.png",
+          "pdf_page_index": 31,
+          "bbox": [
+            31.1200008392334,
+            382.7650146484375,
+            546.84228515625,
+            408.2239990234375
+          ],
+          "sha256": "0427950439bb90ef87c27600ee3384414d8cd1b12712ca822bf9a828915b7f5e"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 17,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:dff2b2da7c700f9d",
+      "text": "Appendix II: InsApipg ndhi t: snsi ftsr f oo am Com aroll Comptroller e g h r m pt e r General F o r um o n Ov er sight o f A rt i fici a l Inte ll ige n ce General Forum on Oversight of Artificial Intelligence",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0073:061c269a763bd099",
+          "boxes": [],
+          "end": 210,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        73
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-17-p0073.png",
+          "pdf_page_index": 73,
+          "bbox": [
+            28.0,
+            39.595001220703125,
+            518.2199096679688,
+            140.61500549316406
+          ],
+          "sha256": "e0eb582ca6998fe109b186c45f8a6df58ac5322128cfbf5373134f223c7ded35"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chapter/appendix heading, not data cells or chart; prose class includes headings.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 18,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:c7732c13262be801",
+      "text": "Generally Accepted Government Auditing Standards Audits provide essential accountability and transparency over government programs and processes. in providing Government accountability auditing is essential to legislators, oversight bodies, others charged with governance, and the public. The federal government’s auditing standards are presented in the Government Auditing Standards. These standards, commonly referred to as generally accepted government auditing standards (GAGAS) provide the foundation for government auditors to lead by example in the areas of independence, transparency, accountability, and quality throughout the audit process. Source: GAO. | GAO-21-519SP",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0095:c89e322a1f0563b7",
+          "boxes": [],
+          "end": 678,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        95
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-18-p0095.png",
+          "pdf_page_index": 95,
+          "bbox": [
+            28.540000915527344,
+            474.54400634765625,
+            205.80303955078125,
+            660.0499877929688
+          ],
+          "sha256": "c511789f9b70020ec4dbf470706a37b20f3eeae80dfd044d01e1e4cf07fff0d1"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a boxed prose principle/definition with source footer, not data cells or chart.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    },
+    {
+      "sample_index": 19,
+      "source": "gao-21-519sp",
+      "chunk_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:c:eef0f762f6bed88f",
+      "text": "Performance Principle: Produce results that are consistent with program objectives. Source: GAO. | GAO-21-519SP",
+      "primary": [
+        {
+          "block_id": "sha256-fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc:p0052:1118b92c55edb2ab",
+          "boxes": [],
+          "end": 111,
+          "schema_version": 1,
+          "start": 0
+        }
+      ],
+      "pages": [
+        52
+      ],
+      "crops": [
+        {
+          "path": "out/rag-core/dev-table-guard/table-19-p0052.png",
+          "pdf_page_index": 52,
+          "bbox": [
+            23.31999969482422,
+            215.58399963378906,
+            178.75613403320312,
+            271.19000244140625
+          ],
+          "sha256": "91d3fde40e43ddb4ed923f2edc7a8af2ede58b6bfaf7369b652fbc92930b8d6d"
+        }
+      ],
+      "classification": "prose",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a boxed prose principle/definition with source footer, not data cells or chart.",
+      "visually_inspected": true,
+      "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
+    }
+  ],
+  "classification_rubric": {
+    "prose": "Paragraphs, headings, definitions or lists including decorative boxes/bars; no cell lookup structure in the sampled span.",
+    "real table": "Visible row/column cell organization, including textual audit matrices and glossary term/definition rows, not only numerical tables.",
+    "chart text": "Labels/text associated with graphical marks, axes or dashboard indicators.",
+    "indeterminate": "Crop insufficient or ambiguous for classification."
+  },
+  "counts": {
+    "prose": 10,
+    "real table": 10,
+    "chart text": 0,
+    "indeterminate": 0
+  }
+}
