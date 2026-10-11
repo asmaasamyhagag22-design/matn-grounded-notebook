@@ -15,6 +15,7 @@ class Search:
     def query(self, notebook, selected, question, mode='focused', depth=None, ablation='hybrid'):
         if mode not in ('focused','survey') or ablation not in ('hybrid','bm25','vector','no-prefix'):
             raise ValueError('QUERY_MODE')
+        self.repo.validate_selection(notebook,selected)
         key=(notebook,tuple(sorted(selected)),getattr(self.repo,'revision',0))
         if key not in self.corpus_cache:self.corpus_cache[key]={'rows':self.repo.selected_chunks(notebook,selected)}
         cache=self.corpus_cache[key];rows=cache['rows']

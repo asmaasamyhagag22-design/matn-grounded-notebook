@@ -75,9 +75,19 @@ class SQLiteRepository:
         self.revision += 1
         return sid
 
-    def selected_chunks(self, notebook, selected):
+    def validate_selection(self, notebook, selected):
         if not selected or len(set(selected)) != len(selected) or not set(selected) <= set(self.source_ids(notebook)):
             raise ValueError('EMPTY_UNKNOWN_OR_DUPLICATE_SELECTION')
+        from .embedding import DIGEST
+        for sid in selected:
+            metadata=json.loads(self.db.execute('SELECT metadata FROM sources WHERE id=?',(sid,)).fetchone()[0])
+            versions=metadata['versions']
+            if versions.get('tokenizer')!=VERSION or versions.get('index')!=INDEX_VERSION or ('chunker' in versions and versions['chunker']!='r-lite-2'):
+                raise ValueError('STORED_INDEX_VERSION_MISMATCH')
+            if 'digest' in metadata and metadata['digest']!=DIGEST:raise ValueError('STORED_DIGEST_MISMATCH')
+
+    def selected_chunks(self, notebook, selected):
+        self.validate_selection(notebook,selected)
         result=[]
         for sid in sorted(selected):
             for row in self.db.execute('SELECT payload FROM chunks WHERE source=? ORDER BY id', (sid,)):

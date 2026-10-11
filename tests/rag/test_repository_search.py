@@ -28,8 +28,8 @@ def populate(repo, notebook='n', omit=()):
     return repo.source_ids(notebook)
 
 
-def test_lifecycle_canonical_delete_and_shared_cache(tmp_path):
-    Repo = api('matn_rag.sqlite', 'SQLiteRepository')
+def test_lifecycle_canonical_delete_and_shared_cache(tmp_path, repository_factory):
+    Repo = repository_factory
     a, b = Repo(tmp_path/'a.db'), Repo(tmp_path/'b.db')
     ids = populate(a)
     populate(b, omit=('B',))
@@ -45,8 +45,8 @@ def test_lifecycle_canonical_delete_and_shared_cache(tmp_path):
     assert a.integrity()['embedding_count'] == 0
 
 
-def test_idempotent_and_versions_refused(tmp_path):
-    Repo = api('matn_rag.sqlite', 'SQLiteRepository')
+def test_idempotent_and_versions_refused(tmp_path, repository_factory):
+    Repo = repository_factory
     repo = Repo(tmp_path/'a.db');ids = populate(repo);before = repo.canonical_export()
     assert repo.add_source('n', 'A', {'fingerprint': 'A', 'versions': {'tokenizer': 'rag-tokenizer-v1', 'index': 'rag-index-v1'}}, []) == ids[0]
     assert repo.canonical_export() == before
@@ -63,8 +63,8 @@ def test_selected_bm25_and_alias_positions():
     assert score([rows[0]], 'alpha')[0][1] != score(rows, 'alpha')[0][1]
 
 
-def test_search_prefix_coverage_zero_and_selection_independence(tmp_path):
-    Repo = api('matn_rag.sqlite', 'SQLiteRepository')
+def test_search_prefix_coverage_zero_and_selection_independence(tmp_path, repository_factory):
+    Repo = repository_factory
     Search = api('matn_rag.search', 'Search')
     repo = Repo(tmp_path/'a.db');ids = populate(repo)
     search = Search(repo, None, lexical_only=True)
@@ -83,3 +83,25 @@ def test_search_prefix_coverage_zero_and_selection_independence(tmp_path):
     s = search.query('n', repo.source_ids('n'), 'alpha', mode='survey', ablation='bm25')
     assert all(r['hits'] >= min(2, r['citable_count']) for r in s['summary'])
     assert 'coverage_shortfall' not in search.query(**kwargs)['summary'][0]
+
+
+def test_loaded_version_mismatch_is_refused_before_search(tmp_path):
+    Repo=api('matn_rag.sqlite','SQLiteRepository');Search=api('matn_rag.search','Search')
+    repo=Repo(tmp_path/'a.db');ids=populate(repo)
+    metadata={'fingerprint':'A','versions':{'tokenizer':'obsolete','index':'rag-index-v1'}}
+    with repo.db:repo.db.execute('UPDATE sources SET metadata=? WHERE id=?',(json.dumps(metadata),ids[0]))
+    with pytest.raises(ValueError,match='VERSION'):Search(repo,None,True).query('n',[ids[0]],'alpha')
+
+
+def test_survey_reserves_absent_global_candidates_and_c1(tmp_path, repository_factory):
+    Repo=repository_factory;Search=api('matn_rag.search','Search')
+    repo=Repo(tmp_path/'a.db');repo.create_notebook('n');meta={'fingerprint':'f','versions':{'tokenizer':'rag-tokenizer-v1','index':'rag-index-v1'}}
+    a=repo.add_source('n','large',meta,[chunk(f'A{i:03}','alpha') for i in range(65)])
+    b=repo.add_source('n','small',meta,[chunk('Z1','unmatched')])
+    search=Search(repo,None,True);ten=search.query('n',[a,b],'alpha','survey',10,'bm25');fifty=search.query('n',[a,b],'alpha','survey',50,'bm25')
+    assert ten['hits']==fifty['hits'][:10]
+    reserved=next(h for h in ten['hits'] if h['chunk_id']=='Z1')
+    assert reserved['coverage_slot'] and reserved['rrf_score']==0 and reserved['bm25_rank'] is None
+    summary=next(s for s in ten['summary'] if s['source_id']==b)
+    assert summary['hits']==1 and summary['coverage_shortfall']==1
+    with pytest.raises(ValueError,match='DEPTH'):search.query('n',[a,b],'alpha','survey',9,'bm25')
