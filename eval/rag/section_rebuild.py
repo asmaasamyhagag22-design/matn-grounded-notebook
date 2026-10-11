@@ -50,7 +50,17 @@ def run():
             save_snapshot(folder/'00_reading.json',snap)
             doc=write_structure(snap,folder)
             gates=assert_gates(doc)
-            changes=id_only(json.loads((path.parent/'05_document.json').read_bytes()),doc.model_dump(mode='json')) if compare else []
+            if compare:
+                changes=id_only(json.loads((path.parent/'05_document.json').read_bytes()),doc.model_dump(mode='json'))
+            else:
+                # WEF has no accepted baseline document. Record each mapping
+                # separately: the historical duplicate old IDs are not a map.
+                prior=Path('out/rag-core/wef-first-run')
+                old_sections=json.loads((prior/'provisional-sections.json').read_text())
+                old_chunks=[json.loads(line) for line in (prior/'provisional-chunks.jsonl').read_text().splitlines()]
+                changes=[{'kind':kind,'record_index':i,'old':old[key_id],'new':new[key_id]}
+                         for kind,key_id,old_rows,new_rows in [('sections','section_id',old_sections,[s.model_dump() for s in doc.sections]),('chunks','chunk_id',old_chunks,[c.model_dump() for c in doc.chunks])]
+                         for i,(old,new) in enumerate(zip(old_rows,new_rows))]
         save_snapshot(folder/'determinism/00_reading.json',snap)
         subprocess.run([sys.executable,'-m','eval.rag.section_rebuild','--worker',str(folder/'determinism')],check=True)
         files=('01_elements.jsonl','02_sections.json','03_tables.json','04_chunks.jsonl','05_document.json','document.json')
