@@ -1,0 +1,16 @@
+{
+  "state": "frozen-before-retrieval",
+  "seed": 20261012,
+  "sources": [
+    "2601-14525v1",
+    "gao-21-519sp",
+    "wb-eem-2021-12"
+  ],
+  "sha256": {
+    "questions.json": "e7340c725656b07d233940314c238524af8122f135a0c8339bfc767a14970859",
+    "survey.json": "44e780a6d130f50211c4a33f0814aefab472492a0e308a569ec31555b488a7e0",
+    "screen-verdicts.json": "fd4b63c1e9a862f459d0f8a83e58651439381bb88ca039418a52b19b59010a18"
+  },
+  "draft_splits_preserved": true,
+  "wef": "UNFROZEN, later DIAGNOSTIC only"
+}

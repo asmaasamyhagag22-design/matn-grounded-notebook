@@ -1,0 +1,60 @@
+{
+  "state": "frozen",
+  "provenance": "drafted by GPT (Codex)",
+  "purpose": "Structural coverage only; no relevance or precision labels",
+  "items": [
+    {
+      "id": "survey-01",
+      "question": "How can organizations use AI and digital technologies to improve their work?"
+    },
+    {
+      "id": "survey-02",
+      "question": "What factors affect the quality of data used in technology decisions?"
+    },
+    {
+      "id": "survey-03",
+      "question": "How should organizations assess whether technological changes achieve their intended objectives?"
+    },
+    {
+      "id": "survey-04",
+      "question": "What role do human skills and expertise play in successful AI and digital transformation?"
+    },
+    {
+      "id": "survey-05",
+      "question": "What risks arise when technology developed in one setting is applied in another?"
+    },
+    {
+      "id": "survey-06",
+      "question": "How can organizational governance support responsible technology adoption?"
+    },
+    {
+      "id": "survey-07",
+      "question": "What barriers prevent organizations from realizing the benefits of new technologies?"
+    },
+    {
+      "id": "survey-08",
+      "question": "How can continuous measurement and feedback improve technological performance?"
+    },
+    {
+      "id": "survey-09",
+      "question": "What limits and uncertainties should decision makers acknowledge when relying on empirical findings?"
+    },
+    {
+      "id": "survey-10",
+      "question": "How does investment in infrastructure affect the ability to use digital tools?"
+    },
+    {
+      "id": "survey-11",
+      "question": "What strategies can help organizations adapt to changes in tasks and workforce needs?"
+    },
+    {
+      "id": "survey-12",
+      "question": "How can organizations prevent unfair outcomes while introducing AI and digital services?"
+    }
+  ],
+  "sources": [
+    "2601-14525v1",
+    "gao-21-519sp",
+    "wb-eem-2021-12"
+  ]
+}
