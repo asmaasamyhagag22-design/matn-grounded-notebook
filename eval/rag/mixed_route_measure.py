@@ -68,7 +68,7 @@ def run():
                 errors.append(error);row['accepted_value_disagreement']=True
             pairs.append(row)
         pairs.extend({'digital':None,'ocr':o,'status':'ocr_unmatched_or_ambiguous'} for k,o in enumerate(ot) if k not in used)
-        pages.append({'pdf_page_index':i,'digital_words':len(dw),'ocr_words':len(ow),'word_counts':dict(counts),'word_counts_by_role':[{'digital_role':a,'ocr_role':b,'counts':dict(v)} for (a,b),v in roles.items()],'alignment':alignment,'every_numeric_token':pairs,'disposition_moves':dict(moves)})
+        pages.append({'pdf_page_index':i,'digital_words':len(dw),'ocr_words':len(ow),'word_counts':dict(counts),'word_counts_by_role':[{'digital_role':a,'ocr_role':b,'counts':dict(v)} for (a,b),v in roles.items()],'alignment':alignment,'every_numeric_token':pairs,'raw_ocr_reader_tokens':after['pages'][i]['ocr']['tokens'],'disposition_moves':dict(moves)})
     result={'method':'NFKC/casefold word SequenceMatcher autojunk=false; replace gaps paired by ordinal (alignment observations, not accuracy). Numeric mutual-unique word-box overlap >=0.30, value-blind; ambiguous and region precision never assumed matched. All roles included; citable flag separate.','pages':pages,'accepted_value_disagreements':errors,'new_inference_calls':0}
     (ROOT/'measurement.json').write_text(json.dumps(result,indent=2)+'\n')
     if errors:

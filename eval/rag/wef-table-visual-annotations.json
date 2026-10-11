@@ -1,0 +1,207 @@
+{
+  "seed": 20261012,
+  "state": "report-only",
+  "provenance": "Codex visual judgment",
+  "items": [
+    {
+      "sample_index": 0,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:74a61b2af04cb989",
+      "pages": [
+        166
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 1,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:00b13cc2d9d00da7",
+      "pages": [
+        14
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 2,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e18f0050ef77a0d6",
+      "pages": [
+        142
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 3,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0d256694f0f2374f",
+      "pages": [
+        39
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 4,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:002c65fadc5eb3b7",
+      "pages": [
+        203
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 5,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0cfadac8488636e4",
+      "pages": [
+        245
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 6,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a1f2cb5680261aa3",
+      "pages": [
+        118
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 7,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e43356f50ac43e06",
+      "pages": [
+        236
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 8,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dac8fc5a92d7bf88",
+      "pages": [
+        34
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 9,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:9cb45596bab93a83",
+      "pages": [
+        150
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 10,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c5c0b43e0a8bb3a5",
+      "pages": [
+        200
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 11,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:133067c8868bed39",
+      "pages": [
+        195
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 12,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:3dd80ffc8c45e313",
+      "pages": [
+        269
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 13,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:73151ed5e931cb54",
+      "pages": [
+        256
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 14,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2e6ffa958d841bff",
+      "pages": [
+        259
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 15,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:3fa68e7e4454eb68",
+      "pages": [
+        167
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 16,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a1ae78c7bd058ad3",
+      "pages": [
+        45
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 17,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:f80006223a507699",
+      "pages": [
+        129
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 18,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:f62fa235613b5040",
+      "pages": [
+        152
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    },
+    {
+      "sample_index": 19,
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:4023bbae4dd82418",
+      "pages": [
+        168
+      ],
+      "classification": "chart text",
+      "provenance": "Codex visual judgment",
+      "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
+    }
+  ]
+}
