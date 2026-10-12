@@ -12,6 +12,7 @@
   "block_decision": "any line in a >=2-line monospace region or associated gutter marks that block text/code_text; pure numeric blocks whose every word belongs to a confirmed gutter become non-citable; mixed gutter/diff/code blocks retain all characters and +/- markers",
   "consecutive_lines_min": 2,
   "consecutive_y_min_em": 0.5,
+  "flag_field_path": "$.pages[*].flags[*].kind == code_text",
   "font_regex": "(?i)courier|mono|consolas|inconsolata|typewriter|nimbusmon",
   "gutter_adjacent_code_fraction_min": 0.75,
   "gutter_code_words_min": 1,
@@ -26,7 +27,7 @@
   "horizontal_overlap_required": true,
   "mono_fraction_min": 1.0,
   "name": "M3-consecutive-monospace-and-sequential-gutter-v1",
-  "policy": "existing text role plus existing Block.code_text flag; no enum/schema change; no text deletion; only wholly numeric gutter blocks non-citable",
+  "policy": "existing text role plus existing page.flags kind=code_text flag; no enum/schema change; no text deletion; only wholly numeric gutter blocks non-citable",
   "unknown": "all words need font_face, positive size and bbox; missing data unchanged/unknown, never negative evidence",
   "url_regex": "(?i)(?:https?://|www\\.)\\S+",
   "vertical_step_em_max": 2.5
