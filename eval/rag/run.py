@@ -143,6 +143,12 @@ def cost(timings,calls,wall,chunks,peak_rss_kib=None):
         'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss if peak_rss_kib is None else peak_rss_kib,'num_ctx':NUM_CTX,'batch_size':8}
 
 
+def survey_summary(result):
+    base=max(10,3*len(result['summary']));hits=result['hits'][:base];counts=Counter(h['source_id'] for h in hits)
+    return {'base_depth':base,'hits':len(hits),'unmatched_slots':sum(not h['matched_lexical_terms'] for h in hits),
+        'sources':[{**s,'hits':counts[s['source_id']],'coverage_shortfall':max(0,2-counts[s['source_id']])} for s in result['summary']]}
+
+
 def evaluate(search,notebook,qs,survey,path,source_doc_ids):
     selected=search.repo.source_ids(notebook);bysource={r['doc_id']:r['id'] for r in search.repo.source_rows(notebook)};results={ab:{} for ab in ('bm25','vector','hybrid','no-prefix')};own={};timings=[]
     for i,q in enumerate(qs):
@@ -156,7 +162,12 @@ def evaluate(search,notebook,qs,survey,path,source_doc_ids):
 
 def reproduce():
     verify_freeze();qs=load(FROZEN/'questions.json')['items'];raw=load(ROOT/'frozen-results.json')
-    if (ROOT/'frozen-cost-events.json').exists():save(ROOT/'frozen-cost.json',cost(**load(ROOT/'frozen-cost-events.json')))
+    if (ROOT/'frozen-cost-events.json').exists():
+        events=load(ROOT/'frozen-cost-events.json');record=cost(**events)
+        record['latency_scope']='60 questions x 4 ablations, focused evaluation depth 50; query vectors cached after first ablation; includes digest checks'
+        record['latency_by_ablation']={ab:{'p50':float(np.quantile(events['timings'][i::4],.5)),
+            'p95':float(np.quantile(events['timings'][i::4],.95))} for i,ab in enumerate(('bm25','vector','hybrid','no-prefix'))}
+        save(ROOT/'frozen-cost.json',record)
     metrics={ab:grouped(qs,result) for ab,result in raw['questions'].items()};lost=[];gained=[]
     for q in qs:
         a=rank(q,raw['own_source'][q['id']]);b=rank(q,raw['questions']['hybrid'][q['id']]);own=a is not None and a<=10;all_=b is not None and b<=10
@@ -164,12 +175,12 @@ def reproduce():
         if all_ and not own:gained.append(q['id'])
     metrics['own_vs_all3']={'lost':lost,'gained':gained,'exact_discordant_p':paired_exact(len(lost),len(gained))}
     tune=metrics['hybrid']['split/tune'];gap=tune['hit']['50']['rate']-tune['hit']['5']['rate'];metrics['reranker_rule']={'tune_hit50_minus_hit5':gap,'propose_only':gap>=.15,'nothing_built':True}
-    survey_summary={};tsv=['survey_id\trank\tsource_id\tchunk_id\tmatched_terms\tpreview']
+    survey_rows={};tsv=['survey_id\trank\tsource_id\tchunk_id\tmatched_terms\tpreview']
     for qid,result in raw['survey'].items():
         base=max(10,3*len(result['summary']));hits=result['hits'][:base];counts=Counter(h['source_id'] for h in hits)
-        survey_summary[qid]={'base_depth':base,'hits':len(hits),'unmatched_slots':sum(not h['matched_lexical_terms'] for h in hits),'sources':[{**s,'hits':counts[s['source_id']],'coverage_shortfall':max(0,2-counts[s['source_id']])} for s in result['summary']]}
+        survey_rows[qid]=survey_summary(result)
         for position,h in enumerate(hits,1):tsv.append('\t'.join([qid,str(position),h['source_id'],h['chunk_id'],','.join(h['matched_lexical_terms']),' '.join(h['text'].split())[:200]]))
-    metrics['survey']=survey_summary
+    metrics['survey']=survey_rows
     (ROOT/'survey-hits.tsv').write_text('\n'.join(tsv)+'\n')
     save(ROOT/'metrics.json',metrics)
     if (ROOT/'diagnostic-results.json').exists():
@@ -183,8 +194,18 @@ def reproduce():
                 if h['doc_id']==diag['wef_doc_id'] and h['kind']=='table':slots[q['id']]+=1
         diagnostic={'label':'DIAGNOSTIC_NOT_FROZEN','hit10_lost':lost,'hit10_gained':gained,'exact_discordant_p':paired_exact(len(lost),len(gained)),
                     'wef_table_top10_slots':sum(slots.values()),'total_top10_slots':totalslots,'wef_table_slot_share':sum(slots.values())/totalslots,
-                    'wef_table_slots_per_question':dict(slots),'survey':{k:v['summary'] for k,v in diag['survey'].items()}}
+                    'wef_table_slots_per_question':dict(slots),'survey':{k:survey_summary(v) for k,v in diag['survey'].items()},
+                    'four_source_quality':grouped(qs,diag['questions'])}
         save(ROOT/'diagnostic-metrics.json',diagnostic)
+        if (ROOT/'diagnostic-cost-events.json').exists():
+            events=load(ROOT/'diagnostic-cost-events.json')
+            save(ROOT/'diagnostic-cost.json',{'label':'DIAGNOSTIC_NOT_FROZEN',
+                'incremental_wef_build':cost(events['timings'],events['calls'],events['wall'],events['chunks'],events['peak_rss_kib']),
+                'four_source_chunk_count':events['four_source_chunks'],
+                'four_source_notebook_build_wall_seconds':events['baseline_copy_wall']+events['wall'],
+                'cold_equivalent_build_wall_seconds':load(ROOT/'frozen-cost.json')['build_wall_seconds']+events['wall'],
+                'latency_scope':'60 frozen questions, hybrid focused evaluation depth 50, cached query vectors, live digest checks; DIAGNOSTIC only',
+                'cost_note':'Dedicated diagnostic process. Baseline vectors reused; actual resumed notebook build excludes the interrupted attempt. Cold-equivalent is an estimate, not an independent cold measurement.'})
     return metrics
 
 
@@ -233,6 +254,14 @@ def diagnostic_run():
     diagsurvey={q['id']:diags.query('diagnostic',diagnostic.source_ids('diagnostic'),q['question'],mode='survey',depth=50) for q in survey}
     save(ROOT/'diagnostic-results.json',{'label':'DIAGNOSTIC_NOT_FROZEN','wef_doc_id':wd.doc_id,'questions':diagresults,'survey':diagsurvey})
     save(ROOT/'diagnostic-cost.json',{'label':'DIAGNOSTIC_NOT_FROZEN','incremental_wef_build':cost(diagtimes,diagcalls,diagbuild,len(wd.chunks)),'four_source_chunk_count':diagnostic.integrity()['chunks'],'four_source_notebook_build_wall_seconds':basecopywall+diagbuild,'cold_equivalent_build_wall_seconds':load(ROOT/'frozen-cost.json')['build_wall_seconds']+diagbuild,'cost_note':'Dedicated diagnostic process peak RSS. Three-source vectors reused: actual four-source notebook build is cached baseline copy plus WEF ingestion; cold-equivalent estimate adds prior measured frozen build plus WEF, not an independent cold measurement.'})
+    save(ROOT/'diagnostic-cost-events.json',{'timings':diagtimes,'calls':diagcalls,'wall':diagbuild,'chunks':len(wd.chunks),
+        'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'four_source_chunks':diagnostic.integrity()['chunks'],'baseline_copy_wall':basecopywall,
+        'resumed_after_process_interruption':True})
+    longest=max(prepare(wd)[1],key=lambda r:len(r['context_prefix']+'\n\n'+r['text']))
+    text=longest['context_prefix']+'\n\n'+longest['text']
+    measured=transport.request('/api/embed',{'model':MODEL,'input':[text],'truncate':False,'options':{'num_ctx':NUM_CTX}})
+    save(ROOT/'diagnostic-context.json',{'num_ctx':NUM_CTX,'wef_longest_by_chars':{'chunk_id':longest['chunk_id'],'chars':len(text),'whitespace_words':len(text.split()),'server_prompt_eval_count':measured.get('prompt_eval_count')},
+        'maximum_observed_wef_batch_prompt_eval_count':max((c['prompt_eval_count'] or 0) for c in diagcalls)})
     save(ROOT/'diagnostic-embedding-calls.json',transport.calls)
 
 
