@@ -205,6 +205,7 @@ def reproduce():
                 'four_source_notebook_build_wall_seconds':events['baseline_copy_wall']+events['wall'],
                 'cold_equivalent_build_wall_seconds':load(ROOT/'frozen-cost.json')['build_wall_seconds']+events['wall'],
                 'latency_scope':'60 frozen questions, hybrid focused evaluation depth 50, cached query vectors, live digest checks; DIAGNOSTIC only',
+                'resumed_after_process_interruption':events['resumed_after_process_interruption'],
                 'cost_note':'Dedicated diagnostic process. Baseline vectors reused; actual resumed notebook build excludes the interrupted attempt. Cold-equivalent is an estimate, not an independent cold measurement.'})
     return metrics
 
@@ -244,6 +245,7 @@ def run():
 
 def diagnostic_run():
     verify_freeze();transport=Metered();embedder=Embedder(transport);embedder.check_digest()
+    resumed=(ROOT/'diagnostic.sqlite').exists()
     repo=SQLiteRepository(ROOT/'dev3.sqlite');qs=load(FROZEN/'questions.json')['items'];survey=load(FROZEN/'survey.json')['items']
     docs=[DocumentStructure.model_validate_json(Path(f'out/rag-core/section-rebuild/{s}/05_document.json').read_bytes()) for s in DEV]
     copying=time.perf_counter();diagnostic=clone(repo,ROOT/'diagnostic.sqlite','diagnostic',[*docs]);basecopywall=time.perf_counter()-copying;wd=DocumentStructure.model_validate_json(Path(f'out/rag-core/section-rebuild/{WEF}/05_document.json').read_bytes());diags=Search(diagnostic,embedder);cache_load(diags,ROOT/'query-cache.json');start=time.perf_counter();offset=len(transport.calls);ingest(diagnostic,'diagnostic',wd,embedder);diagbuild=time.perf_counter()-start;diagcalls=transport.calls[offset:]
@@ -256,7 +258,7 @@ def diagnostic_run():
     save(ROOT/'diagnostic-cost.json',{'label':'DIAGNOSTIC_NOT_FROZEN','incremental_wef_build':cost(diagtimes,diagcalls,diagbuild,len(wd.chunks)),'four_source_chunk_count':diagnostic.integrity()['chunks'],'four_source_notebook_build_wall_seconds':basecopywall+diagbuild,'cold_equivalent_build_wall_seconds':load(ROOT/'frozen-cost.json')['build_wall_seconds']+diagbuild,'cost_note':'Dedicated diagnostic process peak RSS. Three-source vectors reused: actual four-source notebook build is cached baseline copy plus WEF ingestion; cold-equivalent estimate adds prior measured frozen build plus WEF, not an independent cold measurement.'})
     save(ROOT/'diagnostic-cost-events.json',{'timings':diagtimes,'calls':diagcalls,'wall':diagbuild,'chunks':len(wd.chunks),
         'peak_rss_kib':resource.getrusage(resource.RUSAGE_SELF).ru_maxrss,'four_source_chunks':diagnostic.integrity()['chunks'],'baseline_copy_wall':basecopywall,
-        'resumed_after_process_interruption':True})
+        'resumed_after_process_interruption':resumed})
     longest=max(prepare(wd)[1],key=lambda r:len(r['context_prefix']+'\n\n'+r['text']))
     text=longest['context_prefix']+'\n\n'+longest['text']
     measured=transport.request('/api/embed',{'model':MODEL,'input':[text],'truncate':False,'options':{'num_ctx':NUM_CTX}})
