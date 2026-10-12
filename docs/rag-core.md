@@ -35,3 +35,19 @@ Survey default depth=B؛depth<B خطأ. Summary يذكر كل source مختار 
 Postgres+pgvector تنفيذ server لاحق،docs فقط هنا. لازم يوفر نفس raw records/postings/vectors/per-source stats وtransaction/delete/cache refs semantics. Python scoring ثابت فوق backend؛مفيش SQL scoring أوANN replacement. `repository_factory` فيtests/rag/conftest.py نقطة تبديل backend للـcontract suite؛SQLite fault-injection tests منفصلة. Canonical export لكل tables بترتيب semantic keys، بدون rowids أوSQLite internals؛search JSON byte-identical بعد A,B,C-deleteB مقابل A,C. Timings/RSS/timestamps خارجIX4.
 
 تشغيل live بعد `source scripts/dev_environment.sh`: `.venv/bin/python -m eval.rag.run`. إعادة الأرقام المشتقة من raw results/events بدون model calls: `.venv/bin/python -m eval.rag.run --reproduce`. Outputs فيout/rag-core/part2؛survey TSV فيهids و200-char preview،full text فيJSON. Latency القياس بعمق50؛متوصّفش كـdefault depth10. ممنوع test-split access، ومفيش registry generalization؛IX1–IX7 على3-source notebook؛full five-directory suite مرة واحدة آخر التنفيذ.
+
+## ليه عملنا vector diagnosis قبل الإغلاق؟
+
+Part2 نجح في gates، لكن الإغلاق كان مشروط بتفسير ضعف vector retrieval. التشخيص خلص على tune فقط، ومظهرش correctness defect في embedding path. Fresh baseline vectors مطابقة للكاش، والإجابة الصح في5 synthetic sets كانت rank1. اختلاف space بعد `Query:` موجود في الوثائق نفسها؛ حذفه غيّر بعض ranks لكن hit10/50 ثابتين. إضافة EOS اتقرت special token وضرّت النتائج؛ مش مبرر لتغيير production. اختبار document EOS شمل21 target chunk بس وباقي corpus ثابت؛ مش full-corpus تجربة.
+
+**ليه prefix ممكن يضر؟** نفس document/section title بيتكرر قبل chunks مختلفة، فيقرّب vectors لبعض بدل ما يميّز تفاصيل كل chunk. Same-section mean cosine زاد0.453→0.781 مع prefix؛ vector hit50 على26 reachable tune زاد16→24 من غيره، لكن hit10 ثابت11. ده mechanism evidence، مش إذن نشيل prefix؛ lexical ranking بيتأثر بيه كمان.
+
+**ليه RRF مع retriever أضعف ممكن يضر؟** RRF بيجمع votes حسب rank، ومش عارف مين أدق. Chunk ظهر في top50 القايمتين بياخد contribution من كل واحدة؛ target ظهر في BM25 بس بياخد واحدة. GAO tune kp04 كان BM25 rank39 وvector54، فخارج vector candidates، وبعد fusion بقى67. ده يشرح mechanism، لكن فرق BM25/hybrid الإجمالي صغير ومش finding يبرر default change.
+
+**Hubness يعني إيه هنا؟** Chunk بيتكرر في top10 لأسئلة كتير. من270 slots،154 chunk من975 ظهروا؛ top20 خدوا30.37%، وlength correlation ضعيف −0.068. دي skew وصفية على27 query، مش اختبار calibrated ولا إثبات سبب. في arXiv،74/100 vector slots كانوا footnote-kind؛137 footnote chunks median2 words، وseeded excerpts فيها code/diff/line numbers من appendix. إصلاح typing من اختصاص reading step، مش RAG diagnosis.
+
+**ليه check مش held-out دلوقتي؟** نتائجه اتشافت في كل ablations السابقة. اختيار prefix/weights/BM25 default/reranker بعد المشاهدة وبعدين الاستشهاد بنفس check كدليل مستقل هيبقى تقييم منحاز. القرارات دي محتاجة pre-registered tune-only protocol؛ confirmation من WEF questions تتجمد بعد R-lite.3 وredraft وdifferent-family screen وowner review، قبل تشغيل retrieval عليها. Reranker لسه proposed؛ مفيش واحد اتبنى.
+
+**تكلفة التسليم؟** WEF embeddings~75min للنسختين؛ نسخة production واحدة~37min estimate، مش قياس cold مستقل، فوق~44min digital reading على CPU وOCR قديم إضافي منفصل. لنفس batch8،server+runner RSS كان1.460GiB عند context4096 و4.505GiB عند32768؛ `ollama ps` كان2.4/5.8GB allocation. ده قياس اللابتوب، مش GPU prediction؛ production context32768 ثابت.
+
+RAG core مقفول بعد A–F؛ التقرير `reports/rag-core-vector-diagnosis.md`. إعادة التشخيص offline من الأدلة بدون model calls: `.venv/bin/python -m eval.rag.vector_diagnosis`. R-lite.3(WEF) التالي، مش بدأ.
