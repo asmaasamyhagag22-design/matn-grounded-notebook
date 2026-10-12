@@ -166,15 +166,23 @@ def main():
     if 'L3-15' in completed and (OUT/'labels-pass2.json').exists():
         second=read(OUT/'labels-pass2.json')
         second_keys={(p['source'],p['pdf_page_index']) for p in second['pages']}
-        if second_keys!=requested or second['status']!='COMPLETE':raise ValueError('SECOND_REFERENCE_LABELS_INCOMPLETE')
         result=compare_labels(OUT/'labels-pass1.json',OUT/'labels-pass2.json')
         costs={name:read(OUT/(name+'.json')) for name in ('cost-pass1','cost-pass2')}
-        if any(c['status']!='COMPLETE' or c['measured_pages']!=len(requested) for c in costs.values()):raise ValueError('COST_RECORD_INCOMPLETE')
+        complete=second_keys==requested and len(second['pages'])==len(requested) and second['status']=='COMPLETE' and all(c['status']=='COMPLETE' and c['measured_pages']==len(requested) for c in costs.values())
+        result['full_comparison_valid']=complete
+        result['missing_second_pages']=[{'source':k[0],'pdf_page_index':k[1]} for k in sorted(requested-second_keys)]
+        result['changed_shared_pages']=[r for r in result['changed_pages'] if r['first'] is not None and r['second'] is not None]
         result['cost_records']={k:str(OUT/(k+'.json')) for k in costs}
-        result['status']='PASS' if result['byte_equal'] else 'STOP_LABEL_BYTES_DIFFER'
+        if not complete:
+            result['status']='STOP_SECOND_LABELER_INCOMPLETE'
+            result['termination_record']=read(OUT/'labeler-pass2-exit.json')
+            result['partial_metadata_warning']='The original runner wrote COMPLETE while saving progress. Page counts are authoritative; preserved raw files are not rewritten.'
+            completed.append('determinism and cost attempted');not_run=['complete two-process determinism']
+        else:
+            result['status']='PASS' if result['byte_equal'] else 'STOP_LABEL_BYTES_DIFFER'
+            completed.append('determinism and cost');not_run=[]
         emit('determinism.json',result)
-        completed.append('determinism and cost');not_run=[]
-        status='REFERENCE_GATES_PASS_STOP_OWNER_DECISION' if result['byte_equal'] else 'STOP_LABEL_BYTES_DIFFER'
+        status='REFERENCE_GATES_PASS_STOP_OWNER_DECISION' if result['status']=='PASS' else result['status']
     before=expected;after={p:sha(Path(p).read_bytes()) for p in before};assert before==after,'PROTECTED_INPUT_CHANGED_DURING_CHECKS'
     INPUTS.update(prior.INPUTS)
     for p in ('eval/rag/r_lite_3_part2b.py','eval/rag/r_lite_3_part2b_mapping.py','eval/run_docling_part2b.py','eval/tests/test_r_lite_3_part2b.py','eval/tests/test_r_lite_3_part2b_mapping.py','eval/tests/test_r_lite_3_part2b_runner.py'):INPUTS[p]=sha(Path(p).read_bytes())
@@ -187,7 +195,7 @@ DIAGNOSTIC_FILES=('coordinate-sanity.json','mapping.json','coverage.json','agree
 
 def package():
     status=json.loads((OUT/'check-status.json').read_text())
-    if 'determinism and cost' not in status['completed']:raise ValueError('DETERMINISM_NOT_COMPLETED')
+    if not (OUT/'determinism.json').exists():raise ValueError('DETERMINISM_RECORD_MISSING')
     before=read(OUT/'session-before.json')['protected']
     after={p:sha(Path(p).read_bytes()) for p in before}
     if before!=after:raise ValueError('OWNER_OR_DEPENDENCY_INPUT_CHANGED')

@@ -33,7 +33,7 @@ assert not getattr(options,'enable_remote_services',False) and not getattr(optio
 assert all(not getattr(options,key) for key in cfg['pipeline_do_flags'])
 converter=DocumentConverter(format_options={InputFormat.PDF:PdfFormatOption(pipeline_options=options)})
 output=Path(args.output);metrics_path=Path(args.metrics);output.parent.mkdir(parents=True,exist_ok=True)
-records=[];metrics=[];opened=[];start=PROCESS_START;status='COMPLETE';estimate=None
+records=[];metrics=[];opened=[];start=PROCESS_START;status='RUNNING';estimate=None
 
 def save():
     data={'configuration_sha256':hashlib.sha256(raw).hexdigest(),'model_repo':cfg['model_repo'],'model_revision':cfg['model_revision'],'status':status,'sources_opened':opened,'pages':records,'real6':cfg['real6']}
@@ -61,7 +61,7 @@ try:
                 estimate=(time.perf_counter()-start)/len(metrics)*sum(len(s['pages']) for s in cfg['inputs'])*2
                 if estimate>cfg['cost_gate']['seconds_limit']:status='STOP_PROJECTED_COST_OVER_3_HOURS';save();print(status,estimate,flush=True);raise SystemExit(30)
             save();print('PAGE',len(metrics),source['source'],index,'SECONDS',round(metrics[-1]['wall_seconds'],2),flush=True)
-    save();print('LABELER_COMPLETE',len(records),flush=True)
+    status='COMPLETE';save();print('LABELER_COMPLETE',len(records),flush=True)
 except Exception as e:
     status='STOP_RUNNER_ERROR';save()
     Path(str(metrics_path)+'.error.json').write_text(json.dumps({'error_type':type(e).__name__,'message':str(e)},sort_keys=True,indent=2)+'\n')
