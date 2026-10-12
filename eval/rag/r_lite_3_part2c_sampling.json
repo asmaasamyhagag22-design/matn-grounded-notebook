@@ -1,0 +1,11 @@
+{
+  "sample_seed": 20261013,
+  "shuffle_seed": 2026101301,
+  "sample_size": 30,
+  "ordering": "sort full block IDs lexicographically; random.Random(sample_seed).sample; concatenate groups 1,2,3 sorted within each; random.Random(shuffle_seed).shuffle",
+  "basis": "date-derived seeds fixed before drawing; no seed search or redraw",
+  "labels": ["chart", "table", "prose", "mixed", "unsure"],
+  "pdf": "eval/incoming/wef_future_of_jobs_2025.pdf",
+  "sha256": "f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271",
+  "render_scale_px_per_pt": 1.5
+}
