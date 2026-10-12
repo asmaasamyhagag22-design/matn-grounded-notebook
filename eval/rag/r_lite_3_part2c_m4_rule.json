@@ -1,0 +1,27 @@
+{
+  "name": "M4-native-space-guarded-tracking-v1",
+  "eligible_route": "text_layer, page.ocr absent",
+  "eligible_word_pattern": "[A-Z0-9]+",
+  "native_bbox_tolerance_pt": 0.5,
+  "maximum_gap_em": 0.2,
+  "minimum_gap_pt": 0.0,
+  "same_font_required": true,
+  "maximum_size_relative_difference": 0.02,
+  "maximum_baseline_center_difference_em": 0.1,
+  "literal_space_y_tolerance_em": 0.5,
+  "same_cached_line_required": true,
+  "exact_word_glyph_alignment_required": true,
+  "old_word_ledger_equals_block_text_required": true,
+  "native_matching_normalization": "NFKC for matching only; retain every original glyph ID/text in evidence",
+  "decision": "For adjacent uppercase/digit words on the same cached line, require matching font/size/baseline, nonnegative <=0.2em gap, exact native glyph alignment, and no literal native whitespace glyph centered between their bboxes. Delete only the one synthetic interword space in exact Block.text. No other character or word boundary is changed.",
+  "remap": "Every affected block has a named normalization, complete new-to-old and old-to-new character offset maps, deleted synthetic-space offsets, join word indices and native glyph IDs. Recompute Block ID; source/number ledgers require rebuild in future production implementation.",
+  "unknown": "Missing saved native page/font/position/glyph match or exact cached ledger is unknown and unchanged; no OCR or interpolated glyphs",
+  "basis": {
+    "gap": "Part 1 measured native tracking around0.16em versus existing custom0.1em segmentation;0.2em is the prior font-relative design proposal, not retuned on this projection",
+    "uppercase": "tracked uppercase labels are the diagnosed mechanism; lexical shape alone never permits joining",
+    "bbox": "0.5pt alignment allowance retained from prior native inventory and coverage calculation; does not invent finer source geometry",
+    "style": "same font,2% size and0.1em baseline limits guard against style/baseline boundaries; design choices not fitted accuracy",
+    "spaces": "explicit native whitespace always vetoes joining;0.5em y band accounts for space glyph ascent without changing source words",
+    "ledger": "delete only proven reader-inserted spaces; exact source characters and numbers retained; no IDs/pages/document constants"
+  }
+}
