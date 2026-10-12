@@ -19,3 +19,11 @@ def test_label_comparison_does_not_hide_confidence_difference(tmp_path):
     assert not result['byte_equal']
     assert result['changed_pages'][0]['pdf_page_index']==0
     assert result['metadata_equal']
+
+
+def test_discarded_interruption_cannot_enter_current_result_manifest(tmp_path):
+    from eval.rag.r_lite_3_part2b import result_artifacts
+    retained=tmp_path/'labels-pass2.json';retained.write_text('{}')
+    archive=tmp_path/'interrupted-run-2'/'nested';archive.mkdir(parents=True)
+    (archive/'labels-pass2.json').write_text('discarded')
+    assert result_artifacts(tmp_path)==[retained]

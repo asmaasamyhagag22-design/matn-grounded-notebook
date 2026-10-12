@@ -193,6 +193,11 @@ def main():
 DIAGNOSTIC_FILES=('coordinate-sanity.json','mapping.json','coverage.json','agreement.json','projection.json','table-number-safety.json','crops-manifest.json','protected-hashes.json','input-hashes.json','check-status.json','determinism.json')
 
 
+def result_artifacts(root):
+    """Discard the interrupted archive from all current evidence manifests."""
+    return [p for p in sorted(root.rglob('*')) if p.is_file() and p.relative_to(root).parts[0]!='interrupted-run-2']
+
+
 def package():
     status=json.loads((OUT/'check-status.json').read_text())
     if not (OUT/'determinism.json').exists():raise ValueError('DETERMINISM_RECORD_MISSING')
@@ -202,7 +207,7 @@ def package():
     if (OUT/'main-venv-before.freeze.txt').read_bytes()!=(OUT/'main-venv-after.freeze.txt').read_bytes():raise ValueError('MAIN_ENVIRONMENT_CHANGED')
     replay_record=json.loads((OUT/'byte-replay.json').read_text())
     if replay_record['status']!='PASS':raise ValueError('BYTE_REPLAY_NOT_PASSED')
-    records={str(p):sha(p.read_bytes()) for p in sorted(OUT.rglob('*')) if p.is_file() and p.name not in ('final-evidence.json','byte-replay.json')}
+    records={str(p):sha(p.read_bytes()) for p in result_artifacts(OUT) if p.name not in ('final-evidence.json','byte-replay.json')}
     emit('final-evidence.json',{'status':status['status'],'inputs':json.loads((OUT/'input-hashes.json').read_text()),'saved_artifact_hashes':records,'protected':{'before':before,'after':after,'changed':[]},'main_environment_freeze_byte_equal':True,'byte_replay':replay_record,'byte_replay_sha256':sha((OUT/'byte-replay.json').read_bytes()),'configuration_commit':CONFIG_COMMIT,'decisions_commit':'a78c4ee','baseline_commit':BASE,'offline_reproduce':'source scripts/dev_environment.sh && .venv/bin/python -m eval.rag.r_lite_3_part2b --replay && .venv/bin/python -m eval.rag.r_lite_3_part2b --package','labeler_reproduce':'See reproduce.md; inference only through /home/asmaa/.venvs/matn-docling/bin/python','M2_M6':'NOT RUN; owner decision required','production_changes':False,'sealed_test_access':False})
 
 
