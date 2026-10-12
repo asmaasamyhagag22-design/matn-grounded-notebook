@@ -1,0 +1,119 @@
+{
+  "cost": "Current diagnosis: cached JSON only, zero PDF/OCR/model/network calls. Production full digital re-acquisition estimate from recorded dev3 635s plus WEF2667s, about55min; real6 added digital cost unmeasured; zero new OCR permitted.",
+  "decision": "Retype a table-kind block as figure, non-citable, iff inside its bbox a variable-length aligned parallel-bar cluster OR dense large cubic curves with axes, numeric-label rows and repeated compact swatches exists, and neither ruled-cell grid nor aligned repeated-cell rectangle matrix exists. No identifiers, page thresholds, or document constants. Default preserve; missing native objects UNKNOWN. Chart numbers never verifiable.",
+  "execution": "Diagnostic can run on Part1 saved native-object evidence. Canonical reading snapshots lack these primitives; production adoption needs reader-level native object capture and fingerprint/cache decision with G-R1/G-R2. No such change approved.",
+  "implementation_files": [
+    "matn_reading/classify.py",
+    "matn_reading/read.py",
+    "matn_reading/pdf_objects.py or an explicitly chosen native-object transport",
+    "focused reading tests only after named implementation approval"
+  ],
+  "inputs": [
+    "candidate table-kind Block bbox/font size",
+    "native chars with font size and positions",
+    "filled rectangles",
+    "line geometry",
+    "curve paths",
+    "image placements (unknown content)"
+  ],
+  "measurement_limits": [
+    "Numeric-label rows are a geometric signal, not numbers extracted as evidence.",
+    "Legend candidates lack color in the saved native-object schema; compact geometry only.",
+    "All new relative thresholds are hypotheses fixed before this check, not calibrated estimates; an empirical optimal-value claim is not supported.",
+    "Raster image content is not classified; no OCR/model/image-labeler call.",
+    "Partial-chart block bounding boxes can omit required plot primitives.",
+    "Prior Part1 inspection means reused annotations are not an independent unseen population test."
+  ],
+  "name": "M1 general object rule v1",
+  "parameters": {
+    "alignment_em": {
+      "evidence": "Existing reader uses 0.1-em gap scale; reuse as geometric alignment tolerance, not measured chart accuracy.",
+      "value": 0.1
+    },
+    "bar_max_thickness_em": {
+      "evidence": "2 em excludes full text-cell/paragraph shading from slender-bar candidates; hypothesis.",
+      "value": 2.0
+    },
+    "bar_min_aspect": {
+      "evidence": "3:1 defines a slender bar rather than a compact legend swatch; structural hypothesis, not annotation-tuned.",
+      "value": 3.0
+    },
+    "bar_min_thickness_em": {
+      "evidence": "0.2 em keeps visible filled marks above thin strokes; hypothesis expressed in local font scale.",
+      "value": 0.2
+    },
+    "bar_thickness_relative_tolerance": {
+      "evidence": "20% accommodates drawing rounding while requiring repeated mark thickness; hypothesis.",
+      "value": 0.2
+    },
+    "cell_min_columns": {
+      "evidence": "Two disjoint columns are required for a rectangular cell matrix; topology.",
+      "value": 2
+    },
+    "cell_min_common_rows": {
+      "evidence": "Three repeated aligned rows distinguish a matrix from two headers; structural hypothesis.",
+      "value": 3
+    },
+    "curve_min_extent_em": {
+      "evidence": "2 em excludes normal glyph-size cubic outlines; structural hypothesis.",
+      "value": 2.0
+    },
+    "curve_min_objects": {
+      "evidence": "12 reuses existing VECTOR_REGION_MIN_OBJECTS to demand a dense drawing, not an isolated curve.",
+      "value": 12
+    },
+    "grid_min_columns": {
+      "evidence": "Three column boundaries define at least two cells; topology.",
+      "value": 3
+    },
+    "grid_min_intersections": {
+      "evidence": "3 x 3 intersections for the ruled-cell-grid veto; topology.",
+      "value": 9
+    },
+    "grid_min_rows": {
+      "evidence": "Three distinct row boundaries define at least two cells; topology, not document position.",
+      "value": 3
+    },
+    "grid_min_span_share": {
+      "evidence": "0.5 retains the existing figure/table overlap majority principle as minimum grid-line span.",
+      "value": 0.5
+    },
+    "legend_max_aspect": {
+      "evidence": "Reciprocal of 0.5; geometric definition.",
+      "value": 2.0
+    },
+    "legend_max_extent_em": {
+      "evidence": "2 em is the compact-mark complement of the large-curve filter; hypothesis.",
+      "value": 2.0
+    },
+    "legend_min_aspect": {
+      "evidence": "0.5 and 2 bracket compact swatches rather than elongated bars; reciprocal geometric definition.",
+      "value": 0.5
+    },
+    "legend_min_swatches": {
+      "evidence": "Two series swatches demand repeated legend structure; topology.",
+      "value": 2
+    },
+    "max_numeric_label_characters": {
+      "evidence": "12 reuses FIGURE_MAX_SHORT_LABEL_CHARS.",
+      "value": 12
+    },
+    "min_bar_count": {
+      "evidence": "Three repeated objects is the existing VECTOR_CELL_MIN_OBJECTS; two can be decoration.",
+      "value": 3
+    },
+    "min_length_range_em": {
+      "evidence": "One em of changing length distinguishes measured bars from equal-width cell shading; hypothesis.",
+      "value": 1.0
+    },
+    "min_numeric_labels": {
+      "evidence": "4 reuses FIGURE_MIN_SHORT_NUMERIC_LABELS.",
+      "value": 4
+    },
+    "min_parallel_row_separation_em": {
+      "evidence": "0.2 em separates rows instead of counting overdraw of one mark; hypothesis.",
+      "value": 0.2
+    }
+  },
+  "test_expectations": "No existing expectations changed now. Future classified chart/table fixtures and structure/citability counts require named rule approval; frozen targets remain unchanged; no proposed expected-value edits to existing tests."
+}
