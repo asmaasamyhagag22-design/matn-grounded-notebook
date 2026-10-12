@@ -19,6 +19,7 @@ import pytest
 REPO = Path(__file__).resolve().parent
 SLOW_WARN_SECONDS = 0.5
 SLOW = frozenset({
+    "tests/rag/test_embedding_safety.py::test_live_loopback_fixture_ignores_proxy_and_refuses_redirect",
     "tests/rag/test_citability_gates.py::test_two_process_json_determinism",
     "eval/tests/test_gpt_annotation.py::test_closeout_states_complete_only_delegated_model_scope",
     "eval/tests/test_real_sample.py::test_constrained_proportional_quotas_and_seeded_draw",

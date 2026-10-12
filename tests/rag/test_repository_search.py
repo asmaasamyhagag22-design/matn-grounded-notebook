@@ -105,3 +105,15 @@ def test_survey_reserves_absent_global_candidates_and_c1(tmp_path, repository_fa
     summary=next(s for s in ten['summary'] if s['source_id']==b)
     assert summary['hits']==1 and summary['coverage_shortfall']==1
     with pytest.raises(ValueError,match='DEPTH'):search.query('n',[a,b],'alpha','survey',9,'bm25')
+
+
+def test_bm25_hand_calculated_tf_length_alias_and_idf():
+    import math
+    score=api('matn_rag.scoring','bm25')
+    rows=[chunk('a','alpha alpha 24%'),chunk('b','beta')]
+    # Prefix scope adds one base token: lengths4/2, avg3, alpha df1,N2,tf2.
+    assert math.isclose(dict(score(rows,'alpha'))['a'],math.log(2)*4.4/3.5,abs_tol=1e-15)
+    # Alias24 occupies the same position as24%; tf1, not2, and dl is still4.
+    assert math.isclose(dict(score(rows,'24'))['a'],math.log(2)*2.2/2.5,abs_tol=1e-15)
+    assert math.isclose(dict(score(rows,'24 24%'))['a'],2*math.log(2)*2.2/2.5,abs_tol=1e-15)
+    assert math.isclose(dict(score(rows[:1],'alpha'))['a'],math.log(4/3)*4.4/3.2,abs_tol=1e-15)

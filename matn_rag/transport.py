@@ -13,7 +13,7 @@ class NoRedirect(urllib.request.HTTPRedirectHandler):
 class LoopbackTransport:
     def __init__(self, base_url='http://127.0.0.1:11434', timeout=120):
         u = urlsplit(base_url)
-        if (u.scheme != 'http' or u.hostname != '127.0.0.1' or u.username or u.password
+        if (u.scheme != 'http' or u.hostname != '127.0.0.1' or u.username is not None or u.password is not None
                 or u.path not in ('', '/') or u.query or u.fragment or not u.port):
             raise ValueError('LOOPBACK_URL_REFUSED')
         self.base_url = base_url.rstrip('/')

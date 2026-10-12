@@ -69,3 +69,30 @@ def test_invalid_vectors_refused(vector):
     Embedder = api('matn_rag.embedding', 'Embedder')
     with pytest.raises(ValueError, match='VECTOR'):
         Embedder(Fake(vectors=[vector])).embed(['text'])
+
+
+def test_empty_userinfo_is_refused():
+    Transport=api('matn_rag.transport','LoopbackTransport')
+    with pytest.raises(ValueError):Transport('http://@127.0.0.1:11434')
+
+
+def test_live_loopback_fixture_ignores_proxy_and_refuses_redirect(monkeypatch):
+    import threading
+    from http.server import BaseHTTPRequestHandler,HTTPServer
+    from matn_rag.transport import LoopbackTransport
+    class Handler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            if self.path=='/api/tags':
+                self.send_response(200);self.end_headers();self.wfile.write(b'{"models":[]}')
+            else:
+                self.send_response(302);self.send_header('Location','http://external.invalid/');self.end_headers()
+        def log_message(self,*args):pass
+    for key in ('HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','http_proxy','https_proxy','all_proxy'):
+        monkeypatch.setenv(key,'http://external.invalid:8080')
+    for key in ('NO_PROXY','no_proxy'):monkeypatch.setenv(key,'')
+    server=HTTPServer(('127.0.0.1',0),Handler);thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+    try:
+        transport=LoopbackTransport(f'http://127.0.0.1:{server.server_port}')
+        assert transport.request('/api/tags')=={'models':[]}
+        with pytest.raises(ValueError,match='REDIRECT'):transport.request('/api/show')
+    finally:server.shutdown();server.server_close();thread.join()
