@@ -1354,7 +1354,7 @@
     "body_definition": "Block IDs primary in baseline body-kind chunks on processed pages.",
     "matching_share_min": 0.5,
     "passing_block_fraction_min": 0.8,
-    "regions": "Union of committed text-like region labels after coordinate conversion; counts weighted by block, not words."
+    "regions": "Maximum area share inside a single committed text-like region after coordinate conversion; do not union multiple regions for this sanity check."
   },
   "state": "PRECOMMITTED_EVAL_ONLY_CONFIGURATION",
   "table_label": "table",
