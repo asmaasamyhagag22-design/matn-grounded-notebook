@@ -1,0 +1,22 @@
+{
+  "body_basis": "Exact M2-v1 character-weighted native half-point font mode from text/heading records >150 chars; no OCR; no picture/table overlap; ties in reading order",
+  "design_sha256": "160a8dcf8276606064a17da36880b99b6821eb9285422057214bb057996db8b9",
+  "heading_predicate": "Exact M2-v1 1.15 size ratio and <=450 chars OR bold <=150 chars, <=3 lines, no terminal . , ; :; AND every source line contained in section_header/title region using existing inside tolerance0.5pt",
+  "labels": "Two complete byte-identical 489-page runs; existing256 labels match report-only",
+  "name": "M2-V2-native-anchor-and-Docling-header",
+  "native_anchors": "Source-derived legacy sections with raw text-layer HEADING block or outline source always kept, regardless new font body/layout label",
+  "parameters": {
+    "body_record_min_chars_exclusive": 150,
+    "body_size_bucket_pt": 0.5,
+    "bold_max_chars": 150,
+    "bold_max_lines": 3,
+    "containment_tolerance_pt": 0.5,
+    "heading_size_ratio": 1.15,
+    "long_max_chars": 450,
+    "object_overlap_veto": 0
+  },
+  "preserved": "Immutable Blocks, IDs, text, offsets, other roles, TOC/address guard for non-native candidates, section-identity-v2 and chunk packing parameters",
+  "status": "pre-registered before projection",
+  "unknown": "No body => no new derived headings; native anchors only; complete full-page label determinism required before projection",
+  "version_policy": "Only if implemented: M2-enabled output r-lite-3.1; unlabelled/unknown-layout legacy output r-lite-3; old r-lite-2/r-lite-3 readable"
+}
