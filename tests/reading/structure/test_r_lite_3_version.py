@@ -4,7 +4,6 @@ from .conftest import record,snapshot
 from matn_reading.structure.document import assemble
 from matn_rag.ingest import prepare
 
-@pytest.mark.xfail(strict=True,reason='S5a RED: r-lite-3 not accepted before named fix')
 def test_r_lite_3_version_and_legacy_ingest():
  d=assemble(snapshot([record('Grounded statement 12.')]))
  assert d.producer_versions['chunks']=='r-lite-3'

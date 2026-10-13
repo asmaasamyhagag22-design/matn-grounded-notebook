@@ -10,7 +10,7 @@ from .embedding import DIGEST
 def prepare(document):
     if not isinstance(document,DocumentStructure):
         raise TypeError('VALIDATED_DOCUMENT_STRUCTURE_REQUIRED')
-    if document.producer_versions['chunks']!='r-lite-2':raise ValueError('CHUNKER_VERSION_MISMATCH')
+    if document.producer_versions['chunks'] not in ('r-lite-2','r-lite-3'):raise ValueError('CHUNKER_VERSION_MISMATCH')
     validate_coverage(document.elements,document.sections,document.chunks)
     by={e.block.block_id:e for e in document.elements};sections={s.section_id:s for s in document.sections}
     records=[]
