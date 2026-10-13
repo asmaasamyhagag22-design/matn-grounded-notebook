@@ -1,0 +1,626 @@
+{
+  "provenance": "synthetic only; created by Codex before inference",
+  "queries": [
+    {
+      "expected_first": "answer",
+      "id": "mira",
+      "passages": [
+        {
+          "id": "p00",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p01",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p02",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p03",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p04",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p05",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p06",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p07",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p08",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p09",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p10",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p11",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p12",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p13",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p14",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p15",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p16",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "answer",
+          "text": "In the fictional story, Mira owns a green lantern."
+        },
+        {
+          "id": "p17",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p18",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p19",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p20",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p21",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p22",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p23",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p24",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p25",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p26",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p27",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p28",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p29",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p30",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p31",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p32",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p33",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p34",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p35",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p36",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p37",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p38",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p39",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p40",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p41",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p42",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p43",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p44",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p45",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p46",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p47",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p48",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        }
+      ],
+      "query": "What color is Mira's lantern in the fictional story?"
+    },
+    {
+      "expected_first": "answer",
+      "id": "tavi",
+      "passages": [
+        {
+          "id": "p00",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p01",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p02",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p03",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p04",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p05",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p06",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p07",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p08",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p09",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p10",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p11",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p12",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p13",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p14",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p15",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p16",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "answer",
+          "text": "In the fictional story, Tavi owns a blue cabinet."
+        },
+        {
+          "id": "p17",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p18",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p19",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p20",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p21",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p22",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p23",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p24",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p25",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p26",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p27",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p28",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p29",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p30",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p31",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p32",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p33",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p34",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p35",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p36",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p37",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p38",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p39",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p40",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p41",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p42",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p43",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p44",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p45",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p46",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p47",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p48",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        }
+      ],
+      "query": "What color is Tavi's cabinet in the fictional story?"
+    },
+    {
+      "expected_first": "answer",
+      "id": "sola",
+      "passages": [
+        {
+          "id": "p00",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p01",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p02",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p03",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p04",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p05",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p06",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p07",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p08",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p09",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p10",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p11",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p12",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p13",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p14",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p15",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p16",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "answer",
+          "text": "In the fictional story, Sola owns a yellow umbrella."
+        },
+        {
+          "id": "p17",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p18",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p19",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p20",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p21",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p22",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p23",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p24",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p25",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p26",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p27",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p28",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p29",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p30",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p31",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p32",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p33",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p34",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p35",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p36",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p37",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p38",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p39",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p40",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p41",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        },
+        {
+          "id": "p42",
+          "text": "The fictional shopkeeper Leto keeps a red notebook beside the wooden desk."
+        },
+        {
+          "id": "p43",
+          "text": "The fictional shopkeeper Leto keeps a white notebook beside the wooden desk."
+        },
+        {
+          "id": "p44",
+          "text": "The fictional shopkeeper Leto keeps a purple notebook beside the wooden desk."
+        },
+        {
+          "id": "p45",
+          "text": "The fictional shopkeeper Leto keeps a orange notebook beside the wooden desk."
+        },
+        {
+          "id": "p46",
+          "text": "The fictional shopkeeper Leto keeps a black notebook beside the wooden desk."
+        },
+        {
+          "id": "p47",
+          "text": "The fictional shopkeeper Leto keeps a pink notebook beside the wooden desk."
+        },
+        {
+          "id": "p48",
+          "text": "The fictional shopkeeper Leto keeps a brown notebook beside the wooden desk."
+        }
+      ],
+      "query": "What color is Sola's umbrella in the fictional story?"
+    }
+  ]
+}
