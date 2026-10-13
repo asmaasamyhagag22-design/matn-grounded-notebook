@@ -125,7 +125,27 @@ def run():
  before=read('out/rag-core/part2/diagnostic-results.json')['questions'];diag=comparison(qs,newqs,before,fr);diag['label']='WEF_DIAGNOSTIC_NOT_FROZEN';diag['survey']={q['id']:survey_summary(fs.query('dev4',fids,q['question'],mode='survey',depth=50)) for q in read('eval/rag/frozen/survey.json')['items']};save(ROOT/'diagnostic-comparison.json',diag)
  save(ROOT/'embedding-calls.json',transport.calls);verify_freeze();print('C0 REPORT COMPLETE; IX1-IX7 PASS',flush=True)
 
+def reproduce(output):
+ """Offline separate-process replay from retained C0 results, without model calls."""
+ verify_freeze();dest=Path(output)
+ if dest.exists():raise ValueError('REPLAY_OUTPUT_EXISTS')
+ dest.mkdir(parents=True)
+ qs=read('eval/rag/frozen/questions.json')['items'];newqs=read(ROOT/'recomputed-questions-out-only.json')
+ frozen=comparison(qs,newqs,read('out/rag-core/part2/frozen-results.json')['questions']['hybrid'],read(ROOT/'frozen-C0-results.json'))
+ save(dest/'frozen-comparison.json',frozen)
+ diag=comparison(qs,newqs,read('out/rag-core/part2/diagnostic-results.json')['questions'],read(ROOT/'diagnostic-C0-results.json'))
+ diag['label']='WEF_DIAGNOSTIC_NOT_FROZEN'
+ repo=readonly(ROOT/'diagnostic.sqlite');s=cached_search(repo);ids=repo.source_ids('dev4')
+ diag['survey']={q['id']:survey_summary(s.query('dev4',ids,q['question'],mode='survey',depth=50)) for q in read('eval/rag/frozen/survey.json')['items']}
+ save(dest/'diagnostic-comparison.json',diag)
+ for name in ('frozen-comparison.json','diagnostic-comparison.json'):
+  assert (dest/name).read_bytes()==(ROOT/name).read_bytes()
+ worker(ROOT/'dev3.sqlite',dest/'process-0.json','dev3')
+ assert (dest/'process-0.json').read_bytes()==(ROOT/'process-0.json').read_bytes()
+ verify_freeze();save(dest/'byte-replay.json',{'status':'PASS','files':3,'model_calls':0,'changed':[]})
+
 if __name__=='__main__':
- p=argparse.ArgumentParser();p.add_argument('stage',choices=['run','worker']);p.add_argument('--db');p.add_argument('--output');p.add_argument('--notebook',default='dev3');a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('stage',choices=['run','worker','reproduce']);p.add_argument('--db');p.add_argument('--output');p.add_argument('--notebook',default='dev3');a=p.parse_args()
  if a.stage=='worker':worker(a.db,a.output,a.notebook)
+ elif a.stage=='reproduce':reproduce(a.output)
  else:run()
