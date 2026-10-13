@@ -98,7 +98,16 @@ def run():
  if (ROOT/'dev3.sqlite').exists():raise ValueError('RETRIEVAL_OUTPUT_EXISTS')
  ROOT.mkdir(parents=True,exist_ok=True);transport=Metered();embedder=Embedder(transport);embedder.check_digest()
  docs={k:DocumentStructure.model_validate(read(OUT/'production'/k/'05_document.json')) for k in (*DEV,WEF)}
- base=readonly('out/rag-core/part2/diagnostic.sqlite');repo=SQLiteRepository(ROOT/'dev3.sqlite')
+ base=readonly('out/rag-core/part2/diagnostic.sqlite')
+ interrupted=OUT/'retrieval-version-guard-failure'/'dev3.sqlite'
+ if interrupted.exists():
+  original=base;partial=readonly(interrupted)
+  class CacheChain:
+   def get_embedding(self,digest,variant,text):
+    value=original.get_embedding(digest,variant,text)
+    return partial.get_embedding(digest,variant,text) if value is None else value
+  base=CacheChain()
+ repo=SQLiteRepository(ROOT/'dev3.sqlite')
  allowed=set()
  for key in (*DEV,WEF):
   old=DocumentStructure.model_validate(read(Path('out/rag-core/section-rebuild')/key/'05_document.json'))

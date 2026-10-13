@@ -12,7 +12,6 @@ def test_r_lite_3_version_and_legacy_ingest():
  prepare(legacy)
 
 
-@pytest.mark.xfail(strict=True,reason='S5a compatibility revision RED: stored-source guard still rejects r-lite-3')
 def test_stored_source_accepts_named_versions_and_refuses_unknown():
  import json
  from matn_rag.sqlite import SQLiteRepository

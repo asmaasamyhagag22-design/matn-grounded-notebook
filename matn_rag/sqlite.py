@@ -82,7 +82,7 @@ class SQLiteRepository:
         for sid in selected:
             metadata=json.loads(self.db.execute('SELECT metadata FROM sources WHERE id=?',(sid,)).fetchone()[0])
             versions=metadata['versions']
-            if versions.get('tokenizer')!=VERSION or versions.get('index')!=INDEX_VERSION or ('chunker' in versions and versions['chunker']!='r-lite-2'):
+            if versions.get('tokenizer')!=VERSION or versions.get('index')!=INDEX_VERSION or ('chunker' in versions and versions['chunker'] not in ('r-lite-2','r-lite-3')):
                 raise ValueError('STORED_INDEX_VERSION_MISMATCH')
             if 'digest' in metadata and metadata['digest']!=DIGEST:raise ValueError('STORED_DIGEST_MISMATCH')
 
