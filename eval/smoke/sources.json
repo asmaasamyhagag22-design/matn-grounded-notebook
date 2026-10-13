@@ -28,6 +28,7 @@
     },
     {
       "attempt_timestamp": "2026-10-13T10:44:27.475576+00:00",
+      "continuation": "No retry: Citizen Budget page did not succeed",
       "download_timestamp": null,
       "file_url": null,
       "filename": null,
@@ -35,13 +36,14 @@
       "page_url": "https://cabri-sbo.org/en/documents/the-financial-monthlyfebruary-2021",
       "provenance": "downloaded by Codex on owner instruction",
       "publisher": "Ministry of Finance (Egypt), requested publisher; unverified",
-      "reason": "HTTP Error 403: Forbidden",
+      "reason": "unavailable to automated download (HTTP 403)",
       "sha256": null,
       "size": null,
       "split": "dev-smoke",
       "status": "failed-page-request"
     },
     {
+      "attempt_timestamp": "2026-10-13T10:51:20.040385+00:00",
       "download_timestamp": null,
       "file_url": null,
       "filename": null,
@@ -49,11 +51,11 @@
       "page_url": "https://cabri-sbo.org/en/documents/citizen-budget-2019-2020",
       "provenance": "downloaded by Codex on owner instruction",
       "publisher": "Ministry of Finance (Egypt), requested publisher; unverified",
-      "reason": "HARD STOP at Financial Monthly HTTP 403; no file URL discovered",
+      "reason": "unavailable to automated download (HTTP 403)",
       "sha256": null,
       "size": null,
       "split": "dev-smoke",
-      "status": "not-requested"
+      "status": "failed-page-request"
     }
   ],
   "split": "dev-smoke"
