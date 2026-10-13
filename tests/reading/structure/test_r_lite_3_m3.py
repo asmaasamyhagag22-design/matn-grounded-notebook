@@ -10,7 +10,6 @@ def native(text,x,y,order):
  r['lines']=[{'words':[{'text':text,'bbox':[x,y,x+40,y+10],'size':10.,'bold':False,'font_face':'Courier'}]}]
  return r
 
-@pytest.mark.xfail(strict=True,reason='S5b RED: native consecutive mono lines remain footnotes')
 def test_code_gutters_markers_and_wrapped_urls():
  code=[native(t,110,10+i*12,i) for i,t in enumerate(['+change','-change','x=1','return x'])]
  gutter=[native(str(70+i),60,10+i*12,4+i) for i in range(4)]

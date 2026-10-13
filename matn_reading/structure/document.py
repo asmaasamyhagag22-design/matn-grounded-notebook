@@ -29,7 +29,10 @@ def prepare_snapshot(snapshot,pdf_path):
 
 
 def assemble(snapshot):
-    elements,ei=build_elements(snapshot);sections,si=build_sections(snapshot,elements)
+    elements,ei=build_elements(snapshot)
+    from .code_regions import apply
+    snapshot,elements=apply(snapshot,elements)
+    sections,si=build_sections(snapshot,elements)
     demoted={i.block_id for i in si if i.reason=='heading_demoted'}
     elements=tuple(e.model_copy(update={'role':'text','flags':e.flags+('heading_demoted',)}) if e.block.block_id in demoted else e for e in elements)
     tables=tuple(Table.model_validate(t) for t in snapshot['table_structures']) if 'table_structures' in snapshot else build_tables(snapshot,elements)
@@ -44,7 +47,10 @@ def assemble(snapshot):
 def write_structure(snapshot,folder):
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True);started=time.perf_counter();stamp=datetime.now(timezone.utc).isoformat()
     document=assemble(snapshot)
+    from .code_regions import apply
+    prepared,_=apply(snapshot,build_elements(snapshot)[0])
     files={
+      '00_structure_input.json':canonical(prepared)+'\n',
       '01_elements.jsonl':''.join(canonical(e.model_dump(mode='json'))+'\n' for e in document.elements),
       '02_sections.json':canonical([s.model_dump(mode='json') for s in document.sections])+'\n',
       '03_tables.json':canonical([t.model_dump(mode='json') for t in document.tables])+'\n',
