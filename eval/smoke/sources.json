@@ -1,0 +1,60 @@
+{
+  "sources": [
+    {
+      "download_timestamp": "2026-10-13T10:44:26.362082+00:00",
+      "file_url": "https://mped.gov.eg/adminpanel/sharedfiles//vnr_en.pdf",
+      "filename": "egypt-2021-vnr.pdf",
+      "language": "English",
+      "language_verification": "English title, contents, acronyms and introductory pages; cover has bilingual ministry name",
+      "license": "license not stated",
+      "page_url": "https://sustainabledevelopment.un.org/content/documents/279512021_VNR_Report_Egypt.pdf",
+      "pages": 92,
+      "pdf_magic": "%PDF-",
+      "primary_attempt": {
+        "error": "HTTP Error 403: Forbidden",
+        "timestamp": "2026-10-13T10:44:24.672444+00:00",
+        "url": "https://sustainabledevelopment.un.org/content/documents/279512021_VNR_Report_Egypt.pdf"
+      },
+      "provenance": "downloaded by Codex on owner instruction",
+      "publisher": "Ministry of Planning and Economic Development",
+      "publisher_evidence": "Cover visual review; copyright page confirms name",
+      "rights_notice": "Copyright 2021; all rights reserved; prior permission notice on PDF page index 1. No open license stated.",
+      "sealed_document": false,
+      "sha256": "86ae6315b99f2f3f0d8c6a3da9b0485fb731fe8d87dc558eeb81e51a621c38b4",
+      "size": 6092910,
+      "split": "dev-smoke",
+      "status": "verified-download; diagnosis not run",
+      "title": "Egypt’s 2021 Voluntary National Review"
+    },
+    {
+      "attempt_timestamp": "2026-10-13T10:44:27.475576+00:00",
+      "download_timestamp": null,
+      "file_url": null,
+      "filename": null,
+      "license": "license not stated",
+      "page_url": "https://cabri-sbo.org/en/documents/the-financial-monthlyfebruary-2021",
+      "provenance": "downloaded by Codex on owner instruction",
+      "publisher": "Ministry of Finance (Egypt), requested publisher; unverified",
+      "reason": "HTTP Error 403: Forbidden",
+      "sha256": null,
+      "size": null,
+      "split": "dev-smoke",
+      "status": "failed-page-request"
+    },
+    {
+      "download_timestamp": null,
+      "file_url": null,
+      "filename": null,
+      "license": "license not stated",
+      "page_url": "https://cabri-sbo.org/en/documents/citizen-budget-2019-2020",
+      "provenance": "downloaded by Codex on owner instruction",
+      "publisher": "Ministry of Finance (Egypt), requested publisher; unverified",
+      "reason": "HARD STOP at Financial Monthly HTTP 403; no file URL discovered",
+      "sha256": null,
+      "size": null,
+      "split": "dev-smoke",
+      "status": "not-requested"
+    }
+  ],
+  "split": "dev-smoke"
+}
