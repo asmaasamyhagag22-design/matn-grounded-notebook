@@ -1,0 +1,2365 @@
+{
+  "items": [
+    {
+      "content_token_overlap_ratio": 0.4444444444444444,
+      "draw_index": 0,
+      "id": "wef-q-01",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which two employer assessments are contrasted in the skills importance comparison for 2025 and 2030?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e4a39a01b4b56f96"
+      ],
+      "scope_number_roles": [
+        {
+          "role": "scope",
+          "token": "2025"
+        },
+        {
+          "role": "scope",
+          "token": "2030"
+        }
+      ],
+      "scope_numbers": [
+        "2025",
+        "2030"
+      ],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a794432e16ec2c8c",
+        "end": 139,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.2652,
+            149.30499999999995,
+            555.9998999999996,
+            156.30499999999995
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0040:d59e925bf86030c1",
+          "end": 139,
+          "page_label": null,
+          "pdf_page_index": 40,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e4a39a01b4b56f96",
+          "start": 0
+        }
+      ],
+      "target_text": "Share of employers considering skills to be a core skill in 2025 and share of employers expecting skills to increase in importance by 2030.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.25,
+      "draw_index": 3,
+      "id": "wef-q-03",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Why does the employment methodology focus on employees instead of the broader employed population?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8e06e87fb5ea9e5b"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:9d804f568ac11ea3",
+        "end": 332,
+        "sentence_index": 1,
+        "start": 158
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5827,
+            400.83069999999896,
+            559.2017,
+            547.8546999999991
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0099:7581b3259be44ef4",
+          "end": 592,
+          "page_label": null,
+          "pdf_page_index": 99,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8e06e87fb5ea9e5b",
+          "start": 418
+        }
+      ],
+      "target_text": "Data on employees rather than general employment was used as organizations responding to the Future of Jobs Survey maintain workers in formal rather than informal employment.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.2857142857142857,
+      "draw_index": 10,
+      "id": "wef-q-06",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which occupational classification provided the starting point for the job taxonomy?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:658dbf0e71f73bfc"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1a5acca34cbe6ce2",
+        "end": 67,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            45.70090000000005,
+            368.37949999999995,
+            52.70090000000005
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0102:592ad8da55cc462b",
+          "end": 67,
+          "page_label": null,
+          "pdf_page_index": 102,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:658dbf0e71f73bfc",
+          "start": 0
+        }
+      ],
+      "target_text": "The occupational taxonomy was modified and extended from O*NET SOC.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.16666666666666666,
+      "draw_index": 12,
+      "id": "wef-q-07",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How is the global forum characterized in terms of its institutional function?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a55f6106f9b4e0ac"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:4f85573af9ea423e",
+        "end": 138,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            451.5049,
+            191.80999999999995,
+            554.86575,
+            242.84400000000005
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0289:28ba6c5cfccdb23f",
+          "end": 138,
+          "page_label": null,
+          "pdf_page_index": 289,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a55f6106f9b4e0ac",
+          "start": 0
+        }
+      ],
+      "target_text": "The World Economic Forum, committed to improving the state of the world, is the International Organization for Public-Private Cooperation.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.3333333333333333,
+      "draw_index": 14,
+      "id": "wef-q-09",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What example illustrates interpreting a skill-gap metric for growing versus declining occupations?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1da759d07b7b7e92"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:11fed542b46c0652",
+        "end": 208,
+        "sentence_index": 1,
+        "start": 78
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5828,
+            619.2777,
+            559.821,
+            662.7837
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0040:4f41b494c92ecf42",
+          "end": 208,
+          "page_label": null,
+          "pdf_page_index": 40,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1da759d07b7b7e92",
+          "start": 78
+        }
+      ],
+      "target_text": "For example, a score of 2 in either metric means a skill is twice as critical or requires double the proficiency in growing roles.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.4,
+      "draw_index": 17,
+      "id": "wef-q-11",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which groups together constitute the labour force?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:71c1fe1013c99e39"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1225d939f636cb9d",
+        "end": 234,
+        "sentence_index": 1,
+        "start": 130
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            619.3526999999995,
+            338.7358,
+            674.3606999999995
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0107:736b9cf3c08fdcd8",
+          "end": 234,
+          "page_label": null,
+          "pdf_page_index": 107,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:71c1fe1013c99e39",
+          "start": 130
+        }
+      ],
+      "target_text": "The labour force is the sum of all persons of working age who are employed and those who are unemployed.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.6666666666666666,
+      "draw_index": 19,
+      "id": "wef-q-13",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is identified as the director of the competitiveness forum partnering in Türkiye?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:62420b6c8c5bac2b"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0327eceb17adb99d",
+        "end": 214,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            343.53369999999865,
+            557.2909,
+            421.4646999999987
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:dd95f4c1b83fad45",
+          "end": 214,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:62420b6c8c5bac2b",
+          "start": 0
+        }
+      ],
+      "target_text": "Türkiye TÜSIAD, Sabanci University Competitivness Forum - REF Esra Durceylan Kaygusuz, Assistant Professor of Economics, Sabancı University, Forum director Sezen Uğurlu Sum, Competitiveness Forum Project Specialist",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.5714285714285714,
+      "draw_index": 22,
+      "id": "wef-q-15",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which capability do employers most frequently regard as an essential core skill?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c3f21f982c940677"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "caption",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:3964965d71c7f524",
+        "end": 276,
+        "sentence_index": 1,
+        "start": 106
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            573.2727,
+            343.84869999999995,
+            766.3047000000001
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0034:1a1e60a3ffe0115f",
+          "end": 276,
+          "page_label": null,
+          "pdf_page_index": 34,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c3f21f982c940677",
+          "start": 106
+        }
+      ],
+      "target_text": "As in the two previous editions of this report, analytical thinking remains the top core skill for employers, with seven out of 10 companies considering it as essential. ",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 26,
+      "id": "wef-q-17",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who are named as researchers at the Slovenian survey partner?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d94d51a10aa20dcc"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:9e17bdec0e20b480",
+        "end": 93,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            711.4716999999994,
+            276.3748,
+            754.8966999999993
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:64d0f9d4cb38b8f2",
+          "end": 93,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d94d51a10aa20dcc",
+          "start": 0
+        }
+      ],
+      "target_text": "Slovenia Institute for Economic Research Dr Tjaša Bartolj, Researcher Sonja Uršič, Researcher",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.25,
+      "draw_index": 28,
+      "id": "wef-q-18",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What distinguishes the skills placed in the upper-right quadrant of the workforce development comparison?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:41dfad7596b37185"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0f15d034dba47718",
+        "end": 397,
+        "sentence_index": 2,
+        "start": 265
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            642.2727,
+            344.41119999999995,
+            789.3777
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0039:ff2fa56042a24fb9",
+          "end": 376,
+          "page_label": null,
+          "pdf_page_index": 39,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:41dfad7596b37185",
+          "start": 244
+        }
+      ],
+      "target_text": "The top right quadrant highlights skills that are already core to organizations today and are expected to continue growing rapidly. ",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 31,
+      "id": "wef-q-20",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What does the employer diversity-priority indicator measure?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:27271589e6fb23b2"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:fba3c1839a26301b",
+        "end": 592,
+        "sentence_index": 3,
+        "start": 400
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            297.4446999999992,
+            556.8058,
+            398.4606999999991
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0108:75c06f5c5b7a815c",
+          "end": 192,
+          "page_label": null,
+          "pdf_page_index": 108,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:27271589e6fb23b2",
+          "start": 0
+        }
+      ],
+      "target_text": "This figure shows the share of surveyed employers with diversity, equity and inclusion priorities that operate in the respective economy, region or industry, compared with the global average. ",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.2857142857142857,
+      "draw_index": 33,
+      "id": "wef-q-22",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who holds the people-analytics director role among the ADP collaborators?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c5941099634dec8b"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:5ca0f1bcb82f7e3e",
+        "end": 184,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.0315,
+            400.90169999999955,
+            425.47669999999994,
+            455.82869999999957
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0284:2991e8cea5311602",
+          "end": 184,
+          "page_label": null,
+          "pdf_page_index": 284,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c5941099634dec8b",
+          "start": 0
+        }
+      ],
+      "target_text": "ADP Nela Richardson, Chief Economist, ESG Officer & Head of ADP Research Ben Hanowell, Director of People Analytics Dr. Mary Hayes, Director of Research Jared Northup, Research Analyst",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.75,
+      "draw_index": 38,
+      "id": "wef-q-26",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How is the representative-worker training outlook calculated?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ac1974ad55e334ab"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:fe110ca505e7608c",
+        "end": 270,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            619.3746999999994,
+            338.3587,
+            685.8846999999994
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0109:be0f67b79c148f0a",
+          "end": 270,
+          "page_label": null,
+          "pdf_page_index": 109,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ac1974ad55e334ab",
+          "start": 0
+        }
+      ],
+      "target_text": "The data shows the breakdown of the typical training outlook for a representative group of 100 workers, calculated based on averages of the training strategies reported by employers surveyed in the respective economy, region and industry, compared to the global average.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.3333333333333333,
+      "draw_index": 40,
+      "id": "wef-q-28",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who leads NGG's assessment and research activities within the Israeli partnership?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:91587572444aa62b"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eaa55fa4db369be8",
+        "end": 292,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            113.36769999999967,
+            336.8728,
+            214.3026999999994
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:b3f7ccd08d548f29",
+          "end": 292,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:91587572444aa62b",
+          "start": 0
+        }
+      ],
+      "target_text": "Israel JDC-Tevet in partnership with the Ministry of Labour Avraham Fleishon, Head of Data, JDC-Tevet Elizabeth Levi, Resource Development, JDC-Tevet Noa Ecker, Strategy Manager, Ministry of Labour Sapir Yany, Project Manager, NGG Ran Lefler, Head of Evaluation, Research and Development, NGG",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 42,
+      "id": "wef-q-29",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which two talent-attraction constraints are compared across industries?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:835aa5ba660c1da7"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dac1751b3f2fc681",
+        "end": 195,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            142.7234,
+            45.81860000000006,
+            546.8543999999995,
+            63.81560000000002
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0081:aa84a6827fe28506",
+          "end": 195,
+          "page_label": null,
+          "pdf_page_index": 81,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:835aa5ba660c1da7",
+          "start": 0
+        }
+      ],
+      "target_text": "Share of employers surveyed expecting an inability to attract talent to their ﬁrm or an inability to attract talent to their industry will hinder their organizational transformation, by industry.",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.5,
+      "draw_index": 43,
+      "id": "wef-q-30",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How does recruitment of people with green skills compare with recruitment of other members?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:821e690b12219298"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "caption",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:f31387e7190335eb",
+        "end": 125,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            355.4749,
+            288.68229999999994,
+            541.5228999999999,
+            378.19629999999984
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0029:8b42260662ef40e5",
+          "end": 125,
+          "page_label": null,
+          "pdf_page_index": 29,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:821e690b12219298",
+          "start": 0
+        }
+      ],
+      "target_text": "Figure B2.1 shows that LinkedIn members with green skills are being hired at a significantly higher rate than other members. ",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.3333333333333333,
+      "draw_index": 47,
+      "id": "wef-q-31",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is listed as the research economist at the Argentine survey partner?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:371429c75ae9c4bc"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:10123c6ac7cdbe7f",
+        "end": 149,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1407,
+            274.3536999999999,
+            315.22069999999997,
+            329.2806999999998
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0285:099dfcf5ef8b972b",
+          "end": 149,
+          "page_label": null,
+          "pdf_page_index": 285,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:371429c75ae9c4bc",
+          "start": 0
+        }
+      ],
+      "target_text": "Argentina IAE Business School, Universidad Austral Eduardo Fracchia, Director of Academic Department of Economics Martin Calveira, Research Economist",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.6,
+      "draw_index": 53,
+      "id": "wef-q-34",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is identified as the senior partner at the Kazakhstan survey partner?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:bbd78e162b193e63"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e6622fa769d1c897",
+        "end": 219,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            297.39969999999914,
+            295.6996,
+            375.3306999999991
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:cffd6e2cb801eb63",
+          "end": 219,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:bbd78e162b193e63",
+          "start": 0
+        }
+      ],
+      "target_text": "Kazakhstan Center for Strategic Initiatives LPP Olzhas Khudaibergenov, Senior Partner Kamilya Suleimenova, Project Manager Maryam Galyamova, Senior Consultant Anel Rakhimova, Consultant Akku Bakisheva, Senior Consultant",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 69,
+      "id": "wef-q-39",
+      "overlap_ratio_definition": "unique question content tokens also in target / unique question content tokens",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What does the employer AI-exposure indicator represent?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:437cdeacf1f5545a"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ef7ab1389579e1b2",
+        "end": 263,
+        "sentence_index": 2,
+        "start": 96
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            481.4766999999992,
+            559.8316,
+            582.4926999999993
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0108:8a8e2e5142b0ad5c",
+          "end": 167,
+          "page_label": null,
+          "pdf_page_index": 108,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:437cdeacf1f5545a",
+          "start": 0
+        }
+      ],
+      "target_text": "This figure shows the share of surveyed employers with high exposure to AI that operate in the respective economy, region or industry, compared to the global average. ",
+      "tokenizer_version": "rag-tokenizer-v1"
+    },
+    {
+      "content_token_overlap_ratio": 0.25,
+      "draw_index": 7,
+      "id": "wef-batch2-kp-01",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How has the recruitment advantage for green-skilled members changed since its early trough?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:821e690b12219298"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "caption",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:821e690b12219298",
+        "end": 343,
+        "sentence_index": 1,
+        "start": 125
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            355.4749,
+            288.68229999999994,
+            541.5228999999999,
+            378.19629999999984
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0029:8b42260662ef40e5",
+          "end": 343,
+          "page_label": null,
+          "pdf_page_index": 29,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:821e690b12219298",
+          "start": 125
+        }
+      ],
+      "target_text": "Despite a dip in green hiring throughout 2021 and early 2022, green hiring has consistently outperformed the overall hiring, and this outperformance has been consistently getting larger since its low point of May 2022."
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 12,
+      "id": "wef-batch2-kp-02",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How did the questionnaire evolve during its latest design cycle?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1605dd696a1408b1"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1605dd696a1408b1",
+        "end": 234,
+        "sentence_index": 2,
+        "start": 107
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            377.7727,
+            341.56179999999995,
+            432.7807
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0096:5c6223070e22a637",
+          "end": 219,
+          "page_label": null,
+          "pdf_page_index": 96,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1605dd696a1408b1",
+          "start": 92
+        }
+      ],
+      "target_text": "Following survey best practices and informed by literature review, several questions were refined and new questions were added."
+    },
+    {
+      "content_token_overlap_ratio": 0.16666666666666666,
+      "draw_index": 15,
+      "id": "wef-batch2-kp-03",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What does the national mid-career training investment score summarize?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d5d06529e655dfb1"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d5d06529e655dfb1",
+        "end": 279,
+        "sentence_index": 1,
+        "start": 43
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            515.8566999999996,
+            343.0216,
+            582.3666999999996
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0108:375c101febaf1181",
+          "end": 236,
+          "page_label": null,
+          "pdf_page_index": 108,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d5d06529e655dfb1",
+          "start": 0
+        }
+      ],
+      "target_text": "Score computed based on the average response of companies operating in this country to the Executive Opinion Survey question “In your country, to what extent does government invest in midcareer reskilling and upskilling opportunities?” "
+    },
+    {
+      "content_token_overlap_ratio": 0.5714285714285714,
+      "draw_index": 23,
+      "id": "wef-batch2-kp-04",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who heads global enterprise public relations and communications at Coursera?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:52f4d5cb6b4d0ad4"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:52f4d5cb6b4d0ad4",
+        "end": 132,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.0315,
+            216.86969999999974,
+            427.6024999999999,
+            260.2946999999997
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0284:394f254147fae9e3",
+          "end": 132,
+          "page_label": null,
+          "pdf_page_index": 284,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:52f4d5cb6b4d0ad4",
+          "start": 0
+        }
+      ],
+      "target_text": "Coursera Maria-Nicole Ikonomou, Head of Global Enterprise PR & Communications Anna Zhao, Data Scientist Harshal Tijare, Data Analyst"
+    },
+    {
+      "content_token_overlap_ratio": 0.375,
+      "draw_index": 31,
+      "id": "wef-batch2-kp-05",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What population and qualification criteria define the secondary education attainment indicator?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0824e1697224bd39"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0824e1697224bd39",
+        "end": 131,
+        "sentence_index": 1,
+        "start": 32
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            711.4766999999995,
+            543.1726000000001,
+            743.4806999999995
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0107:27508365d29c737f",
+          "end": 99,
+          "page_label": null,
+          "pdf_page_index": 107,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0824e1697224bd39",
+          "start": 0
+        }
+      ],
+      "target_text": "The percentage of population aged 25 and over that attained or completed upper secondary education."
+    },
+    {
+      "content_token_overlap_ratio": 0.14285714285714285,
+      "draw_index": 35,
+      "id": "wef-batch2-kp-06",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which skills follow the leading core capability in employers' priorities?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c3f21f982c940677"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "caption",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c3f21f982c940677",
+        "end": 470,
+        "sentence_index": 2,
+        "start": 276
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            573.2727,
+            343.84869999999995,
+            766.3047000000001
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0034:1a1e60a3ffe0115f",
+          "end": 470,
+          "page_label": null,
+          "pdf_page_index": 34,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c3f21f982c940677",
+          "start": 276
+        }
+      ],
+      "target_text": "This is followed by resilience, flexibility and agility, along with leadership and social influence, underscoring the critical role of adaptability and collaboration alongside cognitive skills. "
+    },
+    {
+      "content_token_overlap_ratio": 0.75,
+      "draw_index": 38,
+      "id": "wef-batch2-kp-07",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is the founder and chief executive of Talentnet?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8fe1b20788d4c1a6"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8fe1b20788d4c1a6",
+        "end": 192,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            435.5496999999987,
+            532.2988,
+            513.4806999999987
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:85a9e375f4bd6117",
+          "end": 192,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8fe1b20788d4c1a6",
+          "start": 0
+        }
+      ],
+      "target_text": "Viet Nam Talentnet Corporation Trinh Tieu, Founder & CEO Ha Nguyen, Chief Marketing & Customer Experience Officer Khanh Nguyen, Associate Marketing Director Huy Le, Senior Marketing Specialist"
+    },
+    {
+      "content_token_overlap_ratio": 0.5,
+      "draw_index": 39,
+      "id": "wef-batch2-kp-08",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which forces are expected to affect business models in France?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:207582946428d8e9"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:207582946428d8e9",
+        "end": 145,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            745.8547000000001,
+            339.34060000000005,
+            777.8587
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0070:a920108032665ab1",
+          "end": 145,
+          "page_label": null,
+          "pdf_page_index": 70,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:207582946428d8e9",
+          "start": 0
+        }
+      ],
+      "target_text": "Employers in France expect their business models to be impacted by digital transformation, climatemitigation efforts, and rising cost of living. "
+    },
+    {
+      "content_token_overlap_ratio": 0.3333333333333333,
+      "draw_index": 40,
+      "id": "wef-batch2-kp-09",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How is the unemployment indicator defined?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dd575efaace965bb"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dd575efaace965bb",
+        "end": 149,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            412.42469999999935,
+            547.9498,
+            501.9386999999994
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0107:7d057c66373e838d",
+          "end": 149,
+          "page_label": null,
+          "pdf_page_index": 107,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dd575efaace965bb",
+          "start": 0
+        }
+      ],
+      "target_text": "The unemployment rate conveys the number of persons who are unemployed as a percentage of the labour force (i.e., the employed plus the unemployed). "
+    },
+    {
+      "content_token_overlap_ratio": 0.3333333333333333,
+      "draw_index": 42,
+      "id": "wef-batch2-kp-10",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What developments do employers in Sweden expect to reshape their businesses?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:59176ae1b6a9ca4d"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:59176ae1b6a9ca4d",
+        "end": 151,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            136.29069999999967,
+            344.22579999999994,
+            294.81669999999906
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0073:f5e424479c0c8654",
+          "end": 151,
+          "page_label": null,
+          "pdf_page_index": 73,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:59176ae1b6a9ca4d",
+          "start": 0
+        }
+      ],
+      "target_text": "By 2030, Sweden’s employers anticipate business transformation in response to broadening digitalization, demographic shifts and rising cost of living. "
+    },
+    {
+      "content_token_overlap_ratio": 0.5,
+      "draw_index": 45,
+      "id": "wef-batch2-kp-11",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Which forces are identified as important drivers of business change by employers in Israel?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a44bf9877d432f87"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 0
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a44bf9877d432f87",
+        "end": 460,
+        "sentence_index": 3,
+        "start": 273
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            113.28669999999977,
+            342.1936,
+            317.82069999999896
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0068:61e43c71c7075a9e",
+          "end": 187,
+          "page_label": null,
+          "pdf_page_index": 68,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a44bf9877d432f87",
+          "start": 0
+        }
+      ],
+      "target_text": "Amidst geopolitical tensions, a majority of employers operating in Israel highlight broadening digital access and rising cost of living as key drivers of business transformation by 2030. "
+    },
+    {
+      "content_token_overlap_ratio": 0.4,
+      "draw_index": 50,
+      "id": "wef-batch2-kp-12",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is the general director of the Mexican Institute for Competitiveness?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:6ebd46ec63237618"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:6ebd46ec63237618",
+        "end": 116,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            492.93369999999925,
+            322.87059999999997,
+            547.8606999999993
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:018718ba764d7e51",
+          "end": 116,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:6ebd46ec63237618",
+          "start": 0
+        }
+      ],
+      "target_text": "Mexico Instituto Mexicano para la Competitividad - IMCO Valeria Moy, General Director Ivania Mazari, Program Manager"
+    },
+    {
+      "content_token_overlap_ratio": 0.16666666666666666,
+      "draw_index": 55,
+      "id": "wef-batch2-kp-13",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What survey prompt supplies the data for the core-skills indicator?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ae7ba4f0a49e79cf"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ae7ba4f0a49e79cf",
+        "end": 416,
+        "sentence_index": 3,
+        "start": 276
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            435.3426999999993,
+            341.72470000000004,
+            536.3586999999993
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0109:e6d25d66cfc2e973",
+          "end": 295,
+          "page_label": null,
+          "pdf_page_index": 109,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ae7ba4f0a49e79cf",
+          "start": 155
+        }
+      ],
+      "target_text": "The data is based on the question “Currently, what are the core skills workers need to perform well in the key roles of your organisation?” "
+    },
+    {
+      "content_token_overlap_ratio": 0.42857142857142855,
+      "draw_index": 58,
+      "id": "wef-batch2-kp-14",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What dataset underlies the estimated employee totals for sector profiles?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:fbd5bd4b85d6428d"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:fbd5bd4b85d6428d",
+        "end": 163,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5827,
+            561.8586999999991,
+            556.1237000000001,
+            616.8666999999991
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0099:df86df3fe25db8e5",
+          "end": 163,
+          "page_label": null,
+          "pdf_page_index": 99,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:fbd5bd4b85d6428d",
+          "start": 0
+        }
+      ],
+      "target_text": "The estimates of the number of employees per sector which can be found in the Industry Profiles are based on the full dataset of 2.18 billion employees worldwide. "
+    },
+    {
+      "content_token_overlap_ratio": 1.0,
+      "draw_index": 62,
+      "id": "wef-batch2-kp-15",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is the head of research and evidence at Harambee?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:39f57c8710d7e119"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:39f57c8710d7e119",
+        "end": 146,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            32.97969999999941,
+            544.8268,
+            87.90669999999932
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:37963032bc085122",
+          "end": 146,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:39f57c8710d7e119",
+          "start": 0
+        }
+      ],
+      "target_text": "South Africa Harambee Youth Employment Accelerator Victoria Duncan, Head, Research and Evidence Rob Urquhart, Strategy, Research and Evidence Lead"
+    },
+    {
+      "content_token_overlap_ratio": 0.5,
+      "draw_index": 67,
+      "id": "wef-batch2-kp-16",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is counted in the working-age population indicator?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:edf6c60992408c7d"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:edf6c60992408c7d",
+        "end": 200,
+        "sentence_index": 2,
+        "start": 131
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            469.8266999999994,
+            344.35269999999997,
+            536.3366999999994
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0107:2490ac4d6a925511",
+          "end": 176,
+          "page_label": null,
+          "pdf_page_index": 107,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:edf6c60992408c7d",
+          "start": 107
+        }
+      ],
+      "target_text": "The working-age population is the number of people aged 25 and over. "
+    },
+    {
+      "content_token_overlap_ratio": 0.2,
+      "draw_index": 79,
+      "id": "wef-batch2-kp-17",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "What does the local skilled-labour recruitment indicator summarize?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:799a427d0a000087"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:799a427d0a000087",
+        "end": 320,
+        "sentence_index": 1,
+        "start": 58
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            205.30269999999985,
+            343.0216,
+            283.31469999999956
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0108:81e671ef640287f9",
+          "end": 262,
+          "page_label": null,
+          "pdf_page_index": 108,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:799a427d0a000087",
+          "start": 0
+        }
+      ],
+      "target_text": "Score computed based on the average response of companies operating in this country to the Executive Opinion Survey question “In your country, to what extent can companies find people with the skills required to fill their vacancies in the local labour market?” "
+    },
+    {
+      "content_token_overlap_ratio": 0.0,
+      "draw_index": 91,
+      "id": "wef-batch2-kp-18",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "How does the analysis connect particular drivers to changes in employment by occupation?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c30f030548690368"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 1
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c30f030548690368",
+        "end": 168,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5827,
+            676.7727,
+            557.4719000000001,
+            777.7887
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0099:9bd38ab3c02997f2",
+          "end": 168,
+          "page_label": null,
+          "pdf_page_index": 99,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c30f030548690368",
+          "start": 0
+        }
+      ],
+      "target_text": "To analyze the impact of specific trends on job growth and decline, survey respondents attributed the growth and decline of roles to macrotrends and technology trends. "
+    },
+    {
+      "content_token_overlap_ratio": 1.0,
+      "draw_index": 92,
+      "id": "wef-batch2-kp-19",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is the managing director of the international ports association?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d56c9b4c5dc4a9a4"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d56c9b4c5dc4a9a4",
+        "end": 200,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.1496,
+            32.85369999999989,
+            335.5606,
+            99.28269999999975
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:258ed65b855283b7",
+          "end": 200,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d56c9b4c5dc4a9a4",
+          "start": 0
+        }
+      ],
+      "target_text": "International Association of Ports and Harbors (IAPH) Patrick Verhoeven, managing director Nick Blackmore, director business development Fabienne Van Loo, membership outreach and Europe office manager"
+    },
+    {
+      "content_token_overlap_ratio": 1.0,
+      "draw_index": 101,
+      "id": "wef-batch2-kp-20",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is president of AEDIPE in Spain?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eb93de8b53161f74"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eb93de8b53161f74",
+        "end": 238,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            358.5826,
+            101.99169999999924,
+            552.3688,
+            202.92669999999896
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0286:f6afc298b7b154b3",
+          "end": 238,
+          "page_label": null,
+          "pdf_page_index": 286,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eb93de8b53161f74",
+          "start": 0
+        }
+      ],
+      "target_text": "Spain Asociación Española de Direccion y Desarrollo de Personas (AEDIPE) Roser Segarra, President Maria Obiols Ferré, EAPM Delegate and Board Member Roger Iliterasriera, Board Member Sergi Riau, Board Member Susana Gutierrez, Board Member"
+    },
+    {
+      "content_token_overlap_ratio": 0.5,
+      "draw_index": 104,
+      "id": "wef-batch2-kp-21",
+      "provenance": "drafted by GPT (Codex)",
+      "question": "Who is responsible for coordinating impact design?",
+      "question_kind": "kp",
+      "reachable": true,
+      "relevant_chunk_ids": [
+        "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8cbffa18eb668b00"
+      ],
+      "scope_number_roles": [],
+      "scope_numbers": [],
+      "shared_content_4grams": [],
+      "source": "wef-future-of-jobs-2025",
+      "split": null,
+      "state": "draft",
+      "stratum": {
+        "kind": "body",
+        "page_third": 2
+      },
+      "target_sentence": {
+        "draw_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8cbffa18eb668b00",
+        "end": 56,
+        "sentence_index": 0,
+        "start": 0
+      },
+      "target_spans": [
+        {
+          "bbox": [
+            143.0315,
+            193.8536999999999,
+            293.9066000000001,
+            214.27469999999994
+          ],
+          "block_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:p0283:d50fa08f0b4c1dca",
+          "end": 56,
+          "page_label": null,
+          "pdf_page_index": 283,
+          "primary_chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:8cbffa18eb668b00",
+          "start": 0
+        }
+      ],
+      "target_text": "Attilio Di Battista Head, Impact Design and Coordination"
+    }
+  ],
+  "provenance": "drafted by GPT (Codex)",
+  "schema": "matn-rag-question-drafts/1",
+  "seed": 20261012,
+  "skips": [
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a6557965ffb788ca",
+      "draw_index": 0,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:f0f7f4464c85032b",
+      "draw_index": 1,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d2a1e5927a8b28e1",
+      "draw_index": 2,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:6b517977cf41b7e7",
+      "draw_index": 3,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d04e8c17858a60d8",
+      "draw_index": 4,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:12c591e52bd3b36a",
+      "draw_index": 5,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:044adda88b851b44",
+      "draw_index": 6,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a24481b2c665411c",
+      "draw_index": 8,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:9636e8af6c08af47",
+      "draw_index": 9,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:11e6f01102420f97",
+      "draw_index": 10,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:f0b85e610f9fe49e",
+      "draw_index": 11,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:84fa8894e976c789",
+      "draw_index": 13,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c74f3fc84b94f0da",
+      "draw_index": 14,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b924f16217ccae2a",
+      "draw_index": 16,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2861da247f32c461",
+      "draw_index": 17,
+      "reason": "candidate DEFERRED after shared-content-4gram check; dropped without rewriting",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:007f39eb50767bba",
+      "draw_index": 18,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dffa3be7f9b108d9",
+      "draw_index": 19,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ba414f52e584d547",
+      "draw_index": 20,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:45127a927e9f020d",
+      "draw_index": 21,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ec97048c82a55017",
+      "draw_index": 22,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:13c41844c41a03ff",
+      "draw_index": 24,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:5811e4ecb2435dc9",
+      "draw_index": 25,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:658dbf0e71f73bfc",
+      "draw_index": 26,
+      "reason": "eligible target already retained in original drafts",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:edc2dd7c964f24e9",
+      "draw_index": 27,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:45524f56d2e53e98",
+      "draw_index": 28,
+      "reason": "candidate DEFERRED after shared-content-4gram check; dropped without rewriting",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ec0da44ee18d2d5f",
+      "draw_index": 29,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a53e6793199f3699",
+      "draw_index": 30,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b1637fb843ca2626",
+      "draw_index": 32,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:371429c75ae9c4bc",
+      "draw_index": 33,
+      "reason": "candidate DEFERRED after shared-content-4gram check; dropped without rewriting",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:dbd9cc48a7cf2f4f",
+      "draw_index": 34,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e854b5ff46b5eef6",
+      "draw_index": 36,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d78743a899c78486",
+      "draw_index": 37,
+      "reason": "no target sentence passes current evidence eligibility",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c29c2876eb2a455c",
+      "draw_index": 41,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0445264c5452c88c",
+      "draw_index": 43,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:62420b6c8c5bac2b",
+      "draw_index": 44,
+      "reason": "eligible target already retained in original drafts",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:4c0ba19bd9b459ff",
+      "draw_index": 46,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:cd4aab2197a1740a",
+      "draw_index": 47,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ff50dfdaa798c399",
+      "draw_index": 48,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:ac1974ad55e334ab",
+      "draw_index": 49,
+      "reason": "eligible target already retained in original drafts",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:47acaeeb20e59330",
+      "draw_index": 51,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:4c2e09789390896f",
+      "draw_index": 52,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c5941099634dec8b",
+      "draw_index": 53,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:5d355f36ea153c70",
+      "draw_index": 54,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b83a8f3f56684dbf",
+      "draw_index": 56,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e85b46b1d26bfdcc",
+      "draw_index": 57,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:5f109eb51ff7feb8",
+      "draw_index": 59,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:eacf2446699911e4",
+      "draw_index": 60,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1f37bb6d6ca67768",
+      "draw_index": 61,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:5e2ceed4d2321246",
+      "draw_index": 63,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:7cf4b3b4c2c93825",
+      "draw_index": 64,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:0c17649834f25626",
+      "draw_index": 65,
+      "reason": "last-third quota already satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:20c4f9f80981c64f",
+      "draw_index": 66,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:a55f6106f9b4e0ac",
+      "draw_index": 68,
+      "reason": "eligible target already retained in original drafts",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e4a39a01b4b56f96",
+      "draw_index": 69,
+      "reason": "eligible target already retained in original drafts",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b90d9571053685c7",
+      "draw_index": 70,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:586cd1ae9ea4a51c",
+      "draw_index": 71,
+      "reason": "last-third quota already satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:7fcbfbe5cb297af5",
+      "draw_index": 72,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2a4784c45b06831b",
+      "draw_index": 73,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:83ee92e12a62a18a",
+      "draw_index": 74,
+      "reason": "last-third quota already satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b47b05431d62fe72",
+      "draw_index": 75,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:3490347443949a8f",
+      "draw_index": 76,
+      "reason": "heading, source/date line, acknowledgement, copyright, isolated descriptor or incomplete fragment; no new suitable self-contained topical target",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2f8afbe19ec2a4db",
+      "draw_index": 77,
+      "reason": "last-third quota already satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2c90f92a0f0f85dc",
+      "draw_index": 78,
+      "reason": "first-third quota already satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:69267a7193bab0c5",
+      "draw_index": 80,
+      "reason": "third quota satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e12c7ed31ac8b578",
+      "draw_index": 81,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:db6315e5bc897574",
+      "draw_index": 82,
+      "reason": "source/date, incomplete fragment, or statement missing the named metric required for self-contained question scope",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:d94d51a10aa20dcc",
+      "draw_index": 83,
+      "reason": "third quota satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:32109e6bea4d232a",
+      "draw_index": 84,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:19598a73c05259ca",
+      "draw_index": 85,
+      "reason": "source/date, incomplete fragment, or statement missing the named metric required for self-contained question scope",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:91587572444aa62b",
+      "draw_index": 86,
+      "reason": "third quota satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:23d8106e11c1319d",
+      "draw_index": 87,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c09823b0edfc061d",
+      "draw_index": 88,
+      "reason": "source/date, incomplete fragment, or statement missing the named metric required for self-contained question scope",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:c5d1822deb68e145",
+      "draw_index": 89,
+      "reason": "third quota satisfied",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:90690bbb2c581155",
+      "draw_index": 90,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:731f409c41adf2a1",
+      "draw_index": 93,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:9de8c9a285ef6627",
+      "draw_index": 94,
+      "reason": "third quota satisfied",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:2078f9b6d29ef6f3",
+      "draw_index": 95,
+      "reason": "source/date, isolated heading, address/contact or fragment; no suitable new self-contained target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:b96ce94b3e6f547a",
+      "draw_index": 96,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:e6f4d6257f3d6644",
+      "draw_index": 97,
+      "reason": "third quota satisfied",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:3302e12f62851313",
+      "draw_index": 98,
+      "reason": "source/date, isolated heading, address/contact or fragment; no suitable new self-contained target",
+      "third": 2
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:1bfa673de2ec80f0",
+      "draw_index": 99,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:efd7969fb8d3704e",
+      "draw_index": 100,
+      "reason": "third quota satisfied",
+      "third": 1
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:74d0dd69f89c4e82",
+      "draw_index": 102,
+      "reason": "third quota satisfied",
+      "third": 0
+    },
+    {
+      "chunk_id": "sha256-f25987c0dee6eba2d832f80924b0e926a4705605cbd6a5c5f10323897da31271:c:836a21b36fefa3fd",
+      "draw_index": 103,
+      "reason": "third quota satisfied",
+      "third": 1
+    }
+  ],
+  "state": "draft-not-frozen",
+  "structure_sha256": "bce9632fdff6c196ae4c65f610ed91f377470e5ac3ff488938c0db2b4a9e118b"
+}
