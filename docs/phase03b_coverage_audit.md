@@ -1,7 +1,7 @@
 # Phase 03B coverage audit (pre-remediation)
 
 Date: 2026-09-28  
-Baseline: uncommitted Phase 03 implementation on `2eb7519`  
+Baseline: uncommitted Phase 03 implementation on `1bdbba7`  
 Audited run: `output/phase03-acceptance-sec2-en`
 
 ## Method and evidence limits

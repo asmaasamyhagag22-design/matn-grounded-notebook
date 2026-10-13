@@ -38,7 +38,7 @@ def build_review(rows,out):
     payload=json.dumps({'schema':'matn-rag-owner-review/1','manifest':manifest,'items':items},ensure_ascii=False).replace('</','<\\/')
     out.write_text(template.replace('REVIEW_DATA_PLACEHOLDER',payload))
     out.with_suffix('.sample.json').write_text(json.dumps({'schema':'matn-rag-owner-sample/1','manifest':manifest,
-        'seed':20261012,'provenance':'drafted by GPT (Codex)','items':sample},indent=2,ensure_ascii=False)+'\n')
+        'seed':20261012,'provenance':'drafted by model family A','items':sample},indent=2,ensure_ascii=False)+'\n')
     return sample
 
 if __name__=='__main__':

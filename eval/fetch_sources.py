@@ -4,7 +4,7 @@ Why: the evaluation PDFs are never committed (size, licensing), so any machine r
 checks the bytes against the sha256 pinned in eval/registry.json.
 
 Rules, all enforced in code:
-- network only when MATN_ALLOW_NETWORK=1 is set for this process (CLAUDE.md rule 2); otherwise nothing is requested;
+- network only when MATN_ALLOW_NETWORK=1 is set for this process (ENGINEERING_RULES.md rule 2); otherwise nothing is requested;
 - HTTPS GET only, to ALLOWED_HOSTS; every redirect hop is checked against the same list; no cookies are kept;
 - each URL is printed before it is requested;
 - a download lands in a scratch folder OUTSIDE the repository first and enters eval/incoming/ only after it passes:

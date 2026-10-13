@@ -6,13 +6,10 @@ to the ministry. Tick an item only with evidence (a commit, a test, or a report 
 
 ## Removed or disabled on 2026-10-02
 
-- [ ] **Claude guard hooks (R1–R5).** They were unregistered in `.claude/settings.json` (the registration is in `f617c96`). The code and tests stay in
-      `.claude/hooks/guard.py` and `.claude/hooks/test_guard.py`. Re-register them, then start a new session (hook
-      config is read at session start) and prove each rule live.
+- [ ] **Restricted-input and sealed-split access guards.** Re-enable the delivery safeguards and prove each rule with recorded evidence.
 - [ ] **Fast-suite timing budget** (`checks/fast_budget.py`, `checks/test_fast_budget.py`). Decide whether delivery
       needs it. Pre-commit still runs the fast tests, with no time limit.
-- [ ] **The long rule set** in the old `CLAUDE.md` (rules 1–15), restorable from git history. Review which rules the
-      delivered system needs.
+- [ ] **Engineering rules** in `ENGINEERING_RULES.md`: review the delivery safeguards and verify their enforcement.
 
 ## Deferred hardening
 

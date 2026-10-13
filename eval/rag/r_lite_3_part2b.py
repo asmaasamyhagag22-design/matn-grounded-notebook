@@ -14,7 +14,7 @@ from eval.rag.r_lite_3_part2b_mapping import convert_box,union_share,retype
 
 OUT=Path('out/r-lite-3/part2b')
 CONFIG=Path('eval/rag/r_lite_3_part2b_config.json')
-CONFIG_COMMIT='0eb5651'
+CONFIG_COMMIT='27c63cc'
 BASE='b0e4d61'
 ANNOTATIONS=('eval/rag/wef-table-visual-annotations.json','eval/rag/dev-table-visual-annotations-20261012.json')
 INPUTS={}
@@ -125,7 +125,7 @@ def main():
         if taxonomy:reasons.append('TAXONOMY_TABLE_RETYPED')
         if gao39:reasons.append('GAO_INDEX39_RETYPED')
         if any(r['source'] not in prior.REAL for r in unknown):reasons.append('ELIGIBLE_BLOCK_UNKNOWN')
-        emit('agreement.json',{'status':'STOP_AGREEMENT_FAILED' if reasons else 'PASS','configuration_commit':CONFIG_COMMIT,'wef_chart_retyped':hits,'checks':checks,'disagreements':disagreements,'real_table_retyped_ids':sorted(set(real_lost)),'taxonomy_retyped_ids':taxonomy,'gao39_retyped_ids':gao39,'stop_reasons':reasons,'no_configuration_or_mapping_change_after_check':True,'limits':'Reused Codex annotations are a reference check, not independent human/population ground truth.'})
+        emit('agreement.json',{'status':'STOP_AGREEMENT_FAILED' if reasons else 'PASS','configuration_commit':CONFIG_COMMIT,'wef_chart_retyped':hits,'checks':checks,'disagreements':disagreements,'real_table_retyped_ids':sorted(set(real_lost)),'taxonomy_retyped_ids':taxonomy,'gao39_retyped_ids':gao39,'stop_reasons':reasons,'no_configuration_or_mapping_change_after_check':True,'limits':'Reused model family A annotations are a reference check, not independent human/population ground truth.'})
         completed.append('agreement');status='STOP_AGREEMENT_FAILED' if reasons else 'CHECKS_PASS_CONTINUE_DETERMINISM_REQUIRED';not_run=['projection','L3-15','second labeler pass']
         required_crops={(r['source'],b) for r in disagreements for b in r['block_ids']}|{(k,b) for k in prior.DEV for b in selected[k]}
         # Also preserve special-control disagreements, without expanding the inference input set.
@@ -159,7 +159,7 @@ def main():
                         if key not in opened:opened[key]=pdfium.PdfDocument(data['pdf'])
                         pg=opened[key][e.block.page_index];bmp=pg.render(scale=scale);im=bmp.to_pil().copy();bmp.close();pg.close()
                     box=list(e.block.bbox);pixel=(max(0,int(box[0]*scale)),max(0,int(box[1]*scale)),min(im.width,int(box[2]*scale+1)),min(im.height,int(box[3]*scale+1)));path=OUT/'crops'/key/(bid.rsplit(':',1)[-1]+'.png');path.parent.mkdir(parents=True,exist_ok=True);im.crop(pixel).save(path);im.close()
-                    crop_manifest.append({'source':key,'block_id':bid,'pdf_page_index':e.block.page_index,'bbox':box,'scale':scale,'path':str(path),'sha256':sha(path.read_bytes()),'crop_origin':'native PDF or preserved native PNG','judgment':'Codex reference crop, not human ground truth'})
+                    crop_manifest.append({'source':key,'block_id':bid,'pdf_page_index':e.block.page_index,'bbox':box,'scale':scale,'path':str(path),'sha256':sha(path.read_bytes()),'crop_origin':'native PDF or preserved native PNG','judgment':'model family A reference crop, not human ground truth'})
             finally:
                 for d in opened.values():d.close()
         emit('crops-manifest.json',crop_manifest)

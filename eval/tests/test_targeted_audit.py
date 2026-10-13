@@ -30,7 +30,7 @@ def test_selection_union_deduplicates_excludes_agreements_and_never_changes_answ
     assert plan['random_control_count'] == 0
     assert plan['reason_counts']['AI snapshots differ'] == 1
     assert plan['reason_counts']['Reader 2 unavailable'] == 1
-    assert plan['initial_annotation'] == 'GPT (Codex)'
+    assert plan['initial_annotation'] == 'model family A'
     assert plan['targeted_audit'] == 'pending: asmaa'
     assert inputs == before
     assert select_problems(*inputs) == plan
@@ -55,7 +55,7 @@ def test_render_separates_audit_storage_and_exposes_current_ai_as_suggestion_onl
     assert 'Problem items' in html and 'matn-targeted-audit-answers.json' in html
     assert 'value="asmaa"' in html and 'id="folder" hidden disabled' in html
     assert 'confirm-ai-after-scan-review' in html
-    assert 'Initial annotation: GPT (Codex)' in html
+    assert 'Initial annotation: model family A' in html
     assert 'answers={}' in html and 'indexedDB' in html
 
 

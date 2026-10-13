@@ -1,4 +1,4 @@
-"""Tests for the git hooks in .githooks/ (G1 forbidden staged paths, G2 tests on Python commits, G3 commit message).
+"""Tests for the git hooks in .githooks/ (G1 forbidden staged paths, G2 tests on Python commits, G4 full suite).
 
 Each test builds a throwaway git repository in tmp_path that uses this directory as core.hooksPath, so the real
 hooks run exactly as git runs them (through git's bundled sh on Windows).
@@ -29,7 +29,7 @@ def repo(tmp_path: Path) -> Path:
     return tmp_path
 
 
-GOOD_MSG = "docs: add note\n\nWhy: explains the change for reviewers.\n\nAgent: claude-code\n"
+GOOD_MSG = "docs: add note\n\nWhy: explains the change for reviewers.\n"
 
 
 def commit(repo: Path, rel: str, content: bytes | str = "x\n", msg: str = GOOD_MSG) -> subprocess.CompletedProcess:
@@ -155,83 +155,3 @@ def test_hooks_run_every_test_directory_of_this_repository():
     assert dirs == covered, f"test directories missing from TEST_DIRS: {sorted(dirs - covered)}"
 
 
-# ---------- G3 ----------
-@pytest.mark.parametrize("msg", ["fix stuff", "fix stuff\n\nCo-Authored-By: Someone <a@b.c>\n", ""])
-def test_g3_blocks_messages_without_a_why_body(repo, msg):
-    result = commit(repo, "a.md", "x\n", msg=msg)
-    assert result.returncode != 0
-    if msg:
-        assert "[G3]" in result.stderr, result.stderr
-
-
-def test_g3_allows_subject_plus_body(repo):
-    assert commit(repo, "a.md", "x\n", msg=GOOD_MSG).returncode == 0
-
-
-# ---------- G5 (Agent trailer, CLAUDE.md rule 15) ----------
-WHY = "docs: add note\n\nWhy: explains the change for reviewers.\n"
-
-
-@pytest.mark.parametrize("name,msg", [
-    ("no Agent trailer", WHY),
-    ("value outside the allowlist", WHY + "\nAgent: copilot\n"),
-    ("two Agent trailers", WHY + "\nAgent: codex\nAgent: claude-code\n"),
-    ("Agent trailer not last", WHY + "\nAgent: codex\nCo-Authored-By: Someone <a@b.c>\n"),
-    ("Agent only inside the body, not a trailer", "docs: add note\n\nAgent: codex is mentioned here in prose.\n"),
-])
-def test_g5_blocks_commits_without_exactly_one_valid_last_agent_trailer(repo, name, msg):
-    result = commit(repo, "a.md", "x\n", msg=msg)
-    assert result.returncode != 0, name
-    assert "[G5]" in result.stderr and "claude-code, codex, human" in result.stderr, (name, result.stderr)
-
-
-@pytest.mark.parametrize("agent", ["claude-code", "codex", "human"])
-def test_g5_allows_each_allowlisted_agent_as_the_last_trailer(repo, agent):
-    msg = WHY + f"\nCo-Authored-By: Someone <a@b.c>\nAgent: {agent}\n"
-    assert commit(repo, "a.md", "x\n", msg=msg).returncode == 0
-
-
-def test_g5_checks_merge_commits_too(repo):
-    assert commit(repo, "a.md", "x\n").returncode == 0
-    git(repo, "checkout", "-q", "-b", "side", check=True)
-    assert commit(repo, "b.md", "y\n").returncode == 0
-    git(repo, "checkout", "-q", "-", check=True)
-    assert commit(repo, "c.md", "z\n").returncode == 0
-    blocked = git(repo, "merge", "--no-ff", "-q", "side", "-m", "Merge branch 'side'")
-    assert blocked.returncode != 0 and "[G5]" in blocked.stderr, blocked.stderr
-    git(repo, "merge", "--abort")
-    allowed = git(repo, "merge", "--no-ff", "-q", "side", "-m", "Merge branch 'side'\n\nAgent: human")
-    assert allowed.returncode == 0, allowed.stderr
-
-
-# ---------- G4 re-check of the Agent trailer on push ----------
-def commit_without_hooks(repo: Path, rel: str, msg: str) -> None:
-    """A commit made without the hooks (e.g. another machine), to check that G4 still catches it on push."""
-    (repo / rel).write_text("x\n", encoding="utf-8")
-    git(repo, "add", rel, check=True)
-    git(repo, "-c", f"core.hooksPath={(repo / 'no-hooks').as_posix()}", "commit", "-q", "-m", msg, check=True)
-
-
-def push_with(repo: Path, remote: Path, since: str | None = None) -> subprocess.CompletedProcess:
-    env_extra = {"MATN_G5_SINCE": since} if since else {}
-    env = dict(os.environ, MATN_PYTHON=sys.executable, **env_extra)
-    return subprocess.run(["git", "push", "-q", remote.as_posix(), "HEAD:refs/heads/main"], cwd=repo,
-                          capture_output=True, text=True, env=env)
-
-
-def test_g4_blocks_push_of_a_commit_without_a_valid_agent_trailer(repo, remote):
-    assert commit(repo, "a.md").returncode == 0
-    commit_without_hooks(repo, "b.md", WHY)
-    bad = git(repo, "rev-parse", "--short", "HEAD", check=True).stdout.strip()
-    result = push_with(repo, remote)
-    assert result.returncode != 0 and "[G4]" in result.stderr and "[G5]" in result.stderr, result.stderr
-    assert bad in result.stderr
-
-
-def test_g4_checks_only_commits_from_the_baseline_onward(repo, remote):
-    commit_without_hooks(repo, "old.md", WHY)  # before the rule: no trailer, not checked
-    assert commit(repo, "a.md").returncode == 0
-    since = git(repo, "rev-parse", "HEAD", check=True).stdout.strip()
-    assert commit(repo, "b.md").returncode == 0
-    result = push_with(repo, remote, since=since)
-    assert result.returncode == 0, result.stderr

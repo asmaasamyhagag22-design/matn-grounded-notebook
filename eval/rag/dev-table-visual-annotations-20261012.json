@@ -8,7 +8,7 @@
     "gao-21-519sp": 55,
     "wb-eem-2021-12": 4
   },
-  "provenance": "Codex visual judgment",
+  "provenance": "model family A visual judgment",
   "render_scale_px_per_pt": 1.5,
   "items": [
     {
@@ -42,7 +42,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -78,7 +78,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -114,7 +114,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -150,7 +150,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -186,7 +186,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a bordered metric-by-fiscal-year numeric table, with labelled rows and columns.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -222,7 +222,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -258,7 +258,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -294,7 +294,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -330,7 +330,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -366,7 +366,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -402,7 +402,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -438,7 +438,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -488,7 +488,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a glossary table row: term in left cell and definition in right cell; textual table fragment, not chart.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -531,7 +531,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chapter/appendix heading, not data cells or chart; prose class includes headings.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -567,7 +567,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -603,7 +603,7 @@
         }
       ],
       "classification": "real table",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop shows a textual audit matrix: key-practice rows and labelled Questions to Consider / Audit Procedures columns. Counts as real table in this rubric; no numerical axes or marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -639,7 +639,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop contains sentence-valued key-practice heading bars or an enumerated prose list; no row/column cell matrix in the sampled span and no chart marks.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -675,7 +675,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chapter/appendix heading, not data cells or chart; prose class includes headings.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -711,7 +711,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a boxed prose principle/definition with source footer, not data cells or chart.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."
@@ -747,7 +747,7 @@
         }
       ],
       "classification": "prose",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a boxed prose principle/definition with source footer, not data cells or chart.",
       "visually_inspected": true,
       "crop_limit": "Region crop from chunk primary block extents; some source blocks end partway through a textual table. Class does not assert complete extraction or usable numeric cells."

@@ -1,6 +1,6 @@
 {
   "schema": "matn-human-sample-answers/1",
-  "manifest_key": "[[\"targeted-audit\",\"4055049e974166f1d421471ac8093b51af199601e86af76d0e6c71e748d7cd37\"]]",
+  "manifest_key": "[[\"targeted-audit\",\"344e52df34f47ca63c698069dc07c3f236121887c976a8d2cedc2c2dbe4aabe6\"]]",
   "answers": {
     "initial:statab_1951_part04_p0045:t0028": {
       "kind": "number",

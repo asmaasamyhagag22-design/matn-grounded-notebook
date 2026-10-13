@@ -5,6 +5,8 @@ import re
 from pathlib import Path
 
 import matn_presentation.live as live
+import pypdfium2 as pdfium
+from tests.reading.pdf_fixtures import write_pdf
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -39,9 +41,20 @@ class FakeLocalClient:
 
 def test_live_local_cache_miss_then_hit(tmp_path, monkeypatch):
     monkeypatch.setattr(live, "LIVE_CACHE", tmp_path / "cache")
+    # Synthetic source exercises real extraction and cache hashing; no local paper PDF is needed.
+    one = write_pdf(tmp_path / "one-page.pdf",
+                    b"BT /F1 12 Tf 50 700 Td (This synthetic source describes a grounded cache experiment. It provides enough text to exercise claim extraction.) Tj ET")
+    writer = pdfium.PdfDocument.new()
+    page_source = pdfium.PdfDocument(one)
+    for _ in range(3):
+        writer.import_pages(page_source, [0])
+    source = tmp_path / "synthetic-source.pdf"
+    writer.save(source)
+    writer.close()
+    page_source.close()
     client = FakeLocalClient()
     first = live.generate_live_local(
-        ROOT / "documents" / "2601.14525v1.pdf",
+        source,
         [2, 3],
         tmp_path / "run-1",
         client=client,
@@ -50,7 +63,7 @@ def test_live_local_cache_miss_then_hit(tmp_path, monkeypatch):
     assert first["run_details"]["cache_status"] == "miss"
     assert first["plan"]["provenance"]["model_generation_calls"] == 1
     second = live.generate_live_local(
-        ROOT / "documents" / "2601.14525v1.pdf",
+        source,
         [2, 3],
         tmp_path / "run-2",
         client=FakeLocalClient(),

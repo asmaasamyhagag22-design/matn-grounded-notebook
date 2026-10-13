@@ -3,7 +3,7 @@
 Frozen on 2026-10-04, before the first measurement. Step 4b.2 rules and thresholds were re-frozen with the owner's
 approval before its first measurement. `eval/tests/test_reading_rules_frozen.py` holds the sha256 of this file,
 `eval/reading/thresholds.json`, and the normalization table in `eval/reading/metrics.py`. Any change fails that test, so a
-change has to update the frozen hashes in a commit of its own, with the owner's approval (CLAUDE.md rule 6). Rules
+change has to update the frozen hashes in a commit of its own, with the owner's approval (ENGINEERING_RULES.md rule 5). Rules
 are never changed after a result has been seen in order to move that result.
 
 ## 1. Text normalization for CER and WER

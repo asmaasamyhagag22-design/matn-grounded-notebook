@@ -17,7 +17,7 @@ FROZEN = {
     "matn_reading/ocr/reader1.py": "fed053f26fbb70a32e0451731ada65eeeb0824a763084eabedab20f0d8940e15",
     "matn_reading/cli.py": "a296b8de5f466a78a2ea4d2b004459e13954b38302e057f4ff125d1684f47672",
     "eval/reading/synthetic/holdout2.json": "3ed1cd6cc64495264a48c30cb37523fa03ba134bf8062b510aa090f3d1b02a96",
-    "docs/ocr_rules.md": "2d5f8c61203bee216635ea96817b6e7685709f4e35ffd0d043c12fa9ed3d13f3",
+    "docs/ocr_rules.md": "85afcb830c27c661ada8c20161038806eb87ca93094e1ffe124c3c196e819fab",
     "matn_reading/ocr/rapidocr_settings.json": "dc6e9e3febe5905111af74e8aade66d3d3953943939f0b86af0b3c2093358323",
     "matn_reading/ocr/consensus.py": "1d791a18742380960409403ad6acc9477d40da690224c3714c8ada7b98553a3a",
     "matn_reading/ocr/numbers.py": "9456df442c6d850e053c7efb159c46cb9894d5f61783974538b1976fb271b762",

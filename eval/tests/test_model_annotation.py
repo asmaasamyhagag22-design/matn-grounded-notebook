@@ -17,14 +17,14 @@ def fixture(tmp_path):
         {'id': 'c', 'page': 'p', 'reader1': '30', 'flagged': False}],
         'review_order': ['c', 'a', 'b'],
         'populations': {'p': {'flagged': 1, 'accepted': 2}}}
-    reference = {'schema': 'matn-gpt-sample-annotations/1',
+    reference = {'schema': 'matn-model-sample-annotations/1',
                  'manifest_sha256': digest(manifest), 'reviewer_type': 'model',
                  'human_verified': False, 'answers': {}}
     for n, item_id in enumerate(manifest['review_order'], 1):
         reference['answers'][item_id] = {
             'review_number': n, 'kind': 'number', 'value_as_printed':
             {'a': '10', 'b': '21', 'c': '30'}[item_id],
-            'verified_by': 'GPT fixture', 'reviewer_type': 'model', 'human_verified': False,
+            'verified_by': 'model fixture', 'reviewer_type': 'model', 'human_verified': False,
             'images': {'crop': 'crop.png', 'context_crop': 'crop.png',
                        'crop_sha256': sha, 'context_sha256': sha}}
     reference['answers']['c'].update(kind='illegible', value_as_printed=None)
@@ -32,7 +32,7 @@ def fixture(tmp_path):
 
 
 def test_model_scoring_keeps_provenance_illegible_and_inputs(tmp_path):
-    from eval.reading.real.gpt_annotation import measure_reference
+    from eval.reading.real.model_annotation import measure_reference
     manifest, reference = fixture(tmp_path)
     before = copy.deepcopy(reference)
     result = measure_reference(manifest, reference, tmp_path)
@@ -46,7 +46,7 @@ def test_model_scoring_keeps_provenance_illegible_and_inputs(tmp_path):
 
 @pytest.mark.parametrize('tamper', ['manifest', 'extra', 'missing', 'order', 'human', 'answer_human', 'image'])
 def test_rejects_wrong_manifest_incomplete_review_false_provenance_and_changed_images(tmp_path, tamper):
-    from eval.reading.real.gpt_annotation import measure_reference
+    from eval.reading.real.model_annotation import measure_reference
     manifest, reference = fixture(tmp_path)
     if tamper == 'manifest': reference['manifest_sha256'] = 'wrong'
     if tamper == 'extra': reference['answers']['other'] = reference['answers']['a']
@@ -60,7 +60,7 @@ def test_rejects_wrong_manifest_incomplete_review_false_provenance_and_changed_i
 
 
 def test_static_annotation_view_is_portable_escaped_and_has_no_write_script(tmp_path):
-    from eval.reading.real.gpt_annotation import render_reference
+    from eval.reading.real.model_annotation import render_reference
     manifest, reference = fixture(tmp_path)
     reference['answers']['a']['note'] = '<script>injected</script>'
     html = render_reference(manifest, reference, tmp_path)
@@ -80,7 +80,7 @@ def test_closeout_states_complete_only_delegated_model_scope():
     rows = model_sample_closeout(original, model)
     assert rows[1] == original[1]
     assert all(r[1] == 'DONE' for r in (rows[0], rows[2], rows[3]))
-    assert 'GPT' in rows[0][0] and 'human_verified=false' in rows[0][2]
+    assert 'model' in rows[0][0] and 'human_verified=false' in rows[0][2]
     assert '4/100' in rows[2][2]
     assert original[0][1] == 'BLOCKED-ON-OWNER'
     assert model_sample_closeout(original, None) == original

@@ -24,7 +24,7 @@ Survey default depth=B؛depth<B خطأ. Summary يذكر كل source مختار 
 
 **لو النص والرسم مختلفين؟** arXivkn02:النص "over 90%" والرسم Sonnet exactly90% حسب ملاحظة asmaa. Verification text-bound يضمن fidelity للنص، مش internal consistency للمصدر؛ممنوع قراءة أرقام من figures.
 
-**التقييم human gold؟** Questions drafted byGPT(Codex). Provenance: "asmaa 6 items; GPT (Codex) 14 items, delegated; not independent of the drafter; not human gold". التفويض اتطبّق من general approval phrase وقتها. بعدها "cross-family screen: Claude (senior-reviewer chat), not human". Owner verdicts ليها الأولوية؛GPT evidence فقط؛leak/not answerable يتشالوا بدون rewrite. Relevant sets تستخدم exact normalized targets، مش كل الإجابات المعنوية الممكنة؛elsewhere diagnostic فقط، بدون numeric undercount estimate.
+**التقييم human gold؟** Questions drafted bymodel family A. Provenance: "asmaa 6 items; model family A 14 items, delegated; not independent of the drafter; not human gold". التفويض اتطبّق من general approval phrase وقتها. بعدها "cross-family screen: model family B (senior-reviewer chat), not human". Owner verdicts ليها الأولوية؛model evidence فقط؛leak/not answerable يتشالوا بدون rewrite. Relevant sets تستخدم exact normalized targets، مش كل الإجابات المعنوية الممكنة؛elsewhere diagnostic فقط، بدون numeric undercount estimate.
 
 **نطاق freeze؟**60 سؤال منarXiv/GAO/WB و12survey topics،commit5083164 قبل retrieval؛57reachable و3reading ceiling. Draft splits ثابتة. kp08/kn04 يشاركوا quote، وده قيد على CI. Hit@1/5/10/20/50 معWilson95 وMRR@10 معbootstrap10000 seed20261012، وتفصيل source/split/kp-kn/overlap tertiles. Survey structural coverage، بدون precision claim. Tune hit50−hit5≥.15 يقترح reranker فقط، من غير بناء أوtuning.
 

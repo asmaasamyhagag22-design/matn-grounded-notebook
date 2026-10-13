@@ -13,8 +13,8 @@ from .review import HERE, REPO
 from .sample import INITIAL, digest, freeze
 from .sample_review import require_committed, render_sample_html
 
-FIRST = HERE / 'gpt-annotations-20261006.json'
-LATEST = HERE / 'gpt-annotations-20261006-audited.json'
+FIRST = HERE / 'model-annotations-20261006.json'
+LATEST = HERE / 'model-annotations-20261006-audited.json'
 PLAN = HERE / 'targeted-audit-problems-20261010.json'
 PAGE = HERE / 'targeted-review.html'
 
@@ -55,7 +55,7 @@ def select_problems(sample, first, latest):
     selected_ids = {i['id'] for i in selected}
     agreement = [i for i in sample['review_order'] if i not in selected_ids]
     return {'schema': 'matn-targeted-ai-audit/1', 'batch': 'targeted-audit',
-            'initial_annotation': 'GPT (Codex)', 'targeted_audit': 'pending: asmaa',
+            'initial_annotation': 'model family A', 'targeted_audit': 'pending: asmaa',
             'sample_manifest_sha256': digest(sample),
             'first_reference_sha256': digest(first), 'latest_reference_sha256': digest(latest),
             'selection': 'Union: changed AI values/kinds, AI illegible, AI mismatch with either reader; missing reader 2 included. Problems only; no random controls by owner instruction.',
@@ -81,21 +81,21 @@ def render_targeted(payload):
     source = render_sample_html([payload])
     source = source.replace('Matn · sampled number review', 'Matn · targeted AI audit')
     source = source.replace('Sampled number review · مراجعة العينة', 'Problem items · مراجعة الحالات اللي عليها مشاكل')
-    source = source.replace('Sampling status is hidden.', 'Initial annotation: GPT (Codex). Targeted audit: asmaa (pending). No random items.')
+    source = source.replace('Sampling status is hidden.', 'Initial annotation: model family A. Targeted audit: asmaa (pending). No random items.')
     source = source.replace('id="owner" autocomplete="name"', 'id="owner" value="asmaa" autocomplete="name"')
     source = source.replace('<button id="folder">', '<button id="folder" hidden disabled>')
-    source = source.replace('<div class="keys">', '<p id="aiReading"></p><p id="auditReason"></p><div class="keys"><button id="aiAccept">G · Confirm current GPT reading</button>')
+    source = source.replace('<div class="keys">', '<p id="aiReading"></p><p id="auditReason"></p><div class="keys"><button id="aiAccept">G · Confirm current model reading</button>')
     source = source.replace("link.download='matn-human-sample-answers.json'", "link.download='matn-targeted-audit-answers.json'")
     source = source.replace('Sample complete.', 'Targeted audit complete.')
     source = source.replace('No full-page review is required.', 'Only these problem items are audited; other items remain AI annotations with reader agreement.')
     source = source.replace("'r1','r2','r3','type','illegible','notNumber','back'", "'r1','r2','r3','type','illegible','notNumber','back','aiAccept'")
     source = source.replace("const item=current();if(!item)return;", """const item=current();if(!item)return;
- el('aiReading').textContent='GPT initial: '+item.ai_before+' → current: '+item.ai_current+' · original sample #'+item.original_review_number;
+ el('aiReading').textContent='model initial: '+item.ai_before+' → current: '+item.ai_current+' · original sample #'+item.original_review_number;
  el('auditReason').textContent='Audit reasons: '+item.audit_reasons.join('; ');
- el('aiAccept').textContent='G · Confirm GPT: '+item.ai_current;""")
+ el('aiAccept').textContent='G · Confirm model: '+item.ai_current;""")
     source = source.replace("el('r1').onclick=", "el('aiAccept').onclick=()=>choose(current().ai_kind,current().ai_value,'confirm-ai-after-scan-review');\nel('r1').onclick=")
     source = source.replace("'t':'type','x':'illegible'", "'t':'type','g':'aiAccept','x':'illegible'")
-    source = source.replace('1 / 2 / 3 choose that reading;', 'G confirms the displayed GPT reading after checking the scan; 1 / 2 / 3 choose that reading;')
+    source = source.replace('1 / 2 / 3 choose that reading;', 'G confirms the displayed model reading after checking the scan; 1 / 2 / 3 choose that reading;')
     source = source.replace('Chrome/Edge can also choose eval/reading/real/gt for direct saving.', 'This audit saves separately; export JSON when finished.')
     return source
 
@@ -125,7 +125,7 @@ def generate():
     if plan != select_problems(sample, first, latest):
         raise ValueError('Frozen targeted audit changed')
     by_id = {i['id']: i for i in sample['items']}
-    originals = original_embedded_images(sample, latest, (HERE / 'gpt-annotations.html').read_text(encoding='utf8'))
+    originals = original_embedded_images(sample, latest, (HERE / 'model-annotations.html').read_text(encoding='utf8'))
     items = []
     for selected in plan['items']:
         item_id = selected['id']; item = by_id[item_id]; after = latest['answers'][item_id]; before = first['answers'][item_id]

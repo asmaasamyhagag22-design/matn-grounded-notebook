@@ -17,10 +17,8 @@ wheelhouse/
 venv/
 env/
 .conda/
-# Node / Codex runtime junctions, at any depth
 node_modules
 **/node_modules/
-.codex-*/
 # Model files and runtime data
 *.gguf
 *.safetensors
@@ -59,8 +57,6 @@ _quarantine*/
 *.pem
 *.key
 .streamlit/secrets.toml
-# Claude Code local-only settings
-.claude/settings.local.json
 # Audit working files stay local; the report, findings and diffs are committed
 audit/scratch/
 audit/logs/
@@ -74,3 +70,16 @@ design/specimen/png/
 !design/templates/**/thumbnail.png
 # Generated gallery previews and contact sheets
 out/
+
+# Public repository: evaluation gold for the sealed split stays private.
+eval/gold/test/
+# Package archives and local runtimes
+*.whl
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+**/wheelhouse*/
+**/.venv*/
+**/venv*/

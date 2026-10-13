@@ -193,7 +193,7 @@ def write_report(root):
     lines+=['','## Cached real scans',f"- pages6; reader tokens823; cached token bytes identical; OCR calls0; wall seconds{real['runtime_seconds']:.2f}"]
     for k,v in real.items():
         if isinstance(v,dict): lines.append(f"- {k}: pages{v['pages']}; tokens{v['reader_tokens']}; gates `{v['gates']}`; `out/r-lite/real/{k}/`")
-    lines+=['- precision/frame/token hash evidence: `out/r-lite/real-smoke.json`','','## Evidence','- acquisition: `out/r-lite/acquisition/routes-before-ocr.json`; per-doc `acquisition.json`, `ocr-acquisition.json`, immutable `00_reading.json` + `.sha256`','- per-document counters/occurrences: `out/r-lite/metrics.json`','- table overlays143: `out/r-lite/table-contact-sheet.png`','- frozen chunk parameters: commit `33324b0`; approved digital-unlinked: `740fff6`; no gold tuning','- full suite: pending final docs commit; focused checks: `out/r-lite/focused-tests.log`']
+    lines+=['- precision/frame/token hash evidence: `out/r-lite/real-smoke.json`','','## Evidence','- acquisition: `out/r-lite/acquisition/routes-before-ocr.json`; per-doc `acquisition.json`, `ocr-acquisition.json`, immutable `00_reading.json` + `.sha256`','- per-document counters/occurrences: `out/r-lite/metrics.json`','- table overlays143: `out/r-lite/table-contact-sheet.png`','- frozen chunk parameters: commit `445a8d0`; approved digital-unlinked: `4e7c266`; no gold tuning','- full suite: pending final docs commit; focused checks: `out/r-lite/focused-tests.log`']
     (root/'reports/r-lite.md').write_text('\n'.join(lines)+'\n')
 
 if __name__=='__main__':

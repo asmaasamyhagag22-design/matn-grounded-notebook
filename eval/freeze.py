@@ -9,7 +9,7 @@ file or a review log is detected by --check. The manifest also records:
 - the split of every document (from registry.json);
 - gold_commit: the commit that holds the gold. --write refuses while any file under gold/ differs from HEAD or is
   untracked, so the manifest always points at committed gold;
-- the labels of the reference: created_by=claude, review=independent_subagent, human_spot_check=pending.
+- the labels of the reference: created_by=model family B, review=independent_subagent, human_spot_check=pending.
 Hashing reads bytes only; nothing is printed except paths, hashes and codes.
 
 Usage: python eval/freeze.py [--root eval] --write | --check
@@ -28,7 +28,7 @@ import cross_check
 import extract_pages
 
 REPO = Path(__file__).resolve().parents[1]
-LABELS = {"created_by": "claude", "review": "independent_subagent", "human_spot_check": "pending"}
+LABELS = {"created_by": "model family B", "review": "independent_subagent", "human_spot_check": "pending"}
 
 
 class ExtractorMismatch(RuntimeError):

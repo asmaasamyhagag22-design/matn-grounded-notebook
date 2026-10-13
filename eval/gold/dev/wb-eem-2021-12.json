@@ -3,7 +3,7 @@
   "doc_id": "wb-eem-2021-12",
   "split": "dev",
   "source_sha256": "2f6f619c81527ec7a4770fba3d7162381e9ce7cb3efea2f0e889aa5ed1ba419a",
-  "drafted_by": "claude-subagent-drafter",
+  "drafted_by": "model-family-B-drafter",
   "body_pages": {
     "first": 6,
     "last": 41,
@@ -339,5 +339,5 @@
       "evidence_quote": "The platform (only available in Arabic) offers 103 online government services"
     }
   ],
-  "reviewed_by": "claude-subagent-reviewer r1; reconciled by the orchestrating session"
+  "reviewed_by": "model-family-B-reviewer r1; reconciled by the orchestrating session"
 }

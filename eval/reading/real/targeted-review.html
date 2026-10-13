@@ -13,18 +13,18 @@ progress{width:100%;height:16px;accent-color:#e0b663}#status{white-space:pre-wra
 </style>
 <body onerror="document.getElementById('status').textContent='Review failed to start: '+event+'. Copy this error so it can be fixed; no answer has been saved.'">
 <header><h1>Problem items · مراجعة الحالات اللي عليها مشاكل</h1>
-<div>Read the scan; never guess. Answers save after every choice. Firefox: start browser saving, then export JSON when finished. Initial annotation: GPT (Codex). Targeted audit: asmaa (pending). No random items.</div>
+<div>Read the scan; never guess. Answers save after every choice. Firefox: start browser saving, then export JSON when finished. Initial annotation: model family A. Targeted audit: asmaa (pending). No random items.</div>
 <label>Your name <input id="owner" value="asmaa" autocomplete="name" aria-label="Reviewer name"></label>
 <button id="browserSave">Start / resume browser saving (Firefox)</button><button id="export">Export answers</button><button id="folder" hidden disabled>Choose existing gt folder (Chrome/Edge)</button><div id="progress" aria-live="polite"></div><progress id="bar" max="1" value="0"></progress></header>
 <main><p id="status" role="status">Loading the frozen review… If this message remains, the page script did not start. No answer has been saved.</p>
 <noscript>This review needs JavaScript to display the sampled items and save answers. No answer has been saved.</noscript>
 <article id="card" hidden><div id="location"></div><p>The blue outline identifies the sampled detection. Context is shown below.</p><div class="crop"><img id="crop" alt="Large crop; blue outline marks the sampled detection"></div>
 <img id="contextCrop" alt="Context line from the original scan"><div id="context"></div>
-<p id="aiReading"></p><p id="auditReason"></p><div class="keys"><button id="aiAccept">G · Confirm current GPT reading</button><button id="r1">1 · Reader 1</button><button id="r2">2 · Reader 2</button><button id="r3">3 · Embedded layer</button>
+<p id="aiReading"></p><p id="auditReason"></p><div class="keys"><button id="aiAccept">G · Confirm current model reading</button><button id="r1">1 · Reader 1</button><button id="r2">2 · Reader 2</button><button id="r3">3 · Embedded layer</button>
 <button id="type">T · Type correct value</button><button id="illegible">X · Illegible</button><button id="notNumber">Not a number / duplicate / partial detection</button><button id="back">Backspace · Go back</button></div>
 <div id="layerPick" hidden></div>
 <div id="typedBox" hidden><label>Value exactly as printed <input id="typed" aria-label="Correct printed value"></label><button id="typedSave">Save value ↵</button><button id="typedCancel">Cancel</button></div>
-<p id="saved"></p><p>G confirms the displayed GPT reading after checking the scan; 1 / 2 / 3 choose that reading; T opens typing; X records illegible; Backspace goes back. Each successful save advances. You can close and resume in the same browser using Start / resume browser saving. Export answers before clearing browser data; keep this file at the same path. Only these problem items are audited; other items remain AI annotations with reader agreement.</p></article>
+<p id="saved"></p><p>G confirms the displayed model reading after checking the scan; 1 / 2 / 3 choose that reading; T opens typing; X records illegible; Backspace goes back. Each successful save advances. You can close and resume in the same browser using Start / resume browser saving. Export answers before clearing browser data; keep this file at the same path. Only these problem items are audited; other items remain AI annotations with reader agreement.</p></article>
 <p id="finished" hidden>Targeted audit complete. Your answers are saved. You can go back to correct an answer. Click Export answers and tell the agent "review done" with the JSON location.</p></main>
 <script>
 'use strict';
@@ -99,9 +99,9 @@ function show(){
  for(const id of ['r1','r2','r3','type','illegible','notNumber','back','aiAccept'])el(id).disabled=busy;
  el('back').disabled=busy||position===0;
  const item=current();if(!item)return;
- el('aiReading').textContent='GPT initial: '+item.ai_before+' → current: '+item.ai_current+' · original sample #'+item.original_review_number;
+ el('aiReading').textContent='model initial: '+item.ai_before+' → current: '+item.ai_current+' · original sample #'+item.original_review_number;
  el('auditReason').textContent='Audit reasons: '+item.audit_reasons.join('; ');
- el('aiAccept').textContent='G · Confirm GPT: '+item.ai_current;
+ el('aiAccept').textContent='G · Confirm model: '+item.ai_current;
  el('location').textContent=item.page+' · item '+(position+1)+' of '+items.length;
  el('crop').src=item.crop;el('contextCrop').src=item.context_crop;el('context').textContent='Context (OCR suggestion): '+item.context;
  el('r1').textContent='1 · Reader 1: '+item.reader1;

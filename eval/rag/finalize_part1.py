@@ -31,7 +31,7 @@ def run():
     for r in wef['items']:
         r['scope_number_roles']=[{'token':n,'role':'comparison year, not requested answer'} for n in r['scope_numbers']]
     rows+=wef['items'];splits_and_sample(rows)
-    path=Path('out/rag-core/question-drafts-final.json');path.write_text(json.dumps({'schema':'matn-rag-question-drafts/1','state':'draft-not-frozen','provenance':'drafted by GPT (Codex)','seed':20261012,'items':rows},indent=2)+'\n')
+    path=Path('out/rag-core/question-drafts-final.json');path.write_text(json.dumps({'schema':'matn-rag-question-drafts/1','state':'draft-not-frozen','provenance':'drafted by model family A','seed':20261012,'items':rows},indent=2)+'\n')
     Path('out/rag-core/gold-draft-recheck.json').write_text(json.dumps(rechecks,indent=2)+'\n')
     sample=build_review(rows,Path('out/rag-core/owner-review-20.html'))
     profile=set(range(64,76))|set(range(83,89));ocr={0,19,21,32,35,37,65,66,74,75,80,83,85,87}

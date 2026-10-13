@@ -3,7 +3,7 @@
   "doc_id": "gao-21-519sp",
   "split": "dev",
   "source_sha256": "fdbf041c7d1a188aff4520848b72b09dbe08ea813931ec16c72cfae104f208fc",
-  "drafted_by": "claude-subagent-drafter",
+  "drafted_by": "model-family-B-drafter",
   "body_pages": {
     "first": 1,
     "last": 89,
@@ -315,5 +315,5 @@
     }
   ],
   "numbers_note": "The report is a qualitative accountability framework (principles, key practices, audit questions and procedures) and carries few figures; the counts of principles and practices are printed as words, so they are not key numbers. Eight numbers remain: the OECD adoption count, the forum year, four methodology counts and two budget figures. The organization count (20) was removed in review as a duplicate of the forum-experts sentence.",
-  "reviewed_by": "claude-subagent-reviewer r1; reconciled by the orchestrating session"
+  "reviewed_by": "model-family-B-reviewer r1; reconciled by the orchestrating session"
 }

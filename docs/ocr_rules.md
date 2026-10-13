@@ -99,7 +99,7 @@ then lower median CER, then higher threshold. Grid 2/2.5/4/6/8. Full paired resu
 - **Current gate:** 0 reader-attributed silent number errors on **holdout-2**, after visually adjudicating every raw
   silent error. Report raw counts alongside adjudication, flag rate and false-alarm share of flags. Never tune on
   holdout-2; a failure is BLOCKED-ON-OWNER. The 20 tune/11 seen-check pages are diagnostics, not the current gate.
-  The 30 holdout-2 pages/seeds were committed in f4d87a1 before any close-out code, stratified by dev document and
+  The 30 holdout-2 pages/seeds were committed in eaa8fa1 before any close-out code, stratified by dev document and
   digital-metadata page type and disjoint from all 31 prior OCR synthetic pages. They were previously measured
   digitally in 4b; this is an OCR holdout, not independent documents.
 - **Real scans:** measured only after `eval.reading.real.verify` confirms the sha256. Results, flags and time are

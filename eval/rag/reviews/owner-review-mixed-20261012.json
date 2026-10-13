@@ -55,7 +55,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: النص بيحدد نقص الخبرة، صعوبة فهم قرارات النظام، ومحدودية المعلومات بسبب الشراء التجاري. السؤال بيوجّه للموضوع لكنه ما بيسردش القيود نفسها. مكان تاني: غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "gao-21-519sp-kn-03": {
@@ -63,7 +63,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: الإجابة 34 interviews بالنص والصورة؛ consultations هنا مقصود بيها المقابلات، مش عدد الجهات. مكان تاني: غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "gao-21-519sp-kn-09": {
@@ -71,7 +71,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: الزيادة 54 percent؛ fiscal year 2020 في السؤال تحديد للمقارنة، مش تسريب للنسبة. مكان تاني: غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "gao-21-519sp-kp-06": {
@@ -79,7 +79,7 @@
       "answer_leaked": "y",
       "also_answered_elsewhere": "unsure",
       "comment": "مرفوض لتسريب جزئي: السؤال نفسه بيذكر إدارة المخاطر والالتزام القانوني، وهما فائدتان أساسيتان في الهدف. النص بيضيف النزاهة والقيم الأخلاقية لكنه ما بيشرحش آلية تفصيلية لسؤال How. الإجابة من الهدف ممكنة، لكن ده سؤال ضعيف للقياس؛ ما أعدّلتوش.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wb-eem-2021-12-kn-02": {
@@ -87,7 +87,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "y",
       "comment": "مقبول: 7.5 percent في Q1-FY2021/22؛ 9.6 فترة مختلفة. الإجابة موجودة كمان في فقرة سوق العمل في PDF index 12؛ الدليل المنفصل محفوظ.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wb-eem-2021-12-kn-06": {
@@ -95,7 +95,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: US$18.4 billion، أو 4.6 percent of GDP، في FY2020/21؛ US$11.2 billion للفترة السابقة. ظهور 18.4 في جدول آخر يخص السيولة مش دليل للإجابة دي؛ مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wb-eem-2021-12-kn-08": {
@@ -103,7 +103,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "y",
       "comment": "مقبول: توقع النمو 5.5 percent في FY2021/22، مش نتيجة فعلية ولا 3.3 للفترة السابقة. نفس التوقع في ملخص PDF index 7؛ الدليل المنفصل محفوظ.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wb-eem-2021-12-kp-09": {
@@ -111,7 +111,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "y",
       "comment": "مقبول: baseline بيفترض تحسّن تدريجي لوضع COVID؛ الاستعادة مشروطة ومش ضمان. نفس الافتراض في PDF index 7؛ الدليل المنفصل محفوظ.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wb-eem-2021-12-kn-03": {
@@ -119,7 +119,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "y",
       "comment": "مقبول: US$40.8 billion نهاية أكتوبر 2021؛ تغطية 7 شهور واردات معلومة تانية. القيمة والتاريخ موجودين كمان في فقرة PDF index 17؛ الدليل المنفصل محفوظ.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wef-q-39": {
@@ -127,7 +127,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: نسبة أصحاب العمل المستطلعين ذوي التعرض العالي لـAI في الاقتصاد أو المنطقة أو الصناعة مقارنة بالمتوسط العالمي. السؤال عن تعريف المؤشر، مش قيمة رقمية. مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wef-q-35": {
@@ -135,7 +135,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: Labour-market churn، Skill disruption، Organizations with DEI priorities، AI exposure؛ الأربعة عناوين واضحة بالصورة. four بيوضح عدد المطلوب لكنه ما بيكشفش العناوين. الهدف طويل وفيه تفاصيل غير لازمة، لكن الإجابة مدعومة؛ ما استنتجتش نسب. مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wef-q-21": {
@@ -143,7 +143,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: تمويل التدريب، توفير التدريب، تعديل قوانين العمل عن بُعد، مرونة التعيين والفصل، وتحسين التعليم العام. قسم Public policy في صورة Portugal بيثبت الخمسة؛ ما خلطتش بينهم وبين استراتيجيات AI أو DEI ولا استنتجت نسب. مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wef-q-28": {
@@ -151,7 +151,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: Ran Lefler، Head of Evaluation, Research and Development, NGG؛ الاسم والدور واضحين في قائمة الشراكة. assessment إعادة صياغة لـEvaluation. سؤال credits صالح للاسترجاع لكنه ضعيف لتمثيل محتوى السياسات. مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     },
     "wef-q-08": {
@@ -159,7 +159,7 @@
       "answer_leaked": "n",
       "also_answered_elsewhere": "unsure",
       "comment": "مقبول: تحسين التدرج والترقية، التدريب الفعال، الصحة والرفاه، أجور أعلى، وتحسين ساعات العمل والعمل الإضافي. صورة Government and Public sector بتثبت قائمة Business Practice؛ ما استخدمتش نسب الخلايا غير المتاحة. مكان تاني غير مؤكد.",
-      "verified_by": "GPT (Codex)",
+      "verified_by": "model family A",
       "timestamp": "2026-10-11T21:08:34.715Z"
     }
   },
@@ -248,7 +248,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: النص بيحدد نقص الخبرة، صعوبة فهم قرارات النظام، ومحدودية المعلومات بسبب الشراء التجاري. السؤال بيوجّه للموضوع لكنه ما بيسردش القيود نفسها. مكان تاني: غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -259,7 +259,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: الإجابة 34 interviews بالنص والصورة؛ consultations هنا مقصود بيها المقابلات، مش عدد الجهات. مكان تاني: غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -270,7 +270,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: الزيادة 54 percent؛ fiscal year 2020 في السؤال تحديد للمقارنة، مش تسريب للنسبة. مكان تاني: غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -281,7 +281,7 @@
         "answer_leaked": "y",
         "also_answered_elsewhere": "unsure",
         "comment": "مرفوض لتسريب جزئي: السؤال نفسه بيذكر إدارة المخاطر والالتزام القانوني، وهما فائدتان أساسيتان في الهدف. النص بيضيف النزاهة والقيم الأخلاقية لكنه ما بيشرحش آلية تفصيلية لسؤال How. الإجابة من الهدف ممكنة، لكن ده سؤال ضعيف للقياس؛ ما أعدّلتوش.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -292,7 +292,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "y",
         "comment": "مقبول: 7.5 percent في Q1-FY2021/22؛ 9.6 فترة مختلفة. الإجابة موجودة كمان في فقرة سوق العمل في PDF index 12؛ الدليل المنفصل محفوظ.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -303,7 +303,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: US$18.4 billion، أو 4.6 percent of GDP، في FY2020/21؛ US$11.2 billion للفترة السابقة. ظهور 18.4 في جدول آخر يخص السيولة مش دليل للإجابة دي؛ مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -314,7 +314,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "y",
         "comment": "مقبول: توقع النمو 5.5 percent في FY2021/22، مش نتيجة فعلية ولا 3.3 للفترة السابقة. نفس التوقع في ملخص PDF index 7؛ الدليل المنفصل محفوظ.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -325,7 +325,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "y",
         "comment": "مقبول: baseline بيفترض تحسّن تدريجي لوضع COVID؛ الاستعادة مشروطة ومش ضمان. نفس الافتراض في PDF index 7؛ الدليل المنفصل محفوظ.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -336,7 +336,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "y",
         "comment": "مقبول: US$40.8 billion نهاية أكتوبر 2021؛ تغطية 7 شهور واردات معلومة تانية. القيمة والتاريخ موجودين كمان في فقرة PDF index 17؛ الدليل المنفصل محفوظ.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -347,7 +347,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: نسبة أصحاب العمل المستطلعين ذوي التعرض العالي لـAI في الاقتصاد أو المنطقة أو الصناعة مقارنة بالمتوسط العالمي. السؤال عن تعريف المؤشر، مش قيمة رقمية. مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -358,7 +358,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: Labour-market churn، Skill disruption، Organizations with DEI priorities، AI exposure؛ الأربعة عناوين واضحة بالصورة. four بيوضح عدد المطلوب لكنه ما بيكشفش العناوين. الهدف طويل وفيه تفاصيل غير لازمة، لكن الإجابة مدعومة؛ ما استنتجتش نسب. مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -369,7 +369,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: تمويل التدريب، توفير التدريب، تعديل قوانين العمل عن بُعد، مرونة التعيين والفصل، وتحسين التعليم العام. قسم Public policy في صورة Portugal بيثبت الخمسة؛ ما خلطتش بينهم وبين استراتيجيات AI أو DEI ولا استنتجت نسب. مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -380,7 +380,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: Ran Lefler، Head of Evaluation, Research and Development, NGG؛ الاسم والدور واضحين في قائمة الشراكة. assessment إعادة صياغة لـEvaluation. سؤال credits صالح للاسترجاع لكنه ضعيف لتمثيل محتوى السياسات. مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     },
@@ -391,7 +391,7 @@
         "answer_leaked": "n",
         "also_answered_elsewhere": "unsure",
         "comment": "مقبول: تحسين التدرج والترقية، التدريب الفعال، الصحة والرفاه، أجور أعلى، وتحسين ساعات العمل والعمل الإضافي. صورة Government and Public sector بتثبت قائمة Business Practice؛ ما استخدمتش نسب الخلايا غير المتاحة. مكان تاني غير مؤكد.",
-        "verified_by": "GPT (Codex)",
+        "verified_by": "model family A",
         "timestamp": "2026-10-11T21:08:34.715Z"
       }
     }

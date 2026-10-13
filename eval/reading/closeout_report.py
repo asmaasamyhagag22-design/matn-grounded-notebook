@@ -20,11 +20,11 @@ def model_sample_closeout(table, model):
         return table
     a = model['accepted']
     replacements = {
-        'D2 — sampled GT complete': ('D2 — sampled GT complete (GPT reference)', 'DONE',
-            '180 عنصر متراجع بصريًا بتفويض owner؛ GPT model reference، human_verified=false؛ النسخة الأولى قبل المقارنة والتصحيحات معلنة'),
-        'D4 — measured on sample': ('D4 — measured on sample (GPT reference)', 'DONE',
-            f'GPT sample metrics: silent errors {a["silent_errors"]}/{a["n"]}؛ Wilson/exact upper 95%، illegible منفصل؛ مش تحقق بشري مستقل'),
-        'F1': ('F1', 'DONE', 'synthetic القياسات والتحكيم وتوقيت real؛ real sampled rates على GPT reference في step4c-gpt-sample-metrics.md؛ مفيش full-page GT claim')}
+        'D2 — sampled GT complete': ('D2 — sampled GT complete (model reference)', 'DONE',
+            '180 عنصر متراجع بصريًا بتفويض owner؛ model model reference، human_verified=false؛ النسخة الأولى قبل المقارنة والتصحيحات معلنة'),
+        'D4 — measured on sample': ('D4 — measured on sample (model reference)', 'DONE',
+            f'model sample metrics: silent errors {a["silent_errors"]}/{a["n"]}؛ Wilson/exact upper 95%، illegible منفصل؛ مش تحقق بشري مستقل'),
+        'F1': ('F1', 'DONE', 'synthetic القياسات والتحكيم وتوقيت real؛ real sampled rates على model reference في step4c-model-sample-metrics.md؛ مفيش full-page GT claim')}
     return [replacements.get(row[0], row) for row in table]
 
 
@@ -48,21 +48,21 @@ def publish():
     passed=reader_errors['holdout2']==0
     gate='PASS' if passed else 'FAIL — BLOCKED-ON-OWNER'
     summary={s:aggregate(p) for s,p in sets.items() if s!='real'}
-    from eval.reading.real.gpt_annotation import REFERENCE, measure_reference
+    from eval.reading.real.model_annotation import REFERENCE, measure_reference
     from eval.reading.real.sample import INITIAL
     model = measure_reference(load(INITIAL), load(REFERENCE), REPO) if REFERENCE.exists() else None
-    table=[('A1','DONE','30 صفحة/seeds جديدة للـ OCR، disjoint؛ f4d87a1 قبل الكود؛ test_holdout2_disjoint_from_previous_synthetic_pages'),
+    table=[('A1','DONE','30 صفحة/seeds جديدة للـ OCR، disjoint؛ eaa8fa1 قبل الكود؛ test_holdout2_disjoint_from_previous_synthetic_pages'),
            ('A2','DONE','dev-check = seen في القواعد والتقارير، ومش gate'),
-           ('B1','DONE','rapid-layout 1.2.1 + model size/hash مطابقين؛ egress smoke 3.53s؛ 3c1f3a4'),
+           ('B1','DONE','rapid-layout 1.2.1 + model size/hash مطابقين؛ egress smoke 3.53s؛ 920b22c'),
            ('B2','DONE','regions/captions/furniture/table-only؛ test_header_footer_and_caption_are_kept_out_of_body_or_preserved، test_repeated_margin_furniture_does_not_enter_prose'),
            ('B3','DONE','تدوير وإعادة قراءة بالقارئين؛ test_undetected_vertical_layout_region_is_rotated_and_second_read، test_nonmargin_rotated_number_requires_agreement_after_rotation'),
            ('B4','DONE','3 PNG crops أصلية + regression tests + إعادة قياس tune؛ تفاصيل معالجة التلاتة تحت'),
            ('C1','DONE','test_header_footer_and_caption_are_kept_out_of_body_or_preserved يمنع Page ii في prose'),
            ('C2','DONE','test_code_columns_do_not_trigger_text_table_alarm؛ consistency في table regions بس'),
            ('C3','DONE','0.99993 wrong؛ bar 1.0؛ all default حتى score 1.0؛ توقيت تحت؛ ADR-0005'),
-           ('C4','DONE','19 tune فقط، threshold 2.0؛ step4c-denoise-selection.json؛ d5fe844'),
-           ('C5','DONE','d5fe844 ثم2abd37b (margin fragments) ثمcbc5724 (duplicate detections)، tune-only؛ test_ocr_rules_frozen؛ كلهم قبل holdout'),
-           ('D1','DONE','sample mode: 180 رقم بس؛ seed 20261006؛ freeze commit 477e4c7؛ crop/context، keyboard، auto-advance وحفظ GT بعد كل إجابة؛ sample_ui_test.js وtest_real_sample.py'),
+           ('C4','DONE','19 tune فقط، threshold 2.0؛ step4c-denoise-selection.json؛ b1452c4'),
+           ('C5','DONE','b1452c4 ثمc77226a (margin fragments) ثم7fe2d14 (duplicate detections)، tune-only؛ test_ocr_rules_frozen؛ كلهم قبل holdout'),
+           ('D1','DONE','sample mode: 180 رقم بس؛ seed 20261006؛ freeze commit 76b41b1؛ crop/context، keyboard، auto-advance وحفظ GT بعد كل إجابة؛ sample_ui_test.js وtest_real_sample.py'),
            ('D2 — sampled GT complete','BLOCKED-ON-OWNER','راجعي العينة الثابتة 180 رقم؛ مفيش full-page review؛ لسه 0/180؛ GAO إضافة منفصلة 30 رقم لما الملف يوصل'),
            ('D3','BLOCKED-ON-OWNER','GAO 403 ×3؛ الملف لسه مش موجود؛ بعد verify والقراءة نضيف 15 flagged + 15 accepted بنفس seed method من p4/p37/p39، ونثبت الإضافة في commit قبل مراجعتها'),
            ('D4 — measured on sample','BLOCKED-ON-OWNER','بعد D2: real.measure → false-alarm share مع Wilson 95%، silent-error rate مع exact upper 95% و3/n عند صفر أخطاء؛ illegible منفصل، breakdown لكل صفحة؛ GAO مش بيمنع قياس العينة الأصلية'),
@@ -94,27 +94,27 @@ def publish():
            f'**نتيجة الـ gate:** {gate}. holdout-2: raw silent errors **{summary["holdout2"]["silent_errors"]}**؛ reader-attributed بعد التحكيم **{reader_errors["holdout2"]}**. flag rate **{summary["holdout2"]["flag_rate"]}**؛ false-alarm share **{summary["holdout2"]["false_alarm_rate"]}**.']
     if model is not None:
         a, f = model['accepted'], model['flagged']
-        lines[2] = ('**اتعمل:** الكود والاختبارات والقياسات الصناعية مكتملة، وكمان GPT annotation '
+        lines[2] = ('**اتعمل:** الكود والاختبارات والقياسات الصناعية مكتملة، وكمان model annotation '
                     'لكل180 عنصر بطلبك:169 رقم،9 كشوف جزئية/مش رقم،2 غير مقروءين. D2 وD4 مكتملين '
-                    'في نطاق مرجع GPT؛ مش GT بشري مستقل. العينة وترتيبها والقواعد ثابتين.')
+                    'في نطاق مرجع model؛ مش GT بشري مستقل. العينة وترتيبها والقواعد ثابتين.')
         lines[4] = '**مستنيكي:** GAO بس في نطاق العينة الحالية؛ مش مطلوب منك مراجعة180 رقم.'
         lines[6:10] = [
-            '1. لو عايزة تشوفي اللي اتعمل: افتحي `eval/reading/real/gpt-annotations.html`؛ '
-            'اضغطي على أي عنصر لعرض تعليق GPT وصورة الرقم وسطر السياق. static و360 صورة embedded، من غير JavaScript أو طلب folder permission.',
-            f'2. النتيجة على مرجع GPT: false alarms {f["false_alarms"]}/{f["n"]} '
+            '1. لو عايزة تشوفي اللي اتعمل: افتحي `eval/reading/real/model-annotations.html`؛ '
+            'اضغطي على أي عنصر لعرض تعليق model وصورة الرقم وسطر السياق. static و360 صورة embedded، من غير JavaScript أو طلب folder permission.',
+            f'2. النتيجة على مرجع model: false alarms {f["false_alarms"]}/{f["n"]} '
             f'({f["rate"]:.2%})، silent errors {a["silent_errors"]}/{a["n"]} ({a["rate"]:.2%})؛ '
             f'exact upper 95% = {a["exact_binomial_upper_95"]:.2%}. غير المقروء خارج المقام؛ '
-            'التفاصيل وWilson وباقي الصفحات وسجل التصحيحات في `reports/step4c-gpt-sample-metrics.md`.',
-            '3. إعادة القياس: `.venv\\Scripts\\python.exe -m eval.reading.real.gpt_annotation`. '
-            'المراجعة الأولى اتثبتت في041ee46 قبل المقارنة، والتكبير اللاحق صحّح رقمين وخلى عنصر إضافي غير مقروء؛ '
-            'الأصل والتصحيحات محفوظين. الـ intervals مش بتغطي أخطاء GPT، ومش دليل بشري مستقل.',
+            'التفاصيل وWilson وباقي الصفحات وسجل التصحيحات في `reports/step4c-model-sample-metrics.md`.',
+            '3. إعادة القياس: `.venv\\Scripts\\python.exe -m eval.reading.real.model_annotation`. '
+            'المراجعة الأولى اتثبتت في68da8c8 قبل المقارنة، والتكبير اللاحق صحّح رقمين وخلى عنصر إضافي غير مقروء؛ '
+            'الأصل والتصحيحات محفوظين. الـ intervals مش بتغطي أخطاء model، ومش دليل بشري مستقل.',
             '4. GAO: نزّلي يدويًا الملف المعتمد إلى `eval/reading/real/incoming/gao_cg_annual_report_1990.pdf` '
             'بنفس URL/hash/size تحت. بعد ما تقولي إنه وصل: verify → reader → إضافة15+15 بنفس seed method، '
             'commit قبل مراجعتها. الـ180 الأصلية ثابتين.']
     if not passed:
         lines+=['**القرار المطلوب:** راجعي حالات holdout-2 في جدول التحكيم والصور، وقرري قبول الخطر الموثّق أو ترخيص جولة إصلاح وholdout جديد. مفيش أي tuning اتعمل على النتيجة دي.']
     lines+=['','جدول الإغلاق لحد دلوقتي:','']+close_table()+['','## قواعد القياس والأدلة','',
-             'A1 اتثبت في f4d87a1 قبل أي كود close-out: 10 صفحات لكل dev document، طبقات metadata، seeds جديدة، خارج الـ31 صفحة القديمة. صفحات المستندات اتقرت digitally قبل كده في 4b؛ ده holdout للـ OCR الصناعي، مش مستندات مستقلة. dev-check seen تشخيصي بس. Freeze d5fe844 ثم2abd37b لتصليح fragmented margin stamp على dev-tune بس؛ runner fix 01d4501 وoverlap guard cbc5724 (WB p10 tune-only) قبل فتح holdout. الـ core ثابت منcbc5724.','',
+             'A1 اتثبت في eaa8fa1 قبل أي كود close-out: 10 صفحات لكل dev document، طبقات metadata، seeds جديدة، خارج الـ31 صفحة القديمة. صفحات المستندات اتقرت digitally قبل كده في 4b؛ ده holdout للـ OCR الصناعي، مش مستندات مستقلة. dev-check seen تشخيصي بس. Freeze b1452c4 ثمc77226a لتصليح fragmented margin stamp على dev-tune بس؛ runner fix 1a574c4 وoverlap guard 7fe2d14 (WB p10 tune-only) قبل فتح holdout. الـ core ثابت من7fe2d14.','',
              'كل تشغيل final له checkpoint ببصمة code/rules. الدليل الحالي في `out/reading/step4c-closeout-final-v3/final/`. أول checkpoint tune قبل إصلاح توصيل embedded layer محفوظ في `out/reading/step4c-closeout/final/` ومش داخل النتائج. اختيار denoise محفوظ في المجلد القديم؛ جولة dev-tune قبل overlap guard محفوظة في `out/reading/step4c-closeout-final-v2/final/` كمان. checkpointات محاولة القياس قبل margin fix كمان محفوظة في `out/reading/step4c-closeout-final/final/` ومش داخل القياس النهائي. مفيش حذف/إعادة كتابة لأي run قديم.','',
              'تعريفات المقاييس القديمة ثابتة: كل رقم مطبوع ضمن raw GT حتى figures/furniture؛ الأرقام المستبعدة دلاليًا بتتحسب flagged. false-alarm share = correct flagged / all flagged؛ ده مش معدل الخطأ على كل الأرقام الصحيحة. correct numbers المستبعدة من prose ممكن تعلي الرقم ده لأسباب سليمة. الـ real sample بيقيس false-alarm share على flagged وسرية الأخطاء على accepted؛ مفيش ادعاء population FPR أو recall للأرقام الناقصة. page quotas متناسبة مع minimum 5 حيث متاح؛ Wilson/exact binomial ملخصات للعينة تحت binomial model، مش exact design-based population intervals؛ weighted point estimates منفصلة. التفاصيل في step4c-sampling.md.','',
              '## Synthetic — full بالقواعد الحالية','']+_table([(_subset_label(s),summary[s]) for s in summary],'subset')
@@ -133,7 +133,7 @@ def publish():
     code_alarms=Counter(f['kind'] for f in code_page['flags'])
     lines+=['',f'C2 actual seen arXiv p15: text_table_mismatch **{code_alarms["text_table_mismatch"]}**؛ table_total_mismatch **{code_alarms["table_total_mismatch"]}**. القواعد ما اتعدّلتش من نتيجة seen دي.']
     lines+=['','## كل raw silent error — التحكيم البصري','',
-             'كل clean original وdegraded scan اتراجعوا. WB p10 في الجولة قبل cbc5724 كان تكرار آخر 1 من FY2020/21: غلطة قارئ فعلية اتصلحت بفحص التداخل على dev-tune، والدليل محفوظ في المجلد v2. ما اتغيّرش reader/rule بعد فتح holdout. التفاصيل وبصمات الصور في `step4c-closeout-adjudication.json`؛ الصور المحلية في `out/reading/step4c-closeout-final-v3/adjudication/`. الحالة غير الواضحة تتحسب reader error، مش نجاح مفترض.','',
+             'كل clean original وdegraded scan اتراجعوا. WB p10 في الجولة قبل 7fe2d14 كان تكرار آخر 1 من FY2020/21: غلطة قارئ فعلية اتصلحت بفحص التداخل على dev-tune، والدليل محفوظ في المجلد v2. ما اتغيّرش reader/rule بعد فتح holdout. التفاصيل وبصمات الصور في `step4c-closeout-adjudication.json`؛ الصور المحلية في `out/reading/step4c-closeout-final-v3/adjudication/`. الحالة غير الواضحة تتحسب reader error، مش نجاح مفترض.','',
              '| subset / case | page | expected → got | الحكم | سبب من الصورة | crop |','|---|---|---|---|---|---|']
     for c in cases:
         crop=Path(c['image']).as_posix()
@@ -177,7 +177,7 @@ def publish():
                 a=aggregate([p]);v=[a[k] for k in ('numbers','accuracy','silent_errors','silent_drops','flag_rate','false_alarm_rate')]
             t=p['timing'];v+= [f'{x:.2f}' for x in (t['preprocess'],p['layout_seconds'],t['without_second_reads'],t['with_second_reads'],p['wall_seconds'])]
             lines.append(f'| {_subset_label(s)} | {p["doc_id"]} p{p["page_index"]} | '+' | '.join(map(str,v))+' |')
-    lines+=['','**Real sampled rates: BLOCKED-ON-OWNER**؛ sample review فيه 180 رقم بس من الست صفحات، ثابت في477e4c7. NBS وStatAb hash-verified؛ GAO مش موجود وإضافته30 رقم معلقة. GT templates لسه غير معدّلة؛ full-page status هيفضل template، وإجابات العينة تتسجل في sample_reviews بس. مفيش ادعاء full-page accuracy/CER/WER أو missed-number recall؛ table structure/TEDS مؤجل لـ4d/R4.','',
+    lines+=['','**Real sampled rates: BLOCKED-ON-OWNER**؛ sample review فيه 180 رقم بس من الست صفحات، ثابت في76b41b1. NBS وStatAb hash-verified؛ GAO مش موجود وإضافته30 رقم معلقة. GT templates لسه غير معدّلة؛ full-page status هيفضل template، وإجابات العينة تتسجل في sample_reviews بس. مفيش ادعاء full-page accuracy/CER/WER أو missed-number recall؛ table structure/TEDS مؤجل لـ4d/R4.','',
              '## التثبيت والاختبارات والحدود','',
              'rapid-layout **1.2.1** offline wheels ثم no-index؛ كل pins القديمة ثابتة. PP-DocLayoutV2 **213,963,993 bytes**، sha256 `0bd2ea0997fe0789f0300292291f8bbf897d890b44a9a3bd5be72afd6198aa90` مطابق للتقرير وdefault_models.yaml. GLM blob **2,219,298,752 bytes**، sha256 `65493e1f85b9ea4ba3ed793515fde13cbdbea7d74ad2c662b566b146eab0081e` اتراجع محليًا. hashes كاملة لكل نموذج/lock في `step4c-environment.json`؛ pip check سليم.','',
              'GAO رجع403 في3 محاولات؛ مفيش file اتكتب أو بديل اتنزّل. الأمر المعتمد من root المشروع:','',
@@ -196,15 +196,15 @@ def publish():
              '## Close-out table — كل بند وحالته','']+close_table()
     if model is not None:
         lines = [
-            ('**Real sampled rates: DONE على GPT reference**؛ كل180 عنصر متراجع. '
-             'المرجع منفصل عن GT البشري؛ قياسات وحدود لكل صفحة في `step4c-gpt-sample-metrics.md`. '
+            ('**Real sampled rates: DONE على model reference**؛ كل180 عنصر متراجع. '
+             'المرجع منفصل عن GT البشري؛ قياسات وحدود لكل صفحة في `step4c-model-sample-metrics.md`. '
              'GAO إضافة30 رقم معلقة. الـ4 أخطاء الصامتة تشخيصية مهمة رغم PASS الصناعي؛ مفيش tuning اتعمل. '
              'مفيش ادعاء full-page accuracy/CER/WER أو missed-number recall.')
             if line.startswith('**Real sampled rates: BLOCKED-ON-OWNER**') else
-            ('المعاينة البصرية للـ180 crop اتعملت بواسطة GPT. عرض التعليقات الجديد static وصوره embedded؛ '
+            ('المعاينة البصرية للـ180 crop اتعملت بواسطة model. عرض التعليقات الجديد static وصوره embedded؛ '
              'اتحققنا من البنية وبايتات الصور، مش من فتحه في متصفح owner. سياسة Browser Use القديمة اتاحترمت، من غير workaround.')
             if line.startswith('أداة Browser Use رفضت') else
-            ('الإغلاق في نطاق GPT annotation مكتمل باستثناء GAO والـ allowed deferrals. '
+            ('الإغلاق في نطاق model annotation مكتمل باستثناء GAO والـ allowed deferrals. '
              'الدليل الحقيقي قائم على نموذج وممكن يغلط؛ مش human validation. Step R لسه خطوة تالية مخططة.')
             if line.startswith('الإغلاق الكامل لسه مستني') else line for line in lines]
     artifact={'gate':gate,'final_core_freeze':freeze['final_core_freeze_commit'],

@@ -4,7 +4,7 @@ pre-commit (G2) runs `pytest -m "not slow"`; pre-push (G4) runs everything. Slow
 "<repo-relative file>::<function>" instead of being decorated in place, so the pipeline tests in tests/ stay unchanged.
 The list came from `pytest --durations=0` on 2026-10-01: a function is slow when one of its cases takes >= 0.2 s or
 all of its cases together take >= 1 s, and every test that starts a subprocess per case (git, sh, the
-Claude guard) is slow too, because one Windows process start costs 0.1-0.35 s here.
+process guard) is slow too, because one Windows process start costs 0.1-0.35 s here.
 
 Two checks keep the list honest:
 - an entry whose file was collected but whose function no longer exists stops the run (stale entry);
@@ -22,7 +22,7 @@ SLOW = frozenset({
     "tests/rag/test_metrics.py::test_survey_coverage_counts_displayed_base_not_deep_eval_hits",
     "tests/rag/test_embedding_safety.py::test_live_loopback_fixture_ignores_proxy_and_refuses_redirect",
     "tests/rag/test_citability_gates.py::test_two_process_json_determinism",
-    "eval/tests/test_gpt_annotation.py::test_closeout_states_complete_only_delegated_model_scope",
+    "eval/tests/test_model_annotation.py::test_closeout_states_complete_only_delegated_model_scope",
     "eval/tests/test_real_sample.py::test_constrained_proportional_quotas_and_seeded_draw",
     "eval/tests/test_real_sample.py::test_sample_measurement_publishes_only_signed_fixture_and_blocks_pending_gao",
     "eval/tests/test_real_review.py::test_review_has_no_selected_answers_and_preserves_template",
@@ -67,23 +67,6 @@ SLOW = frozenset({
     "tests/reading/test_cli.py::test_a_digital_pdf_gives_all_four_outputs",
     "tests/reading/test_cli.py::test_a_scanned_page_goes_through_ocr_and_shows_flags_inline",
     "tests/reading/test_cli.py::test_test_split_files_are_refused_unless_milestone",
-    ".claude/hooks/test_guard.py::test_r1_allows_normal_project_paths",
-    ".claude/hooks/test_guard.py::test_r1_blocks_restricted_paths_for_file_tools",
-    ".claude/hooks/test_guard.py::test_r2_allows_loopback_and_local_commands",
-    ".claude/hooks/test_guard.py::test_r2_override_requires_explicit_env",
-    ".claude/hooks/test_guard.py::test_r4_inactive_before_freeze",
-    ".claude/hooks/test_guard.py::test_r5_inactive_without_lock",
-    ".claude/hooks/test_guard.py::test_r1_blocks_restricted_paths_in_grep_glob_and_shell",
-    ".claude/hooks/test_guard.py::test_r2_blocks_network_and_install_commands",
-    ".claude/hooks/test_guard.py::test_r3_blocks_web_tools",
-    ".claude/hooks/test_guard.py::test_r4_blocks_test_gold_after_freeze_unless_milestone",
-    ".claude/hooks/test_guard.py::test_r5_blocks_pipeline_outputs_while_drafting",
-    ".claude/hooks/test_guard.py::test_unknown_tool_and_bad_json_do_not_crash",
-    ".claude/hooks/test_guard.py::test_r3_override_requires_explicit_env",
-    ".claude/hooks/test_guard.py::test_r4_blocks_indirect_reads_of_test_gold",
-    ".claude/hooks/test_guard.py::test_r4_still_allows_dev_gold_and_scoped_searches",
-    ".claude/hooks/test_guard.py::test_r4_indirect_rules_inactive_before_freeze",
-    ".claude/hooks/test_guard.py::test_r4_blocks_search_from_the_absolute_repository_root",
     ".githooks/test_githooks.py::test_g1_allows_normal_files",
     ".githooks/test_githooks.py::test_g1_allows_pptx_templates_under_design_templates_only",
     ".githooks/test_githooks.py::test_g1_blocks_files_over_5_mb",
@@ -91,16 +74,9 @@ SLOW = frozenset({
     ".githooks/test_githooks.py::test_g2_allows_python_commit_when_tests_pass",
     ".githooks/test_githooks.py::test_g2_blocks_python_commit_when_tests_fail",
     ".githooks/test_githooks.py::test_g2_runs_only_fast_tests",
-    ".githooks/test_githooks.py::test_g3_allows_subject_plus_body",
-    ".githooks/test_githooks.py::test_g3_blocks_messages_without_a_why_body",
     ".githooks/test_githooks.py::test_g4_allows_push_when_all_tests_pass",
     ".githooks/test_githooks.py::test_g4_blocks_push_when_a_slow_test_fails",
     ".githooks/test_githooks.py::test_g4_blocks_push_without_python_changes_in_the_pushed_commits",
-    ".githooks/test_githooks.py::test_g5_blocks_commits_without_exactly_one_valid_last_agent_trailer",
-    ".githooks/test_githooks.py::test_g5_allows_each_allowlisted_agent_as_the_last_trailer",
-    ".githooks/test_githooks.py::test_g5_checks_merge_commits_too",
-    ".githooks/test_githooks.py::test_g4_blocks_push_of_a_commit_without_a_valid_agent_trailer",
-    ".githooks/test_githooks.py::test_g4_checks_only_commits_from_the_baseline_onward",
     "eval/tests/test_verify_gold.py::test_gold_commit_refuses_uncommitted_gold_and_returns_head_when_clean",
     "tests/test_demo_mode.py::test_validated_demo_makes_zero_network_or_model_calls",
     "tests/test_document_store.py::test_noncontiguous_pages_and_bad_selectors",

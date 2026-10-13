@@ -3,7 +3,7 @@
   "doc_id": "2601-14525v1",
   "split": "dev",
   "source_sha256": "ad9f9d0d152930510045d485eebb695ab15b8f775e9bfd63313355c591a675d7",
-  "drafted_by": "claude-subagent-drafter",
+  "drafted_by": "model-family-B-drafter",
   "body_pages": {
     "first": 0,
     "last": 9,
@@ -340,5 +340,5 @@
       "evidence_quote": "Towards the end of the RL training, 119 out of 128 sampled ideas at epoch 68 are one of the two common ideas, indicating a severe diversity collapse."
     }
   ],
-  "reviewed_by": "claude-subagent-reviewer r1; reconciled by the orchestrating session"
+  "reviewed_by": "model-family-B-reviewer r1; reconciled by the orchestrating session"
 }

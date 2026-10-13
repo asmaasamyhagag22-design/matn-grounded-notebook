@@ -68,7 +68,7 @@ def annotate(document,selection):
             'relevant_chunk_ids':relevant,'reachable':True,'draw_index':draw['draw_index'],
             'stratum':{'page_third':draw['third'],'kind':draw['kind']},**checks,
             'overlap_ratio_definition':'unique question content tokens also in target / unique question content tokens',
-            'provenance':'drafted by GPT (Codex)','tokenizer_version':VERSION,'state':'draft','split':None})
+            'provenance':'drafted by model family A','tokenizer_version':VERSION,'state':'draft','split':None})
     if len(rows)!=40:raise ValueError(f'WEF_DRAFT_COUNT:{len(rows)}')
     return {'schema':'matn-rag-question-drafts/1','state':'draft-not-frozen','seed':SEED,
         'draw_method':'chunk_id sort, seeded shuffle each (page third,kind), round-robin nonempty strata; next draw after skips',

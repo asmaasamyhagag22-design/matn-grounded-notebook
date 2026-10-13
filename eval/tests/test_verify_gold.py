@@ -421,7 +421,7 @@ def test_manifest_records_split_commit_labels_second_extractor_and_reviews(root)
     manifest = freeze.write_manifest(root, commit=COMMIT)
     assert manifest["gold_commit"] == COMMIT
     assert manifest["split"] == {"doc0": "dev", "doc1": "dev", "doc2": "dev", "doc3": "test", "doc4": "test"}
-    assert manifest["labels"] == {"created_by": "claude", "review": "independent_subagent", "human_spot_check": "pending"}
+    assert manifest["labels"] == {"created_by": "model family B", "review": "independent_subagent", "human_spot_check": "pending"}
     assert list(manifest["reviews"]) == ["gold/dev/reviews/doc0.json"]
     second = manifest["second_extractor"]
     assert second is None or (second["name"] == "pdftotext" and second["version"] and "path" not in second)

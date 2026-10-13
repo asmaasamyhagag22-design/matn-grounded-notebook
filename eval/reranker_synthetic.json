@@ -1,5 +1,5 @@
 {
-  "provenance": "synthetic only; created by Codex before inference",
+  "provenance": "synthetic only; created by model family A before inference",
   "queries": [
     {
       "expected_first": "answer",

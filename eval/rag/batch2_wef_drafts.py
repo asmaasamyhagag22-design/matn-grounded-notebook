@@ -72,7 +72,7 @@ def inventory():
             s['primary_chunk_id'] = ids[0]
         q['question_kind'] = 'kp'
         q['scope_number_roles'] = [{'token': x, 'role': 'scope'} for x in q['scope_numbers']]
-        q['provenance'] = 'drafted by GPT (Codex)'
+        q['provenance'] = 'drafted by model family A'
         kept.append(q)
     draws = draw_order(d)
     for draw in draws:
@@ -131,7 +131,7 @@ def run(selection=None):
                                         'sentence_index': sentence['sentence_index'],
                                         'start': sentence['chunk_start'], 'end': sentence['chunk_end']},
                     **checks, 'scope_number_roles': [{'token': x, 'role': 'scope'} for x in checks['scope_numbers']],
-                    'provenance': 'drafted by GPT (Codex)', 'state': 'draft', 'split': None})
+                    'provenance': 'drafted by model family A', 'state': 'draft', 'split': None})
     rows = kept + new
     assert len(rows) == 40, f'WEF_DRAFT_COUNT:{len(rows)}'
     assert Counter(q['stratum']['page_third'] for q in rows) == Counter(
@@ -140,14 +140,14 @@ def run(selection=None):
         assert not question_checks(q['question'], q['target_text'])['shared_content_4grams']
     result = {'schema': 'matn-rag-question-drafts/1', 'state': 'draft-not-frozen', 'seed': old['seed'],
               'structure_sha256': hashlib.sha256(STRUCTURE.read_bytes()).hexdigest(),
-              'provenance': 'drafted by GPT (Codex)', 'items': rows, 'skips': skips}
+              'provenance': 'drafted by model family A', 'items': rows, 'skips': skips}
     save('drafts.json', result)
     save('drop-ledger.json', {'drops': drops, 'kept': len(kept), 'replacements': len(new),
                               'total': len(rows), 'thirds': dict(Counter(q['stratum']['page_third'] for q in rows)),
                               'question_kinds': dict(Counter(q['question_kind'] for q in rows)),
                               'screen': 'PENDING; lexical checks do not establish semantic leakage or answerability'})
     lines = ['# WEF screening packet — 40 drafts, NOT FROZEN', '',
-             'Provenance: "drafted by GPT (Codex)". Cross-family/owner review PENDING; no reviewer contacted.', '',
+             'Provenance: "drafted by model family A". Cross-family/owner review PENDING; no reviewer contacted.', '',
              'Targets use current r-lite-3. L3-03/12 mixed OCR and L3-15/17 unavailable tables excluded.', '',
              'Screen criterion: a question must not contain the target conclusion, items, direction or cause; topic/dimension may be named.', '',
              'Rejected items are dropped, never rewritten. Prefixes and neighboring entity blocks are not evidence.', '']

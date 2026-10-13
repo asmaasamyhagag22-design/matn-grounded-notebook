@@ -1,11 +1,11 @@
 {
   "schema": "matn-targeted-ai-audit/1",
   "batch": "targeted-audit",
-  "initial_annotation": "GPT (Codex)",
+  "initial_annotation": "model family A",
   "targeted_audit": "pending: asmaa",
   "sample_manifest_sha256": "1e2c4532b903be1b48f11c92289725aee23eb4de89f8344167eceb84a9f88f8c",
-  "first_reference_sha256": "3add71ee3e377c6fce6f23cbfa040afe6a0dd7e1abd87e52ecc1c6d10b51a53d",
-  "latest_reference_sha256": "b46bbb66bed65503c9c847b0c40c669f783a67a886d99589405c2eb73a6e0a3c",
+  "first_reference_sha256": "724c2e1290a846f9bc760fdb11d794b1b6468604fac7fbdcbad483f7b2d9136e",
+  "latest_reference_sha256": "f58046b6859f92bfc95d7b32a10dbea0d133b02f458a09bea0c46087d7310d95",
   "selection": "Union: changed AI values/kinds, AI illegible, AI mismatch with either reader; missing reader 2 included. Problems only; no random controls by owner instruction.",
   "random_control_count": 0,
   "items": [

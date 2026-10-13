@@ -4,6 +4,9 @@ from pathlib import Path
 import shutil
 import subprocess
 
+import pytest
+from matn_reading.ocr import reader1
+
 from PIL import Image, ImageDraw, ImageFont
 import pypdfium2 as pdfium
 
@@ -27,6 +30,9 @@ def check_outputs(folder):
     assert list((folder / "overlays").glob("*.png"))
 
 
+@pytest.mark.skipif(
+    not reader1.WORKER_PYTHON.is_file() or bool(reader1.check_models(reader1.load_settings())),
+    reason="local OCR environment/models are not distributed with the public repository")
 def test_generated_image_pdf_real_worker_marks_failed_second_read(tmp_path):
     image=Image.new("RGB",(2550,3300),"white")
     ImageDraw.Draw(image).text((300,400),"Staff 1,240 million in 2020",font=ImageFont.truetype("arial.ttf" if os.name == "nt" else "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",50),fill="black")
@@ -39,6 +45,10 @@ def test_generated_image_pdf_real_worker_marks_failed_second_read(tmp_path):
     assert not summary["ocr_failed_pages"]
 
 
+@pytest.mark.skipif(
+    not reader1.WORKER_PYTHON.is_file() or bool(reader1.check_models(reader1.load_settings()))
+    or not (REPO / "eval/reading/real/incoming/nbs_circular_31_e4_1956.pdf").is_file(),
+    reason="local OCR runtime and real-scan PDF are not distributed with the public repository")
 def test_verified_real_scan_and_powershell_wrapper(tmp_path):
     source=require_verified("nbs_circular_31_e4_1956")
     opened=pdfium.PdfDocument(str(source));single=pdfium.PdfDocument.new()

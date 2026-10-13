@@ -7,7 +7,7 @@ Date: 2026-10-13.
 
 Run Docling 2.138.0 in a separate isolated environment as a subprocess. Pin the complete
 accepted isolated freeze and Heron revision `8f39ad3c0b4c58e9c2d2c84a38465abf757272d8`.
-Use the pipeline flags and layout defaults committed in `0eb5651`: OCR, table structure,
+Use the pipeline flags and layout defaults committed in `27c63cc`: OCR, table structure,
 picture classification and all enrichment disabled. Set HF/Transformers offline and
 provide an explicit artifacts path. Refuse missing artifacts rather than download them.
 

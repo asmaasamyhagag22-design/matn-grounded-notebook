@@ -1,10 +1,10 @@
 {
   "schema": "matn-rag-screen/1",
-  "provenance": "cross-family screen: Claude (senior-reviewer chat), not human",
+  "provenance": "cross-family screen: model family B (senior-reviewer chat), not human",
   "screen_criterion": "Leak = the question contains, verbatim or by close paraphrase, the information the target adds beyond its topic (the conclusion, items, direction or cause). Naming the topic or the dimension asked about is not a leak.",
-  "owner_review_provenance": "asmaa 6 items; GPT (Codex) 14 items, delegated; not independent of the drafter; not human gold",
+  "owner_review_provenance": "asmaa 6 items; model family A 14 items, delegated; not independent of the drafter; not human gold",
   "non_owner_count": 67,
-  "claude_leak_count": 10,
+  "family_b_leak_count": 10,
   "conditional_drop_count": 1,
   "stop_threshold": 17,
   "conditional_checks": {
@@ -50,19 +50,19 @@
   "verdicts": [
     {
       "id": "2601-14525v1-kp-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-03",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
@@ -74,25 +74,25 @@
     },
     {
       "id": "2601-14525v1-kp-16",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-07",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
@@ -104,25 +104,25 @@
     },
     {
       "id": "2601-14525v1-kp-10",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"use of earlier experimental experience\" is the conclusion itself."
     },
     {
       "id": "2601-14525v1-kp-12",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-13",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kp-14",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
@@ -134,7 +134,7 @@
     },
     {
       "id": "2601-14525v1-kp-15",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "the question restates the non-transfer proposition."
     },
@@ -152,97 +152,97 @@
     },
     {
       "id": "2601-14525v1-kn-03",
-      "reviewer": "Claude (senior-reviewer chat), deterministic math check",
+      "reviewer": "model family B (senior-reviewer chat), deterministic math check",
       "verdict": "keep",
       "reason": "Conditional math check PASS."
     },
     {
       "id": "2601-14525v1-kn-04",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kn-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kn-06",
-      "reviewer": "Claude (senior-reviewer chat), deterministic math check",
+      "reviewer": "model family B (senior-reviewer chat), deterministic math check",
       "verdict": "drop",
       "reason": "No relevant chunk text contains token math; not answerable with asserted math scope."
     },
     {
       "id": "2601-14525v1-kn-07",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kn-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "2601-14525v1-kn-09",
-      "reviewer": "Claude (senior-reviewer chat), deterministic math check",
+      "reviewer": "model family B (senior-reviewer chat), deterministic math check",
       "verdict": "keep",
       "reason": "Conditional math check PASS."
     },
     {
       "id": "2601-14525v1-kn-10",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"accountability framework for managers\" contains the purpose."
     },
     {
       "id": "gao-21-519sp-kp-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-04",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"worsen pre-existing unfairness\" = \"amplify existing biases\"."
     },
     {
       "id": "gao-21-519sp-kp-06",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "agrees with the mandatory drop (2 of 3 benefits named)."
     },
     {
       "id": "gao-21-519sp-kp-07",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-09",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
@@ -254,235 +254,235 @@
     },
     {
       "id": "gao-21-519sp-kp-11",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"accuracy across population groups\" is the answer."
     },
     {
       "id": "gao-21-519sp-kp-12",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-13",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"as requirements and system behavior evolve\" is the \"why\"."
     },
     {
       "id": "gao-21-519sp-kp-14",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-16",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kp-15",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "the question lists 2 of the 3 obstacles."
     },
     {
       "id": "gao-21-519sp-kn-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-03",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-04",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-07",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "gao-21-519sp-kn-09",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"priorities\" is half the answer; weak answerability."
     },
     {
       "id": "wb-eem-2021-12-kp-16",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-17",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-03",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-04",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-06",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-09",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-10",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-11",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-12",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"strengthen connectivity\" = \"increase availability\"."
     },
     {
       "id": "wb-eem-2021-12-kp-13",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kp-15",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-03",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-04",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-06",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-07",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-08",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-09",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     },
     {
       "id": "wb-eem-2021-12-kn-10",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "keep",
       "reason": "PASS: every other non-owner item."
     }
@@ -496,37 +496,37 @@
     },
     {
       "id": "2601-14525v1-kp-10",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"use of earlier experimental experience\" is the conclusion itself."
     },
     {
       "id": "2601-14525v1-kp-15",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "the question restates the non-transfer proposition."
     },
     {
       "id": "2601-14525v1-kn-06",
-      "reviewer": "Claude (senior-reviewer chat), deterministic math check",
+      "reviewer": "model family B (senior-reviewer chat), deterministic math check",
       "verdict": "drop",
       "reason": "No relevant chunk text contains token math; not answerable with asserted math scope."
     },
     {
       "id": "gao-21-519sp-kp-01",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"accountability framework for managers\" contains the purpose."
     },
     {
       "id": "gao-21-519sp-kp-05",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"worsen pre-existing unfairness\" = \"amplify existing biases\"."
     },
     {
       "id": "gao-21-519sp-kp-06",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "agrees with the mandatory drop (2 of 3 benefits named)."
     },
@@ -538,31 +538,31 @@
     },
     {
       "id": "gao-21-519sp-kp-11",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"accuracy across population groups\" is the answer."
     },
     {
       "id": "gao-21-519sp-kp-13",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"as requirements and system behavior evolve\" is the \"why\"."
     },
     {
       "id": "gao-21-519sp-kp-15",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "the question lists 2 of the 3 obstacles."
     },
     {
       "id": "wb-eem-2021-12-kp-02",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"priorities\" is half the answer; weak answerability."
     },
     {
       "id": "wb-eem-2021-12-kp-12",
-      "reviewer": "Claude (senior-reviewer chat)",
+      "reviewer": "model family B (senior-reviewer chat)",
       "verdict": "drop",
       "reason": "\"strengthen connectivity\" = \"increase availability\"."
     }
@@ -629,6 +629,6 @@
       "target_text": "and it reaches the 3.28 target validation loss in 19.7 minutes, a significant speedup as compared to the baseline codebase"
     }
   ],
-  "gpt_evidence_only": "GPT passed gao-21-519sp-kp-15 although it names 2 of 3 answer items.",
+  "model_evidence_only": "model passed gao-21-519sp-kp-15 although it names 2 of 3 answer items.",
   "draft_splits_preserved": true
 }

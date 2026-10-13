@@ -1,13 +1,13 @@
 {
   "schema": "matn-mixed-sample-reference/1",
-  "provenance_statement": "initial annotation: GPT (Codex); targeted audit: asmaa",
+  "provenance_statement": "initial annotation: model family A; targeted audit: asmaa",
   "reviewer_type": "mixed",
   "all_items_human_verified": false,
   "sample_manifest_sha256": "1e2c4532b903be1b48f11c92289725aee23eb4de89f8344167eceb84a9f88f8c",
-  "audit_manifest_sha256": "4055049e974166f1d421471ac8093b51af199601e86af76d0e6c71e748d7cd37",
-  "initial_ai_reference_sha256": "3add71ee3e377c6fce6f23cbfa040afe6a0dd7e1abd87e52ecc1c6d10b51a53d",
-  "latest_ai_reference_sha256": "b46bbb66bed65503c9c847b0c40c669f783a67a886d99589405c2eb73a6e0a3c",
-  "owner_export_sha256": "07b36882147b144704890cc633251be508ca02ce32af7af7994833b633b5b7af",
+  "audit_manifest_sha256": "344e52df34f47ca63c698069dc07c3f236121887c976a8d2cedc2c2dbe4aabe6",
+  "initial_ai_reference_sha256": "724c2e1290a846f9bc760fdb11d794b1b6468604fac7fbdcbad483f7b2d9136e",
+  "latest_ai_reference_sha256": "f58046b6859f92bfc95d7b32a10dbea0d133b02f458a09bea0c46087d7310d95",
+  "owner_export_sha256": "476f4c821dd110a4bf1354373b21623dbd08b14a111cb946486ee8d110717df3",
   "human_audited_ids": [
     "initial:statab_1951_part04_p0045:t0028",
     "initial:statab_1951_part04_p0008:t0017",
@@ -380,7 +380,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 1,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -390,7 +390,7 @@
         "context_sha256": "2d5adfa0d8b20043158db01080f1815e0ad6c6b789110ec6d56838c2d1a0e943"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -399,7 +399,7 @@
       "value_as_printed": "22.6",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 2,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -409,7 +409,7 @@
         "context_sha256": "e5e7dca39690ae700f6eeb4ba3b622210929221aa645cf649fc9f69c643483a1"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -418,7 +418,7 @@
       "value_as_printed": "324.9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 3,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -428,7 +428,7 @@
         "context_sha256": "99a73960cff954472f8619564d58b98faae1eeea4514a8dd11e9285a9a971f28"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -437,7 +437,7 @@
       "value_as_printed": "7.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 4,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -447,7 +447,7 @@
         "context_sha256": "08b53ebd06913b0ea7f8058d2d3423f729164a6e3ee62b840006c0d36ffdaf1b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -460,7 +460,7 @@
       "review_number": 5,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -473,7 +473,7 @@
       "value_as_printed": "45.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 6,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -483,7 +483,7 @@
         "context_sha256": "f3253753432cb492c03b3d733cd40403d5473147c4acc0c66cfc54423e59d18f"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -492,7 +492,7 @@
       "value_as_printed": "67.660",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 7,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -502,7 +502,7 @@
         "context_sha256": "5e10cafd6e0574aa662f1734c6379cc73df10499c4cedd32cc148c21382298f4"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -511,7 +511,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 8,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -521,7 +521,7 @@
         "context_sha256": "2e7ff3613e26b0e5b5b79265d698a5b6ac6b2017146b2de8e54f24e088fb2faa"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -530,7 +530,7 @@
       "value_as_printed": "43,892",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 9,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -540,7 +540,7 @@
         "context_sha256": "6812473741208197708a1289751b6b72f4fec2b59f3a88e1cb2752f1e25fa591"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -553,7 +553,7 @@
       "review_number": 10,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -570,7 +570,7 @@
       "review_number": 11,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -583,7 +583,7 @@
       "value_as_printed": "4,803",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 12,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -593,7 +593,7 @@
         "context_sha256": "686d2c101dd44b043a4b87708a89a5a06e60d3618a484bfa7b9528b65fda459e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -602,7 +602,7 @@
       "value_as_printed": "13",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 13,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -612,7 +612,7 @@
         "context_sha256": "7f4acc2ab242a060b9e5b49f223d29a747d4691a9b8facdc6fc503ad2c983c45"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -621,7 +621,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 14,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -631,7 +631,7 @@
         "context_sha256": "65177986e5ec3717d077fb07524cff8b27a16827e831e9d7291aebc2ce49a96e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -640,7 +640,7 @@
       "value_as_printed": "2.747",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 15,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -650,7 +650,7 @@
         "context_sha256": "946d6eb91a8de36c8e9443857b0725d6149f2f61591f75646a4028de7f6a7e76"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -659,7 +659,7 @@
       "value_as_printed": "6,075",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 16,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -669,7 +669,7 @@
         "context_sha256": "d28c3334990f1415863cc9ef88a23c126fbbe8614a8473d53cd1bf761419acdf"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -682,7 +682,7 @@
       "review_number": 17,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -699,7 +699,7 @@
       "review_number": 18,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -712,7 +712,7 @@
       "value_as_printed": "2,094",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 19,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -722,7 +722,7 @@
         "context_sha256": "c29a34bffca84212e24189602f9eddf2ca682ac85f34b884b517e3467971ab98"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -731,7 +731,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 20,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -741,7 +741,7 @@
         "context_sha256": "269bbfac23bfb5e86c4da53c69879fac1d1f27b367de43d79b9e68b597014b75"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -754,7 +754,7 @@
       "review_number": 21,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -771,7 +771,7 @@
       "review_number": 22,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -784,7 +784,7 @@
       "value_as_printed": "564",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 23,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -794,7 +794,7 @@
         "context_sha256": "46f2c7062b54d86afc1e6b5ac9e250b881cc8d74490a0d5c6daade0beb313307"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -803,7 +803,7 @@
       "value_as_printed": "2,072",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 24,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -813,7 +813,7 @@
         "context_sha256": "00b431f40b8d4389ac5a95c3373ed094834c7d1b03c910df0cf43ebb30ddf747"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -822,7 +822,7 @@
       "value_as_printed": "1,811",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 25,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -832,7 +832,7 @@
         "context_sha256": "8fb5457bf07261ee4d22e909b3865d8d84693465c22c64db33c87172a2a3ef71"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -841,7 +841,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 26,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -851,7 +851,7 @@
         "context_sha256": "ab740648884982e6c546d9acc58491f9a8a7b95ece653bef9f2e69c156576ce6"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -860,7 +860,7 @@
       "value_as_printed": "1,048",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 27,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -870,7 +870,7 @@
         "context_sha256": "b6b57cffb8d182f5205e56b3175d415906a4ea8e1ad73d00c4d2e8538c84480c"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -879,7 +879,7 @@
       "value_as_printed": "683",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 28,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -889,7 +889,7 @@
         "context_sha256": "f855ec19293d4efd5bbf3ddcd10cf1dc41e28444aaa612f1c3162b5214d226a6"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -902,7 +902,7 @@
       "review_number": 29,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -919,7 +919,7 @@
       "review_number": 30,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -932,7 +932,7 @@
       "value_as_printed": "16",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 31,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -942,7 +942,7 @@
         "context_sha256": "27a7ca0f25f35ed1656416ec763d2025be3099b1fddd4cc0ecb2f3ce3f8084ad"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -951,7 +951,7 @@
       "value_as_printed": "1,987",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 32,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -961,7 +961,7 @@
         "context_sha256": "cc5b55fceb4f72b86eef22e9296ecffe172e49879ee07c71451d2b5b36e42ad2"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -970,7 +970,7 @@
       "value_as_printed": "1910",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 33,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -980,7 +980,7 @@
         "context_sha256": "39e3e644e8c58ee7cd5c62d9b695dee037148cc8bea20fc53053b4ad1124179e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -989,7 +989,7 @@
       "value_as_printed": "0",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 34,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -999,7 +999,7 @@
         "context_sha256": "c62499b6f09311f3b31bf833bb420b4244be3ed720db934d8c5c9b8543e09c18"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1008,7 +1008,7 @@
       "value_as_printed": "-100",
       "note": "Printed minus sign is U+2212; ASCII minus used for canonical numeric transcription.",
       "review_number": 35,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1018,7 +1018,7 @@
         "context_sha256": "469a5bf6fd1d029702512c70281d4d6f4269bc5fa2ac4e49e6b9774ffe11f14e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1027,7 +1027,7 @@
       "value_as_printed": "186",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 36,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1037,7 +1037,7 @@
         "context_sha256": "700d48ba8ce13bb4c8bed53bd0ce0220f1ff7e1622a6e86348966011a4d3f3db"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1050,7 +1050,7 @@
       "review_number": 37,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1063,7 +1063,7 @@
       "value_as_printed": "79",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 38,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1073,7 +1073,7 @@
         "context_sha256": "6afdac7d3d9bdc9dacacdae432ccd2f1440dd9d72af0bad364a960486b2f9fbb"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1082,7 +1082,7 @@
       "value_as_printed": "2,000,000",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 39,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1092,7 +1092,7 @@
         "context_sha256": "40fd9903de5e0d5f8e120b7223e487dc2a3bab1cd4d3d0385a3d9a8178a4e8c4"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1101,7 +1101,7 @@
       "value_as_printed": "40,057",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 40,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1111,7 +1111,7 @@
         "context_sha256": "f47a4f873652f41389ee146c6aa7ac2f05476428510bde8874878e27324e3650"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1120,7 +1120,7 @@
       "value_as_printed": "14.2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 41,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1130,7 +1130,7 @@
         "context_sha256": "050f9916e1a306e075b73c03905dff8a972bb244520bf35b0e1119c89b7097b7"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1139,7 +1139,7 @@
       "value_as_printed": "84,569",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 42,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1149,7 +1149,7 @@
         "context_sha256": "0d8c6e2a62b94492af6c69d70d6f42ec847737dec900ca9e4d3a686b42285a79"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1162,7 +1162,7 @@
       "review_number": 43,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1179,7 +1179,7 @@
       "review_number": 44,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1192,7 +1192,7 @@
       "value_as_printed": "15",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 45,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1202,7 +1202,7 @@
         "context_sha256": "71405257b4b8c711117025033f4889cddf3fcf6abc03967d790bc32513146763"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1211,7 +1211,7 @@
       "value_as_printed": "14",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 46,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1221,7 +1221,7 @@
         "context_sha256": "b4594858555492a83670902e29bddab9f86ae984493de477e02ef1a210e72b90"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1230,7 +1230,7 @@
       "value_as_printed": "650",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 47,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1240,7 +1240,7 @@
         "context_sha256": "5f67982fc1fdc1e7469c4df48ec2d607656b8bbef8fa10d768e2ba63fa8be5c5"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1249,7 +1249,7 @@
       "value_as_printed": "38",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 48,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1259,7 +1259,7 @@
         "context_sha256": "6cda0ab2c2b7cc34c3e58a0b8e0ccb3a8fc11d9418ed9b8a161c62141930ed91"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1268,7 +1268,7 @@
       "value_as_printed": "39",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 49,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1278,7 +1278,7 @@
         "context_sha256": "300802d7dded940a618d7d4c4030f026b15eef6c9e12c1046e698d1409aaf474"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1287,7 +1287,7 @@
       "value_as_printed": "131",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 50,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1297,7 +1297,7 @@
         "context_sha256": "72527d747e09ee29e89158dc341f69a82847501fffad3f1c2e5a6c7456dca807"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1306,7 +1306,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 51,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1316,7 +1316,7 @@
         "context_sha256": "08246bcecae946ffa93bd97502b3548dcecf9110e286378e840c39eefafad321"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1325,7 +1325,7 @@
       "value_as_printed": "25",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 52,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1335,7 +1335,7 @@
         "context_sha256": "99c67a995ca94e5862d6940fe6ae2c00f2c365e3899e27b5ef4c821b1d060675"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1348,7 +1348,7 @@
       "review_number": 53,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1365,7 +1365,7 @@
       "review_number": 54,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1378,7 +1378,7 @@
       "value_as_printed": "3,350",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 55,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1388,7 +1388,7 @@
         "context_sha256": "48df9fb55cff9fa60a6bdb5bbd9ff570d2a8c7c206b734aca5707d385025a158"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1397,7 +1397,7 @@
       "value_as_printed": "101.9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 56,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1407,7 +1407,7 @@
         "context_sha256": "3c11a3953162caf36a5eb965cd542e370d7a68de9c10c05319f61bdd7c858bc9"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1416,7 +1416,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 57,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1426,7 +1426,7 @@
         "context_sha256": "7e173de0baeafc0eb8cf41ddbd89732621898c01870d7dafcd0ca0090f3081da"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1435,7 +1435,7 @@
       "value_as_printed": "1910",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 58,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1445,7 +1445,7 @@
         "context_sha256": "13c1d0381a600184600a1eec0714e95feb645b2de9fa04dd12ea21b079aaaa2b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1454,7 +1454,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 59,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1464,7 +1464,7 @@
         "context_sha256": "92dd77a5b9629865fa41396235cf59c222b0caae3e34f4c5ceb5cc9fb520c32a"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1473,7 +1473,7 @@
       "value_as_printed": "31",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 60,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1483,7 +1483,7 @@
         "context_sha256": "47a9dcc98365c005ec3edb0446a5b7e181d5c683d78d4fa9a3de633e7d569965"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1492,7 +1492,7 @@
       "value_as_printed": "305",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 61,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1502,7 +1502,7 @@
         "context_sha256": "c70db890ad46e51ccd0ab5c7a65aa80a48460e4eb84ee4392435cd234b271690"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1511,7 +1511,7 @@
       "value_as_printed": "188",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 62,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1521,7 +1521,7 @@
         "context_sha256": "5fcc05268be0910e15cc7cf8367e0d25ffcb0a8e85385308a1644bfd626e8ad5"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1530,7 +1530,7 @@
       "value_as_printed": "64",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 63,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1540,7 +1540,7 @@
         "context_sha256": "f8c0651348dfd048fcf1629787751e7c28589d37cebf8f79b5edb82e1c0a470a"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1553,7 +1553,7 @@
       "review_number": 64,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1566,7 +1566,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 65,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1576,7 +1576,7 @@
         "context_sha256": "c244fe02d7cc4ee4f15d5b8152df8646e5cbd58e914d1eafbdb9e4c40e75d724"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1585,7 +1585,7 @@
       "value_as_printed": "352",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 66,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1595,7 +1595,7 @@
         "context_sha256": "a2e6a380cfef9e439a7391d239af4f2ab0693c6e4f2a75c60eacb76baea4e983"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1608,7 +1608,7 @@
       "review_number": 67,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1621,7 +1621,7 @@
       "value_as_printed": "301",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 68,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1631,7 +1631,7 @@
         "context_sha256": "2f8bbb0516e0047c2b099f447d9caa6c6efe7fefb51e9a0fce904776989257b3"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1640,7 +1640,7 @@
       "value_as_printed": "11.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 69,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1650,7 +1650,7 @@
         "context_sha256": "b51e0d7550fd27c7ee3e366d9b87fa690f267f6d039b0bd140783b5a854efec2"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1663,7 +1663,7 @@
       "review_number": 70,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1676,7 +1676,7 @@
       "value_as_printed": "44,762",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 71,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1686,7 +1686,7 @@
         "context_sha256": "7a2347fd84e675022f7b9d35cd28d3aa947cd22758bd34bef5bb657d78ac1d81"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1695,7 +1695,7 @@
       "value_as_printed": "0",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 72,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1705,7 +1705,7 @@
         "context_sha256": "cd2d2402ea329cc435a61d77a0b7772f955d6ce199cc90dee356464e007f9ace"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1714,7 +1714,7 @@
       "value_as_printed": "6,566",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 73,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1724,7 +1724,7 @@
         "context_sha256": "523d6e214ef58886404f5adfa6e385bb47b89cf11465c2880b26c1c4c1975013"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1733,7 +1733,7 @@
       "value_as_printed": "0000",
       "note": "AWG gauge printed as four zeros; leading zeros preserved.",
       "review_number": 74,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1743,7 +1743,7 @@
         "context_sha256": "9fefc2ee42de3626cf896abc9818fc833a3b7de50461aefa2ab4f92b01e0753a"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1752,7 +1752,7 @@
       "value_as_printed": "354",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 75,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1762,7 +1762,7 @@
         "context_sha256": "351da7bd7e132f3f8468922c74504c345f388c8adf31676e6a4e796b06135b44"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1775,7 +1775,7 @@
       "review_number": 76,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1788,7 +1788,7 @@
       "value_as_printed": "452",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 77,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1798,7 +1798,7 @@
         "context_sha256": "176e4459ea399d15baca1aea5f4f1590557a1315591330d5de6ad892b7a88dbd"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1807,7 +1807,7 @@
       "value_as_printed": "6,565",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 78,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1817,7 +1817,7 @@
         "context_sha256": "0ca9ff4e6896f52e1a44aa15642a594ff503db9e3ae6947d6b0320b2eea12765"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1826,7 +1826,7 @@
       "value_as_printed": "0.15328",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 79,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1836,7 +1836,7 @@
         "context_sha256": "3d9cde8799503357daabc46d80f995eca3644a4b2d74d2fc2e0627f2507fa27d"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1849,7 +1849,7 @@
       "review_number": 80,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1862,7 +1862,7 @@
       "value_as_printed": "478",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 81,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1872,7 +1872,7 @@
         "context_sha256": "5827ffda5ad9bd76146a25739e0e64104c1a34ae4f2378fffeeedcbea08b875b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1881,7 +1881,7 @@
       "value_as_printed": "13",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 82,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1891,7 +1891,7 @@
         "context_sha256": "a5e1c98ce8d5a5e2e1b97c64005679da11f9f6251fa813738cfa1917af5b306e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1900,7 +1900,7 @@
       "value_as_printed": "30",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 83,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1910,7 +1910,7 @@
         "context_sha256": "b86427006aba9bd3fab35b898456587f8b4e7951fec22dd65efd803bdf82fe36"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1919,7 +1919,7 @@
       "value_as_printed": "252",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 84,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1929,7 +1929,7 @@
         "context_sha256": "79a2fea671384ab8ef7a7ca389efcef8b9f7d28d8e8363d6a754bc63529978be"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1942,7 +1942,7 @@
       "review_number": 85,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -1955,7 +1955,7 @@
       "value_as_printed": "68",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 86,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1965,7 +1965,7 @@
         "context_sha256": "7c61c82a4cb5350e8ea284bf9a76d085fcdd6ee98b0de630d71199ac3483a85d"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1974,7 +1974,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 87,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1984,7 +1984,7 @@
         "context_sha256": "c9b3dbd94f45abb1821690209b9016803719c627837684349e55ddb914e1f1d9"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -1993,7 +1993,7 @@
       "value_as_printed": "631",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 88,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2003,7 +2003,7 @@
         "context_sha256": "9884832136389e2034d2ab79c7bcdf10c47459fc58e7f58ed2f1f0049b43c6ff"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2012,7 +2012,7 @@
       "value_as_printed": "41",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 89,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2022,7 +2022,7 @@
         "context_sha256": "357b302eafd86b43eaf7b117bc0e0a49c9775ae4c3903b4e2f28326667afd710"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2035,7 +2035,7 @@
       "review_number": 90,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2048,7 +2048,7 @@
       "value_as_printed": "57",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 91,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2058,7 +2058,7 @@
         "context_sha256": "35c161408d24a6c7c634a5968e4d623a3c6ac151bf23ef9aecaa10d567a96669"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2067,7 +2067,7 @@
       "value_as_printed": "1943",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 92,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2077,7 +2077,7 @@
         "context_sha256": "173b06188c0262d12bc5e7fdac86ff773c9714ae78ef794dd6f4cd4bf6af94ec"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2086,7 +2086,7 @@
       "value_as_printed": "1",
       "note": "Italic digit 1 in Part 1, not lowercase l.",
       "review_number": 93,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2096,7 +2096,7 @@
         "context_sha256": "59fbb1b6e384d5731f9395b5d89b3a61591f134f5030679b0ef52008df4e2687"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2109,7 +2109,7 @@
       "review_number": 94,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2122,7 +2122,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 95,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2132,7 +2132,7 @@
         "context_sha256": "a6e5bfc185ca1870f36bb16859d3d4dacc82fa9a5d69660bb15f1e9164432f91"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2141,7 +2141,7 @@
       "value_as_printed": "462",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 96,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2151,7 +2151,7 @@
         "context_sha256": "0e9542d660fbe0543eb849fadc92fd1ca68c7eee7397abc30a06accba4f39c9d"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2160,7 +2160,7 @@
       "value_as_printed": "31",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 97,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2170,7 +2170,7 @@
         "context_sha256": "0458a120d77ffca71f1d989042b71ba17c6dab8a2f852a857cb9f8bdc71b2c0b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2183,7 +2183,7 @@
       "review_number": 98,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2196,7 +2196,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 99,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2206,7 +2206,7 @@
         "context_sha256": "3dbbd2e2ddc3acb4e1200a5c5f7c6402b3720a1e4dfd812cdc43fcb43247806b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2219,7 +2219,7 @@
       "review_number": 100,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2232,7 +2232,7 @@
       "value_as_printed": "10,961",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 101,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2242,7 +2242,7 @@
         "context_sha256": "73d0be383b9851a9d93cad108dadb656f0ce1ca51ab0237f1a77202724c9246f"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2251,7 +2251,7 @@
       "value_as_printed": "60",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 102,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2261,7 +2261,7 @@
         "context_sha256": "9531efcbf464683552e38386974c850290dc139d9709a4ebb1d6c65ddc83801f"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2270,7 +2270,7 @@
       "value_as_printed": "138",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 103,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2280,7 +2280,7 @@
         "context_sha256": "8695ef9f13d2a8540f2fe22f3b51cc7ccac9b6a23f2a358f643702dbe8a03f0c"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2289,7 +2289,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 104,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2299,7 +2299,7 @@
         "context_sha256": "55a2d917d8aa57f23447e87e04b992984dd2babd042d9f7fa3f1c81a129d8dcf"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2308,7 +2308,7 @@
       "value_as_printed": "7",
       "note": "Superscript footnote marker 7 is a complete printed marker, separate from following 1,182.",
       "review_number": 105,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2318,7 +2318,7 @@
         "context_sha256": "4043906d54da61986c32c91431b2faffbf1cc56896cc58b4f049717b8c4b4a47"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2327,7 +2327,7 @@
       "value_as_printed": "49,958",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 106,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2337,7 +2337,7 @@
         "context_sha256": "9e55fefa703a4924e5d6477ab50476cff31b3fb5f341a87ea4d019e20f495e87"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2346,7 +2346,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 107,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2356,7 +2356,7 @@
         "context_sha256": "773b5b4cc982867ba9a7cd0df04dc0f4e0e96b151505f5f974b3bee5b3490603"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2369,7 +2369,7 @@
       "review_number": 108,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2386,7 +2386,7 @@
       "review_number": 109,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2399,7 +2399,7 @@
       "value_as_printed": "6",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 110,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2409,7 +2409,7 @@
         "context_sha256": "a0e24c62c05777942b7c4067d76884cf83f005614e23e9c6412c9e8a667cfd7b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2422,7 +2422,7 @@
       "review_number": 111,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2435,7 +2435,7 @@
       "value_as_printed": "6,668",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 112,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2445,7 +2445,7 @@
         "context_sha256": "52f3d74db245d3bbdd2b7c543a7d3aac64ce32c874f3bb2bfc10141370b61b03"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2454,7 +2454,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 113,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2464,7 +2464,7 @@
         "context_sha256": "ad3875a6cb443eb9211349a64bbb21ab3f1ccd51460369b1994c63f2afa92b54"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2477,7 +2477,7 @@
       "review_number": 114,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2490,7 +2490,7 @@
       "value_as_printed": "422",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 115,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2500,7 +2500,7 @@
         "context_sha256": "8bd440b24d6eb1d9c306ef3cdb4d65c6a63cca3eee34a6d868d78469b77ccfe3"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2513,7 +2513,7 @@
       "review_number": 116,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2530,7 +2530,7 @@
       "review_number": 117,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2543,7 +2543,7 @@
       "value_as_printed": "4.4284",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 118,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2553,7 +2553,7 @@
         "context_sha256": "8663c7ea1ea0d28903f06acb0c6ae868c71e820d161da5a4691ee27450f27a05"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2562,7 +2562,7 @@
       "value_as_printed": "65",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 119,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2572,7 +2572,7 @@
         "context_sha256": "feaf6efe8c996c62a1407faa9e08c5cbfed044afeb8cdaba5ecda6e825e40064"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2581,7 +2581,7 @@
       "value_as_printed": "88",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 120,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2591,7 +2591,7 @@
         "context_sha256": "ca08748ab82f9d0adb9298c8ac8648f9c42e6fbaaac05990d80e6d55d8fe4b31"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2600,7 +2600,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 121,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2610,7 +2610,7 @@
         "context_sha256": "542efea6e5ec045ebd87c001e38cee46e2708f396d96d31e7dd5d731fee48757"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2619,7 +2619,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 122,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2629,7 +2629,7 @@
         "context_sha256": "60f777e30f52e920912224d2678abf87b059dd19747704829fdd7531a00d374e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2642,7 +2642,7 @@
       "review_number": 123,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2655,7 +2655,7 @@
       "value_as_printed": "11",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 124,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2665,7 +2665,7 @@
         "context_sha256": "443f03fa2baa6800ac7b52ef71af195bfac20c4401ec1e6909364807f7afa277"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2674,7 +2674,7 @@
       "value_as_printed": "3.210",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 125,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2684,7 +2684,7 @@
         "context_sha256": "9386708b9ab77de08993edce756fa70a82665755463d683342e902ef38d4e568"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2693,7 +2693,7 @@
       "value_as_printed": "2.5400",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 126,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2703,7 +2703,7 @@
         "context_sha256": "89502e7fecc5b60585b74798bd0b1d1ba00b50ff65db019dc5155269e87bbd6e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2716,7 +2716,7 @@
       "review_number": 127,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2729,7 +2729,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 128,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2739,7 +2739,7 @@
         "context_sha256": "93144f2c07dad3a48782a69ff74ce82f6cdd52a5139f8cf364c77f26d5949b1a"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2748,7 +2748,7 @@
       "value_as_printed": "677",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 129,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2758,7 +2758,7 @@
         "context_sha256": "91ef74869535b5e7a5f2b350a27aa626d326cd944fcaf5dbef616fdccf7f635a"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2767,7 +2767,7 @@
       "value_as_printed": "11,914",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 130,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2777,7 +2777,7 @@
         "context_sha256": "c26c5f69f013570bf321be3627653eec778d0b81e68155de1745ce7725509d90"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2786,7 +2786,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 131,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2796,7 +2796,7 @@
         "context_sha256": "40fd9903de5e0d5f8e120b7223e487dc2a3bab1cd4d3d0385a3d9a8178a4e8c4"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2805,7 +2805,7 @@
       "value_as_printed": "36",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 132,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2815,7 +2815,7 @@
         "context_sha256": "396949dbd28f92bbdc6d94f933421e49cf1b684788555e8d3c1bff1dfcf9aaa1"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2824,7 +2824,7 @@
       "value_as_printed": "44,762",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 133,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2834,7 +2834,7 @@
         "context_sha256": "56a16fcd6ab487eae4a3f19127748e42c91f58a8465ad30bf08fde961ed675b6"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2847,7 +2847,7 @@
       "review_number": 134,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2860,7 +2860,7 @@
       "value_as_printed": "49",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 135,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2870,7 +2870,7 @@
         "context_sha256": "076ce2a76b144bf0c5e32911f3726796de422b47ce0a38156913e8cf90417ade"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2883,7 +2883,7 @@
       "review_number": 136,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2896,7 +2896,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 137,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2906,7 +2906,7 @@
         "context_sha256": "47a9dcc98365c005ec3edb0446a5b7e181d5c683d78d4fa9a3de633e7d569965"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2919,7 +2919,7 @@
       "review_number": 138,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -2932,7 +2932,7 @@
       "value_as_printed": "306",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 139,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2942,7 +2942,7 @@
         "context_sha256": "377e36a8bfc24de35a9d47ba0a7b6c0a212c46ff35f5ada02028895362e9b9da"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2951,7 +2951,7 @@
       "value_as_printed": "1949",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 140,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2961,7 +2961,7 @@
         "context_sha256": "41fd2d5180f8cd3a5a192730e4065bbfe2343b0af97bfada40f481ed9c2a06ae"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2970,7 +2970,7 @@
       "value_as_printed": "764",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 141,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2980,7 +2980,7 @@
         "context_sha256": "f4b96d58d861fd10a82d6723a126b40403fd4dcdfc46987b7627924cbee3b77b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -2989,7 +2989,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 142,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2999,7 +2999,7 @@
         "context_sha256": "a3dc8748f2362e2ec3acee8b1ed79326057a73e735a8bddaf2b46c5658e8ff44"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3008,7 +3008,7 @@
       "value_as_printed": "474",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 143,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3018,7 +3018,7 @@
         "context_sha256": "05c0a64df2a372a36a994cfe4ba28f35b37c31a35e9edb57a899345ae56287f2"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3027,7 +3027,7 @@
       "value_as_printed": "172.41",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 144,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3037,7 +3037,7 @@
         "context_sha256": "d93ab0edaeb2407fe80d0400363640b739c09bd2c6495d2dcb255382ff7ed044"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3046,7 +3046,7 @@
       "value_as_printed": "8.90",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 145,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3056,7 +3056,7 @@
         "context_sha256": "c62499b6f09311f3b31bf833bb420b4244be3ed720db934d8c5c9b8543e09c18"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3065,7 +3065,7 @@
       "value_as_printed": "42,211",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 146,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3075,7 +3075,7 @@
         "context_sha256": "97fcb15302be9c7a51b1dd274a1dba3a81e55eb0e7a8ee656d50eea437cf6ef0"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3084,7 +3084,7 @@
       "value_as_printed": "1789",
       "note": "Enlarged outlined crop and full context show all four year digits; the final 9 meets the outline edge.",
       "review_number": 147,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3094,7 +3094,7 @@
         "context_sha256": "9798e2493d07dac506fc32c0e904dafc1954774a5bbffe146a189ccb4dd78008"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3103,7 +3103,7 @@
       "value_as_printed": "172",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 148,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3113,7 +3113,7 @@
         "context_sha256": "f5ec7586ef95db5d88d71e1a67ef3cc5ca53b7712f573cbb526b302c4f80f6f7"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3122,7 +3122,7 @@
       "value_as_printed": "431",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 149,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3132,7 +3132,7 @@
         "context_sha256": "9d142b85c78aa29c46de194fbce167ccd73e85d979fef7e6e0c35ddc9e6bc7fe"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3141,7 +3141,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 150,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3151,7 +3151,7 @@
         "context_sha256": "631ea5acc419a5786da9c218caf63ceeb6e28ff57cce77c19dad98c0505d8788"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3164,7 +3164,7 @@
       "review_number": 151,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3177,7 +3177,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 152,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3187,7 +3187,7 @@
         "context_sha256": "d2c60a85af20c0be478f4e1affbb3d70c9b7aedf7709de04ae04136f2b5638d7"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3196,7 +3196,7 @@
       "value_as_printed": "4,572",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 153,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3206,7 +3206,7 @@
         "context_sha256": "7ae9ef2767fd5c35c7d860074e865e34efff2fb23b0921d0048839898d98f1a2"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3219,7 +3219,7 @@
       "review_number": 154,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3236,7 +3236,7 @@
       "review_number": 155,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3249,7 +3249,7 @@
       "value_as_printed": "357",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 156,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3259,7 +3259,7 @@
         "context_sha256": "d88e44e65cd402ede32096fb874ab2b1d654b0f2f5cba1c5fa0ef39ae36d3f54"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3268,7 +3268,7 @@
       "value_as_printed": "16",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 157,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3278,7 +3278,7 @@
         "context_sha256": "5129a9c32a43ff9290449423b688954d078394951bef45d644b2cbfbde422cc5"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3287,7 +3287,7 @@
       "value_as_printed": "439",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 158,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3297,7 +3297,7 @@
         "context_sha256": "aadf75b4a86bb53ef021892d3d24201f38c9d87e840adfbd6a43bc0ed139c0fe"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3310,7 +3310,7 @@
       "review_number": 159,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3323,7 +3323,7 @@
       "value_as_printed": "20.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 160,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3333,7 +3333,7 @@
         "context_sha256": "f1ddecf282dfbc470fcd73c644cd5bc8a39147632123bcbd13ce3b5000652468"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3342,7 +3342,7 @@
       "value_as_printed": "1,366",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 161,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3352,7 +3352,7 @@
         "context_sha256": "79e64a5660ce05a863308b889d01f56ab3bb1b326f9a59586be099fb0a6cd08b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3365,7 +3365,7 @@
       "review_number": 162,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3378,7 +3378,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 163,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3388,7 +3388,7 @@
         "context_sha256": "b31c73f0537ffc8737d92d41e06a82cf192c63fa1d8bb7e1082c55880a7560b6"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3397,7 +3397,7 @@
       "value_as_printed": "40,043",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 164,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3407,7 +3407,7 @@
         "context_sha256": "91d2c5306a581f0bad33f05940425b81fd962db5956640795f4b3aa281d826fe"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3416,7 +3416,7 @@
       "value_as_printed": "15",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 165,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3426,7 +3426,7 @@
         "context_sha256": "f86cb4a11d71e4607e6f11bf8949a1efa61ec62d53a1ea8284ac64682a2e5f9d"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3435,7 +3435,7 @@
       "value_as_printed": "95",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 166,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3445,7 +3445,7 @@
         "context_sha256": "c4c94526eeca728d849dad0a4dc055d251fc437e22c5b8ad682dec0d3d0a835e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3458,7 +3458,7 @@
       "review_number": 167,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3471,7 +3471,7 @@
       "value_as_printed": "420",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 168,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3481,7 +3481,7 @@
         "context_sha256": "5827ffda5ad9bd76146a25739e0e64104c1a34ae4f2378fffeeedcbea08b875b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3490,7 +3490,7 @@
       "value_as_printed": "1945",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 169,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3500,7 +3500,7 @@
         "context_sha256": "150060db30ea518c3041335ce2eab75c03fc9e7ccfaac169cdfcfc6b0b1d45b5"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3509,7 +3509,7 @@
       "value_as_printed": "9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 170,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3519,7 +3519,7 @@
         "context_sha256": "ac9cba11470ba1ee6d6db8accc9b723ff914b3b248ad2d724700e2547fe0c572"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3528,7 +3528,7 @@
       "value_as_printed": "104",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 171,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3538,7 +3538,7 @@
         "context_sha256": "13c1d0381a600184600a1eec0714e95feb645b2de9fa04dd12ea21b079aaaa2b"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3551,7 +3551,7 @@
       "review_number": 172,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3564,7 +3564,7 @@
       "value_as_printed": "64.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 173,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3574,7 +3574,7 @@
         "context_sha256": "1775ce99fac02ef446e4f7c5fbc37e2c75e91a81bb4e42b8fbecb46a4bc19f02"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3583,7 +3583,7 @@
       "value_as_printed": "21",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 174,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3593,7 +3593,7 @@
         "context_sha256": "a7778b2ae714980c023075b5882edbbbc5b3ea0ce24108c74761c1249bc38fce"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3602,7 +3602,7 @@
       "value_as_printed": "289.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 175,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3612,7 +3612,7 @@
         "context_sha256": "8b0d45cab19b324221f18fb7e24d538be019aca0ccfd1abde4b26d399bbad35d"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3625,7 +3625,7 @@
       "review_number": 176,
       "reviewer_type": "human",
       "human_verified": true,
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": "asmaa",
       "provenance": "owner_targeted_audit",
       "ai_annotation_before_audit": {
@@ -3638,7 +3638,7 @@
       "value_as_printed": "40",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 177,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3648,7 +3648,7 @@
         "context_sha256": "c5d4b51635d9010d56a33738cfd4684d96fe8163288dc89ab517ad647efdc39c"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3657,7 +3657,7 @@
       "value_as_printed": "1914",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 178,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3667,7 +3667,7 @@
         "context_sha256": "cf15c4d606b72505caf2b42fd90355ce57624dcc13354aab0a0db2ee01602396"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3676,7 +3676,7 @@
       "value_as_printed": "0.00393",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 179,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3686,7 +3686,7 @@
         "context_sha256": "b924df342718484db8024053b131d87df5ae6bb0ef56778061021495e78c2e91"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     },
@@ -3695,7 +3695,7 @@
       "value_as_printed": "7",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 180,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -3705,7 +3705,7 @@
         "context_sha256": "39e3e644e8c58ee7cd5c62d9b695dee037148cc8bea20fc53053b4ad1124179e"
       },
       "audit_pass": "enlarged scan visual review",
-      "initial_annotation": "GPT (Codex)",
+      "initial_annotation": "model family A",
       "targeted_audit": null,
       "provenance": "ai_three_way_agreement_not_human_audited"
     }

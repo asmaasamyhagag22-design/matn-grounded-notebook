@@ -15,7 +15,7 @@ def fixture():
         'review_order': ['a', 'b', 'c'], 'populations': {'fixture_p0000': {'flagged': 1, 'accepted': 2}}}
     latest = {'manifest_sha256': digest(sample), 'reviewer_type': 'model', 'human_verified': False,
               'answers': {i['id']: {'kind': 'number', 'value_as_printed': i['reader2'], 'review_number': n,
-                         'verified_by': 'GPT fixture', 'reviewer_type': 'model', 'human_verified': False}
+                         'verified_by': 'model fixture', 'reviewer_type': 'model', 'human_verified': False}
                          for n, i in enumerate(sample['items'], 1)}}
     first = copy.deepcopy(latest); first['answers']['a']['value_as_printed'] = '12'
     plan = select_problems(sample, first, latest)
@@ -31,7 +31,7 @@ def test_mixed_reference_keeps_owner_values_and_never_signs_agreement_as_human()
     args = fixture(); before = copy.deepcopy(args)
     mixed = build_mixed_reference(*args)
     assert args == before
-    assert mixed['provenance_statement'] == 'initial annotation: GPT (Codex); targeted audit: asmaa'
+    assert mixed['provenance_statement'] == 'initial annotation: model family A; targeted audit: asmaa'
     assert mixed['human_audited_ids'] == ['a', 'b']
     assert mixed['unaudited_three_way_agreement_ids'] == ['c']
     assert mixed['all_items_human_verified'] is False
@@ -39,7 +39,7 @@ def test_mixed_reference_keeps_owner_values_and_never_signs_agreement_as_human()
     assert mixed['answers']['b']['value_as_printed'] == '20'
     assert mixed['answers']['b']['verified_at'] == args[-1]['answers']['b']['verified_at']
     assert mixed['answers']['c']['human_verified'] is False
-    assert mixed['answers']['c']['verified_by'] == 'GPT fixture'
+    assert mixed['answers']['c']['verified_by'] == 'model fixture'
     assert len(mixed['changes_from_latest_ai']) == 1
     result = statistics(args[0], mixed['answers'])
     assert result['flagged']['false_alarms'] == 1
@@ -53,7 +53,7 @@ def test_tampered_or_partial_owner_export_is_rejected(tamper):
     if tamper == 'identity': export['manifest_key'] = 'wrong'
     if tamper == 'missing': del export['answers']['a']
     if tamper == 'extra': export['answers']['z'] = export['answers']['a']
-    if tamper == 'unsigned': export['answers']['a']['verified_by'] = 'GPT'
+    if tamper == 'unsigned': export['answers']['a']['verified_by'] = 'model'
     if tamper == 'history': export['history'] = []
     if tamper == 'time': export['answers']['a']['verified_at'] = 'not-a-date'
     with pytest.raises(ValueError): validate_export(export, plan)

@@ -1,7 +1,7 @@
 {
   "seed": 20261012,
   "state": "report-only",
-  "provenance": "Codex visual judgment",
+  "provenance": "model family A visual judgment",
   "items": [
     {
       "sample_index": 0,
@@ -10,7 +10,7 @@
         166
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -20,7 +20,7 @@
         14
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -30,7 +30,7 @@
         142
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -40,7 +40,7 @@
         39
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -50,7 +50,7 @@
         203
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -60,7 +60,7 @@
         245
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -70,7 +70,7 @@
         118
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -80,7 +80,7 @@
         236
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -90,7 +90,7 @@
         34
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -100,7 +100,7 @@
         150
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -110,7 +110,7 @@
         200
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -120,7 +120,7 @@
         195
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -130,7 +130,7 @@
         269
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -140,7 +140,7 @@
         256
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -150,7 +150,7 @@
         259
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -160,7 +160,7 @@
         167
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -170,7 +170,7 @@
         45
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -180,7 +180,7 @@
         129
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -190,7 +190,7 @@
         152
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     },
     {
@@ -200,7 +200,7 @@
         168
       ],
       "classification": "chart text",
-      "provenance": "Codex visual judgment",
+      "provenance": "model family A visual judgment",
       "reason": "Native crop is a chart or a dashboard of bars/points/percentage panels; not a prose paragraph or an isolated data-cell table."
     }
   ]

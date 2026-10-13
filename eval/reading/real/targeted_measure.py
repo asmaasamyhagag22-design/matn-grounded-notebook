@@ -59,7 +59,7 @@ def build_mixed_reference(sample, first, latest, plan, export):
             answer = dict(export['answers'][item_id])
             changed = (answer['kind'], answer['value_as_printed']) != (initial['kind'], initial['value_as_printed'])
             answer.update(review_number=initial['review_number'], reviewer_type='human', human_verified=True,
-                          initial_annotation='GPT (Codex)', targeted_audit='asmaa',
+                          initial_annotation='model family A', targeted_audit='asmaa',
                           provenance='owner_targeted_audit', ai_annotation_before_audit={
                               'kind': initial['kind'], 'value_as_printed': initial['value_as_printed']})
             if changed:
@@ -71,11 +71,11 @@ def build_mixed_reference(sample, first, latest, plan, export):
             if initial['kind'] != 'number' or initial['value_as_printed'] != item['reader1'] or initial['value_as_printed'] != item.get('reader2'):
                 raise ValueError('Unaudited item lacks three-way agreement: ' + item_id)
             answer = dict(initial)
-            answer.update(initial_annotation='GPT (Codex)', targeted_audit=None,
+            answer.update(initial_annotation='model family A', targeted_audit=None,
                           provenance='ai_three_way_agreement_not_human_audited')
         answers[item_id] = answer
     return {'schema': 'matn-mixed-sample-reference/1',
-            'provenance_statement': 'initial annotation: GPT (Codex); targeted audit: asmaa',
+            'provenance_statement': 'initial annotation: model family A; targeted audit: asmaa',
             'reviewer_type': 'mixed', 'all_items_human_verified': False,
             'sample_manifest_sha256': digest(sample), 'audit_manifest_sha256': digest(plan),
             'initial_ai_reference_sha256': digest(first), 'latest_ai_reference_sha256': digest(latest),
@@ -110,7 +110,7 @@ def publish():
         if states.get(doc, {}).get('status') != 'ok' or states[doc]['actual'] != expected:
             raise ValueError('Changed or missing sampled real source: ' + doc)
     validate_records(sample, OUT / 'final/real')
-    original_embedded_images(sample, latest, (HERE / 'gpt-annotations.html').read_text(encoding='utf8'))
+    original_embedded_images(sample, latest, (HERE / 'model-annotations.html').read_text(encoding='utf8'))
     mixed = build_mixed_reference(sample, first, latest, plan, export)
     gaokey = 'gao_cg_annual_report_1990'
     if states[gaokey]['status'] == 'mismatch':
@@ -149,7 +149,7 @@ def publish():
                 f'{a["silent_errors"]}/{a["n"]} | {pct(a["rate"])} | {pct(a["exact_binomial_upper_95"])} | '
                 f'{pct(a["rule_of_three_upper_approx"])} | {f["illegible"] + a["illegible"]} |')
     report = ['# Step 4c — القياس بعد targeted audit', '',
-              '**initial annotation: GPT (Codex); targeted audit: asmaa**', '',
+              '**initial annotation: model family A; targeted audit: asmaa**', '',
               f'المراجعة البشرية **{result["human_audited"]}/180**؛ الباقي **{result["ai_agreement_only"]}/180** AI مع exact three-way agreement، مش human-verified.',
               f'إجابات المالكة اتنقلت bytes من Downloads بدون تعديل قيمة أو method/timestamp؛ ملف الأصل `{ANSWERS.relative_to(REPO)}`.',
               f'Export canonical SHA256: `{digest(export)}`؛ mixed reference SHA256: `{digest(mixed)}`.', '',
@@ -165,12 +165,12 @@ def publish():
                '## كل اختلاف صامت', '', '| Sample # | Item id | reader1 | مرجع المالكة | النسبة |', '|---:|---|---|---|---|']
     report += [f'| {i["review_number"]} | `{i["item_id"]}` | {i["reader1"]} | {i["reference"] or i["kind"]} | {i["provenance"]} |' for i in result['silent_error_items']]
     report += ['', '## العناصر اللي راجعتها asmaa — كل43', '',
-               '| Sample # | Item id | GPT قبل owner audit | إجابة asmaa | method |', '|---:|---|---|---|---|']
+               '| Sample # | Item id | model قبل owner audit | إجابة asmaa | method |', '|---:|---|---|---|---|']
     for item_id in plan['review_order']:
         a = mixed['answers'][item_id]; before = a['ai_annotation_before_audit']
         report.append(f'| {a["review_number"]} | `{item_id}` | {before["value_as_printed"] or before["kind"]} | {a["value_as_printed"] or a["kind"]} | {a["method"]} |')
     report += ['', f'عدد التغييرات مقارنة آخر AI snapshot: **{len(mixed["changes_from_latest_ai"])}**؛ محفوظة before/after في JSON.', '',
-               '## العناصر اللي تعتمد على three-way agreement فقط — كل137', '', '| Sample # | Item id | GPT = reader1 = reader2 |', '|---:|---|---|']
+               '## العناصر اللي تعتمد على three-way agreement فقط — كل137', '', '| Sample # | Item id | model = reader1 = reader2 |', '|---:|---|---|']
     for item_id in plan['three_way_agreement_not_audited']:
         a = mixed['answers'][item_id]
         report.append(f'| {a["review_number"]} | `{item_id}` | {a["value_as_printed"]} |')

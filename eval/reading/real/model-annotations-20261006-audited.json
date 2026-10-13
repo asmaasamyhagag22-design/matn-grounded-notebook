@@ -1,11 +1,11 @@
 {
-  "schema": "matn-gpt-sample-annotations/1",
+  "schema": "matn-model-sample-annotations/1",
   "manifest_sha256": "1e2c4532b903be1b48f11c92289725aee23eb4de89f8344167eceb84a9f88f8c",
   "created_at": "2026-10-06T10:15:21.998846+00:00",
   "reviewer_type": "model",
   "human_verified": false,
   "method": "Visual reading of 18 blind image sheets (10 items each) in immutable review order, with targeted enlarged original scan reinspection. Reader predictions and flagged/accepted strata were hidden during transcription. Labels frozen before comparison to OCR outputs.",
-  "scope": "Owner-delegated GPT reference, not independent human-verified ground truth. Original nine human GT templates untouched.",
+  "scope": "Owner-delegated model reference, not independent human-verified ground truth. Original nine human GT templates untouched.",
   "transcription_policy": "Numeric typography: join digit-group spaces, preserve printed decimal places/leading zeroes and thousands commas; ASCII minus for printed minus. Footnote markers are separate from cell values. Mark fragments/merged cells/non-numeric glyphs not_number. Uncertain decimal separator is illegible; never infer from arithmetic.",
   "answers": {
     "initial:statab_1951_part04_p0008:t0323": {
@@ -13,7 +13,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 1,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -29,7 +29,7 @@
       "value_as_printed": "22.6",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 2,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -45,7 +45,7 @@
       "value_as_printed": "324.9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 3,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -61,7 +61,7 @@
       "value_as_printed": "7.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 4,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -77,7 +77,7 @@
       "value_as_printed": "33,791",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 5,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -93,7 +93,7 @@
       "value_as_printed": "45.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 6,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -109,7 +109,7 @@
       "value_as_printed": "67.660",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 7,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -125,7 +125,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 8,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -141,7 +141,7 @@
       "value_as_printed": "43,892",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 9,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -157,7 +157,7 @@
       "value_as_printed": null,
       "note": "Detection boxes only the trailing 597 of the printed 0.000 597; partial numeric detection.",
       "review_number": 10,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -173,7 +173,7 @@
       "value_as_printed": "15.279",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 11,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -189,7 +189,7 @@
       "value_as_printed": "4,803",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 12,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -205,7 +205,7 @@
       "value_as_printed": "13",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 13,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -221,7 +221,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 14,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -237,7 +237,7 @@
       "value_as_printed": "2.747",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 15,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -253,7 +253,7 @@
       "value_as_printed": "6,075",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 16,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -269,7 +269,7 @@
       "value_as_printed": "871",
       "note": "Enlarged original crop has two closed loops in the first digit: 8, not 3.",
       "review_number": 17,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -285,7 +285,7 @@
       "value_as_printed": "2,596",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 18,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -301,7 +301,7 @@
       "value_as_printed": "2,094",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 19,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -317,7 +317,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 20,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -333,7 +333,7 @@
       "value_as_printed": null,
       "note": "Detection boxes trailing 0681 of printed 0.0000681; partial numeric detection.",
       "review_number": 21,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -349,7 +349,7 @@
       "value_as_printed": null,
       "note": "Printed symbol is italic lowercase l, not a number.",
       "review_number": 22,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -365,7 +365,7 @@
       "value_as_printed": "564",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 23,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -381,7 +381,7 @@
       "value_as_printed": "2,072",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 24,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -397,7 +397,7 @@
       "value_as_printed": "1,811",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 25,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -413,7 +413,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 26,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -429,7 +429,7 @@
       "value_as_printed": "1,048",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 27,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -445,7 +445,7 @@
       "value_as_printed": "683",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 28,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -461,7 +461,7 @@
       "value_as_printed": "75",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 29,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -478,7 +478,7 @@
       "observed_text": "50 763",
       "note": "Digits are visible but the separator/decimal point is not legible. Do not infer a value from adjacent conversion factors.",
       "review_number": 30,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -494,7 +494,7 @@
       "value_as_printed": "16",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 31,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -510,7 +510,7 @@
       "value_as_printed": "1,987",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 32,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -526,7 +526,7 @@
       "value_as_printed": "1910",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 33,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -542,7 +542,7 @@
       "value_as_printed": "0",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 34,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -558,7 +558,7 @@
       "value_as_printed": "-100",
       "note": "Printed minus sign is U+2212; ASCII minus used for canonical numeric transcription.",
       "review_number": 35,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -574,7 +574,7 @@
       "value_as_printed": "186",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 36,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -590,7 +590,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 37,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -606,7 +606,7 @@
       "value_as_printed": "79",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 38,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -622,7 +622,7 @@
       "value_as_printed": "2,000,000",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 39,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -638,7 +638,7 @@
       "value_as_printed": "40,057",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 40,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -654,7 +654,7 @@
       "value_as_printed": "14.2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 41,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -670,7 +670,7 @@
       "value_as_printed": "84,569",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 42,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -686,7 +686,7 @@
       "value_as_printed": "67.879",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 43,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -702,7 +702,7 @@
       "value_as_printed": null,
       "note": "Box contains trailing 920 of printed 1,920; partial numeric detection.",
       "review_number": 44,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -718,7 +718,7 @@
       "value_as_printed": "15",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 45,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -734,7 +734,7 @@
       "value_as_printed": "14",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 46,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -750,7 +750,7 @@
       "value_as_printed": "650",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 47,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -766,7 +766,7 @@
       "value_as_printed": "38",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 48,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -782,7 +782,7 @@
       "value_as_printed": "39",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 49,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -798,7 +798,7 @@
       "value_as_printed": "131",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 50,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -814,7 +814,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 51,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -830,7 +830,7 @@
       "value_as_printed": "25",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 52,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -846,7 +846,7 @@
       "value_as_printed": "162",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 53,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -862,7 +862,7 @@
       "value_as_printed": "384",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 54,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -878,7 +878,7 @@
       "value_as_printed": "3,350",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 55,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -894,7 +894,7 @@
       "value_as_printed": "101.9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 56,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -910,7 +910,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 57,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -926,7 +926,7 @@
       "value_as_printed": "1910",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 58,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -942,7 +942,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 59,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -958,7 +958,7 @@
       "value_as_printed": "31",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 60,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -974,7 +974,7 @@
       "value_as_printed": "305",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 61,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -990,7 +990,7 @@
       "value_as_printed": "188",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 62,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1006,7 +1006,7 @@
       "value_as_printed": "64",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 63,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1022,7 +1022,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 64,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1038,7 +1038,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 65,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1054,7 +1054,7 @@
       "value_as_printed": "352",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 66,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1070,7 +1070,7 @@
       "value_as_printed": "53,041",
       "note": "Enlarged original crop confirms the first digit after the comma is 0, not 9.",
       "review_number": 67,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1086,7 +1086,7 @@
       "value_as_printed": "301",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 68,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1102,7 +1102,7 @@
       "value_as_printed": "11.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 69,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1118,7 +1118,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 70,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1134,7 +1134,7 @@
       "value_as_printed": "44,762",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 71,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1150,7 +1150,7 @@
       "value_as_printed": "0",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 72,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1166,7 +1166,7 @@
       "value_as_printed": "6,566",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 73,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1182,7 +1182,7 @@
       "value_as_printed": "0000",
       "note": "AWG gauge printed as four zeros; leading zeros preserved.",
       "review_number": 74,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1198,7 +1198,7 @@
       "value_as_printed": "354",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 75,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1214,7 +1214,7 @@
       "value_as_printed": "11,554",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 76,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1230,7 +1230,7 @@
       "value_as_printed": "452",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 77,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1246,7 +1246,7 @@
       "value_as_printed": "6,565",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 78,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1262,7 +1262,7 @@
       "value_as_printed": "0.15328",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 79,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1278,7 +1278,7 @@
       "value_as_printed": null,
       "note": "Box covers only 0.000 of printed 0.000 597; partial numeric detection.",
       "review_number": 80,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1294,7 +1294,7 @@
       "value_as_printed": "478",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 81,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1310,7 +1310,7 @@
       "value_as_printed": "13",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 82,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1326,7 +1326,7 @@
       "value_as_printed": "30",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 83,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1342,7 +1342,7 @@
       "value_as_printed": "252",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 84,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1358,7 +1358,7 @@
       "value_as_printed": "337",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 85,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1374,7 +1374,7 @@
       "value_as_printed": "68",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 86,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1390,7 +1390,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 87,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1406,7 +1406,7 @@
       "value_as_printed": "631",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 88,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1422,7 +1422,7 @@
       "value_as_printed": "41",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 89,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1438,7 +1438,7 @@
       "value_as_printed": ".014780",
       "note": "Printed .014 780 with leading decimal point; grouping space removed in numeric transcription.",
       "review_number": 90,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1454,7 +1454,7 @@
       "value_as_printed": "57",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 91,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1470,7 +1470,7 @@
       "value_as_printed": "1943",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 92,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1486,7 +1486,7 @@
       "value_as_printed": "1",
       "note": "Italic digit 1 in Part 1, not lowercase l.",
       "review_number": 93,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1502,7 +1502,7 @@
       "value_as_printed": "831",
       "note": "Main cell value 831; adjacent superscript footnote marker 3 is separate.",
       "review_number": 94,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1518,7 +1518,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 95,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1534,7 +1534,7 @@
       "value_as_printed": "462",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 96,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1550,7 +1550,7 @@
       "value_as_printed": "31",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 97,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1566,7 +1566,7 @@
       "value_as_printed": "199",
       "note": "Main cell value 199; adjacent superscript footnote marker 3 is separate.",
       "review_number": 98,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1582,7 +1582,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 99,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1598,7 +1598,7 @@
       "value_as_printed": null,
       "note": "Detection contains only leading 1, of printed 1,261; partial numeric detection.",
       "review_number": 100,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1614,7 +1614,7 @@
       "value_as_printed": "10,961",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 101,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1630,7 +1630,7 @@
       "value_as_printed": "60",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 102,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1646,7 +1646,7 @@
       "value_as_printed": "138",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 103,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1662,7 +1662,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 104,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1678,7 +1678,7 @@
       "value_as_printed": "7",
       "note": "Superscript footnote marker 7 is a complete printed marker, separate from following 1,182.",
       "review_number": 105,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1694,7 +1694,7 @@
       "value_as_printed": "49,958",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 106,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1710,7 +1710,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 107,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1726,7 +1726,7 @@
       "value_as_printed": null,
       "note": "Cannot confidently distinguish 8 from 9 in the first digit after the comma at original resolution. Abstain instead of guessing.",
       "review_number": 108,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1743,7 +1743,7 @@
       "value_as_printed": "93",
       "note": "Main cell value 93; adjacent superscript footnote marker 3 is separate.",
       "review_number": 109,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1759,7 +1759,7 @@
       "value_as_printed": "6",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 110,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1775,7 +1775,7 @@
       "value_as_printed": "2",
       "note": "Main cell value 2; superscript footnote marker 6 is separate.",
       "review_number": 111,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1791,7 +1791,7 @@
       "value_as_printed": "6,668",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 112,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1807,7 +1807,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 113,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1823,7 +1823,7 @@
       "value_as_printed": "84.389",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 114,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1839,7 +1839,7 @@
       "value_as_printed": "422",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 115,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1855,7 +1855,7 @@
       "value_as_printed": "47",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 116,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1871,7 +1871,7 @@
       "value_as_printed": "2,122",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 117,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1887,7 +1887,7 @@
       "value_as_printed": "4.4284",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 118,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1903,7 +1903,7 @@
       "value_as_printed": "65",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 119,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1919,7 +1919,7 @@
       "value_as_printed": "88",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 120,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1935,7 +1935,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 121,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1951,7 +1951,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 122,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1967,7 +1967,7 @@
       "value_as_printed": "46",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 123,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1983,7 +1983,7 @@
       "value_as_printed": "11",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 124,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -1999,7 +1999,7 @@
       "value_as_printed": "3.210",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 125,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2015,7 +2015,7 @@
       "value_as_printed": "2.5400",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 126,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2031,7 +2031,7 @@
       "value_as_printed": "3.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 127,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2047,7 +2047,7 @@
       "value_as_printed": "1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 128,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2063,7 +2063,7 @@
       "value_as_printed": "677",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 129,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2079,7 +2079,7 @@
       "value_as_printed": "11,914",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 130,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2095,7 +2095,7 @@
       "value_as_printed": "2",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 131,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2111,7 +2111,7 @@
       "value_as_printed": "36",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 132,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2127,7 +2127,7 @@
       "value_as_printed": "44,762",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 133,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2143,7 +2143,7 @@
       "value_as_printed": "1,709",
       "note": "Enlarged outlined scan confirms the third digit is 0, not 9.",
       "review_number": 134,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2159,7 +2159,7 @@
       "value_as_printed": "49",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 135,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2175,7 +2175,7 @@
       "value_as_printed": null,
       "note": "One detection box combines distinct vertically separated table cells 1 and 5; no single printed number.",
       "review_number": 136,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2191,7 +2191,7 @@
       "value_as_printed": "3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 137,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2207,7 +2207,7 @@
       "value_as_printed": "27",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 138,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2223,7 +2223,7 @@
       "value_as_printed": "306",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 139,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2239,7 +2239,7 @@
       "value_as_printed": "1949",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 140,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2255,7 +2255,7 @@
       "value_as_printed": "764",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 141,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2271,7 +2271,7 @@
       "value_as_printed": "19",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 142,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2287,7 +2287,7 @@
       "value_as_printed": "474",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 143,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2303,7 +2303,7 @@
       "value_as_printed": "172.41",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 144,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2319,7 +2319,7 @@
       "value_as_printed": "8.90",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 145,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2335,7 +2335,7 @@
       "value_as_printed": "42,211",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 146,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2351,7 +2351,7 @@
       "value_as_printed": "1789",
       "note": "Enlarged outlined crop and full context show all four year digits; the final 9 meets the outline edge.",
       "review_number": 147,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2367,7 +2367,7 @@
       "value_as_printed": "172",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 148,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2383,7 +2383,7 @@
       "value_as_printed": "431",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 149,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2399,7 +2399,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 150,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2415,7 +2415,7 @@
       "value_as_printed": "30",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 151,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2431,7 +2431,7 @@
       "value_as_printed": "20",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 152,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2447,7 +2447,7 @@
       "value_as_printed": "4,572",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 153,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2463,7 +2463,7 @@
       "value_as_printed": "83",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 154,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2479,7 +2479,7 @@
       "value_as_printed": null,
       "note": "Box contains leading 10 of printed 10,174; partial numeric detection.",
       "review_number": 155,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2495,7 +2495,7 @@
       "value_as_printed": "357",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 156,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2511,7 +2511,7 @@
       "value_as_printed": "16",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 157,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2527,7 +2527,7 @@
       "value_as_printed": "439",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 158,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2543,7 +2543,7 @@
       "value_as_printed": null,
       "note": "Box contains 0.000 of printed 0.000 0681; partial numeric detection.",
       "review_number": 159,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2559,7 +2559,7 @@
       "value_as_printed": "20.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 160,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2575,7 +2575,7 @@
       "value_as_printed": "1,366",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 161,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2591,7 +2591,7 @@
       "value_as_printed": "45,134",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 162,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2607,7 +2607,7 @@
       "value_as_printed": "4",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 163,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2623,7 +2623,7 @@
       "value_as_printed": "40,043",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 164,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2639,7 +2639,7 @@
       "value_as_printed": "15",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 165,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2655,7 +2655,7 @@
       "value_as_printed": "95",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 166,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2671,7 +2671,7 @@
       "value_as_printed": "2,213",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 167,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2687,7 +2687,7 @@
       "value_as_printed": "420",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 168,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2703,7 +2703,7 @@
       "value_as_printed": "1945",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 169,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2719,7 +2719,7 @@
       "value_as_printed": "9",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 170,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2735,7 +2735,7 @@
       "value_as_printed": "104",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 171,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2751,7 +2751,7 @@
       "value_as_printed": "1",
       "note": "Cell value 1, separate from preceding superscript footnote marker 3.",
       "review_number": 172,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2767,7 +2767,7 @@
       "value_as_printed": "64.1",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 173,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2783,7 +2783,7 @@
       "value_as_printed": "21",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 174,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2799,7 +2799,7 @@
       "value_as_printed": "289.3",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 175,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2815,7 +2815,7 @@
       "value_as_printed": "413",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 176,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2831,7 +2831,7 @@
       "value_as_printed": "40",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 177,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2847,7 +2847,7 @@
       "value_as_printed": "1914",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 178,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2863,7 +2863,7 @@
       "value_as_printed": "0.00393",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 179,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2879,7 +2879,7 @@
       "value_as_printed": "7",
       "note": "Read the outlined scan detection and its context visually.",
       "review_number": 180,
-      "verified_by": "GPT (Codex visual annotation)",
+      "verified_by": "model family A (visual annotation)",
       "reviewer_type": "model",
       "human_verified": false,
       "images": {
@@ -2891,8 +2891,8 @@
       "audit_pass": "enlarged scan visual review"
     }
   },
-  "initial_annotation_commit": "041ee46",
-  "initial_annotation_sha256": "3add71ee3e377c6fce6f23cbfa040afe6a0dd7e1abd87e52ecc1c6d10b51a53d",
+  "initial_annotation_commit": "68da8c8",
+  "initial_annotation_sha256": "724c2e1290a846f9bc760fdb11d794b1b6468604fac7fbdcbad483f7b2d9136e",
   "audit_at": "2026-10-06T10:18:17.371499+00:00",
   "audit_method": "Second visual pass over all 180 enlarged outlined crops without OCR labels/strata on audit sheets, after first comparison had exposed OCR outputs. Retain the committed blind first pass and disclose every amendment; no human review.",
   "amendments": [

@@ -4,8 +4,31 @@ import urllib.request
 from pathlib import Path
 import tomllib
 
+import pytest
+from PIL import Image
+import matn_presentation.demo as demo
+
 import matn_presentation.book_demo as book_demo
 from matn_presentation.demo import prepare_validated_demo
+
+
+@pytest.fixture(autouse=True)
+def synthetic_demo_figure(tmp_path, monkeypatch):
+    """Exercise demo routing/rendering without distributing the ignored source PDF.
+
+    The image is a synthetic asset fixture, not evidence for source-paper claims.
+    """
+    monkeypatch.setattr(demo, "DEFAULT_DEMO_OUTPUT", tmp_path / "demo")
+
+    def render_fixture(pdf_path, output_path):
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        Image.new("RGB", (738, 831), "white").save(output_path)
+        return {"method": "synthetic test asset"}
+
+    monkeypatch.setattr(demo, "render_figure_2", render_fixture)
+    # The fallback's default is bound at definition time: route outputs into tmp_path.
+    monkeypatch.setattr(book_demo, "prepare_validated_demo",
+                        lambda: prepare_validated_demo(tmp_path / "paper-fallback"))
 
 
 def test_validated_demo_makes_zero_network_or_model_calls(tmp_path, monkeypatch):

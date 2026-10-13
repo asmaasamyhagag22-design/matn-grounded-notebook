@@ -196,7 +196,7 @@ def test_production_summarization_does_not_read_evaluation_checklist():
     root = Path(__file__).resolve().parents[1] / "matn_summarization"
     production = "\n".join(path.read_text(encoding="utf-8") for path in root.glob("*.py"))
     assert "evaluation-checklist" not in production
-    assert "Codex_from_source_inspection" not in production
+    assert "model_from_source_inspection" not in production
 
 
 def test_required_coverage_and_generated_correctness_are_separate_metrics():

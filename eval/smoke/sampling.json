@@ -3,5 +3,5 @@
   "order": "sort block_id before sampling; independent cohort retyped/table-kind",
   "sample_per_cohort": 10,
   "short_pool": "all available if fewer than 10; no redraw",
-  "judgments": "Codex visual judgments; not human ground truth"
+  "judgments": "model family A visual judgment; not human ground truth"
 }

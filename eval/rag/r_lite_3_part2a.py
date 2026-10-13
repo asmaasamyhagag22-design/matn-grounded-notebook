@@ -16,7 +16,7 @@ from eval.rag import r_lite_3_part1 as prior
 from eval.rag.r_lite_3_m1_rule import decide, PARAMETERS
 
 OUT=Path('out/r-lite-3/part2a')
-RULE_COMMIT='f176e07'
+RULE_COMMIT='0f3b180'
 BASELINE='d1f3be0'
 OWNER_SHA='1dcad15eae87f2c4ba5b2942ea6ef9f732a2fa2088aab6032cd42a8649a85abd'
 INPUTS={}
@@ -127,7 +127,7 @@ def main():
         taxonomy=[b for b in selected[prior.WEF] if next(e.block.page_index for e in sources[prior.WEF]['document'].elements if e.block.block_id==b)==101]
         ft=prediction['frozen']['counts'];reasons=stop_reasons(hits,real_lost,taxonomy,ft['T2'],ft['T3'])
         if failures:reasons.append('PROJECTION_FAILURE')
-        result={'status':'STOP_M1_OWNER_GATE_FAILED' if reasons else 'M1_PASS_CONTINUE_REQUIRED','rule_commit':RULE_COMMIT,'rule_commit_before_annotation_check':True,'rule_not_adjusted_after_results':True,'wef_chart_retyped':hits,'wef_required':18,'checks':checks,'disagreements':disagreements,'real_table_retyped_ids':sorted(set(real_lost)),'taxonomy_retyped_ids':sorted(taxonomy),'frozen_counts':ft,'frozen_stop_ids':prediction['frozen']['ids']['T2']+prediction['frozen']['ids']['T3'],'projection_failures':failures,'stop_reasons':reasons,'limits':['These labels were previously used in Part1; this is a frozen-rule check on reused Codex annotations, not independent human/population validation.','Preserved table-kind is not a semantic correction of prose; agreement is chart versus non-chart.','Missing native objects, raster-only plots and partial blocks remain conservative unknown/preserved.']}
+        result={'status':'STOP_M1_OWNER_GATE_FAILED' if reasons else 'M1_PASS_CONTINUE_REQUIRED','rule_commit':RULE_COMMIT,'rule_commit_before_annotation_check':True,'rule_not_adjusted_after_results':True,'wef_chart_retyped':hits,'wef_required':18,'checks':checks,'disagreements':disagreements,'real_table_retyped_ids':sorted(set(real_lost)),'taxonomy_retyped_ids':sorted(taxonomy),'frozen_counts':ft,'frozen_stop_ids':prediction['frozen']['ids']['T2']+prediction['frozen']['ids']['T3'],'projection_failures':failures,'stop_reasons':reasons,'limits':['These labels were previously used in Part1; this is a frozen-rule check on reused model family A annotations, not independent human/population validation.','Preserved table-kind is not a semantic correction of prose; agreement is chart versus non-chart.','Missing native objects, raster-only plots and partial blocks remain conservative unknown/preserved.']}
         emit('m1-held-out-check.json',result)
         emit('crops-manifest.json',crop_manifest)
         emit('inspected-pages.json',[{'source':r['source'],'pdf_page_index':r['pdf_page_index'],'reason':r['reasons'],'new_pdf_access':False,'native_source_crop':r['source_crop']} for r in crop_manifest])
