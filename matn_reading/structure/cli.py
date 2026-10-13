@@ -99,11 +99,13 @@ def main(argv=None):
     sub=parser.add_subparsers(dest='command',required=True)
     read=sub.add_parser('read');read.add_argument('pdf',type=Path);read.add_argument('--out',type=Path,required=True)
     read.add_argument('--structure-only',action='store_true')
+    read.add_argument('--layout-sidecar',type=Path)
     read.add_argument('--ocr-approval',type=Path)
     read.add_argument('--compare-digital',type=Path)
     args=parser.parse_args(argv)
     try:
-        if args.structure_only: structure_only(args.out)
+        if args.layout_sidecar and not args.structure_only:raise ValueError('LAYOUT_SIDECAR_REQUIRES_STRUCTURE_ONLY')
+        if args.structure_only: structure_only(args.out,layout_sidecar=json.loads(args.layout_sidecar.read_text()) if args.layout_sidecar else None)
         else: run(args.pdf,args.out,approval_file=args.ocr_approval,compare_digital=args.compare_digital)
     except (legacy.RefusedTestSplit,ValueError,FileNotFoundError) as error:
         print(f'REFUSED: {error}',file=sys.stderr);return 3 if isinstance(error,legacy.RefusedTestSplit) else 2

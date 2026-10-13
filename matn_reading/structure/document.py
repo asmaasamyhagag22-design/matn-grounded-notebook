@@ -28,14 +28,18 @@ def prepare_snapshot(snapshot,pdf_path):
     return result
 
 
-def assemble(snapshot):
+def assemble(snapshot, *, layout_sidecar=None):
     elements,ei=build_elements(snapshot)
     from .code_regions import apply
     snapshot,elements=apply(snapshot,elements)
+    if layout_sidecar is not None:
+        from .layout_sidecar import consume
+        elements=consume(snapshot,elements,layout_sidecar)
     sections,si=build_sections(snapshot,elements)
     demoted={i.block_id for i in si if i.reason=='heading_demoted'}
     elements=tuple(e.model_copy(update={'role':'text','flags':e.flags+('heading_demoted',)}) if e.block.block_id in demoted else e for e in elements)
     tables=tuple(Table.model_validate(t) for t in snapshot['table_structures']) if 'table_structures' in snapshot else build_tables(snapshot,elements)
+    tables=tuple(t for t in tables if all(any(e.block.block_id==b and e.role=='table' and e.citable for e in elements) for b in t.block_ids))
     chunks=build_chunks(snapshot,elements,sections,tables)
     validate_coverage(elements,sections,chunks)
     meta={p['page_index']:p for p in snapshot.get('pdf_metadata_pages',[])}
@@ -44,9 +48,9 @@ def assemble(snapshot):
     return DocumentStructure(coverage=coverage,coverage_summary=summary,doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={**{s:VERSION for s in ('elements','tables','chunks','document')},'sections':SECTION_IDENTITY_VERSION},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
 
 
-def write_structure(snapshot,folder):
+def write_structure(snapshot,folder, *, layout_sidecar=None):
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True);started=time.perf_counter();stamp=datetime.now(timezone.utc).isoformat()
-    document=assemble(snapshot)
+    document=assemble(snapshot,layout_sidecar=layout_sidecar)
     from .code_regions import apply
     prepared,_=apply(snapshot,build_elements(snapshot)[0])
     files={
@@ -72,11 +76,11 @@ def from_reading(pdf,out,reading,pages):
     return write_structure(snap,target)
 
 
-def structure_only(out):
+def structure_only(out, *, layout_sidecar=None):
     out=Path(out)
     candidates=[out/'00_reading.json'] if (out/'00_reading.json').exists() else sorted((out/'runs').glob('*/00_reading.json'))
     if not candidates: raise ValueError('STRUCTURE_CACHE_MISSING')
-    for source in candidates: write_structure(load_snapshot(source),source.parent)
+    for source in candidates: write_structure(load_snapshot(source),source.parent,layout_sidecar=layout_sidecar)
     return candidates
 
 

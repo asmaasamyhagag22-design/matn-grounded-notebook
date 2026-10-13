@@ -1,0 +1,52 @@
+{
+  "configuration_sha256": "5b5be2882997ae54af119a2831a57d955f20234fe58fc59b36f9c432451196b1",
+  "installed_versions": {
+    "docling": "2.138.0",
+    "docling-core": "2.101.1",
+    "docling-ibm-models": "4.0.3",
+    "docling-slim": "2.138.0",
+    "torch": "2.14.1+cpu",
+    "torchvision": "0.29.1+cpu"
+  },
+  "layout_defaults": {
+    "create_orphan_clusters": true,
+    "engine_options": {
+      "engine_type": "transformers",
+      "score_threshold": 0.3
+    },
+    "keep_empty_clusters": false,
+    "model_spec": {
+      "engine_overrides": {
+        "onnxruntime": {
+          "extra_config": {
+            "model_filename": "model.onnx"
+          },
+          "min_engine_version": null,
+          "repo_id": "docling-project/docling-layout-heron-onnx",
+          "revision": null,
+          "torch_dtype": null
+        }
+      },
+      "name": "layout_heron",
+      "repo_id": "docling-project/docling-layout-heron",
+      "revision": "main"
+    },
+    "skip_cell_assignment": false
+  },
+  "model_files_SHA256": {
+    "config.json": "fdea30805ce2f5666b147fca941dcdd27ad468e27d6ed21902207d3da056a97d",
+    "model.safetensors": "00333a43451945aaf89db8ca9c0a17e75d1537c17db60fdb91aa95f4c7929e0c",
+    "preprocessor_config.json": "cd38cd59999e7a95d68e487fbe5132df3d4e5c32a0836add57e6126ba0c4eaf1"
+  },
+  "model_repo": "docling-project/docling-layout-heron",
+  "model_revision": "8f39ad3c0b4c58e9c2d2c84a38465abf757272d8",
+  "pipeline_do_flags": {
+    "do_chart_extraction": false,
+    "do_code_enrichment": false,
+    "do_formula_enrichment": false,
+    "do_ocr": false,
+    "do_picture_classification": false,
+    "do_picture_description": false,
+    "do_table_structure": false
+  }
+}
