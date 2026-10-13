@@ -52,3 +52,8 @@ to the ministry. Tick an item only with evidence (a commit, a test, or a report 
       ويغطي الأنماط والأحجام والهوامش المستخدمة فعليًا؛ سجّل الأدلة ونتيجة safety margin قبل التسليم.
 
 هذه خطة تسليم مسجلة فقط؛ لا substitutions أو template rebuild أو parity test الآن.
+
+- [ ] R-lite.3 Docling sidecar: package the separate pinned isolated environment and Heron
+  weights offline with licenses/hashes; verify explicit artifacts path, no downloads,
+  two-process determinism and CPU delivery cost (ADR 0006). Main runtime stays free of
+  Docling and Torch.
