@@ -1,0 +1,16 @@
+{
+  "controls": "Native chapter/region headings retained; section-identity-v2 collisions zero; frozen T0/T1 only.",
+  "derive": "For digital text/heading records outside picture/table union, use existing HEADING_SIZE_RATIO=1.15, HEADING_MAX_CHARS=150, HEADING_MAX_LINES=3 and original font/bold/line count. Heading iff size>=1.15*body and chars<=450, or bold short <=150 chars <=3 lines without terminal . , ; :. Preserve other roles and Blocks. Existing sections own-line/TOC/address/outline policies and section-identity-v2 retained.",
+  "estimate": "Character-weighted half-point font-size mode of native words in text/heading records longer than existing HEADING_MAX_CHARS (150), with zero overlap with Docling picture/table union, on known layout pages only. No OCR words. Ties follow reading order. No eligible narrative words => no M2 change.",
+  "level": "structure",
+  "name": "M2-narrative-body-heading-v1",
+  "parameters": {
+    "heading_max_chars": 150,
+    "heading_max_lines": 3,
+    "heading_size_ratio": 1.15,
+    "object_overlap_veto": 0,
+    "size_bucket_pt": 0.5
+  },
+  "sections": "Use the same source-level estimated body in build_sections; no retuning, no font edits.",
+  "unknown": "Missing labels exclude words from estimator. If estimator known, native text/heading records on uncovered pages may use it; OCR records unchanged. Object intersecting records unchanged."
+}
