@@ -12,7 +12,7 @@ class Search:
         self.query_vectors={}
         self.corpus_cache={}
 
-    def query(self, notebook, selected, question, mode='focused', depth=None, ablation='hybrid'):
+    def query(self, notebook, selected, question, mode='focused', depth=None, ablation='no-prefix'):
         if mode not in ('focused','survey') or ablation not in ('hybrid','bm25','vector','no-prefix'):
             raise ValueError('QUERY_MODE')
         self.repo.validate_selection(notebook,selected)

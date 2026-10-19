@@ -1,0 +1,22 @@
+{
+  "model": "MiniCheck-RoBERTa-Large",
+  "tune_gate": "PASS",
+  "candidates": [
+    "MiniCheck-RoBERTa-Large",
+    "hallucination_evaluation_model"
+  ],
+  "rule": "HHEM requires zero composed silent accepts and strictly fewer realistic supported false blocks; ties MiniCheck; selected model requires zero composed tune silent accepts",
+  "rule_commit": "aeebe02",
+  "cutoff": 0.5,
+  "comparison": ">",
+  "counts": {
+    "MiniCheck-RoBERTa-Large": {
+      "composed_silent_accepts": 0,
+      "realistic_false_blocks": 23
+    },
+    "hallucination_evaluation_model": {
+      "composed_silent_accepts": 0,
+      "realistic_false_blocks": 23
+    }
+  }
+}

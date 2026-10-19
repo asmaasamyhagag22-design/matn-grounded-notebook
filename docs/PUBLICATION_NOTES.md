@@ -13,3 +13,7 @@ The public copy keeps forbidden-file and test hooks. Commit-trailer enforcement 
 Local PDFs, cached evaluation outputs, model files, original diagnostic reports and delivery bundles are not provided by this repository. Reproduction commands that depend on those artifacts require separately authorized local inputs. Historic measurements remain conditional on their recorded reference and scope; public-copy test results do not replace those measurements.
 
 OCR integration tests require matching local OCR weights and a local OCR environment; the real-scan integration also requires its verified source PDF. They skip explicitly when those inputs are absent, preserving their assertions for installations with the inputs present. These skips do not establish OCR accuracy or integration success.
+
+## October 2026 update
+
+The public copy now includes the sentence-handle chat engine, verification layers, checkpointing and memory-control code, and their deterministic tests. Existing public evaluation metadata and its publication adaptations are preserved. Private report trees, sealed inputs, VNR quotations, model assets, and generated labeling packets remain local. `docs/VALIDATION.md` provides aggregate experiment outcomes without redistributing those inputs. The implementation snapshot is published as a new commit on the existing public history; the private development history is not pushed.
