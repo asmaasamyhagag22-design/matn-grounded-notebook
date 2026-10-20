@@ -1,6 +1,5 @@
 # Matn | Evidence-Grounded Document Intelligence
 
-**Built by [Asmaa Samy Hagag](https://github.com/asmaasamyhagag22-design)**
 
 Matn is a local document AI project for turning PDFs into traceable evidence, searchable notebooks, grounded answers, and PowerPoint presentations. The engineering focus is on **source provenance, numerical fidelity, reproducible evaluation, and reliable operation on limited hardware**.
 
