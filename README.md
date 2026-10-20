@@ -66,9 +66,11 @@ Scanned inputs require the separately configured OCR environment. Live chat addi
 
 ## Evidence and current limitations
 
-The public checkout passes **1,042 tests** (9 prerequisite-based skips); the private development baseline is **1,139 passing tests**. This is regression coverage, not a document-understanding accuracy score. Public-checkout validation and the scope of the latest experiments are documented in [`docs/VALIDATION.md`](docs/VALIDATION.md).
+The 19 October public baseline passed **1,042 tests** (9 prerequisite-based skips); its corresponding private development baseline passed **1,139 tests**. This is regression coverage, not a document-understanding accuracy score. Public-checkout validation and the scope of the latest experiments are documented in [`docs/VALIDATION.md`](docs/VALIDATION.md).
 
-The latest chat collection remained limited by a 15 GiB CPU laptop: 22 of 60 questions reached generation, including two partial attempts; 40 questions and all 39 confirmation questions were deferred by the memory guard. Two answers passed the verifier. The 43 generated candidate sentences remain unlabeled, so these counts do not establish answer accuracy or production readiness.
+An earlier chat collection was limited by a 15 GiB CPU laptop: 22 of 60 questions reached generation, including two partial attempts; 40 questions and all 39 confirmation questions were deferred by the memory guard. Two answers passed the verifier. Those generation and verification counts do not establish answer accuracy or production readiness.
+
+A subsequent CPU runtime diagnostic added an opt-in Linux launcher that bounds host prompt-cache memory to 512 MiB. In eight matched requests per configuration on fresh public RFC inputs, sampled peak runner RSS fell from 7.91 to 7.68 GiB, with no OOM or runner recycling; total request latency rose 84.9%, mostly on revisiting evicted prompts. This is short-run evidence, not a long-run stability guarantee. See [CPU runtime setup and measurements](docs/cpu-runtime.md).
 
 Arabic rendering, heterogeneous scans, high abstention rates, CPU latency, and end-to-end integration remain active limitations. This project documents failed experiments and resource limits alongside successful tests.
 
