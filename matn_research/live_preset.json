@@ -1,0 +1,35 @@
+{
+ "name": "matn-v2-live-preset",
+ "resident": true,
+ "search_budget": 12,
+ "features": {
+  "context_display": true,
+  "graceful": true,
+  "fast_path": true
+ },
+ "v2": {
+  "k": 5,
+  "prefilter": 30,
+  "embeddings": true,
+  "prior": true,
+  "screen": true,
+  "picks": 2,
+  "max_results": 8,
+  "planner_queries": 1,
+  "requirement_queries": true,
+  "search_cap": 12,
+  "gap_searches": 4,
+  "source_cap": 10,
+  "gap_sources": 4,
+  "read_workers": 4,
+  "search_workers": 4,
+  "gap": true,
+  "synthesis": false,
+  "time_cap_seconds": 780,
+  "synthesis_start_by_seconds": 600,
+  "retry": 1,
+  "diversity": 2,
+  "synthesis_policy": "v2.2"
+ },
+ "decided_by": "P2/P4 bench + dev G/H (out/leap-20261030): hybrid pf30 div2 prior screen @k5 = 33/53 reviewed, 22/42 displayed, vendor 143/280; pf30 keeps displayed recall of pf40 with ~20% fewer embeddings. Planner/select output diet after dev G. Frozen before holdouts J\u2013M. After P6 (NO-GO): synthesis OFF in the live preset (v2.1 showed errors in dev G, J, L); v2.2 rules available behind synthesis_policy for development."
+}

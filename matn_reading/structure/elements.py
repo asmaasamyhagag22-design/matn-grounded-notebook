@@ -49,6 +49,8 @@ def build_elements(snapshot):
             block=Block.model_validate(record['block']);role=block.block_type.value
             flags=[f['kind'] for f in page['flags'] if f.get('bbox') and inside(f['bbox'],block.bbox) and inside(block.bbox,f['bbox'])]
             reasons=[]
+            if role=='table' and snapshot.get('unclassified_table_policy'):
+                reasons.append('table_layout_unavailable')
             if block.visibility.value!='visible': reasons.append(block.visibility.value)
             if role in ('header','footer','figure'): reasons.append('figure_text' if role=='figure' else role)
             if any(k in flags for k in ('marginalia','figure_text','vertical_text')): reasons.extend(k for k in flags if k in ('marginalia','figure_text','vertical_text'))

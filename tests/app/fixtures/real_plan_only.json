@@ -1,0 +1,43 @@
+{
+  "provenance": "Real saved local plan-only output for an owner development topic; not a holdout; only plan fields retained",
+  "plan": {
+    "facets": [
+      {
+        "id": "regulatory_l",
+        "label": "Regulatory Landscape and Liability",
+        "question": "",
+        "searches": [
+          "transformer technology regulations by country 2024"
+        ],
+        "success": "Identify current legal frameworks and liability assignments for transformer deployment in public infrastructure."
+      },
+      {
+        "id": "safety_stand",
+        "label": "Public Safety Standards and Risks",
+        "question": "",
+        "searches": [
+          "transformer safety standards public health risks"
+        ],
+        "success": "Summarize established safety protocols and potential public health hazards associated with transformer operations."
+      },
+      {
+        "id": "economic_imp",
+        "label": "Economic Impact and Subsidies",
+        "question": "",
+        "searches": [
+          "transformer industry economic impact government subsidies"
+        ],
+        "success": "Outline the economic benefits, job creation potential, and available public funding mechanisms for transformer projects."
+      },
+      {
+        "id": "environmenta",
+        "label": "Environmental Footprint and Recycling",
+        "question": "",
+        "searches": [
+          "transformer environmental impact recycling policies"
+        ],
+        "success": "Detail the lifecycle environmental costs and existing policies regarding the disposal and recycling of transformer materials."
+      }
+    ]
+  }
+}

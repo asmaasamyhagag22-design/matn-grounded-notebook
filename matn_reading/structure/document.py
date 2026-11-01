@@ -28,18 +28,25 @@ def prepare_snapshot(snapshot,pdf_path):
     return result
 
 
-def assemble(snapshot, *, layout_sidecar=None):
+def assemble(snapshot, *, layout_sidecar=None, require_positive_tables=False, cell_observations=None):
     elements,ei=build_elements(snapshot)
     from .code_regions import apply
     snapshot,elements=apply(snapshot,elements)
     if layout_sidecar is not None:
         from .layout_sidecar import consume
-        elements=consume(snapshot,elements,layout_sidecar)
+        elements=consume(snapshot,elements,layout_sidecar,require_positive_tables=require_positive_tables)
     sections,si=build_sections(snapshot,elements)
     demoted={i.block_id for i in si if i.reason=='heading_demoted'}
     elements=tuple(e.model_copy(update={'role':'text','flags':e.flags+('heading_demoted',)}) if e.block.block_id in demoted else e for e in elements)
     tables=tuple(Table.model_validate(t) for t in snapshot['table_structures']) if 'table_structures' in snapshot else build_tables(snapshot,elements)
     tables=tuple(t for t in tables if all(any(e.block.block_id==b and e.role=='table' and e.citable for e in elements) for b in t.block_ids))
+    if cell_observations is not None:
+        if not require_positive_tables or layout_sidecar is None:
+            raise ValueError('CELL_OBSERVATIONS_REQUIRE_CONFIRMED_LAYOUT')
+        from .cell_observations import observed_tables
+        recovered=observed_tables(snapshot,elements,cell_observations)
+        ids={b for t in recovered for b in t.block_ids}
+        tables=tuple(t for t in tables if not ids.intersection(t.block_ids))+tuple(recovered)
     chunks=build_chunks(snapshot,elements,sections,tables)
     validate_coverage(elements,sections,chunks)
     meta={p['page_index']:p for p in snapshot.get('pdf_metadata_pages',[])}
@@ -48,9 +55,9 @@ def assemble(snapshot, *, layout_sidecar=None):
     return DocumentStructure(coverage=coverage,coverage_summary=summary,doc_id=snapshot['doc_id'],title=snapshot['title'],producer_versions={**{s:VERSION for s in ('elements','tables','chunks','document')},'sections':SECTION_IDENTITY_VERSION},reader_fingerprint=snapshot['core_fingerprint'],coordinate_convention=COORDINATES,pages=pages,elements=elements,sections=sections,tables=tables,chunks=chunks,excluded_blocks={e.block.block_id:e.exclusion_reasons for e in elements if not e.citable},issues=ei+si)
 
 
-def write_structure(snapshot,folder, *, layout_sidecar=None):
+def write_structure(snapshot,folder, *, layout_sidecar=None, require_positive_tables=False, cell_observations=None):
     folder=Path(folder);folder.mkdir(parents=True,exist_ok=True);started=time.perf_counter();stamp=datetime.now(timezone.utc).isoformat()
-    document=assemble(snapshot,layout_sidecar=layout_sidecar)
+    document=assemble(snapshot,layout_sidecar=layout_sidecar,require_positive_tables=require_positive_tables,cell_observations=cell_observations)
     from .code_regions import apply
     prepared,_=apply(snapshot,build_elements(snapshot)[0])
     files={

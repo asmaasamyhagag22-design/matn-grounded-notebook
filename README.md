@@ -1,80 +1,85 @@
-# Matn | Evidence-Grounded Document Intelligence
+# Matn — evidence, presented
 
+A local document notebook that turns public PDFs and structured files into source-linked briefings and editable presentations. Open the exact page and span behind a claim, inspect what remains unestablished, and restore an earlier deck without rewriting its evidence.
 
-Matn is a local document AI project for turning PDFs into traceable evidence, searchable notebooks, grounded answers, and PowerPoint presentations. The engineering focus is on **source provenance, numerical fidelity, reproducible evaluation, and reliable operation on limited hardware**.
+![A real local conversation with a source-linked presentation](docs/images/app-restored.jpg)
+![An exact public-source citation with its verification receipt](docs/images/source-proof.jpg)
 
-**Status:** an actively developed research and engineering prototype. PDF reading, retrieval, verification, chat, and presentation rendering are implemented as separate components. The chat API/CLI is experimental and is not yet integrated into the presentation dashboard.
+These are real local runs using GAO-21-519SP and *Towards Execution-Grounded Automated AI Research* (arXiv 2601.14525v1). The second document is CC BY 4.0; [demo credits](docs/demo-credits.md) identify its authors, version, licence and source. No World Bank document content is distributed. Screenshots show the application and selected source excerpts, with no endorsement implied.
 
-## What the project demonstrates
+Long documents create two connected problems: finding useful evidence and presenting it without detaching claims from their sources. Matn keeps an evidence catalog between reading, answering and rendering. Models select or propose within bounded schemas; code binds source IDs, preserves qualifiers, verifies statements and copies numeric values.
 
-- **Document processing:** page-preserving extraction, structured blocks, stable IDs, bounding boxes, section boundaries, and explicit handling of unavailable table values.
-- **OCR reliability:** isolated OCR workers and independent checks for numerical content; disagreement is retained for review rather than silently accepted.
-- **Local RAG:** SQLite-backed notebooks, source-scoped BM25 and vector retrieval, cached embeddings, and deterministic rank fusion. The selected configuration uses retrieval without a reranker.
-- **Grounded generation:** structured JSON responses cite code-owned sentence handles. Code maps those handles to exact source spans instead of asking the model to invent offsets.
-- **Verification:** ordered checks cover source validity, lexical support, entity/scope mismatches, numerical fidelity, and local entailment. Only sentences that pass are displayed, with verification receipts; insufficient evidence produces an abstention.
-- **Systems engineering:** digest-pinned models, resumable checkpoints, input/code hashes, explicit context budgets, memory guards, and process isolation.
-- **Presentations:** reusable PowerPoint templates, source-linked facts, layout checks, and export tooling.
+## Two journeys
 
-## Architecture
+**Bring documents.** Upload public PDF/JSON files → inspect verified source overviews → ask a question → open its cited span → build a presentation → type a supported edit → restore a version. Early reading checkpoints make completed pages queryable; duplicate documents reuse content-bound preparation.
+
+**Explore a topic.** Clarify meaning and audience → review a populated research plan → explicitly allocate searches → read public sources → inspect verified units, gaps and source balance → build the same evidence-bound presentation. Search starts at zero allowance. Commercial majorities receive a warning; unsupported axes remain gaps.
 
 ```mermaid
 flowchart LR
-    PDF[PDF] --> Reader[Extraction / OCR]
-    Reader --> Evidence[Structured evidence + provenance]
-    Evidence --> Retrieval[SQLite notebook + hybrid retrieval]
-    Retrieval --> Generator[Local structured generation]
-    Generator --> Verifier[Source / entity / number / entailment checks]
-    Verifier --> Answer[Verified answer + receipts / abstention]
-    Evidence --> Slides[Separate presentation pipeline]
-    Slides --> PPTX[PowerPoint export]
+  D[Public PDFs / JSON] --> R[Region-aware reading and OCR]
+  R --> I[Content-bound BM25 index]
+  T[Topic + audience] --> P[Reviewable research plan]
+  P --> S[Bounded public-source discovery]
+  S --> R
+  I --> V[Layered verification + exact spans]
+  V --> C[Evidence catalog]
+  C --> Q[Answers with visible partial states]
+  C --> B[Deterministic storyboard]
+  B --> E[Measured PPTX engine]
+  E --> A[LibreOffice PDF + independent QA]
+  A --> H[Versioned decks / typed edits / restore]
 ```
 
-## Where to review the engineering
+![A real clarification step before planning or search](docs/images/research-scope.jpg)
 
-| Component | Entry points |
-|---|---|
-| Reading and document contracts | [`matn_reading/`](matn_reading/), [`matn_contracts/`](matn_contracts/) |
-| Retrieval and notebook storage | [`matn_rag/search.py`](matn_rag/search.py), [`matn_rag/sqlite.py`](matn_rag/sqlite.py) |
-| Sentence handles and buffered chat | [`matn_chat/handles.py`](matn_chat/handles.py), [`matn_chat/engine.py`](matn_chat/engine.py) |
-| Verification rules and model adapter | [`matn_verification/rules.py`](matn_verification/rules.py), [`matn_verification/l4.py`](matn_verification/l4.py) |
-| Presentation rendering | [`matn_presentation/`](matn_presentation/), [`matn_deck/`](matn_deck/) |
-| Regression tests | [`tests/chat/`](tests/chat/), [`tests/verification/`](tests/verification/), [`tests/rag/`](tests/rag/) |
+The clarification screenshot is a separate real scope check with zero searches; it is not a fresh-topic evaluation result.
 
-## Run the deterministic component tests
+## Engineering choices
 
-Development currently uses Ubuntu and Python 3.12. Earlier Windows setup and OCR dependencies are documented separately in [`docs/ocr_setup.md`](docs/ocr_setup.md).
+- Fail-closed sentence verification and copied numeric values; a valid schema alone never establishes factual support or edit intent.
+- Region labels keep footnotes, references and navigation fragments out of ordinary evidence selection.
+- A content- and implementation-bound cache, resumable page checkpoints, foreground model ownership and bounded prompts address measured CPU bottlenecks.
+- Layouts follow evidence types: grouped findings, comparisons, disagreements, qualified key numbers, source figures, dated units, section dividers and source-linked closing slides.
+- Three original Matn templates, pinned OFL font manifests and MIT Heroicons; citations remain readable and source detail stays in notes.
+- Two renderer QA checks measured text geometry and the actual LibreOffice PDF. Failing decks remain reviewable failures rather than successful downloads.
+- Pre-registered targets and fresh-topic acceptance criteria are frozen before measurement. Runtime identities bind source, configuration and assets. AI review is labelled separately from human judgment.
+
+## Measured results
+
+Four pre-registered fresh research topics: **FAIL**, with cross-family AI review of every displayed unit (not human gold). 18 displayed units, 6 confirmed silent errors and 7 retained borderline units; all four result pages were preserved. The unchanged six-condition acceptance rule failed. Search spending was 48/48, using a separate evaluation ledger. No candidate changes followed these outcomes.
+
+On the 12-question document development set: **6 answered / 4 partial / 2 refused**, zero AI-reviewed silent errors; zero clear false blocks in the final reviewed sample of one rejected borderline candidate. This small sample is not a general verifier accuracy estimate.
+
+On the same CPU and fixed inputs, the profiled upload-and-question workload fell from **2765s to 1323s (52%)**. GAO upload680s met its 900s target; the 45-page economic-report upload390s missed 360s. Full answers278s/251s met 300s; first persisted source-bound answers278s/251s missed 240s. Queue wait0.021s met 1s. Duplicate uploads7–8s met 20s with no new extraction/OCR/embedding/generation/verification calls. These are M2 measurements; later real-demo timings and limitations are [recorded separately](docs/results.md).
+
+All 22 synthetic evidence/layout slides passed both renderers in each of the three original templates. Six rebuilt saved decks also passed. This is local layout verification, not Windows PowerPoint validation or evidence-quality acceptance.
+
+The 12-question document set is a development set, not a holdout. “Answered” describes the reviewed response state; the current app primarily returns complete verified source copies, and free-form synthesis remains limited. The public demonstration itself had one answered and one partial response. Rejected attempts and regressions are retained in the evaluation records.
+
+## Run locally
+
+Python 3.12, LibreOffice and the fonts listed in `design/fonts/fonts.json` are required for presentation rendering. Local generation, independent verification and OCR require separately provisioned, pinned model environments; model weights and documents are not bundled.
 
 ```bash
-git clone https://github.com/asmaasamyhagag22-design/matn-grounded-notebook.git
-cd matn-grounded-notebook
 python3.12 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-dev.txt
-python -m pytest tests/chat tests/verification tests/rag -q
+.venv/bin/python -m pip install -r requirements-app.txt
+# Ubuntu rendering dependencies:
+sudo apt-get install libreoffice-impress fonts-crosextra-carlito fonts-noto-core fonts-liberation
+# Clearly labelled UI walkthrough; no real model or search calls:
+.venv/bin/python -B -m matn_app --fake --search-budget 0
 ```
 
-These component tests use synthetic fixtures and mocked model responses; they do not download model weights or run live inference. The full suite also includes rendering and optional OCR integration tests, which require their documented fonts, system tools, and local assets.
+For real local inference, follow [local setup](docs/local-setup.md), then run `./app.sh --search-budget 0`. The local preflight is not a provider quota check. Research requires a separate, explicit search allowance. Use public documents; this repository contains no ministry material.
 
-For a local document, the reader entry point is:
+## Validation and limits
 
-```bash
-python -m matn_reading read /path/to/public-document.pdf --out out/document
-```
+The workflow runs an offline fast subset in a clean environment. It verifies structural contracts and deterministic behaviour without downloading models or reproducing the private document/holdout evaluations. The exact command and local clean-environment result are [recorded with the export](docs/export-validation.md).
 
-Scanned inputs require the separately configured OCR environment. Live chat additionally requires Ollama, the pinned generator, local verifier weights, and a populated notebook with authoritative structure sidecars. PDFs, model weights, private evaluation inputs, and generated runs are not bundled. See the CLI contract with `python -m matn_chat --help`.
+CPU latency remains measured in minutes for larger PDFs. Source-copy answers can be useful and responsive while still leaving parts unestablished. Vendor coverage and axis selection remain imperfect. Cross-family AI review is not human gold. Windows PowerPoint rendering is unmeasured; local QA uses the measured engine and LibreOffice. A passing layout check does not establish the truth or completeness of its source material.
 
-## Evidence and current limitations
+## Roadmap
 
-The 19 October public baseline passed **1,042 tests** (9 prerequisite-based skips); its corresponding private development baseline passed **1,139 tests**. This is regression coverage, not a document-understanding accuracy score. Public-checkout validation and the scope of the latest experiments are documented in [`docs/VALIDATION.md`](docs/VALIDATION.md).
+Improve directly responsive, source-bound synthesis; reduce false blocks without relaxing evidence requirements; broaden independent human evaluation; improve noncommercial source coverage; and validate the editable output in Windows PowerPoint.
 
-An earlier chat collection was limited by a 15 GiB CPU laptop: 22 of 60 questions reached generation, including two partial attempts; 40 questions and all 39 confirmation questions were deferred by the memory guard. Two answers passed the verifier. Those generation and verification counts do not establish answer accuracy or production readiness.
-
-A subsequent CPU runtime diagnostic added an opt-in Linux launcher that bounds host prompt-cache memory to 512 MiB. In eight matched requests per configuration on fresh public RFC inputs, sampled peak runner RSS fell from 7.91 to 7.68 GiB, with no OOM or runner recycling; total request latency rose 84.9%, mostly on revisiting evicted prompts. This is short-run evidence, not a long-run stability guarantee. See [CPU runtime setup and measurements](docs/cpu-runtime.md).
-
-Arabic rendering, heterogeneous scans, high abstention rates, CPU latency, and end-to-end integration remain active limitations. This project documents failed experiments and resource limits alongside successful tests.
-
-## Publication and dependencies
-
-This repository contains the public engineering copy. Sealed evaluation gold, internal coordination records, source PDFs, model weights, and local outputs are excluded. Model-produced evaluation labels retain their provenance and are not presented as human gold. See [`docs/PUBLICATION_NOTES.md`](docs/PUBLICATION_NOTES.md).
-
-Dependencies retain their own licenses. Licensing boundaries and delivery considerations are tracked in [`docs/adr/`](docs/adr/) and [`ENGINEERING_RULES.md`](ENGINEERING_RULES.md).
+Created by Asmaa Samy Hagag with AI-assisted implementation, testing and review. Project licence selection is pending; third-party asset licences are included with the relevant assets.

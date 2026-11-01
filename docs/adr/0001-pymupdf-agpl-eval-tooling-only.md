@@ -64,3 +64,5 @@ Blind spots: a module name built at runtime (`import_module(name)`), and code ou
 - The questions for legal review: (a) can the client deliverable use PyMuPDF under AGPL-3.0? (b) if not, buy the
   Artifex commercial license or replace the PDF layer? (c) does eval-only use of PyMuPDF and pdftotext need anything?
 - If the answer to (a) is "no", the frozen pipeline modules need a replacement library before delivery.
+
+Public export: the frozen importer set only shrank when unshipped legacy benchmark/test files were omitted; no new importer is approved. The real notebook path uses PDFium/pdfplumber.

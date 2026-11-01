@@ -1,0 +1,67 @@
+{
+  "tool": "CairoSVG 2.8.2 in isolated work/tools/svg-venv; no runtime dependency",
+  "transform": "Black alpha mask at 256px, no geometry edits; runtime tints only",
+  "license": "MIT, see LICENSE",
+  "icons": [
+    {
+      "name": "academic-cap",
+      "svg_sha256": "f4e740e96f30637d617f4370e237b7d4f7f997c33d082cdb8bda348a213176e6",
+      "png_sha256": "5408449508989b5d4f678133565acf9f41e44bf181eb8516ed4dad3fccb36c0c"
+    },
+    {
+      "name": "arrow-path",
+      "svg_sha256": "b191971e5cd0347fb23ea91c87e7468b2a3759613d3dd928fdd326004a5542ae",
+      "png_sha256": "d08540fa16b7f2aa9513074fb908e18953048cba485a2c765938096c8fa20718"
+    },
+    {
+      "name": "building-library",
+      "svg_sha256": "abb9133490052ce6a8e43311675141f3a1599d94f0be5a48f2acc110b97906ce",
+      "png_sha256": "081209230238df1f7f2ec2f1effe47377da474926587b82edb74ae53d03f0b52"
+    },
+    {
+      "name": "calendar-days",
+      "svg_sha256": "98b9507200c6dd5387144db83d1fffea868acdf49d344353e4579f3df93c2c68",
+      "png_sha256": "f730bc23de64c4c4992794fe9072beb8fb807ee3aade394343e4348aaaadc419"
+    },
+    {
+      "name": "chart-bar",
+      "svg_sha256": "544fcc117350dcd26a3c8cc7388e791aa4b8f5b810b8f028229dcc9698ef6325",
+      "png_sha256": "a9695127d3a5d67a99fa223b38a8c63d589a16044d950ec683229f908259d42f"
+    },
+    {
+      "name": "chat-bubble-left-right",
+      "svg_sha256": "5dc168c09ec779289f87d199d298c56a6ce25535cb1405a5775d1e5ba58f3d78",
+      "png_sha256": "df1591a5a62042cb5e1d964610911aa5d22148eef2b0b49157c6609c0cf43ee4"
+    },
+    {
+      "name": "circle-stack",
+      "svg_sha256": "a3e20dd4b182fd428ab2b66c65ced2f91b5c9a4f49e39ac96c9c1e04772d23e6",
+      "png_sha256": "e6890a17933badbab0c4256b83f4baa92a146b8704da08745743e3d45c705a43"
+    },
+    {
+      "name": "document-text",
+      "svg_sha256": "71f9dc980c507b7cfd044b7b322790f826e69cffcb6b06802c898502328a85b5",
+      "png_sha256": "237e4175840c91e001e8b478fe3e6d7b7cc23d83013c9869f4786fbb7ed1fff0"
+    },
+    {
+      "name": "globe-alt",
+      "svg_sha256": "39b64fe05524f200c0f40de72e271ed96046c241c9f8d340e824424d160882b0",
+      "png_sha256": "3642222606e03d412dcd24822ea8d4ba0e6bea323d8e0d41bc771a96201f50e5"
+    },
+    {
+      "name": "light-bulb",
+      "svg_sha256": "9c46baf011e3e38f45992459e4a692a972426e2e3478fa2f3d6514e0e318066f",
+      "png_sha256": "d75ff70d76411742acc7818fecc4148bcb9e9999ae4764ebe5626524ab699969"
+    },
+    {
+      "name": "scale",
+      "svg_sha256": "b44f8c01b85efbf5d84cc1b057c30f37ddc109a0e1d75e336bab54132c6096ad",
+      "png_sha256": "6db4c93df84e5253515f209574c926e9fac56a63977550d2947076884f7c61cd"
+    },
+    {
+      "name": "shield-check",
+      "svg_sha256": "db8ceec9867b8dcb63efb1da7afaf6c66729e93f0e94b4352e97d6249d83680f",
+      "png_sha256": "82c7045ca050c018477b27400b0d2cd9be9a9b8820d655ad4c2f133abf93fc7d"
+    }
+  ]
+}

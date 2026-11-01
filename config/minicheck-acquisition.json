@@ -1,0 +1,17 @@
+{
+  "repo": "lytang/MiniCheck-RoBERTa-Large",
+  "revision": "74c8919647e61ed0f71bc177d94f10930f090068",
+  "files": {
+    "README.md": "63b5beaa0368e5e6ea8f6c49687de301e1eedb935fbaa91a0bf47bb39eefbfa0",
+    "added_tokens.json": "ffbab93e7b41fb5464d9ef1d16d898288280c141a84df766f18eb14b59e7683d",
+    "config.json": "680d1963926c3fee862eea599ab6f00907e8b4e57de00c3a7055d23b443a15c4",
+    "merges.txt": "1ce1664773c50f3e0cc8842619a93edc4624525b728b188a9e0be33b7726adc5",
+    "pytorch_model.bin": "67af45a2d5a2706283821049232c7d7c81cea22e81dfdbb7097487a98bc61b53",
+    "special_tokens_map.json": "397c86572c64f631570b56b0a36397dd4f54d7d0d6275e2af5768a9b197acea4",
+    "tokenizer.json": "1f325de61b2d8f48f2580c234ef57f927ffb952ea8617a9820559ec6b7b687e5",
+    "tokenizer_config.json": "9036998b933c6204c820ef64854b13f3302822128439099a91f936888e3692f6",
+    "vocab.json": "ed19656ea1707df69134c4af35c8ceda2cc9860bf2c3495026153a133670ab5e"
+  },
+  "license": "mit",
+  "status": "downloaded"
+}

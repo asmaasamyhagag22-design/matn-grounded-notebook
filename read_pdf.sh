@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
-# MATN_FONT_DIR is inherited or loaded from the owner's development environment; no font path is embedded here.
+# Development settings come from the owner's environment; fonts are vendored in design/fonts (no font path needed).
 source "$repo/scripts/dev_environment.sh"
 if (( $# == 0 )); then echo 'Usage: read_pdf.sh PDF [--out DIR] [--milestone]' >&2; exit 2; fi
 pdf=$(realpath -- "$1")

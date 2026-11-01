@@ -1,0 +1,9 @@
+{
+  "embedding": "ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d",
+  "ocr_glm_digest": "12c54d1b823a9a151957273c8b7a5e57fcaa23a640981f25822cda4b3a1d5edb",
+  "pipeline": "5d0808918094ca3a031695aaf84ff3b38915de619bfa6d384cca182740e9bb72",
+  "reader": "1dfceb54bc6c8c2b820679b9e1a88786c9df69100ef1805fc9241a58cee6d445",
+  "table_policy": "exclude_unclassified_tables",
+  "variant": "doc-input-no-prefix-v1",
+  "version": "pdf-chat-readiness-v1"
+}

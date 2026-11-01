@@ -15,10 +15,25 @@ class FontFileNotFound(RuntimeError):
     pass
 
 
+MANIFEST = Path(__file__).resolve().parents[1] / "design" / "fonts" / "fonts.json"  # pinned OFL packages
+
+
+def verify_fonts() -> list[str]:
+    """Problems with the pinned OFL font files (missing or different bytes); [] when every file matches."""
+    import hashlib
+    import json
+    problems = []
+    for row in json.loads(MANIFEST.read_bytes())["fonts"]:
+        path = font_file(row["family"] if row["style"] == "Regular" else f"{row['family']} {row['style']}")
+        if path is None:
+            problems.append("MISSING:" + row["file"])
+        elif hashlib.sha256(path.read_bytes()).hexdigest() != row["sha256"]:
+            problems.append("DIFFERENT_BYTES:" + row["file"])
+    return problems
+
+
 def _font_dirs() -> list[Path]:
     dirs = []
-    if os.environ.get("MATN_FONT_DIR"):
-        dirs.append(Path(os.environ["MATN_FONT_DIR"]))
     if os.environ.get("WINDIR"):
         dirs.append(Path(os.environ["WINDIR"]) / "Fonts")
     if os.environ.get("LOCALAPPDATA"):
@@ -66,9 +81,24 @@ def _family_index() -> dict[str, tuple[Path, str | None]]:
     return index
 
 
+@lru_cache(maxsize=1)
+def metric_aliases() -> dict[str, str]:
+    """Declared Office family (lowercase) -> its metric-compatible OFL family (ADR-0020, fonts.json)."""
+    import json
+    aliases = json.loads(MANIFEST.read_bytes()).get("metric_aliases", {})
+    return {k.lower(): v for k, v in aliases.items() if not k.startswith("_")}
+
+
+def _resolve(name: str) -> str:
+    """`name` when its file is installed, else the metric-compatible family PowerPoint's face is measured with."""
+    if name.lower() in _family_index():
+        return name
+    return metric_aliases().get(name.lower(), name)
+
+
 def font_file(name: str) -> Path | None:
     """Font file for a PowerPoint typeface name (family plus style or variable instance, e.g. "Bahnschrift SemiBold")."""
-    entry = _family_index().get(name.lower())
+    entry = _family_index().get(_resolve(name).lower())
     return entry[0] if entry else None
 
 
@@ -76,6 +106,7 @@ def font_file(name: str) -> Path | None:
 def load_face(name: str, bold: bool = False, italic: bool = False) -> ImageFont.FreeTypeFont:
     """The face PowerPoint would use for typeface `name` with bold/italic, at 1000 px per em."""
     index = _family_index()
+    name = _resolve(name)
     style = " ".join(s for s, on in (("bold", bold), ("italic", italic)) if on)
     candidates = [f"{name} {style}".lower()] if style else []
     candidates += [name.lower()]
@@ -86,4 +117,4 @@ def load_face(name: str, bold: bool = False, italic: bool = False) -> ImageFont.
             if instance is not None:
                 font.set_variation_by_name(instance)
             return font
-    raise FontFileNotFound(f"FONT_FILE_NOT_FOUND: {name!r}; set MATN_FONT_DIR")
+    raise FontFileNotFound(f"FONT_FILE_NOT_FOUND: {name!r}; install the pinned OFL packages in design/fonts/fonts.json")

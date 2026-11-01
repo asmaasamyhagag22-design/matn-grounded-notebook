@@ -14,7 +14,7 @@ mixed_ocr_evidence unavailable_table_evidence code_text number_status_disallowed
 scope_mismatch scope_unknown table_cell_required unsupported_numeric_form direction_mismatch
 negation_mismatch modality_mismatch comparison_mismatch quantity_mismatch entity_binding_unknown
 entailment_failed entailment_uncertain model_unavailable model_input_overflow model_output_invalid
-invalid_request snapshot_invalid evidence_not_retrieved'''.split())
+invalid_request snapshot_invalid evidence_not_retrieved quantity_unbound zero_denominator unsupported_fraction unsupported_approximate_dual_notation'''.split())
 
 
 class Contract(BaseModel):

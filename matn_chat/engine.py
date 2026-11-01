@@ -1,5 +1,6 @@
 """C1 → buffered atomic generation → unchanged verifier → one failed-only redraft."""
 import hashlib
+import os
 import json
 from pathlib import Path
 import time
@@ -18,8 +19,8 @@ class MiniCheck:
     def __init__(self):self.adapter=None
     def check(self,text,evidence,target):
         if self.adapter is None:
-            self.adapter=L4Adapter(Path.home()/'.venvs/matn-rerank/bin/python',
-                Path(__file__).resolve().parents[1]/'out/v2/acquisition/MiniCheck-RoBERTa-Large')
+            self.adapter=L4Adapter(Path(os.environ.get('MATN_NLI_PYTHON', str(Path.home()/'.venvs/matn-rerank/bin/python'))),
+                Path(os.environ.get('MATN_MINICHECK_DIR', str(Path(__file__).resolve().parents[1]/'out/v2/acquisition/MiniCheck-RoBERTa-Large'))))
         return self.adapter.check(text,evidence,target)
     def close(self):
         if self.adapter is not None:

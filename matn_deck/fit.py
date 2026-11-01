@@ -121,8 +121,12 @@ def placeholder_style(layout_placeholder: Any) -> TextStyle:
 
 
 class Fitter:
-    def __init__(self) -> None:
+    def __init__(self, safety: float = WIDTH_SAFETY, *, natural_lines: bool = False) -> None:
         self._advances: dict[tuple[str, bool, bool, str], float] = {}
+        self.safety = safety  # usable share of a line's width; deck v2 keeps more headroom (ADR-0020)
+        # Deck v2 must fit two renderers: PowerPoint sets 1.2 em per line, LibreOffice the font's own ascent +
+        # descent (Carlito 1.22 em, Noto Sans 1.36 em); with natural_lines the taller of the two is measured.
+        self.natural_lines = natural_lines
 
     def width(self, text: str, style: TextStyle) -> float:
         face = load_face(style.face, style.bold, style.italic)
@@ -138,8 +142,12 @@ class Fitter:
 
     def line_height(self, style: TextStyle) -> float:
         """PowerPoint lays out a single-spaced line at 1.2 x the font size, whatever the font's own metrics
-        (measured through PowerPoint's BoundHeight for Bahnschrift SemiBold, Segoe UI and Segoe UI Semibold)."""
-        return LINE_HEIGHT_EM * style.size_pt * EMU_PER_PT * style.line_spacing
+        (measured through PowerPoint's BoundHeight for the original Bahnschrift SemiBold/Segoe UI faces; see ADR-0019)."""
+        em = LINE_HEIGHT_EM
+        if self.natural_lines:
+            ascent, descent = load_face(style.face, style.bold, style.italic).getmetrics()
+            em = max(em, (ascent + descent) / 1000)
+        return em * style.size_pt * EMU_PER_PT * style.line_spacing
 
     def wrap(self, text: str, width: float, style: TextStyle) -> list[str]:
         """Greedy word wrap like PowerPoint's; a word longer than the line is broken between characters."""
@@ -165,11 +173,11 @@ class Fitter:
         """Box width that holds `text` on one line, insets included, with one em to spare (PowerPoint lays out
         slightly wider than the font's advances)."""
         spare = style.size_pt * EMU_PER_PT
-        return int(self.width(text, style) / WIDTH_SAFETY + spare) + style.insets[0] + style.insets[2]
+        return int(self.width(text, style) / self.safety + spare) + style.insets[0] + style.insets[2]
 
     def needed(self, paragraphs: list[str], style: TextStyle, box: Box) -> float:
         """Height in EMU that `paragraphs` need in a box `box.w` wide, insets included."""
-        width = (box.w - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
+        width = (box.w - style.insets[0] - style.insets[2] - style.indent_emu) * self.safety
         line = self.line_height(style)
         total = style.insets[1] + style.insets[3]
         for index, text in enumerate(paragraphs):

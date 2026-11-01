@@ -1,0 +1,9 @@
+#!/bin/sh
+# Matn commit-msg hook (G3: subject plus a body that explains why). Logic lives in commit_msg.py.
+HOOK_DIR=$(dirname "$0")
+PY="$MATN_PYTHON"
+[ -z "$PY" ] && [ -x ".venv/Scripts/python.exe" ] && PY=".venv/Scripts/python.exe"
+[ -z "$PY" ] && [ -x ".venv/bin/python" ] && PY=".venv/bin/python"
+[ -z "$PY" ] && command -v python3 >/dev/null 2>&1 && PY=python3
+[ -z "$PY" ] && PY=python
+PYTHONDONTWRITEBYTECODE=1 exec "$PY" "$HOOK_DIR/commit_msg.py" "$@"

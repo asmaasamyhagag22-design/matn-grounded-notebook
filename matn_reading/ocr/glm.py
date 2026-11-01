@@ -72,6 +72,27 @@ class GlmReader:
         self.opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
         self.calls = 0
 
+    def close(self):
+        """Confirm a zero-inference unload before yielding app model ownership."""
+        if not self.calls:
+            return
+        deadline=time.monotonic()+25
+        body=json.dumps(dict(model=self.config.model,keep_alive=0)).encode()
+        request=urllib.request.Request(f'http://{self.config.host}:{self.config.port}/api/generate',body,
+                                       {'Content-Type':'application/json'})
+        with self.opener.open(request,timeout=25) as response:
+            raw=json.load(response)
+        if not raw.get('done') or raw.get('done_reason')!='unload':
+            raise RuntimeError('OCR_UNLOAD_UNCONFIRMED')
+        while time.monotonic()<deadline:
+            request=urllib.request.Request(f'http://{self.config.host}:{self.config.port}/api/ps')
+            with self.opener.open(request,timeout=max(.1,deadline-time.monotonic())) as response:
+                models=json.load(response).get('models',[])
+            if not any(m.get('name')==self.config.model for m in models):
+                return
+            time.sleep(.1)
+        raise RuntimeError('OCR_DRAIN_UNCONFIRMED')
+
     def cache_key(self, png: bytes) -> str:
         identity = json.dumps({"model": self.config.model, "prompt": self.config.prompt,
                                "options": self.config.options()}, sort_keys=True).encode()

@@ -74,8 +74,10 @@ LAYOUTS: dict[str, tuple[tuple[str, ...], tuple[str, ...]]] = {
 CHART_PLACEHOLDERS = {"chart"}
 TITLE_PLACEHOLDERS = {"title"}
 
-# Standard Windows/Office families; a face name passes when it is a family or "<family> <style>".
+# Standard families; a face name passes when it is a family or "<family> <style>". The vendored OFL set
+# (design/fonts) is what templates use; Windows/Office names stay accepted for imported decks.
 STANDARD_FONTS = frozenset({
+    "noto sans", "noto sans display", "noto serif", "noto sans arabic", "noto naskh arabic", "carlito", "liberation sans",
     "aptos", "aptos display", "aptos narrow", "aptos serif", "aptos mono", "bahnschrift", "segoe ui", "calibri",
     "calibri light", "arial", "arial black", "arial narrow", "cambria", "candara", "corbel", "constantia",
     "consolas", "georgia", "tahoma", "verdana", "times new roman", "trebuchet ms", "franklin gothic", "gill sans mt",

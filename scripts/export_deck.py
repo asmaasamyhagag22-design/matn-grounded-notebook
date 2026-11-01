@@ -7,7 +7,6 @@ from pathlib import Path
 import shutil
 import subprocess
 import tempfile
-from xml.sax.saxutils import escape
 
 import pypdfium2 as pdfium
 
@@ -26,16 +25,7 @@ def export_deck(pptx: Path, out_dir: Path, pdf: Path, *, width: int = 1280,
     work = Path(tempfile.mkdtemp(prefix='lo-export-', dir=pdf.parent.resolve()))
     profile = work / 'profile'
     environment = os.environ.copy()
-    if environment.get('MATN_FONT_DIR'):
-        fonts = Path(environment['MATN_FONT_DIR']).resolve(strict=True)
-        if not fonts.is_dir():
-            raise NotADirectoryError(fonts)
-        config = work / 'fonts.conf'
-        base = environment.get('FONTCONFIG_FILE', '/etc/fonts/fonts.conf')
-        config.write_text('<?xml version="1.0"?><!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">'
-                          '<fontconfig><include>' + escape(base) + '</include><dir>' +
-                          escape(str(fonts)) + '</dir></fontconfig>', encoding='utf-8')
-        environment['FONTCONFIG_FILE'] = str(config)
+    # Templates use the pinned OFL system packages (design/fonts/fonts.json); no font directory override.
     subprocess.run([executable, f'-env:UserInstallation={profile.as_uri()}', '--headless',
                     '--convert-to', 'pdf:impress_pdf_Export', '--outdir', str(work), str(pptx)],
                    check=True, capture_output=True, text=True, timeout=timeout, env=environment)

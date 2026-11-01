@@ -196,8 +196,8 @@ def _own_segments(text, evidence, subjects=()):
     return [(a,z,s) for a,z,s in chunks if any(_contains(s,n) for n in names)]
 
 
-def _l1(text, entries, target):
-    claim_numbers, problems=parse(text)
+def _l1(text, entries, target, *, parser=parse, entity_parser=entities):
+    claim_numbers, problems=parser(text)
     if problems:
         verdict='reject' if 'spelled_number_mismatch' in problems else 'unknown'
         return _check(target,'L1',verdict,problems)
@@ -207,7 +207,7 @@ def _l1(text, entries, target):
         matches=[]
         for d,e,ref,quote in entries:
             for a,z,segment in _own_segments(claim_clause,quote,_registered_subjects(d,quote)):
-                nums,_=parse(segment)
+                nums,_=parser(segment)
                 for ev in nums:
                     if ev.value == n.value: matches.append((d,e,ref,ev,ref.start+a+ev.start,ref.start+a+ev.end))
         if not matches: errors.append('number_not_in_evidence'); continue
@@ -224,8 +224,8 @@ def _l1(text, entries, target):
             source=' '.join(own)
             years=set(re.findall(r'\b(?:19|20)\d{2}\b',source))
             missing_years=years-set(re.findall(r'\b(?:19|20)\d{2}\b',claim_clause))
-            source_entities=entities(source)
-            missing_entities=source_entities and not entities(claim_clause)
+            source_entities=entity_parser(source)
+            missing_entities=source_entities and not entity_parser(claim_clause)
             level_words={'national','sector','occupation','industry','global','regional','household','annual','quarterly','monthly'}
             missing_levels=(_words(source)&level_words)-_words(claim_clause)
             if missing_years or missing_entities or missing_levels:
@@ -317,8 +317,11 @@ def _l3(text, entries, target):
     return _check(target,'L3')
 
 
-def verify(documents, request, entailment=None):
+def verify(documents, request, entailment=None, layers=None, bundles=None, semantic_entries=None):
     """Always recompute; serialized receipts are never authorization to show content."""
+    layers=layers or (_l1,_l2,_l3)
+    bundles=bundles or evidence_bundles
+    semantic_entries=semantic_entries or _semantic_entries
     docs=tuple(documents); checks=[]; evidence=[]
     request_bytes=canonical(request)
     sentence=request.get('sentence','') if isinstance(request,dict) else ''
@@ -332,7 +335,7 @@ def verify(documents, request, entailment=None):
         checks=[_check('sentence','L0','unknown',('invalid_request',))]
     else:
         adapter=entailment or NotRunEntailment()
-        targets=[(f'claim:{i}:citation:{j}',claim.text,tuple(bundle)) for i,claim in enumerate(req.claims) for j,bundle in enumerate(evidence_bundles(docs,claim.citations))]
+        targets=[(f'claim:{i}:citation:{j}',claim.text,tuple(bundle)) for i,claim in enumerate(req.claims) for j,bundle in enumerate(bundles(docs,claim.citations))]
         targets += [(f'claim:{i}',c.text,c.citations) for i,c in enumerate(req.claims)]
         union=tuple({(r.block_id,r.start,r.end):r for c in req.claims for r in c.citations}.values())
         targets.append(('sentence',req.sentence,union))
@@ -346,9 +349,9 @@ def verify(documents, request, entailment=None):
                             bbox=e.bbox.coordinates,bbox_precision=e.bbox.bbox_precision)
                 if ev not in evidence: evidence.append(ev)
             semantic=entries
-            bundles=evidence_bundles(docs,refs)
-            if len(bundles)==1: semantic=_semantic_entries(entries)
-            group=[_l1(text,semantic,target),_l2(text,semantic,target),_l3(text,semantic,target)]
+            groups=bundles(docs,refs)
+            if len(groups)==1: semantic=semantic_entries(entries)
+            group=[layer(text,semantic,target) for layer in layers]
             checks.extend(group)
             if any(c.verdict!='pass' for c in group): checks.append(_check(target,'L4','not_run'))
             else:

@@ -11,7 +11,7 @@ from .layout_mapping import convert_box,union_share,retype
 
 SETTINGS=Path(__file__).with_name('layout_settings.json')
 
-def consume(snapshot,elements,sidecar):
+def consume(snapshot,elements,sidecar, *, require_positive_tables=False):
  settings=json.loads(SETTINGS.read_text())
  if sidecar.get('source_sha256')!=snapshot['doc_id'].removeprefix('sha256-'):raise ValueError('SIDECAR_SOURCE_SHA')
  if sidecar.get('schema_version')!=1 or sidecar.get('status')!='COMPLETE':raise ValueError('SIDECAR_INCOMPLETE')
@@ -32,6 +32,10 @@ def consume(snapshot,elements,sidecar):
   reg=regions.get(e.block.page_index)
   if e.role=='table' and reg and retype(union_share(e.block.bbox,[b for l,b in reg if l=='picture']),union_share(e.block.bbox,[b for l,b in reg if l=='table'])):
    e=e.model_copy(update={'role':'figure','citable':False,'exclusion_reasons':tuple(dict.fromkeys((*e.exclusion_reasons,'figure_text')))})
+  if require_positive_tables and e.role=='table':
+   confirmed=reg and union_share(e.block.bbox,[b for l,b in reg if l=='table'])>=0.5 and union_share(e.block.bbox,[b for l,b in reg if l=='picture'])<0.5
+   if not confirmed:
+    e=e.model_copy(update={'citable':False,'exclusion_reasons':tuple(dict.fromkeys((*e.exclusion_reasons,'table_layout_unconfirmed')))})
   result.append(e)
  return tuple(result)
 

@@ -1,0 +1,53 @@
+{
+  "id": "ministry_light",
+  "name_en": "Ministry Light",
+  "mode": "light",
+  "fonts": {
+    "heading": "Carlito",
+    "body": "Carlito"
+  },
+  "family": "matn-original",
+  "source": "design/matn/generate.py",
+  "palette": {
+    "name": "Ministry Light",
+    "mode": "light",
+    "heading": "Carlito",
+    "body": "Carlito",
+    "surface": "F4F7F8",
+    "text": "172F3A",
+    "muted": "4C626A",
+    "accent": "006C67",
+    "focus": "925523",
+    "divider": "123F46",
+    "divider_text": "FFFFFF",
+    "mood": "Formal, quiet and precise",
+    "audience": "Ministry and executive briefings"
+  },
+  "mood": "Formal, quiet and precise",
+  "audience": "Ministry and executive briefings",
+  "content_area_pt": [
+    58.0,
+    168.0,
+    844.0,
+    306.0
+  ],
+  "card_style": {
+    "fill_alpha": 0.035,
+    "corner_radius_pt": 0,
+    "shadow": {
+      "enabled": false
+    }
+  },
+  "layout_bias": [
+    "cards-3",
+    "default"
+  ],
+  "provenance": {
+    "kind": "matn-original",
+    "generator": "design/matn/generate.py",
+    "version": 2,
+    "template_sha256": "5499eab6a985978bfc21daf9f844d03997f3d73085d1edfabbc44ef5b466f8f6",
+    "third_party_assets": [],
+    "font_license": "OFL-1.1"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "ministry_light": {
+    "name": "Ministry Light",
+    "mode": "light",
+    "heading": "Carlito",
+    "body": "Carlito",
+    "surface": "F4F7F8",
+    "text": "172F3A",
+    "muted": "4C626A",
+    "accent": "006C67",
+    "focus": "925523",
+    "divider": "123F46",
+    "divider_text": "FFFFFF",
+    "mood": "Formal, quiet and precise",
+    "audience": "Ministry and executive briefings"
+  },
+  "midnight": {
+    "name": "Midnight",
+    "mode": "dark",
+    "heading": "Noto Sans Display",
+    "body": "Carlito",
+    "surface": "101D2B",
+    "text": "F4F6F5",
+    "muted": "CBD5DD",
+    "accent": "75DED0",
+    "focus": "E7BA74",
+    "divider": "142F40",
+    "divider_text": "F4F6F5",
+    "mood": "Calm dark canvas with a clear evidence hierarchy",
+    "audience": "Leadership and technical briefings"
+  },
+  "editorial": {
+    "name": "Editorial",
+    "mode": "light",
+    "heading": "Noto Serif",
+    "body": "Carlito",
+    "surface": "F3F5F6",
+    "text": "202B35",
+    "muted": "59636C",
+    "accent": "5B3D75",
+    "focus": "005F69",
+    "divider": "3D2B50",
+    "divider_text": "FFFFFF",
+    "mood": "Cool paper, clear evidence and deliberate serif hierarchy",
+    "audience": "Research findings and narrative briefings"
+  }
+}

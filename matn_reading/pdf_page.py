@@ -15,6 +15,9 @@ import ctypes
 import hashlib
 import json
 import re
+import math
+import time
+from collections import defaultdict
 from dataclasses import dataclass, field, replace
 from pathlib import Path
 from statistics import median
@@ -153,9 +156,35 @@ def _box_intersection_share(inner: tuple[float, float, float, float],
     return _overlap_share(inner, outer)
 
 
+class RectangleIndex:
+    """Broad phase only: exact predicates and stable source order stay with callers."""
+    def __init__(self, objects, cell=32.):
+        self.objects = objects
+        self.cell = cell
+        self.cells = defaultdict(list)
+        for i, obj in enumerate(objects):
+            for key in self.keys(obj.bbox):
+                self.cells[key].append(i)
+
+    def keys(self, box):
+        for x in range(math.floor(box[0]/self.cell), math.floor(box[2]/self.cell)+1):
+            for y in range(math.floor(box[1]/self.cell), math.floor(box[3]/self.cell)+1):
+                yield x, y
+
+    def intersecting(self, box):
+        return [self.objects[i] for i in sorted({i for key in self.keys(box) for i in self.cells.get(key, ())})]
+
+
 def _containing_text_object(char: dict, objects: list[TextObject]) -> TextObject | None:
     box = _char_box(char)
-    candidates = [obj for obj in objects if _box_intersection_share(box, obj.bbox) >= 0.5]
+    if isinstance(objects, RectangleIndex):
+        objects = objects.intersecting(box)
+    # Disjoint rectangles have zero overlap. Filter them before the expensive
+    # area calculation; retain the original threshold, order and tie breaking.
+    candidates = [obj for obj in objects
+                  if box[0] < obj.bbox[2] and obj.bbox[0] < box[2]
+                  and box[1] < obj.bbox[3] and obj.bbox[1] < box[3]
+                  and _box_intersection_share(box, obj.bbox) >= 0.5]
     return min(candidates, key=lambda obj: (obj.bbox[2] - obj.bbox[0]) * (obj.bbox[3] - obj.bbox[1])) \
         if candidates else None
 
@@ -179,12 +208,14 @@ def _pixel_box(box, cropbox, scale, width, height):
 def _visibility_candidates(data: PageData) -> list[dict]:
     x0, top, x1, bottom = data.cropbox
     candidates = []
+    text_index = RectangleIndex(data.text_objects)
+    paint_index = RectangleIndex(data.paint_objects)
     for position, char in enumerate(data.chars):
         if char["text"].isspace():
             continue
         box = _char_box(char)
         centre = ((box[0] + box[2]) / 2, (box[1] + box[3]) / 2)
-        obj = _containing_text_object(char, data.text_objects)
+        obj = _containing_text_object(char, text_index)
         reasons: list[str] = []
         if not (x0 <= centre[0] <= x1 and top <= centre[1] <= bottom):
             reasons.append("outside_cropbox")
@@ -192,10 +223,10 @@ def _visibility_candidates(data: PageData) -> list[dict]:
             reasons.append("near_zero_size")
         if obj is not None:
             image_under = any(paint.kind == "image" and _box_intersection_share(obj.bbox, paint.bbox) >= 0.5
-                              for paint in data.paint_objects)
+                              for paint in paint_index.intersecting(obj.bbox))
             if obj.render_mode in (3, 7) and not image_under:
                 reasons.append("invisible_render_mode")
-            for paint in data.paint_objects:
+            for paint in paint_index.intersecting(box):
                 if paint.index > obj.index and _box_intersection_share(box, paint.bbox) >= 0.5:
                     reasons.append("covered_by_image" if paint.kind == "image" else "covered_by_vector")
             if obj.clipped:
@@ -256,11 +287,14 @@ def _apply_differential_visibility(data: PageData, path: Path) -> None:
             share = changed / inner.size
         reasons = [reason for reason in char.get("_visibility_reasons", []) if reason != "_check_fill"]
         fill = char.get("_fill_rgb")
-        if fill is not None and x0 < x1 and y0 < y1:
+        visible = changed >= _VISIBILITY["visible_min_changed_pixels"] and share >= _VISIBILITY["visible_min_changed_share"]
+        # Visible glyphs discard every candidate reason below. Avoid computing
+        # a background median whose result cannot affect their disposition.
+        if not visible and fill is not None and x0 < x1 and y0 < y1:
             background = tuple(int(value) for value in np.median(no_text[y0:y1, x0:x1], axis=(0, 1)))
             if _contrast(fill, background) < _VISIBILITY["fill_background_contrast"]:
                 reasons.append("fill_matches_background")
-        if changed >= _VISIBILITY["visible_min_changed_pixels"] and share >= _VISIBILITY["visible_min_changed_share"]:
+        if visible:
             visibility = "visible"
             reasons = []
         elif full_changed == 0:
@@ -287,6 +321,11 @@ def _words_from_chars(chars: list[dict]) -> list[Word]:
     vertical = [char for char in visible_chars if is_vertical(char)]
     horizontal_nonspace = [char for char in horizontal if not char["text"].isspace()]
     for char in horizontal_nonspace:
+        # Only digits can become footnote markers. Avoid the quadratic geometry
+        # scan for every letter; the previous final predicate also required this.
+        if not char["text"].isdigit():
+            char["_footnote_marker"] = False
+            continue
         size = float(char["size"])
         nearby_body = [other for other in horizontal_nonspace if other is not char
                        and float(other["size"]) >= size / _FOOTNOTE["max_body_size_ratio"]
@@ -510,8 +549,18 @@ class OpenPdf:
         return len(self.plumber.pages)
 
     def page(self, index: int) -> PageData:
+        started = time.monotonic()
         label = self.pdfium.get_page_label(index) or None
-        data = read_page(self.plumber.pages[index], self.pdfium[index], index, label)
+        page = self.pdfium[index]
+        try:
+            data = read_page(self.plumber.pages[index], page, index, label)
+        finally:
+            page.close()
+            self.plumber.pages[index].close()
+        extracted = time.monotonic()
         _apply_differential_visibility(data, Path(self.path))
+        visible = time.monotonic()
         data.words = _link_text_objects(_words_from_chars(data.chars), data.text_objects)
+        data.timings = {'extract_seconds': extracted-started, 'visibility_seconds': visible-extracted,
+                        'words_seconds': time.monotonic()-visible}
         return data

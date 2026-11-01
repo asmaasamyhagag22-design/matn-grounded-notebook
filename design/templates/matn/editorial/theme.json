@@ -1,0 +1,52 @@
+{
+  "id": "editorial",
+  "name_en": "Editorial",
+  "mode": "light",
+  "fonts": {
+    "heading": "Noto Serif",
+    "body": "Carlito"
+  },
+  "family": "matn-original",
+  "source": "design/matn/generate.py",
+  "palette": {
+    "name": "Editorial",
+    "mode": "light",
+    "heading": "Noto Serif",
+    "body": "Carlito",
+    "surface": "F3F5F6",
+    "text": "202B35",
+    "muted": "59636C",
+    "accent": "5B3D75",
+    "focus": "005F69",
+    "divider": "3D2B50",
+    "divider_text": "FFFFFF",
+    "mood": "Cool paper, clear evidence and deliberate serif hierarchy",
+    "audience": "Research findings and narrative briefings"
+  },
+  "mood": "Cool paper, clear evidence and deliberate serif hierarchy",
+  "audience": "Research findings and narrative briefings",
+  "content_area_pt": [
+    58.0,
+    168.0,
+    844.0,
+    306.0
+  ],
+  "card_style": {
+    "fill_alpha": 0.035,
+    "corner_radius_pt": 0,
+    "shadow": {
+      "enabled": false
+    }
+  },
+  "layout_bias": [
+    "grid-2x2"
+  ],
+  "provenance": {
+    "kind": "matn-original",
+    "generator": "design/matn/generate.py",
+    "version": 2,
+    "template_sha256": "3d8b90156acc5ec820f38ffa23a6c5b9a28d98c0a13d4fa82865d24c6b200437",
+    "third_party_assets": [],
+    "font_license": "OFL-1.1"
+  }
+}

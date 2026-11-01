@@ -1,0 +1,209 @@
+{
+ "policy": "Pinned Ubuntu 24.04 OFL-1.1 font packages; no font binaries in this repo (PRE_DELIVERY_CHECKLIST). matn_deck.measure.verify_fonts() checks every installed file against this sha256 manifest.",
+ "fonts": [
+  {
+   "file": "Carlito-Bold.ttf",
+   "family": "Carlito",
+   "style": "Bold",
+   "sha256": "bb5d20f79b82599ec72983597437373a80f2d2085fa91fc144fd74e876a594db",
+   "bytes": 682468,
+   "source_package": "fonts-crosextra-carlito",
+   "source_version": "20230309-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/crosextra/Carlito-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-crosextra-carlito/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "Carlito-Regular.ttf",
+   "family": "Carlito",
+   "style": "Regular",
+   "sha256": "f6418f708baede9789daef5d458c0f53d2a888af9820e8062934e504fedc6595",
+   "bytes": 628032,
+   "source_package": "fonts-crosextra-carlito",
+   "source_version": "20230309-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/crosextra/Carlito-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-crosextra-carlito/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "LiberationSans-Bold.ttf",
+   "family": "Liberation Sans",
+   "style": "Bold",
+   "sha256": "3973aa5054fb467dd5627245d3dc82e37bf16fe075756156a570455871351582",
+   "bytes": 414568,
+   "source_package": "fonts-liberation",
+   "source_version": "1:2.1.5-3",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-liberation/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "LiberationSans-Regular.ttf",
+   "family": "Liberation Sans",
+   "style": "Regular",
+   "sha256": "4659bc0c58c5028dd488ec928d41d9265db43d9b669fc14ca8b0832daca7b144",
+   "bytes": 410820,
+   "source_package": "fonts-liberation",
+   "source_version": "1:2.1.5-3",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-liberation/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "LiberationSerif-Bold.ttf",
+   "family": "Liberation Serif",
+   "style": "Bold",
+   "sha256": "9e66c25e20868756bf12eb24a520a4552727c9cd108f577f7ae33e3c0110e39c",
+   "bytes": 370196,
+   "source_package": "fonts-liberation",
+   "source_version": "1:2.1.5-3",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-liberation/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "LiberationSerif-Regular.ttf",
+   "family": "Liberation Serif",
+   "style": "Regular",
+   "sha256": "705903ae1382f0150f115d6f10a30f5b2f3d6ade649c474afe6366c39174fb65",
+   "bytes": 393692,
+   "source_package": "fonts-liberation",
+   "source_version": "1:2.1.5-3",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-liberation/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoNaskhArabic-Bold.ttf",
+   "family": "Noto Naskh Arabic",
+   "style": "Bold",
+   "sha256": "b5cbcb561b4b540ff11d7b6934577dbbbbb9e1d152d47f6f31f19176d58ff39c",
+   "bytes": 181192,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoNaskhArabic-Regular.ttf",
+   "family": "Noto Naskh Arabic",
+   "style": "Regular",
+   "sha256": "8c67eaa2f0086872628fc3f7f760386f83c8be5c5e9a1ba3a38891237b2ac7cb",
+   "bytes": 175792,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoNaskhArabic-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSans-Bold.ttf",
+   "family": "Noto Sans",
+   "style": "Bold",
+   "sha256": "e83493c945848ecd4a9ad0f6d19164541a0d3e23a9c952304a00a46e00272ac5",
+   "bytes": 515752,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSans-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSans-Regular.ttf",
+   "family": "Noto Sans",
+   "style": "Regular",
+   "sha256": "89c3c497f618fdaa0b2d1e98fef93582f28c71debd2c4a8cdf41f190ced2909d",
+   "bytes": 512672,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSans-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSansArabic-Bold.ttf",
+   "family": "Noto Sans Arabic",
+   "style": "Bold",
+   "sha256": "ded6fc7359ca36d15d7aab9ef0c066e21ce48b26a069994d6602fa2cb9a1b952",
+   "bytes": 252940,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSansArabic-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSansArabic-Regular.ttf",
+   "family": "Noto Sans Arabic",
+   "style": "Regular",
+   "sha256": "504d7407d86875acf7d04dfaa0fd7524d0b8797723bc4aa18022f29db25b0b6e",
+   "bytes": 244072,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSansArabic-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSansDisplay-Bold.ttf",
+   "family": "Noto Sans Display",
+   "style": "Bold",
+   "sha256": "1640ba8acb852d9e00406e166d1fc0cedd62a4c20342fd92f1f6dbc7baa61de2",
+   "bytes": 513000,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSansDisplay-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSansDisplay-Regular.ttf",
+   "family": "Noto Sans Display",
+   "style": "Regular",
+   "sha256": "3dd456595e9226472ab8adaf9408400c671b97dbba241d883d05e2ab70ceadac",
+   "bytes": 508388,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSansDisplay-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSerif-Bold.ttf",
+   "family": "Noto Serif",
+   "style": "Bold",
+   "sha256": "0af0ff2be8f84910fb21ec5fe1b6b7395e3073250502a334baf6ca2f860c88fe",
+   "bytes": 611904,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSerif-Bold.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  },
+  {
+   "file": "NotoSerif-Regular.ttf",
+   "family": "Noto Serif",
+   "style": "Regular",
+   "sha256": "9d7583b7dc9e812afd32a14280c5cac3160012efe50c8d08938f4fea266ff67f",
+   "bytes": 588876,
+   "source_package": "fonts-noto-core",
+   "source_version": "20201225-2",
+   "license": "OFL-1.1",
+   "installed_path": "/usr/share/fonts/truetype/noto/NotoSerif-Regular.ttf",
+   "license_text": "/usr/share/doc/fonts-noto-core/copyright (Files: * => OFL-1.1)"
+  }
+ ],
+ "packages": {
+  "fonts-noto-core": "20201225-2",
+  "fonts-crosextra-carlito": "20230309-2",
+  "fonts-liberation": "1:2.1.5-3"
+ },
+ "metric_aliases": {
+  "_policy": "ADR-0020: decks declare Office families; Linux measures and renders with these metric-compatible OFL files. Never bundle Microsoft font files.",
+  "Calibri": "Carlito",
+  "Arial": "Liberation Sans",
+  "Times New Roman": "Liberation Serif",
+  "Cambria": "Caladea"
+ }
+}

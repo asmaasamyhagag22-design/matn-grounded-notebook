@@ -221,6 +221,11 @@ def read_document(path: Path, *, pages: list[int] | None = None) -> DocumentRead
     with OpenPdf(path) as pdf:
         indices = list(range(len(pdf))) if pages is None else pages
         page_data = [pdf.page(i) for i in indices]
+    return reading_from_pages(path, doc_id, page_data)
+
+
+def reading_from_pages(path, doc_id, page_data):
+    """Same document-wide grouping for fresh and checkpointed page extraction."""
     markers = [[word for word in page.words if word.kind == "footnote_marker"] for page in page_data]
     preliminary_body=body_size(w for p in page_data for w in p.words if not w.vertical)
     page_lines = [group_lines([word for word in page.words if word.kind != "footnote_marker"],digital_body=preliminary_body) for page in page_data]

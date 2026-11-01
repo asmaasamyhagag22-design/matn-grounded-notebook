@@ -1,0 +1,53 @@
+{
+  "id": "midnight",
+  "name_en": "Midnight",
+  "mode": "dark",
+  "fonts": {
+    "heading": "Noto Sans Display",
+    "body": "Carlito"
+  },
+  "family": "matn-original",
+  "source": "design/matn/generate.py",
+  "palette": {
+    "name": "Midnight",
+    "mode": "dark",
+    "heading": "Noto Sans Display",
+    "body": "Carlito",
+    "surface": "101D2B",
+    "text": "F4F6F5",
+    "muted": "CBD5DD",
+    "accent": "75DED0",
+    "focus": "E7BA74",
+    "divider": "142F40",
+    "divider_text": "F4F6F5",
+    "mood": "Calm dark canvas with a clear evidence hierarchy",
+    "audience": "Leadership and technical briefings"
+  },
+  "mood": "Calm dark canvas with a clear evidence hierarchy",
+  "audience": "Leadership and technical briefings",
+  "content_area_pt": [
+    58.0,
+    168.0,
+    844.0,
+    306.0
+  ],
+  "card_style": {
+    "fill_alpha": 0.06,
+    "corner_radius_pt": 0,
+    "shadow": {
+      "enabled": false
+    }
+  },
+  "layout_bias": [
+    "cards-3",
+    "default"
+  ],
+  "provenance": {
+    "kind": "matn-original",
+    "generator": "design/matn/generate.py",
+    "version": 2,
+    "template_sha256": "30781c81dc86232bf751daa28232b30eb725f5877d8fc64789f11525b6c0ddeb",
+    "third_party_assets": [],
+    "font_license": "OFL-1.1"
+  }
+}

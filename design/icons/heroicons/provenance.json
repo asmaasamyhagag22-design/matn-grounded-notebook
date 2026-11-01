@@ -1,0 +1,73 @@
+{
+  "repository": "https://github.com/tailwindlabs/heroicons",
+  "commit": "616b7a4dbbf3d011760af8066262cd5c6b3868f3",
+  "license": "MIT",
+  "purpose": "Licensed navigation icons for original Matn product decks; exact upstream SVGs, generated alpha-mask rasters and runtime color tint only",
+  "files": [
+    {
+      "file": "LICENSE",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/LICENSE",
+      "sha256": "60e0b68c0f35c078eef3a5d29419d0b03ff84ec1df9c3f9d6e39a519a5ae7985"
+    },
+    {
+      "file": "scale.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/scale.svg",
+      "sha256": "b44f8c01b85efbf5d84cc1b057c30f37ddc109a0e1d75e336bab54132c6096ad"
+    },
+    {
+      "file": "shield-check.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/shield-check.svg",
+      "sha256": "db8ceec9867b8dcb63efb1da7afaf6c66729e93f0e94b4352e97d6249d83680f"
+    },
+    {
+      "file": "chart-bar.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/chart-bar.svg",
+      "sha256": "544fcc117350dcd26a3c8cc7388e791aa4b8f5b810b8f028229dcc9698ef6325"
+    },
+    {
+      "file": "globe-alt.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/globe-alt.svg",
+      "sha256": "39b64fe05524f200c0f40de72e271ed96046c241c9f8d340e824424d160882b0"
+    },
+    {
+      "file": "document-text.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/document-text.svg",
+      "sha256": "71f9dc980c507b7cfd044b7b322790f826e69cffcb6b06802c898502328a85b5"
+    },
+    {
+      "file": "calendar-days.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/calendar-days.svg",
+      "sha256": "98b9507200c6dd5387144db83d1fffea868acdf49d344353e4579f3df93c2c68"
+    },
+    {
+      "file": "chat-bubble-left-right.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/chat-bubble-left-right.svg",
+      "sha256": "5dc168c09ec779289f87d199d298c56a6ce25535cb1405a5775d1e5ba58f3d78"
+    },
+    {
+      "file": "arrow-path.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/arrow-path.svg",
+      "sha256": "b191971e5cd0347fb23ea91c87e7468b2a3759613d3dd928fdd326004a5542ae"
+    },
+    {
+      "file": "circle-stack.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/circle-stack.svg",
+      "sha256": "a3e20dd4b182fd428ab2b66c65ced2f91b5c9a4f49e39ac96c9c1e04772d23e6"
+    },
+    {
+      "file": "light-bulb.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/light-bulb.svg",
+      "sha256": "9c46baf011e3e38f45992459e4a692a972426e2e3478fa2f3d6514e0e318066f"
+    },
+    {
+      "file": "academic-cap.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/academic-cap.svg",
+      "sha256": "f4e740e96f30637d617f4370e237b7d4f7f997c33d082cdb8bda348a213176e6"
+    },
+    {
+      "file": "building-library.svg",
+      "url": "https://raw.githubusercontent.com/tailwindlabs/heroicons/616b7a4dbbf3d011760af8066262cd5c6b3868f3/optimized/24/outline/building-library.svg",
+      "sha256": "abb9133490052ce6a8e43311675141f3a1599d94f0be5a48f2acc110b97906ce"
+    }
+  ]
+}

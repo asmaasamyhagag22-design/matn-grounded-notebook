@@ -6,7 +6,7 @@ Delivery safeguards and their status are recorded in `docs/PRE_DELIVERY_CHECKLIS
 1. Public documents only. Never open restricted ministry material or the commercial book, and never send ministry documents to a cloud service.
 2. Numbers and IDs are never invented. Code copies and verifies them against the source. A model must not invent, convert or recompute source numbers.
 3. Test first for behavior changes: establish a failing test, make a small diff, run tests until green, then commit with a message explaining what changed and why. Tests must pass before every commit.
-4. The test split is sealed. Never tune on `eval/gold/test/`. Access it only for recorded milestone measurements with `EVAL_MILESTONE=1`; never tune after seeing the results. Sealed gold is omitted from this public repository. Registry split entries remain to enforce the boundary.
+4. The test split is sealed. Never tune on `eval/gold/test/`. Access it only for recorded milestone measurements with `EVAL_MILESTONE=1`; never tune after seeing the results. Sealed gold is omitted from this public repository. The public registry is intentionally empty; private split entries and evaluation data are omitted under the owner-authorized curated export.
 5. Ask before deleting work, rewriting history or changing test expectations. Act only within the explicitly approved scope. Approval applies to the changes named by the owner; a general instruction to continue does not approve additional changes.
 6. Network access is limited to loopback by default. Installs, downloads, model pulls and remote Git operations require named owner approval. Approved evaluation acquisition uses `MATN_ALLOW_NETWORK=1`.
 7. Keep prompts in versioned files. Every run records the code commit, model digest, prompt versions and parameters.
@@ -18,8 +18,8 @@ Delivery safeguards and their status are recorded in `docs/PRE_DELIVERY_CHECKLIS
 13. Deterministic IDs and hashes must derive from verified inputs. Fail closed on missing, mismatched or unverified evidence. Never treat unavailable table cells or chart text as validated numerical evidence.
 14. Every cited statement must bind to source blocks for the named entity, not a neighboring entity in the same chunk. Model labels and model screening must retain their provenance and must never imply human validation.
 
-Work on `foundation`. Use the configured environment interpreter with `-m pytest -q`.
+Public publication branch: `main`, with the owner as author and committer, Conventional Commits and no Agent trailers. Use the configured environment interpreter with `-m pytest -q`.
 Set `core.hooksPath` to `.githooks`: pre-commit enforces forbidden staged files and runs the fast subset for Python changes; pre-push runs the full suite. Slow cases are listed in `conftest.py`.
 
-Pipeline: `inspect_pdf.py`, `document_store.py`, `select_source.py`, `matn_summarization/`, `matn_presentation/`, `app.py`.
+Pipeline: `inspect_pdf.py`, `document_store.py`, `select_source.py`, `matn_summarization/`, `matn_presentation/`, `matn_app/`.
 Contracts: `matn_contracts/`. Evaluation: `eval/`. Decisions: `docs/adr/`. Guards: `checks/`.

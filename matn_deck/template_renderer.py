@@ -35,7 +35,7 @@ from . import decor as decor_mod
 from .chart_rules import ChartDataError, ChartDecision, decide, load_rules
 from .colors import ColorResolver, blend, contrast, hex_rgb
 from .decor import Decor
-from .fit import WIDTH_SAFETY, Box, Fitter, TextStyle, placeholder_style
+from .fit import Box, Fitter, TextStyle, placeholder_style
 from .number_visuals import pictogram, progress_fraction
 from .scoring import EMU_PER_PT, CandidateScore, Element, Rect, SlideContext, load_scoring, score
 from .templates import LAYOUTS, validate_template
@@ -493,13 +493,13 @@ class _DeckBuilder:
 
     def _extent(self, paragraphs: list[str], style: TextStyle, width: float) -> tuple[float, float]:
         """(height incl. insets, widest line incl. insets) of `paragraphs` wrapped at `width`."""
-        inner = (width - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
+        inner = (width - style.insets[0] - style.insets[2] - style.indent_emu) * self.fitter.safety
         widest = 0.0
         for text in paragraphs:
             for line in self.fitter.wrap(text, inner, style):
                 widest = max(widest, self.fitter.width(line, style))
         height = self.fitter.needed(paragraphs, style, Box(int(width), 0))
-        return height, min(width, widest / WIDTH_SAFETY + style.insets[0] + style.insets[2] + style.indent_emu)
+        return height, min(width, widest / self.fitter.safety + style.insets[0] + style.insets[2] + style.indent_emu)
 
     def _fg(self, style: TextStyle) -> tuple[float, float, float]:
         if style.color_xml:
@@ -975,13 +975,13 @@ class _DeckBuilder:
 
     def _line_boxes(self, paragraphs: list[str], style: TextStyle, rect: Rect, top: float) -> tuple[Rect, ...]:
         """Ink of a text box: one rectangle per wrapped line, at its measured width (paragraph spacing ignored)."""
-        inner = (rect.w - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
+        inner = (rect.w - style.insets[0] - style.insets[2] - style.indent_emu) * self.fitter.safety
         line_h = self.fitter.line_height(style)
         boxes, y = [], top + style.insets[1]
         x0 = rect.x + style.insets[0] + style.indent_emu
         for text in paragraphs:
             for line in self.fitter.wrap(text, inner, style):
-                w = min(inner / WIDTH_SAFETY, self.fitter.width(line, style) / WIDTH_SAFETY)
+                w = min(inner / self.fitter.safety, self.fitter.width(line, style) / self.fitter.safety)
                 x = rect.x + (rect.w - w) / 2 if style.align == "ctr" else x0
                 if w > 0:
                     boxes.append(Rect(x, y, w, line_h))
@@ -1205,7 +1205,7 @@ class _DeckBuilder:
         ph = self._layout_ph(plan.layout, "title")
         base = self._style(plan.layout, ph)
         style = self._title_style(plan.layout, ph, plan.sizes.get("title") or base.size_pt, text)
-        inner = (ph.width - style.insets[0] - style.insets[2] - style.indent_emu) * WIDTH_SAFETY
+        inner = (ph.width - style.insets[0] - style.insets[2] - style.indent_emu) * self.fitter.safety
         lines = balanced_lines(text, inner, lambda t: self.fitter.width(t, style), self.fitter.wrap(text, inner, style))
         paragraph = shape.text_frame.paragraphs[0]
         offset = 0
@@ -1318,7 +1318,7 @@ class _Measure:
 
     def _value_fits(self, part: _Part, column: Rect) -> bool:
         style = self.style(part.name, part.role)
-        inner = (column.w - style.insets[0] - style.insets[2]) * WIDTH_SAFETY
+        inner = (column.w - style.insets[0] - style.insets[2]) * self.b.fitter.safety
         unit = self.plan.units.get(part.name, "")
         return self.b._kpi_width(self.plan.fills[part.name][0], unit, style, self.plan.body_pt) <= inner
 
@@ -1380,8 +1380,8 @@ class _Measure:
         unit = self.plan.units.get(name)
         if unit is not None:  # value and unit stay on one line
             value_w = self.b._kpi_width(paragraphs[0], unit, style, self.plan.body_pt)
-            inner = (rect.w - style.insets[0] - style.insets[2]) * WIDTH_SAFETY
-            width = min(rect.w, value_w / WIDTH_SAFETY + style.insets[0] + style.insets[2])
+            inner = (rect.w - style.insets[0] - style.insets[2]) * self.b.fitter.safety
+            width = min(rect.w, value_w / self.b.fitter.safety + style.insets[0] + style.insets[2])
             if value_w > inner:
                 overflow = True
                 self.plan.overflows.append(Overflow(0, name, int(value_w), int(inner)))

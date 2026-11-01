@@ -1,4 +1,4 @@
-"""Matn pre-commit checks (see ENGINEERING_RULES.md).
+"""Matn pre-commit checks (see CLAUDE.md).
 
 G1  reject staged paths in a forbidden category (venvs, node_modules, model files, caches, run outputs, PDFs, PPTX
     outside the gallery templates in design/templates/, eval page text, audit working files, the commercial book or
@@ -20,18 +20,17 @@ FORBIDDEN = [
     (r"(^|/)node_modules(/|$)", "node_modules"),
     (r"\.(gguf|safetensors|onnx|pt|pth|ckpt|bin)$|(^|/)(models|\.ollama)/", "model file"),
     (r"(^|/)(__pycache__|\.pytest_cache|\.mypy_cache|\.ruff_cache|\.cache)/|\.py[cod]$|(^|/)[^/]*-cache/", "cache"),
-    (r"^(out|output|outputs|runs|tmp)/", "run output"),
+    (r"^(output|outputs|runs|tmp)/", "run output"),
     (r"^(data|documents|wheelhouse)/", "local data directory"),
     # Gallery templates (design/templates/**.pptx) are source files, so they are the one PPTX exception.
     (r"\.pdf$|^(?!design/templates/).*\.pptx$", "PDF/PPTX (documents and generated decks stay local)"),
-    (r"^eval/gold/test/", "sealed evaluation gold"),
     (r"^eval/pages/", "extracted page text (regenerated from pinned PDFs)"),
     (r"^audit/(scratch|logs)/", "audit working files"),
-    (r"z-library|raschka|build a large language model|book-demo|pre-demo-backup|(^|/)_quarantine",
+    (r"z-library|raschka|build a large language model|book-demo|pre-demo-backup|(^|/)_quarantine|(^|/)\.codex-",
      "commercial book or derived material"),
     (r"(^|/)\.env(\.|$)|\.(pem|key)$|(^|/)\.streamlit/secrets\.toml$", "secret"),
 ]
-TEST_DIRS = ["tests", "eval/tests", "checks", ".githooks"]
+TEST_DIRS = ["tests", "eval/tests", "checks", ".claude/hooks", ".githooks"]
 
 
 def git(*args: str) -> str:

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f7f6f2"><title>Matn · From evidence to presentation</title>
+  <link rel="stylesheet" href="/app.css"><script src="/app.js" defer></script>
+</head>
+<body>
+  <div id="toast" role="alert" hidden></div>
+  <button id="nav-scrim" aria-label="Close conversations"></button>
+  <aside class="sidebar" aria-label="Conversations">
+    <button id="sidebar-close" class="icon-button mobile-only" aria-label="Close conversations">×</button>
+    <a class="brand" href="/" aria-label="Matn home"><span class="brand-mark">m.</span><span>matn<span class="brand-caption">EVIDENCE, PRESENTED.</span></span></a>
+    <button id="new-chat" class="new-chat"><span>＋</span> New conversation <kbd>⌘ K</kbd></button>
+    <p class="nav-label">YOUR WORKSPACE</p>
+    <button class="nav-item active" id="chat-view">◷ <span>Conversations</span><span id="chat-count" class="count">0</span></button>
+    <button class="nav-item" id="eval-view">▥ <span>Evaluation</span><span class="small-arrow">↗</span></button>
+    <div class="history-heading">RECENT <span>Saved on this device</span></div>
+    <nav id="conversations" aria-label="Saved conversations"></nav>
+    <div class="sidebar-bottom"><span class="local-dot"></span><div>Local workspace<small>Your documents stay here</small></div><button id="theme-toggle" class="icon-button" aria-label="Toggle color theme">◐</button></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><button id="menu-toggle" class="icon-button mobile-only" aria-label="Open conversations">☰</button><div class="breadcrumb">Workspace <span>/</span> <strong id="conversation-title">New conversation</strong></div><div class="top-actions"><button id="rename-chat" class="quiet" hidden>Rename</button><button id="delete-chat" class="quiet" hidden>Delete</button><button id="evidence-toggle" class="quiet">Evidence <span>↗</span></button></div></header>
+    <div id="readiness" class="readiness" aria-live="polite"><span class="local-dot"></span> Checking local workspace…</div>
+    <main id="chat-screen" class="chat-screen">
+      <div id="welcome" class="welcome">
+        <div class="eyebrow"><span class="tiny-mark">✳</span> A LITTLE CLARITY GOES A LONG WAY</div>
+        <h1>Your sources.<br>A clearer story.</h1>
+        <p class="welcome-copy">Explore the evidence, shape your ideas, and turn<br class="desktop-only"> what you know into a presentation you can stand behind.</p>
+        <div class="journey-cards">
+          <button id="welcome-files" class="journey-card"><span class="card-icon">▤</span><span class="card-kicker">START WITH YOUR SOURCES</span><strong>Bring your documents</strong><span>Read PDFs or JSON, ask questions,<br>and build a source-linked deck.</span><b>Attach files <i>↗</i></b></button>
+          <button id="welcome-topic" class="journey-card"><span class="card-icon">⌕</span><span class="card-kicker">START WITH A QUESTION</span><strong>Explore a topic</strong><span>Review a research plan, follow the<br>findings, then tell the story.</span><b>Plan research <i>↗</i></b></button>
+        </div>
+        <div class="replay-invite"><span>Or pick up a verified example</span><div id="replay-shortcuts"></div></div>
+      </div>
+      <div id="messages" class="messages" aria-live="polite"></div>
+      <div id="working" class="working" hidden></div>
+      <div class="composer-wrap">
+        <div id="attachments" class="attachments" hidden></div>
+        <form id="composer-form" class="composer"><label class="sr-only" for="composer-input">Message Matn</label><textarea id="composer-input" rows="2" placeholder="Ask a question, explore a topic, or make a presentation…"></textarea><div class="composer-tools"><button type="button" id="attach-files" class="quiet attach-button" title="Attach PDF or JSON">＋ <span>Attach</span></button><span class="composer-hint">PDF / JSON <span>·</span> English</span><button type="submit" id="send-message" class="send-button" aria-label="Send message">↑</button></div></form>
+        <input id="file-input" type="file" accept=".pdf,.json,application/pdf,application/json" multiple hidden>
+        <div class="composer-foot"><span><span class="mini-check">✓</span> Grounded in your evidence. Sources one click away.</span><button id="audience-toggle" class="quiet">Audience <span>⌄</span></button></div>
+        <div id="audience-settings" class="audience-settings" hidden><label for="audience">Presentation audience</label><input id="audience" placeholder="Public policy professionals — introductory briefing"></div>
+      </div>
+    </main>
+    <main id="evaluation-screen" class="evaluation" hidden><div class="eyebrow">THE EVIDENCE BEHIND MATN</div><h1>Evaluation</h1><p>Saved measurements, explicit gaps, and AI review. Unknown measurements stay unknown.</p><button id="run-bench" class="primary">Run offline bench</button><div id="evaluation-content"></div></main>
+  </div>
+  <aside class="evidence-panel" aria-label="Evidence and presentation"><div class="panel-heading"><h2>Your evidence</h2><button id="close-evidence" class="icon-button mobile-only" aria-label="Close evidence">×</button><span class="panel-badge" id="source-count">0 SOURCES</span></div><div class="panel-tabs"><button id="evidence-tab" class="selected">Sources</button><button id="deck-tab">Presentation</button></div><div id="evidence-content" class="panel-content"><div class="empty-evidence"><span>↗</span><h3>A clear line to the source.</h3><p>Your documents, exact quotes and verification details will appear here.</p><div class="evidence-example"><span class="local-dot"></span><div>Every claim has a home<small>File or URL · page · exact span</small></div><b>[1]</b></div></div></div><div id="deck-content" class="panel-content" hidden></div><div class="panel-footer"><span class="mini-check">✓</span> Sources linked. Numbers copied. Gaps visible.</div></aside>
+  <dialog id="citation-dialog"><div class="citation-top"><span class="eyebrow">SOURCE DETAIL</span><button id="close-citation" class="icon-button" aria-label="Close source detail">×</button></div><div id="citation-detail"></div></dialog>
+</body></html>
