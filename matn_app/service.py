@@ -39,6 +39,11 @@ class App:
         self.search_budget = search_budget
         self.readiness = preflight(fake=fake, search_budget=search_budget)
 
+    @property
+    def labels(self):
+        from .labels import LabelStore
+        return LabelStore()
+
     def close(self):
         self.processes.close()
         self.jobs.close()
@@ -50,7 +55,7 @@ class App:
         except ImportError:
             templates = []
         return dict(conversations=self.store.list(), preflight=self.readiness, templates=templates,
-                    replays=[name for name, path in REPLAYS.items() if (ORIGINAL / path).is_dir()], busy=bool(self.jobs.active), fake=self.fake,
+                    replays=[name for name,path in REPLAYS.items() if (ORIGINAL/path).is_dir()], busy=bool(self.jobs.active), fake=self.fake,
                     search_remaining=self._search_remaining(), default_audience=DEFAULT_AUDIENCE)
 
     def _search_remaining(self):
@@ -536,6 +541,6 @@ class App:
 
     def evaluation(self):
         from eval.research.dashboard.data import collect
-        return dict(scoreboard=self._scoreboard(), bench=read(self.store.root / "bench.json"),
+        return dict(owner_labels=self.labels.summary(),labelling_url="/labels/",scoreboard=self._scoreboard(), bench=read(self.store.root / "bench.json"),
                     conversations=[dict(id=r["id"], title=r["title"], metrics=self.store.get(r["id"])["metrics"]) for r in self.store.list()],
                     holdouts=read(self.store.root/"holdout-verdict.json",dict(status="UNMEASURED",search_allowance=self.search_budget)), review="Saved AI review, not human gold")

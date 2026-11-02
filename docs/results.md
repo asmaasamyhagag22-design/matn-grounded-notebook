@@ -1,3 +1,9 @@
+# Current result boundary — 2026-11-02
+
+The latest registered generated-answer evaluation **FAILED (0/20)**, and the four new research topics **FAILED** with 9 AI-reviewed errors and 9 borderline units among 20 displayed units. Owner labels are pending. See the README for all gates and measurement limits. Historical document responses below were source-copy outputs and must not be counted as generated answers under the current chat contract.
+
+---
+
 # Measurement scope and results
 
 Measurements below belong to the frozen private development runtime, not a fresh reproduction by public CI. Source identity: `e65f4d86d989c164f973cb84ac08580b523f47ad68a05b37eaba2df3fa68e4f4`. The curated portable export documents its differences in `public-export.json`. Evidence review is cross-family AI review, not human gold. Private source snapshots, sealed splits and raw runs are intentionally absent.

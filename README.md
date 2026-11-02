@@ -1,85 +1,65 @@
 # Matn — evidence, presented
 
-A local document notebook that turns public PDFs and structured files into source-linked briefings and editable presentations. Open the exact page and span behind a claim, inspect what remains unestablished, and restore an earlier deck without rewriting its evidence.
+A local notebook for public documents, source-linked research and editable presentations. Matn reads PDF/JSON files, keeps exact evidence behind citations, and builds versioned decks with measured layouts.
 
-![A real local conversation with a source-linked presentation](docs/images/app-restored.jpg)
-![An exact public-source citation with its verification receipt](docs/images/source-proof.jpg)
+**Current quality status: generated chat acceptance FAIL; research v2 acceptance FAIL.** The implementation is available for inspection and development. These results do not establish deployment readiness or improved research accuracy.
 
-These are real local runs using GAO-21-519SP and *Towards Execution-Grounded Automated AI Research* (arXiv 2601.14525v1). The second document is CC BY 4.0; [demo credits](docs/demo-credits.md) identify its authors, version, licence and source. No World Bank document content is distributed. Screenshots show the application and selected source excerpts, with no endorsement implied.
+![A real generated development answer with its source citation](docs/images/answers-generated-citation.jpg)
 
-Long documents create two connected problems: finding useful evidence and presenting it without detaching claims from their sources. Matn keeps an evidence catalog between reading, answering and rendering. Models select or propose within bounded schemas; code binds source IDs, preserves qualifiers, verifies statements and copies numeric values.
+This is a saved real **development** answer about GAO-21-519SP, rendered without a new model call. It is a short verified paraphrase, not one of the 20 acceptance results. A citation opens the exact source span in the side panel; retrieved passages are excluded from the chat reply path.
+
+![A real failed acceptance question about the CC BY paper](docs/images/answers-acceptance-fail.jpg)
+
+This real acceptance attempt returned an operational inability notice after a memory guard deferred generation. It **does not count as an answer**. Both screenshots use only GAO and *Towards Execution-Grounded Automated AI Research* (arXiv 2601.14525v1, CC BY 4.0). [Demo credits](docs/demo-credits.md) identify the paper and its licence. No World Bank content, private review data, model weights or evaluation documents are distributed.
 
 ## Two journeys
 
-**Bring documents.** Upload public PDF/JSON files → inspect verified source overviews → ask a question → open its cited span → build a presentation → type a supported edit → restore a version. Early reading checkpoints make completed pages queryable; duplicate documents reuse content-bound preparation.
+**Bring documents.** Read public PDFs or JSON → ask a question → inspect its exact cited span → build a presentation → edit and restore deck versions. The current chat path retrieves internally, plans source handles, generates prose, verifies each sentence, and permits one repair. Source-copy and excerpt recovery are excluded from chat replies. Unsupported or operationally blocked attempts can still fail to produce verified prose; the acceptance result below measures that limitation.
 
-**Explore a topic.** Clarify meaning and audience → review a populated research plan → explicitly allocate searches → read public sources → inspect verified units, gaps and source balance → build the same evidence-bound presentation. Search starts at zero allowance. Commercial majorities receive a warning; unsupported axes remain gaps.
+**Explore a topic.** Clarify the subject and audience → edit a four-axis plan → explicitly allocate searches → read public sources → inspect supported units and gaps → build a presentation. Search allowance starts at zero. The live UI defaults to the historical delivery baseline; the failed v2 candidate is separately selectable for development.
 
-```mermaid
-flowchart LR
-  D[Public PDFs / JSON] --> R[Region-aware reading and OCR]
-  R --> I[Content-bound BM25 index]
-  T[Topic + audience] --> P[Reviewable research plan]
-  P --> S[Bounded public-source discovery]
-  S --> R
-  I --> V[Layered verification + exact spans]
-  V --> C[Evidence catalog]
-  C --> Q[Answers with visible partial states]
-  C --> B[Deterministic storyboard]
-  B --> E[Measured PPTX engine]
-  E --> A[LibreOffice PDF + independent QA]
-  A --> H[Versioned decks / typed edits / restore]
-```
+## Latest measured results
 
-![A real clarification step before planning or search](docs/images/research-scope.jpg)
+The runtime and questions were registered before measurement. Review is cross-family **AI review, pending owner labels**, not human gold. The portable public export differs from the measured private build; public CI does not reproduce these semantic scores.
 
-The clarification screenshot is a separate real scope check with zero searches; it is not a fresh-topic evaluation result.
+| Measurement | Result |
+|---|---|
+| Generated-answer acceptance, 20 new questions | **FAIL: 0/20 direct generated answers**, required 14/20. There were 19 abstentions and one failed follow-up route; 18 questions recorded `DEFERRED_MEMORY_BEFORE_GENERATION` as `chat_error`. |
+| Answer latency | No full generated answer completed, so median full-answer latency is **unmeasured**. The 172.2-second median for completed notices is not an answer-latency success. |
+| Source passages in chat | No retrieved excerpts counted as answers; regression checks hide saved legacy source-copy replies. |
+| Verifier development diagnostic | 60 controlled paraphrases from ten used source units: rejection fell from 25/60 to 7/60 after app actor-parsing changes. This is author self-review, not independent gold or an owner-measured false-block rate. |
+| Four new research holdouts | **FAIL:** 20 displayed units, 9 AI-reviewed errors and 9 retained borderline units. Mean displayed-axis coverage 3.25 missed the strict requirement >3.25. |
+| New research source balance | Unweighted mean vendor share: **49.13% read / 64.58% displayed**, above the fixed 39.32% / 44.82% ceilings under the same classifier. |
+| Research timing and retrieval bench | Four result pages; workflow first verified units at 225.4/200.9/207.3/251.6 seconds, within 412.175 seconds. The offline bench recovered from 17 regressions to no comparison violations. These passes do not waive failed quality gates. |
+| Historical M7 research holdouts | **FAIL:** 18 displayed units, 6 AI-reviewed errors and 7 borderline. This historical result remains unchanged. |
 
-## Engineering choices
+The new research evaluation used a separate **48/48 search** allowance. Failed questions and topics were retained without tuning or rerunning them as fresh holdouts. Different topics do not establish direct superiority to delivery. Source-copy verification alone does not prove relevance or semantic completeness.
 
-- Fail-closed sentence verification and copied numeric values; a valid schema alone never establishes factual support or edit intent.
-- Region labels keep footnotes, references and navigation fragments out of ordinary evidence selection.
-- A content- and implementation-bound cache, resumable page checkpoints, foreground model ownership and bounded prompts address measured CPU bottlenecks.
-- Layouts follow evidence types: grouped findings, comparisons, disagreements, qualified key numbers, source figures, dated units, section dividers and source-linked closing slides.
-- Three original Matn templates, pinned OFL font manifests and MIT Heroicons; citations remain readable and source detail stays in notes.
-- Two renderer QA checks measured text geometry and the actual LibreOffice PDF. Failing decks remain reviewable failures rather than successful downloads.
-- Pre-registered targets and fresh-topic acceptance criteria are frozen before measurement. Runtime identities bind source, configuration and assets. AI review is labelled separately from human judgment.
+## Review and presentations
 
-## Measured results
-
-Four pre-registered fresh research topics: **FAIL**, with cross-family AI review of every displayed unit (not human gold). 18 displayed units, 6 confirmed silent errors and 7 retained borderline units; all four result pages were preserved. The unchanged six-condition acceptance rule failed. Search spending was 48/48, using a separate evaluation ledger. No candidate changes followed these outcomes.
-
-On the 12-question document development set: **6 answered / 4 partial / 2 refused**, zero AI-reviewed silent errors; zero clear false blocks in the final reviewed sample of one rejected borderline candidate. This small sample is not a general verifier accuracy estimate.
-
-On the same CPU and fixed inputs, the profiled upload-and-question workload fell from **2765s to 1323s (52%)**. GAO upload680s met its 900s target; the 45-page economic-report upload390s missed 360s. Full answers278s/251s met 300s; first persisted source-bound answers278s/251s missed 240s. Queue wait0.021s met 1s. Duplicate uploads7–8s met 20s with no new extraction/OCR/embedding/generation/verification calls. These are M2 measurements; later real-demo timings and limitations are [recorded separately](docs/results.md).
-
-All 22 synthetic evidence/layout slides passed both renderers in each of the three original templates. Six rebuilt saved decks also passed. This is local layout verification, not Windows PowerPoint validation or evidence-quality acceptance.
-
-The 12-question document set is a development set, not a holdout. “Answered” describes the reviewed response state; the current app primarily returns complete verified source copies, and free-form synthesis remains limited. The public demonstration itself had one answered and one partial response. Rejected attempts and regressions are retained in the evaluation records.
+- Local owner review at `/labels/`, linked from Evaluation: exact context, Correct/Wrong/Borderline/Skip, notes and keyboard shortcuts. Decisions save locally; AI judgments remain hidden until a decision. Owner labels are counted separately.
+- Generated sentences have small citation links. Exact source text appears in the source panel after a click.
+- The presentation panel follows the latest edit. Selecting an older deck identifies both versions and provides a return-to-latest action.
+- Layout checks inspect geometry and the LibreOffice PDF. They do not establish evidence quality or Windows PowerPoint fidelity.
 
 ## Run locally
 
-Python 3.12, LibreOffice and the fonts listed in `design/fonts/fonts.json` are required for presentation rendering. Local generation, independent verification and OCR require separately provisioned, pinned model environments; model weights and documents are not bundled.
+Python 3.12, LibreOffice and the fonts in `design/fonts/fonts.json` are required for presentation rendering. Real generation, independent verification and OCR require separately provisioned local model environments. See [local setup](docs/local-setup.md).
 
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements-app.txt
-# Ubuntu rendering dependencies:
 sudo apt-get install libreoffice-impress fonts-crosextra-carlito fonts-noto-core fonts-liberation
-# Clearly labelled UI walkthrough; no real model or search calls:
+# Labelled fixture walkthrough; no real model or search calls:
 .venv/bin/python -B -m matn_app --fake --search-budget 0
 ```
 
-For real local inference, follow [local setup](docs/local-setup.md), then run `./app.sh --search-budget 0`. The local preflight is not a provider quota check. Research requires a separate, explicit search allowance. Use public documents; this repository contains no ministry material.
+For real inference, provision the models described in the setup guide and run `./app.sh --search-budget 0`. Local preflight is not a provider quota check. Research requires separate explicit search allowance. Use public documents only.
 
-## Validation and limits
+## Validation and remaining work
 
-The workflow runs an offline fast subset in a clean environment. It verifies structural contracts and deterministic behaviour without downloading models or reproducing the private document/holdout evaluations. The exact command and local clean-environment result are [recorded with the export](docs/export-validation.md).
+The offline CI subset runs in a clean environment with synthetic sources and fake adapters. [Export validation](docs/export-validation.md) records the checks; private measurements are not bundled. Historical results are [kept separately](docs/results.md).
 
-CPU latency remains measured in minutes for larger PDFs. Source-copy answers can be useful and responsive while still leaving parts unestablished. Vendor coverage and axis selection remain imperfect. Cross-family AI review is not human gold. Windows PowerPoint rendering is unmeasured; local QA uses the measured engine and LibreOffice. A passing layout check does not establish the truth or completeness of its source material.
-
-## Roadmap
-
-Improve directly responsive, source-bound synthesis; reduce false blocks without relaxing evidence requirements; broaden independent human evaluation; improve noncommercial source coverage; and validate the editable output in Windows PowerPoint.
+Remaining work includes generation memory readiness, independent question routing, directly responsive answers, research-axis admission, publisher balance, broader human labels and Windows PowerPoint validation. Measured failures remain visible.
 
 Created by Asmaa Samy Hagag with AI-assisted implementation, testing and review. Project licence selection is pending; third-party asset licences are included with the relevant assets.

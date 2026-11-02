@@ -1,7 +1,7 @@
 'use strict';
 const $ = s => document.querySelector(s);
 const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text !== undefined) n.textContent = text; return n; };
-let boot, current = null, state = null, stream = null, selectedTemplate = 'ministry_light', showingDeck = false, refreshTimer;
+let boot, current = null, state = null, stream = null, selectedTemplate = 'ministry_light', showingDeck = false, refreshTimer, currentCitation = null, refreshSequence = 0;
 const screen = $('#chat-screen');
 function toast(message) { const box = $('#toast'); box.textContent = message; box.hidden = false; clearTimeout(box.timer); box.timer = setTimeout(() => box.hidden = true, 10000); }
 async function api(path, value) {
@@ -29,7 +29,7 @@ async function ensureConversation() {
   current = c.id; connectEvents(); await loadBootstrap(); return current;
 }
 function chatView() { $('#chat-screen').hidden = false; $('#evaluation-screen').hidden = true; $('#chat-view').classList.add('active'); $('#eval-view').classList.remove('active'); }
-async function openConversation(id) { chatView(); current = id; document.body.classList.remove('sidebar-open'); connectEvents(); await refresh(); await loadBootstrap(); }
+async function openConversation(id) { chatView(); currentCitation = null; current = id; document.body.classList.remove('sidebar-open'); connectEvents(); await refresh(); await loadBootstrap(); }
 function connectEvents() {
   if (stream) stream.close();
   if (!current) return;
@@ -39,7 +39,8 @@ function connectEvents() {
 async function refresh() {
   if (!current) return;
   try {
-    const id = current, c = await api('/api/conversations/' + id); if (current !== id) return;
+    const id = current, request=++refreshSequence, c = await api('/api/conversations/' + id); if (current !== id || request!==refreshSequence) return;
+    if (state?.id===c.id && state.updated_at>c.updated_at) return;
     const nearBottom = screen.scrollHeight - screen.scrollTop - screen.clientHeight < 200;
     state = c; renderConversation(c);
     if (nearBottom) screen.scrollTop = screen.scrollHeight;
@@ -76,7 +77,8 @@ function renderConversation(c) {
     c.messages.forEach(m => {
       const card = el('article', 'message ' + m.role);
       if (m.role !== 'user') { const h = el('div', 'message-heading'); h.append(el('span', 'message-icon', 'm.'), document.createTextNode('MATN')); if (m.kind) h.append(el('span', 'message-label', ' / ' + m.kind.toUpperCase())); card.append(h); }
-      const body = el('div', 'message-body'); body.append(textWithCitations(m.text, m.result?.citations)); card.append(body);
+      if (m.result?.answer_kind==='generated_source_coverage') card.append(el('p','gap',m.result.message));
+      const body = el('div', 'message-body'); const legacyCopy=m.kind==='answer' && (/cop|excerpt/.test(m.result?.answer_kind || '') || m.result?.citations?.some(ref=>['source_copy','source_excerpt'].includes(ref.kind))); body.append(textWithCitations(legacyCopy ? 'This saved response contains source passages. Ask again for a written answer.' : m.text, legacyCopy ? [] : m.result?.citations)); card.append(body);
       if (m.kind === 'answer' && (m.result?.status === 'partial_answer' || m.result?.engine_states?.includes('partial_answer') || (m.result?.answer_kind === 'exact_verified_source_copies' && m.result.metrics?.model_calls > 0))) card.append(el('p', 'gap', 'Partial response. Only the cited, verified content is shown; some requested points remain unestablished.'));
       if (m.result?.retryable && m.result.question) { const retry = el('button','primary','Retry this question'); retry.onclick = () => act({text:m.result.question}); card.append(retry); }
       if (m.kind === 'clarification' && c.pending_research && m.id===c.messages.findLast(x=>x.kind==='clarification')?.id) card.append(clarificationCard(m.clarification));
@@ -86,7 +88,7 @@ function renderConversation(c) {
       for (const group of m.result?.disagreements || []) { const box = el('div', 'plan-card'); box.append(el('div', 'eyebrow', 'SOURCES SIDE BY SIDE'), el('p', 'message-label', group.label)); const sides = el('div', 'overview-comparison'); group.citations.forEach(ref => { const s = el('div', 'comparison-side'); s.append(el('strong', '', ref.title || ref.file || ref.source), el('p', '', ref.text)); const b = el('button', 'citation', '[' + ref.id + ']'); b.onclick = () => openCitation(ref); s.append(b); sides.append(s); }); box.append(sides); card.append(box); }
       if (m.result?.comparison_status && m.result.citations?.length) card.append(el('p', 'message-label', m.result.comparison_status));
       for (const failure of m.result?.failures || []) card.append(el('p', 'gap', (failure.file || failure.stage || 'Source') + ': ' + failureMessage(failure)));
-      if (m.result?.answer_kind) card.append(el('p', 'message-label', m.result.answer_kind.replaceAll('_', ' ') + ' · Answer completeness is not established.'));
+      if (m.result?.answer_kind) card.append(el('p', 'message-label', (m.result.answer_kind==='generated_answer' ? 'Written answer · sentences checked against cited spans' : m.result.answer_kind.replaceAll('_', ' '))));
       messages.append(card);
     });
   }
@@ -120,7 +122,7 @@ function planCard(item, latest) {
   let approval;
   if (latest && !boot.fake && boot.search_remaining < 12) { const label = el('label', 'search-approval'); approval = el('input'); approval.type = 'checkbox'; label.append(approval, document.createTextNode('Allow up to 12 web searches for this run')); box.append(label); }
   const start = el('button', 'primary', latest ? 'Start research →' : 'Previous plan'); start.disabled = !latest;
-  const code = el('select'); code.setAttribute('aria-label', 'Research code'); [['v2', 'Research v2 (default)'], ['delivery', 'Delivery baseline']].forEach(([v, t]) => { const option = el('option', '', t); option.value = v; code.append(option); });
+  const code = el('select'); code.setAttribute('aria-label', 'Research code'); [['delivery', 'Delivery baseline (live default)'], ['v2', 'Research v2 candidate · acceptance required']].forEach(([v, t]) => { const option = el('option', '', t); option.value = v; code.append(option); });
   start.onclick = () => act({action: 'start', code: code.value, plan: {facets}, approve_searches: approval?.checked === true});
   actions.append(start, code, el('span', 'message-label', 'Up to 12 searches · explicit allowance required'));
   box.append(actions); return box;
@@ -144,15 +146,16 @@ function renderWorking(c) {
   for (const event of compact) {
     const value = event.detail.summary;
     const step = el('div', 'step');
-    if (value?.verified?.length) { step.append(el('strong','','Verified evidence so far — response not complete')); for (const ref of value.verified) { const p=el('p'); p.append(textWithCitations(ref.text+' ['+ref.id+']',value.verified)); step.append(p); } }
+    if (value?.verified?.length) { step.append(el('strong','',`${value.stage==='checking' ? 'Checking' : 'Drafting'} sentence ${value.sentence || value.verified.length} of ${value.sentences_total || '?'} · verified prose so far`)); for (const ref of value.verified) { const p=el('p'); p.append(textWithCitations(ref.text+' ['+ref.id+']',value.verified)); step.append(p); } }
     else if (typeof value === 'string') step.textContent = value;
     else if (value.stage && value.elapsed_seconds !== undefined) { step.textContent = `${value.stage} · ${value.elapsed_seconds}s · searches ${value.searches}/12 · sources ${value.sources_read}/${value.sources_attempted} · verified units ${value.units_verified}`; if (value.calls_used) step.append(el('div', '', `Generation calls ${value.calls_used.generation ?? 0}/${value.calls_planned?.generation ?? '—'} · native checks ${value.calls_used.native ?? 0}/${value.calls_planned?.native ?? '—'}`)); for (const source of value.sources || []) step.append(el('div', '', `${source.status} · ${source.source_type} · ${source.format || ''} · ${source.url}`)); }
-    else { const stages={reading_source:'Reading source',verifying_source_units:'Verifying main points',answering_from_sources:'Answering from your sources',sources_ready:'Sources ready'}; step.textContent = [stages[value.stage] || value.stage, value.file || value.source, value.completed !== undefined ? `Text pages ${value.completed}/${value.total}` : '', value.ocr_total ? `OCR pages ${value.pages}/${value.ocr_total}` : '', value.units !== undefined ? `${value.units} evidence checks` : ''].filter(Boolean).join(' · '); }
+    else { const stages={planning:'Planning answer',drafting:`Drafting sentence ${value.sentence || 1} of ${value.sentences_total || '?'}`,checking:`Checking sentence ${value.sentence || 1} of ${value.sentences_total || '?'}`,reading_source:'Reading source',verifying_source_units:'Verifying main points',answering_from_sources:'Answering from your sources',sources_ready:'Sources ready'}; step.textContent = [stages[value.stage] || value.stage, value.file || value.source, value.completed !== undefined ? `Text pages ${value.completed}/${value.total}` : '', value.ocr_total ? `OCR pages ${value.pages}/${value.ocr_total}` : '', value.units !== undefined ? `${value.units} evidence checks` : ''].filter(Boolean).join(' · '); }
     steps.append(step);
   }
   details.append(summary, steps); box.replaceChildren(details);
 }
 function renderEvidence(c) {
+  if (currentCitation) { renderCitation(currentCitation); return; }
   const box = $('#evidence-content'), refs = c.evidence.citations;
   const count = new Set(refs.map(x => x.doc_id)).size;
   $('#source-count').textContent = (c.metrics.sources || count) + ' SOURCES';
@@ -163,7 +166,7 @@ function renderEvidence(c) {
   for (const axis of c.evidence.axes) if (!axis.units.length) box.append(el('p', 'gap', axis.title + ': no verified units displayed.'));
   for (const gap of c.evidence.gaps) box.append(el('p', 'gap', gap.label + ': ' + (gap.reason || 'Evidence is incomplete.')));
   for (const source of Object.values(c.evidence.regions || {})) { const detail=el('details'); detail.append(el('summary','','Reading regions')); for (const [kind,count] of Object.entries(source.counts)) detail.append(el('p','message-label',regionLabel(kind)+': '+count)); detail.append(el('p','message-label',source.policy)); box.append(detail); }
-  refs.forEach(ref => { const item = el('article', 'source-card'); const b = el('button'); b.append(el('span', 'source-kind', ref.source_type+' · '+regionLabel(ref.region)), el('strong', '', ref.title || ref.file || ref.source), el('p', '', ref.text.length > 180 ? ref.text.slice(0, 180) + '…' : ref.text)); const foot = el('footer'); foot.append(el('span', '', ref.page ? 'Page ' + ref.page : ref.path !== null && ref.path !== undefined ? 'JSON ' + (ref.path || '/') : ref.fetched || 'Date not recorded'), el('span', '', '[' + ref.id + '] ↗')); b.append(foot); b.onclick = () => openCitation(ref); item.append(b); box.append(item); });
+  refs.forEach(ref => { const item = el('article', 'source-card'); const b = el('button'); b.append(el('span', 'source-kind', ref.source_type+' · '+regionLabel(ref.region)), el('strong', '', ref.title || ref.file || ref.source), el('p', '', 'Open exact source span ↗')); const foot = el('footer'); foot.append(el('span', '', ref.page ? 'Page ' + ref.page : ref.path !== null && ref.path !== undefined ? 'JSON ' + (ref.path || '/') : ref.fetched || 'Date not recorded'), el('span', '', '[' + ref.id + '] ↗')); b.append(foot); b.onclick = () => openCitation(ref); item.append(b); box.append(item); });
 }
 function artifact(deck, name, conversation = current) { return '/artifacts/' + conversation + '/' + deck.version + '/' + name; }
 function deckCard(deck, panel) {
@@ -183,21 +186,22 @@ function renderDeckPanel(c) {
   for (const t of boot.templates) { const b = el('button', 'template-option' + (t.id === selectedTemplate ? ' selected' : '')); b.setAttribute('aria-label', t.name); b.append(el('span', 'template-swatch ' + t.id, 'Aa'), document.createTextNode(t.name)); b.onclick = () => { selectedTemplate = t.id; if (c.active_deck) act({action: 'edit', edit: {op: 'change_template', template: t.id}}); else renderDeckPanel(c); }; options.append(b); }
   box.append(options);
   const build = el('button', 'primary', c.active_deck ? 'Rebuild with current evidence' : 'Make the presentation'); build.disabled = !c.catalogs.length || !c.evidence?.citations.length; build.onclick = () => act({action: 'build', template: selectedTemplate}); box.append(build);
-  if (c.active_deck) { const deck = c.decks[c.active_deck - 1]; box.append(deckCard(deck, true)); const versions = el('div', 'version-list'); c.decks.forEach(d => { const b = el('button', d.version === c.active_deck ? 'selected' : '', 'v' + d.version); b.title = 'Restore version ' + d.version; b.onclick = () => act({action: 'restore', version: d.version}); versions.append(b); }); box.append(versions, el('p', 'message-label', 'Try “shorten slide 3”, “move slide 4 first”, or “use the dark template”.'));
+  if (c.active_deck) { const deck = c.decks[c.active_deck - 1], latest=c.decks.at(-1).version; if (deck.version!==latest) { box.append(el('p','viewing-older',`Viewing v${deck.version} (latest v${latest})`)); const newest=el('button','quiet',`View latest v${latest}`); newest.onclick=()=>act({action:'restore',version:latest}); box.append(newest); } box.append(deckCard(deck, true)); const versions = el('div', 'version-list'); c.decks.forEach(d => { const b = el('button', d.version === c.active_deck ? 'selected' : '', 'v' + d.version); b.title = 'View version ' + d.version + (d.version===latest ? ' (latest)' : ''); b.setAttribute('aria-pressed',String(d.version===c.active_deck)); b.onclick = () => act({action: 'restore', version: d.version}); versions.append(b); }); box.append(versions, el('p', 'message-label', 'Try “shorten slide 3”, “move slide 4 first”, or “use the dark template”.'));
   } else box.append(el('div', 'empty-evidence', 'Add documents or open saved research to build your first presentation.'));
 }
-function openCitation(ref) {
-  const box = $('#citation-detail'); box.replaceChildren(el('h2', '', ref.title || ref.file || 'Source'), el('blockquote', '', ref.quote || ref.text));
+function openCitation(ref) { currentCitation = ref; panel(false); document.body.classList.add('evidence-open'); renderCitation(ref); }
+function renderCitation(ref) {
+  const box = $('#evidence-content'); box.replaceChildren(el('h2', '', ref.title || ref.file || 'Source'), el('blockquote', '', ref.quote || ref.text));
   const dl = el('dl');
   const fields = [['Verification', ref.status], ['Source type', ref.source_type], ['File', ref.file], ['Page', ref.page], ['JSON path', ref.path === '' ? '/' : ref.path], ['Fetched', ref.fetched || 'Not recorded'], ['Source span', ref.span?.block_id], ['Offsets', ref.span?.start !== undefined ? `${ref.span.start}–${ref.span.end}` : null], ['Receipt', ref.binding]];
   fields.forEach(([key, value]) => { if (value !== null && value !== undefined && value !== '') dl.append(el('dt', '', key), el('dd', '', String(value))); }); box.append(dl);
   if (ref.url && /^https?:\/\//i.test(ref.url)) { const a = el('a', '', 'Open original source ↗'); a.href = ref.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; box.append(a); }
   for (const span of (ref.spans || []).slice(1)) if (span.quote) box.append(el('p', 'message-label', 'Required source context'), el('blockquote', '', span.quote));
-  $('#citation-dialog').showModal();
+  const back=el('button','quiet','← All sources'); back.onclick=()=>{currentCitation=null;renderEvidence(state);};box.prepend(back);
 }
 async function act(value) { try { await ensureConversation(); await api('/api/conversations/' + current, value); await refresh(); await loadBootstrap(); } catch (e) { toast(e.message); } }
 async function replay(run) { await ensureConversation(); await act({action: 'replay', run}); }
-async function newConversation() { if (stream) stream.close(); current = null; state = null; $('#messages').replaceChildren(); $('#welcome').hidden = false; $('#working').hidden = true; $('#conversation-title').textContent = 'New conversation'; $('#rename-chat').hidden = true; $('#delete-chat').hidden = true; $('#source-count').textContent = '0 SOURCES'; $('#evidence-content').replaceChildren(el('div', 'empty-evidence', 'Attach sources or start a topic. Exact quotes and verification details appear here.')); $('#deck-content').replaceChildren(); document.body.classList.remove('sidebar-open'); chatView(); await loadBootstrap(); $('#composer-input').focus(); }
+async function newConversation() { currentCitation=null; if (stream) stream.close(); current = null; state = null; $('#messages').replaceChildren(); $('#welcome').hidden = false; $('#working').hidden = true; $('#conversation-title').textContent = 'New conversation'; $('#rename-chat').hidden = true; $('#delete-chat').hidden = true; $('#source-count').textContent = '0 SOURCES'; $('#evidence-content').replaceChildren(el('div', 'empty-evidence', 'Attach sources or start a topic. Exact quotes and verification details appear here.')); $('#deck-content').replaceChildren(); document.body.classList.remove('sidebar-open'); chatView(); await loadBootstrap(); $('#composer-input').focus(); }
 $('#composer-form').onsubmit = async event => { event.preventDefault(); const input = $('#composer-input'), text = input.value.trim(); if (!text) return; input.value = ''; await act({action: 'message', text, template: selectedTemplate}); };
 $('#composer-input').onkeydown = event => { if (event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); $('#composer-form').requestSubmit(); } };
 $('#composer-input').oninput = event => { event.target.style.height = 'auto'; event.target.style.height = Math.min(160, event.target.scrollHeight) + 'px'; };
@@ -243,6 +247,7 @@ $('#eval-view').onclick = async () => {
   $('#chat-screen').hidden = true; $('#evaluation-screen').hidden = false; $('#chat-view').classList.remove('active'); $('#eval-view').classList.add('active'); document.body.classList.remove('sidebar-open');
   const box = $('#evaluation-content'); box.replaceChildren(el('p', '', 'Reading saved measurements…'));
   try { const value = await api('/api/evaluation'); const holdouts=typeof value.holdouts==='string' ? value.holdouts : 'Holdouts: '+(value.holdouts?.status || 'UNMEASURED')+(value.holdouts?.reason ? ' — '+value.holdouts.reason : ''); box.replaceChildren(el('p', 'gap', holdouts), el('p', 'message-label', value.review));
+    if (value.owner_labels) { const r=value.owner_labels; const labels=el('a','primary','Label evidence →'); labels.href=value.labelling_url; labels.target='_blank'; box.append(el('p','message-label',`${r.owner_labelled} owner-labelled · ${r.pending} AI review / pending owner labels`),labels); for (const [group,result] of Object.entries(r.groups || {})) box.append(el('p','message-label',`${group}: ${result.owner_labelled}/${result.total} owner-labelled · owner subset ${result.owner_verdict}`)); for (const [key,result] of Object.entries(r.verdicts || {})) box.append(el('p','gap',`${key}: ${result.status} · ${result.owner_labelled} owner-labelled / ${result.AI_review} AI review`)); }
     box.append(el('h2', '', 'Your conversations')); const own = el('div', 'metrics'); value.conversations.forEach(c => { const b = el('button', 'metric'); b.append(el('strong', '', c.metrics.units ?? 0), document.createTextNode(c.title)); b.onclick = () => openConversation(c.id); own.append(b); }); box.append(own);
     box.append(el('h2', '', 'Research runs')); const table = el('table', 'score-table'), head = el('thead'), hr = el('tr'); ['RUN', 'UNITS', 'SOURCES', 'TIME', 'STATUS'].forEach(t => hr.append(el('th', '', t))); head.append(hr); table.append(head); const body = el('tbody');
     const runs = value.scoreboard.runs || value.scoreboard.rows || []; const entries = Array.isArray(runs) ? runs : Object.entries(runs).map(([id, r]) => ({id, ...r}));

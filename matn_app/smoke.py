@@ -124,7 +124,7 @@ def run_replay_smoke():
                     topic = conversation
             # The topic journey reopens actual saved evidence and renders a deck.
             state = client.complete(topic, {"text": "How can administrative changes reduce queue waiting times in government offices?"})
-            if state["messages"][-1]["kind"] != "answer" or not state["messages"][-1]["result"]["citations"]:
+            if state["messages"][-1]["kind"] != "answer" or state["messages"][-1]["result"]["citations"]:
                 raise ValueError("APP_SMOKE_REPLAY_ANSWER_FAILED")
             topic_answer_kind = state["messages"][-1]["result"]["answer_kind"]
             state = client.complete(topic, {"action": "build", "template": "ministry_light"})
@@ -141,8 +141,8 @@ def run_replay_smoke():
                 raise ValueError("APP_SMOKE_FILE_OVERVIEW_FAILED")
             state = client.complete(files, {"text": "What is available online?"})
             answer = state["messages"][-1]["result"]
-            if answer["status"] != "answered" or not any(c.get("path") == "/access/booking" for c in answer["citations"]):
-                raise ValueError("APP_SMOKE_JSON_POINTER_ANSWER_FAILED")
+            if answer["status"] != "abstained" or answer["citations"] or "Appointment booking is available online." in answer["text"]:
+                raise ValueError("APP_SMOKE_FIXTURE_GENERATED_ANSWER_BOUNDARY_FAILED")
             state = client.complete(files, {"action": "build", "template": "editorial"})
             first = _deck(client, files, state)
             original_hashes = {p: hashlib.sha256(Path(p).read_bytes()).hexdigest()

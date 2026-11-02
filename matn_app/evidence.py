@@ -619,6 +619,9 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
     generator = None
     try:
         search = _PerSourceSearch(Search(repo, None, lexical_only=True))
+        if not fake:
+            from .answer_retrieval import HybridSearch,HybridBlockRanker
+            search=HybridSearch(Search(repo,None,lexical_only=True))
         kwargs = dict(source_coverage=manifest.get("source_coverage", {}),
                       source_revisions=manifest.get("source_revisions", {}))
         if fake:
@@ -690,7 +693,7 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
             generator = SerialGenerator(calls)
             from eval.chat.token_budget import TokenCounter
             counter = TokenCounter()
-            kwargs.update(generator=generator, entailment=native,token_counter=counter,num_ctx=4096)
+            kwargs.update(generator=generator, entailment=native,token_counter=counter,num_ctx=4096,reranker=HybridBlockRanker())
         from .answer_engine import AppChatEngine
         progressive=[]
         def verified(item,index):
@@ -700,12 +703,20 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
                 doc_id=ref.get('doc_id'),page=ref.get('pdf_page_index',-1)+1,span=ref,spans=refs,
                 status='verified',at=time.time(),region=engine.region_labels.get(ref.get('block_id'),'body'),binding=item['receipt']['request_sha256']))
             _write(folder/'verified-progress.json',dict(first_at=progressive[0]['at'],sentences=progressive))
-        if not fake:kwargs['on_verified']=verified
+        if not fake:
+            kwargs['on_verified']=verified
+            kwargs['on_status']=lambda stage,index,total:_event(folder,stage,sentence=index,sentences_total=total)
         engine = (ReliableChatEngine if fake else AppChatEngine)(search, documents, **kwargs)
         value = (engine.ask(name, selected, query_plan["current_question"], query_plan=query_plan)
                  if query_plan else engine.ask(name, selected, question))
         if value.get("error"):
             value["error_detail"] = next((entry["error"].get("detail", "") for entry in reversed(engine.trace) if entry.get("error")), "")
+        if not fake:
+            _write(folder/'answer-embedding-calls.json',search.audit)
+            ledger_value=json.loads((ledger/'ledger.json').read_bytes())
+            for field,kind in [('query_embedding','query_inputs'),('corpus_embedding','corpus_inputs')]:
+                ledger_value['calls'][field]+=sum(row.get(kind,0) for row in search.audit)
+            _write(ledger/'ledger.json',ledger_value)
         value["app_calls"] = dict(generation=0, native=0) if fake else json.loads((ledger / "ledger.json").read_bytes())["calls"]
         _write(folder / "answer-receipts.json", dict(response=value, trace=engine.trace, fake=fake))
         from .reading_hygiene import regions
@@ -872,6 +883,23 @@ def _answer(request: dict) -> dict:
                 failures.append(dict(stage="grounded_answer", error=value["error"], detail=value.get("error_detail", "")))
         except Exception as exc:
             failures.append(dict(stage="grounded_answer", error=type(exc).__name__, detail=str(exc)[:300]))
+    # If the requested fact was not established, draft supported background
+    # from a separate bounded retrieval. Never infer report-wide absence from a
+    # search miss, and never promote the background to a direct answer.
+    coverage_only=False
+    def generated(value):
+        return any(s.get('kind')=='generated_verified_unit' and s.get('receipt_index') is not None and value.get('receipts',[])[s['receipt_index']].get('receipt',value['receipts'][s['receipt_index']]).get('status')=='verified' for s in value.get('sentences',[]))
+    if not fake and not failures and notebooks and not any(generated(v) for v in native_answers):
+        from matn_chat.question_scope import YEAR
+        background='Summarize supported source background relevant to this request; do not infer missing facts: '+YEAR.sub('',str(question)).replace('?','.')
+        for notebook in dict.fromkeys(notebooks):
+            child=folder/'coverage-attempt';child.mkdir(exist_ok=True)
+            try:
+                value,coverage=_notebook_answer(notebook,background,child,fake=False)
+                value['coverage_only']=True;native_answers.append(value);retrieval.extend(coverage)
+                coverage_only=coverage_only or generated(value)
+            except Exception as exc:
+                failures.append(dict(stage='source_coverage',error=type(exc).__name__,detail=str(exc)[:300]))
     selected = _rank_citations(citations, question)
     text, answer_citations = [], []
     # Engine answers remain verified by their actual receipts; excerpts are kept
@@ -880,9 +908,9 @@ def _answer(request: dict) -> dict:
         for sentence in value.get("sentences", []):
             receipt = value.get("receipts", [])[sentence["receipt_index"]] if sentence.get("receipt_index") is not None else None
             receipt = receipt.get("receipt", receipt) if receipt else None
-            if sentence.get("kind") != "source_excerpt" and (not receipt or receipt.get("status") != "verified"):
+            if sentence.get("kind") != "generated_verified_unit" or not receipt or receipt.get("status") != "verified":
                 continue
-            sid = f"A{len(answer_citations) + 1}"
+            sid = str(len(answer_citations) + 1)
             refs = sentence.get("citations", [])
             ref = refs[0] if refs else {}
             source = next((s for s in catalog.sources if s.doc_id == ref.get("doc_id")), None)
@@ -894,30 +922,26 @@ def _answer(request: dict) -> dict:
                        page=ref.get("pdf_page_index", -1) + 1, path=None, span=ref, spans=refs,
                        verification=receipt, kind=sentence.get("kind")))
             text.append(sentence["text"] + " [" + sid + "]")
-    if not text:
-        answer_citations = selected
-        text = [c["text"] + " [" + c["id"] + "]" for c in selected]
-    response = "\n\n".join(text) if text else "Insufficient verified evidence in this conversation to answer that question."
-    copied = answer_citations and all(c.get("kind") in ("source_copy", "source_excerpt") for c in answer_citations)
-    partial=not fake and bool(text) and (bool(failures) or any(v.get('state')!='answered' for v in native_answers))
-    if failures:
-        response='The local answer attempt did not complete. Retry this question; earlier verified sources remain available.'+('\n\nWhat the sources do say:\n\n'+response if text else '')
-    elif partial:
-        response=('Partial — what the sources do say; a complete answer was not established.\n\n' if copied else
-                  'Partial answer — some requested points were not established.\n\n')+response
-    return dict(operation="answer", status="partial_answer" if partial else "answered" if text else 'error' if failures else "abstained", text=response,
-                question=str(request.get('question','')),retryable=bool(failures),
-                answer_kind="verified_source_copies" if copied else "native_grounded_answer" if native_answers and any(v.get("sentences") for v in native_answers)
-                            else "exact_verified_source_copies", fake=fake,
-                citations=answer_citations, failures=failures, coverage=retrieval,
+    # Retrieval stays internal. Never turn selected catalog entries, copied
+    # source units or an excerpt recovery into a chat reply (including fixtures).
+    partial=bool(text) and (coverage_only or bool(failures) or any(v.get('state')!='answered' for v in native_answers))
+    response="\n\n".join(text)
+    if not response:
+        response=("Fixture mode: generated answers require a real local model." if fake else
+                  "I could not verify a written answer to this question from the available sources.")
+        if failures:response+=' Retry this question; earlier verified sources remain available.'
+    return dict(operation="answer",status="partial_answer" if partial else "answered" if text else "abstained",
+                text=response,question=str(request.get('question','')),retryable=bool(failures),
+                answer_kind="generated_source_coverage" if coverage_only else "generated_answer" if text else "no_verified_generated_answer",fake=fake,
+                citations=answer_citations,failures=failures,coverage=retrieval,
                 engine_states=[v.get("state") for v in native_answers],
-                message="Answer completeness is not established; only cited evidence is shown.",
-                metrics=dict(seconds=round(time.monotonic() - started, 3), sources=len(catalog.sources),
-                             units=len(text), model_calls=sum(v.get("app_calls", {}).get("generation", 0) for v in native_answers),
-                             native_calls=sum(v.get("app_calls", {}).get("native", 0) for v in native_answers),
-                             verification_blocks=sum(1 for v in native_answers for r in v.get("receipts", [])
-                                                     if r.get("receipt", r).get("status") != "verified"),
-                             dropped_sentences=sum(v.get("dropped_sentences", 0) for v in native_answers)))
+                message="Context only: the requested answer was not verified. These sentences describe supported background." if coverage_only else "AI review, pending owner labels; verification is not a completeness judgment.",
+                unsupported_notice=not bool(text),
+                metrics=dict(seconds=round(time.monotonic()-started,3),sources=len(catalog.sources),
+                    units=len(text),model_calls=sum(v.get("app_calls",{}).get("generation",0) for v in native_answers),
+                    native_calls=sum(v.get("app_calls",{}).get("native",0) for v in native_answers),
+                    verification_blocks=sum(1 for v in native_answers for r in v.get("receipts",[]) if r.get("receipt",r).get("status")!="verified"),
+                    dropped_sentences=sum(v.get("dropped_sentences",0) for v in native_answers)))
 
 
 def answer(request: dict) -> dict:

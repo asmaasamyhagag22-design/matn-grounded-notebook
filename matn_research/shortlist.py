@@ -30,14 +30,17 @@ def candidates(wire, screen=None):
 
 
 def admission_screen(wire, reg, host_of, label_of):
-    """sid -> reason for promotion/consent/own-vendor lines and cross-page template sentences."""
+    """Retrieval screen excludes promotion/furniture; prose independence is a writer gate.
+
+    M4 discourse filtering here changed the benchmark candidate ordering and
+    created 17 regressions. Keep that veto at writer/placement boundaries.
+    """
     from .view_rank import promotion, cross_page_boilerplate
     segments = {s['id']: s for s in wire['segments']}
     out = {}; rows = []
     for s in wire['sources']:
         seg = segments[s['support_segment']]; doc = reg['segments'][s['support_segment']]['doc_id']
-        from .quality import sentence_reason
-        reason = sentence_reason(seg['text']) or promotion(seg['text'], host_of.get(doc), label_of.get(doc) == 'commercial-vendor')
+        reason = promotion(seg['text'], host_of.get(doc), label_of.get(doc) == 'commercial-vendor')
         if reason:
             out[s['handle']] = reason
         rows.append((s['handle'], doc, host_of.get(doc), seg['text']))

@@ -1,6 +1,6 @@
 {
-  "source_freeze_identity": "e65f4d86d989c164f973cb84ac08580b523f47ad68a05b37eaba2df3fa68e4f4",
-  "source_runtime_commit": "081a802068d65097073429e0dd01cbebbfe5d4fa",
+  "source_freeze_identity": "dd1dfdc72b0b205ad323cf1616261fc8f2a456ec441f4d14e8790339e0c2771e",
+  "source_runtime_commit": "f585945698b30b83cce1a2115658cc389ecc6488",
   "candidate_acceptance": "FAIL",
   "export_policy": "Generic runtime; three original templates and licensed icons; synthetic contract tests. No private document/evaluation data, saved runs, historical galleries or owner process records.",
   "files_from_freeze": {
@@ -78,28 +78,28 @@
     "live.sh": "9d483a26a6353d25af453b172a67e37c13db34fa8ffdd0128572f5b3c36b6d2d",
     "matn_app/__init__.py": "ea9f756f8d14c8c0281537fbe395ee9055c4e430731a530a453b911f2289fde7",
     "matn_app/__main__.py": "b7b363c7a50864dfeead082c5702ae7c80881d0cad8f997a4c30aeaf2ead7088",
-    "matn_app/answer_engine.py": "21f604b1ab81b829723a52d2ca66a09a05d4cafc8bf3c31ed463135ca07d9272",
+    "matn_app/answer_engine.py": "6e18cdd3aef84be08070eee6b7db756f2266bdfe0e385135a903dfdedd4aaa06",
     "matn_app/clarification.py": "d988011cf4315de922ba06be9692ff052214f800a427a44d090baaae1041fee0",
     "matn_app/deck_worker.py": "ff2454f2e5b59a945989ffc46309801a54aceb3642d5c3bb48dc13c251a95efa",
     "matn_app/demo.py": "05b1364cc04eb29ddd26c1d111c8d46d2e3d244492e18f030731afadeedac395",
-    "matn_app/evidence.py": "dc0a6c3be0e098e77310e62e01b8d6b2177a58df69ba7d80e9bf7085ed4a351d",
+    "matn_app/evidence.py": "ecbed12bde6e4607791e8c34343debb99ae1b9c93e59a7d5b1420d837513fb87",
     "matn_app/evidence_worker.py": "1e1f52e9c5ae7670bd29b74c310d00c6ad0866073e5a81f73b96e7a854aadd93",
     "matn_app/freeze.py": "a348d9a7b838414878e9e61e6786f4e1c24413d39b29413a1b0a6533ac9ddfe3",
     "matn_app/jobs.py": "8536f96a4ad2ba5a8948953e2b0e9d7d025ab1c2a65ed5f3be33cb1bd395ee24",
     "matn_app/model_gate.py": "8258254b256179f73923563ef74a2f0a804ce0bb5dd5871190501cad8909cce0",
     "matn_app/overview.py": "c36e7b832106cde94e588b6884d8a9ac174f698fc3ec459a59631effd3c02ddf",
     "matn_app/profiling.py": "afc61838c5da84e75fe331c458ea7a8e0863fb84a502f9bc6b62cccd4570d918",
-    "matn_app/reading_hygiene.py": "bffc634a3af616de9e163071f16b07a0b296bb0b37c6e1d4c14129e5063a6271",
+    "matn_app/reading_hygiene.py": "2b55150e47669049aebf855fabcf15c7642db8fadddf0558bb4c673cbc3b3f1f",
     "matn_app/research_worker.py": "6fdcec1297d64f5d6134d2149d45e5ab9fb5b64d5b1a9a4bb408a71f1eb2782b",
-    "matn_app/runtime.py": "6d8387dfd47aebe40735ab5ec72c791e738fd92b958af9b11da2c7cbf5c74274",
-    "matn_app/server.py": "32ed41d2f109e8d0c9364a9541c40890776d9a567bd2d23af060c7fd563f2ed6",
-    "matn_app/service.py": "87783a3869dc41a59798cf9a04d5e875a3a12b3fbe8236af619f6b0d2f6e95ff",
-    "matn_app/smoke.py": "82a118d18f188c1ce1554c42cceb003a16adad74bc554eba148c8bc741b38f8b",
-    "matn_app/static/app.css": "db82eef669f9187211a3d476c21ed22d026334f5a77b8f8a22ec5c832ca4acf1",
-    "matn_app/static/app.js": "43afcac873d4c976c3e1d23b9808965e1d0bd42dc7271e1225e54eb8211f1a10",
+    "matn_app/runtime.py": "c1ac9bbe1f6cea018452a714f250d3c016e6e7c5917645151d494346f3f0f466",
+    "matn_app/server.py": "0c4db60b682e072e78a0bd98ae2c172773d9034716d717cb20fd6e9b8dbf9434",
+    "matn_app/service.py": "c2155fd74c0fc7c3ab8be92e3ffa02800db0dd8b1e570475a76722e3d7282912",
+    "matn_app/smoke.py": "1e00f97a2ad29ee16369e9989e3f7c4f818455bf6336287c5222dda23aeee5de",
+    "matn_app/static/app.css": "80c05b86ef4c749905219f4aa7529dae06ecc6fbc9d386ade5255adf046ab490",
+    "matn_app/static/app.js": "6990de342d01cda55073760cf7c4f400e937ab71e3a51a92892edd686622cd58",
     "matn_app/static/index.html": "a51574ab499359479eb283778ee8870a79d84ffc229c8a4d3421e62ba14651c8",
     "matn_app/store.py": "cfc0e29721a5eb3e9b0f56db1adac752da9ace302540573238bf87937ccd2919",
-    "matn_app/verification.py": "d2407ae26c9bad9715998b9a2196256e148b690a14090e48d69fcc87c43c5f31",
+    "matn_app/verification.py": "742e9ad7b295971ed4633ee3b18bde81fe2a8ae01276c9ef6a9a9ba88529638e",
     "matn_chat/__init__.py": "6086490f13d64a9683cf5b220bb6cb80ced4f344f570e1db1c98fc355433f8b4",
     "matn_chat/__main__.py": "a52ba6ccc81b371ee6cdb09d3e41c695307f4cd70b6a73cd93eb06eb4a1cbba7",
     "matn_chat/block_rank.py": "356e6a32bd7df9a2646e894d6471e12a2c78166898e732aa2abf3e7c7043552e",
@@ -236,7 +236,7 @@
     "matn_research/budgets.py": "99e6a74098dfb84fb445bb5e6ce97dc4387fddc8ccfe42ccd7d4be4fa2ae008f",
     "matn_research/catalogue_audit.py": "1ce4d84df58694fe95f0d3de3eab0ae58f852e62a73389042fe40f353a4ede61",
     "matn_research/facets.py": "1e68ec1bbbe6b6790f83a779ea91e77aeb8975e7ee3cb4db57b6112dce89d8fd",
-    "matn_research/fast.py": "bd04ae98f6b445aa7d10f34f861931f70feefecc51648a3a1d11c1863046a96e",
+    "matn_research/fast.py": "21e8a094740e21b448e50d396ad8731dd6e493e9dd28bd98eddf3b540c4c1d43",
     "matn_research/live_preset.json": "fabf3eb5497f3187e6548f309bc52ec16e27d2a3da1dc2c15ae0c50c542b20aa",
     "matn_research/models.py": "8e25cd6fb669cd15d0090de1513c850cf48bf7a142b9ed0862a37c3ea7763a14",
     "matn_research/network.py": "b17c8b5b3435d44b9a3ab1819954a015e51abf058a2971f5a6eaf86631c268c9",
@@ -249,7 +249,7 @@
     "matn_research/reader.py": "3b4b6f3ef0031cfe0556dc2c4f9d635f0ab30fdc62d7f30d05f072221e3bee20",
     "matn_research/requirement_selection.py": "a6f7d9ba59949fc7d64a653983077c09c4fae388b36f8b673047d0d729d86b23",
     "matn_research/runtime.py": "231adee8964abc3bc7e869d605370865db3f17d024b504fc2661847c85ed3eee",
-    "matn_research/shortlist.py": "4db2cbfdb451f46c74999886f4930f4ebf9bc11c0af64b777f7f55556a55e9ac",
+    "matn_research/shortlist.py": "6010f8a2e3a1ebc57eb9a85f452042748d17d5da13d63b25aa97eefffb54ae68",
     "matn_research/source_type.py": "97d5dada6e5a05a27b20bf012bfcaf707adafadcd63b06690f76cba05e490dc6",
     "matn_research/suitability.py": "0aa66ddbbd19e8d52d1d76b04bff50fc77b53c1f83be1b2b701087cfbdcbb036",
     "matn_research/synthesis.py": "98c11822ca043b0ec32ae60d97d251dbd6aeccaefab0316dbd415f8024d83180",
@@ -418,7 +418,24 @@
     "tests/verification/test_rules.py": "d0fc03e106baae0c120c9956c56e575e451c08dc61bb9b843fbf9bf8b65b8174",
     "eval/gold/schema.json": "627668c169a0b34938f9f56b494dc049dd426bc1e72c1142ffdc7e7937e4c2c5",
     "eval/research/catalogue_trace.py": "fd428eb078a478afeb56590dafb413cdb46f0988490ac83992fc6d6a2b00ae3c",
-    "tests/research/fixtures/vendor-publisher.json": "5568359974b07e57cbcf7b06f8ce1ed9a8acd5eb8939c1b9848f9753402ea9cf"
+    "tests/research/fixtures/vendor-publisher.json": "5568359974b07e57cbcf7b06f8ce1ed9a8acd5eb8939c1b9848f9753402ea9cf",
+    "matn_app/answer_retrieval.py": "eb3e98b10298919ef0c2edcef756a96321a4a621c56c0ce71b89d687ec40635e",
+    "matn_app/labels.py": "c7f63173d836c88eff867043ae06b539ee7f0aa47de4e6f003b12ec9135d08e9",
+    "matn_app/prose_verification.py": "e72b40815362cd6e7671148cf1c515f386d9902bdbf89c981923f0d415c35031",
+    "matn_app/static/labels.css": "602e24983cb1460cd2020d4956ac86b32e36751374cc850b1ef5305972cfbad9",
+    "matn_app/static/labels.js": "4ca35e02fd72290657a504c318044b30cd81b45ca6a8f56fc4e4ebfda8223b55",
+    "matn_app/static/labels.html": "6f0746459523f43107d70fcbc9219a3a5d15d1cda9262c3b7c043ed4b46641f9",
+    "tests/app/test_generated_answers.py": "1d598c28d17d9eb32f4ef8b5bdefd800232be176fe546941fdded14e3a847126",
+    "tests/app/test_reply_rendering.py": "f960bf8efb96cb54e35b8de0b666c62ce4cb8dc5f00c6e5c94b46c987ba5a3c9",
+    "tests/app/test_labels.py": "8776afcaada039e4adb4100db1d429a767cf4f0aa17394ee553e55bb47a87f02",
+    "tests/app/test_reading_hygiene.py": "42a6ea191ed7dee6c1373af051f65f621c1e199501f92c1b0c017e1223048ea6",
+    "tests/app/test_deck_panel.py": "d115c42d29566615b42718ee577b929c70cc38d1a31f9332680531be194bf282",
+    "tests/app/test_prose_verification.py": "bd65ee27fb7d85c28ff497ff93e01d8bb9a42ffb0d96c6226206d1e17120b703",
+    "docs/adr/0030-generated-chat-answer-contract.md": "bc3be52f00d6418c5f29e8fefe6a1ffe7393088539316bc10851d7814873c782",
+    "docs/adr/0031-generated-source-coverage.md": "15c3c8b7a2f4d52b448527bbc945cc4f43a1ad3138b846c9ecd740e8c27db3c2",
+    "docs/adr/0032-explicit-generation-wire-contract.md": "fcb989b51a7b3a34ee0826ad496796d0199ac8cf2af0b9b2d64fdc7ba2dc9868",
+    "docs/adr/0033-app-prose-subject-binding.md": "e8bf5d7f1d77363ec515753c59f6a0af1690457c0914c6e6918391229c0714b5",
+    "tests/app/test_evidence.py": "1c416fa039c33679330b186f19eff3cf795cc72b514da0fe5083270a75f2f3a9"
   },
   "images": {
     "design/icons/heroicons/calendar-days.png": {
@@ -495,6 +512,21 @@
       "sha256": "cbedc4b068e88cd82593a579bb2891ad3c50656d4b8c241e09c94d97315eefcf",
       "provenance": "Real M4 clarification check before sources or searches; transformer meaning and missing audience",
       "visual_review": "AI Codex visual inspection; not human"
+    },
+    "docs/images/answers-generated-development.jpg": {
+      "sha256": "6161500f1774a6389d5514b8b683503f791430365ee7348209039fe4871741a4",
+      "provenance": "Saved real local GAO-21-519SP + CC BY arXiv2601.14525v1 result; development success and acceptance failure explicitly distinguished; zero new inference for replay",
+      "visual_review": "AI Codex screenshot inspection; not human"
+    },
+    "docs/images/answers-generated-citation.jpg": {
+      "sha256": "81b09c978b8977c8ced706556ae07d3ffad20d58e0d737374a22556552b4bea4",
+      "provenance": "Saved real local GAO-21-519SP + CC BY arXiv2601.14525v1 result; development success and acceptance failure explicitly distinguished; zero new inference for replay",
+      "visual_review": "AI Codex screenshot inspection; not human"
+    },
+    "docs/images/answers-acceptance-fail.jpg": {
+      "sha256": "79c3db00466b1ff5f373936d0bad45fc835e5610421582ee2cc718de4e43e624",
+      "provenance": "Saved real local GAO-21-519SP + CC BY arXiv2601.14525v1 result; development success and acceptance failure explicitly distinguished; zero new inference for replay",
+      "visual_review": "AI Codex screenshot inspection; not human"
     }
   },
   "portability_changes": [
@@ -507,7 +539,7 @@
     "Minimal application dependencies include numpy; separate offline CI requirements and curated tests",
     "Existing licence-boundary guard and tests retained; frozen legacy importer allowlist only shrank for omitted files"
   ],
-  "identity_scope": "Curated portable export differs from the frozen measurement build. Measurements belong to the source freeze; public CI does not re-establish those scores.",
+  "identity_scope": "Curated portable public export differs from the measured private freeze; public CI does not establish semantic scores.",
   "source_freeze_file_count": 633,
   "third_party_font_notices": [
     {
@@ -601,5 +633,8 @@
     "generation_calls": 0,
     "native_calls": 0,
     "search_calls": 0
-  }
+  },
+  "answers_acceptance": "FAIL: 0/20 generated direct answers; 18 memory-deferred chat_error questions and one follow-up routing failure",
+  "research_acceptance": "FAIL: 20 displayed units,9 AI-reviewed errors,9 borderline; displayed axes mean3.25; vendor-read49.13%,shown64.58%",
+  "review_scope": "Cross-family AI review; owner labels pending. Failed measurements are retained, not tuned away."
 }

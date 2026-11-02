@@ -166,9 +166,10 @@ def safe_progress(folder):
         if Path(source).is_absolute():value.pop('source',None)
     verified=read(Path(folder)/'verified-progress.json',{})
     if verified.get('sentences'):
-        value.update(stage='Verified evidence so far',verified=verified['sentences'])
+        value.update(verified=verified['sentences'])
+        if value.get('stage') not in ('planning','drafting','checking'):value['stage']='Verified evidence so far'
     # Never return prompts, model responses or raw worker logs as live steps.
-    return {k: value[k] for k in ("stage", "source", "file", "pages", "completed", "total", "units", "status",'verified','ocr_total') if k in value} or "Reading and verifying sources…"
+    return {k: value[k] for k in ("stage", "source", "file", "pages", "completed", "total", "units", "status",'verified','ocr_total','sentence','sentences_total') if k in value} or "Reading and verifying sources…"
 
 
 def worker_result(folder, output):
@@ -183,3 +184,4 @@ def worker_result(folder, output):
         except ValueError:
             continue
     raise ValueError("Worker did not return a result; its local log is retained")
+

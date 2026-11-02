@@ -6,3 +6,8 @@ The three published UI screenshots were reviewed against their source files. Two
 - **Chenglei Si, Zitong Yang, Yejin Choi, Emmanuel Candès, Diyi Yang and Tatsunori Hashimoto**, *Towards Execution-Grounded Automated AI Research*, arXiv:2601.14525v1. [Exact version](https://arxiv.org/abs/2601.14525v1), [CC BY4.0 licence](https://creativecommons.org/licenses/by/4.0/). The exact-version licence was checked before the demo. Screenshots show selected source excerpts and the application's presentation layout, rather than an unchanged paper reproduction. No author endorsement is implied. Local source PDF SHA256: `ad9f9d0d152930510045d485eebb695ab15b8f775e9bfd63313355c591a675d7`.
 
 The paper and its PDF are not bundled. The app-restored screenshot shows the original saved deck selected after actual template and order edits; source-proof shows the linked GAO span and receipt. Screenshot image hashes and origins are recorded in `public-export.json` without private workstation paths. Asset-specific MIT and OFL notices are supplied separately. The project itself has no selected root licence.
+
+
+## 2 November screenshots
+
+`answers-generated-development.jpg` and `answers-generated-citation.jpg` show a real saved development paraphrase of GAO-21-519SP, not a registered acceptance success. `answers-acceptance-fail.jpg` shows the actual inability notice for a registered question about the CC BY 4.0 paper, not a generated answer. Both documents were the only source snapshots in that local app view. Replaying saved results incurred no fresh model calls. Images were inspected by AI; no endorsement or human quality acceptance is implied.

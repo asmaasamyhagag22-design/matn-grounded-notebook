@@ -75,6 +75,13 @@ def make_server(app, port=8787, host="127.0.0.1"):
                     return self.reply(200, dict(app.bootstrap(), token=token))
                 if parts == ["api", "evaluation"]:
                     return self.reply(200, app.evaluation())
+                if parts == ["api","labels"]:
+                    return self.reply(200,app.labels.public())
+                if parts in (["labels"],["labels","index.html"]):
+                    return self.reply(200,app.labels.page().read_bytes(),"text/html")
+                if parts in (["labels","labels.js"],["labels","labels.css"]):
+                    target=STATIC/parts[1]
+                    return self.reply(200,target.read_bytes(),mimetypes.guess_type(target)[0] or "text/plain")
                 if len(parts) >= 3 and parts[:2] == ["api", "conversations"]:
                     conversation = parts[2]
                     if len(parts) == 4 and parts[3] == "events":
@@ -118,6 +125,8 @@ def make_server(app, port=8787, host="127.0.0.1"):
                 if not isinstance(value, dict):
                     raise ValueError("JSON object required")
                 parts = [unquote(x) for x in urlsplit(self.path).path.split("/") if x]
+                if parts == ["api","labels"]:
+                    return self.reply(200,app.labels.submit(value.get('id'),value.get('decision'),value.get('note','')))
                 if parts == ["api", "conversations"]:
                     return self.reply(201, app.store.create(value.get("title", "New conversation"), value.get("audience")))
                 if len(parts) == 3 and parts[:2] == ["api", "conversations"]:

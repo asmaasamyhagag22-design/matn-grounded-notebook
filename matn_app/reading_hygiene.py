@@ -26,13 +26,24 @@ def regions(document):
     body_size=median(sizes) if sizes else 0
     heights={p.pdf_page_index:p.height for p in document.pages}
     labels={}
-    for page,elements in by_page.items():
-        headings='\n'.join(e.block.text for e in elements if _value(e.role)=='heading')
+    reference_continuation=False
+    for page,elements in sorted(by_page.items()):
+        headings='\n'.join(e.block.text for e in elements if _value(e.role)=='heading' or re.fullmatch(r'(?i)\s*(?:references|bibliography)\s*',e.block.text))
         genre=None
         if re.search(r'(?im)^\s*(?:contents|table of contents|list of (?:figures|tables)|figures and tables)\s*$',headings):genre='toc'
         elif re.search(r'(?im)^\s*(?:appendix\s+\w+:\s*)?(?:bibliography|references|acronyms|abbreviations|glossary)\s*$',headings):genre='reference_list'
         elif re.search(r'(?i)\backnowledg(?:e?ments?|ements?)\b',headings):genre='acknowledgement'
         elif re.search(r'(?im)^(?:obtaining copies|order by phone|connect with|to report fraud|external liaison)\b',headings):genre='boilerplate'
+        if genre=='reference_list' and re.search(r'(?im)^\s*(?:references|bibliography)\s*$',headings):reference_continuation=True
+        elif reference_continuation and any(re.match(r'(?i)^\s*(?:appendix\b|[A-Z][.\s]+(?:additional|experimental|implementation|methods|results|details)\b)',e.block.text) for e in elements if _value(e.role)=='heading'):
+            reference_continuation=False
+        if reference_continuation and genre is None:
+            page_text=' '.join(e.block.text for e in elements)
+            # A Contents entry can mention References without starting a
+            # bibliography, and a later body section must not inherit it.
+            citation_surface=re.search(r'\b[A-Z][a-z]+,\s*[A-Z]\.|\b(?:doi|arxiv)\b',page_text)
+            reference_continuation=bool(citation_surface)
+            if reference_continuation:genre='reference_list'
         for e in elements:
             role=str(_value(e.role));kind=str(_value(e.block.block_type));text=e.block.text.strip()
             size=getattr(getattr(e.block,'style',None),'font_size_pt',None)
