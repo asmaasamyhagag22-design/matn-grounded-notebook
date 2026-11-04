@@ -8,7 +8,7 @@ from .runtime import DATA_ROOT
 from .store import read,write
 
 DECISIONS=('Correct','Wrong','Borderline','Skip')
-GROUP_ORDER={'disputed-holdouts':0,'answer-development':1,'historical-NQ':2,'new-holdouts':3,'answer-acceptance':4}
+GROUP_ORDER={'disputed-holdouts':0,'answer-development':1,'historical-NQ':2,'new-holdouts':3,'answer-acceptance':4,'answers-v2':5,'answers-v2-blocked':6}
 
 
 def binding(item):
@@ -87,8 +87,22 @@ class LabelStore:
                     errors+=bool(ai['error']);borderline+=bool(ai.get('borderline'))
                 else:unknown+=1
             fixed=base.get('fixed_gates_pass')
-            status='FAIL' if fixed is False or errors or borderline else 'PENDING' if fixed is None or unknown or not selected else 'PASS'
-            verdicts[key]=dict(status=status,errors=errors,borderline=borderline,unreviewed=unknown,
+            # Each pre-registered rule states how borderline counts; older
+            # rules count it against PASS, answers v2 reports it separately.
+            counted=borderline if base.get('borderline_is_error',True) else 0
+            direct=None
+            if base.get('direct_answers'):
+                # Owner label on an answer's first sentence decides whether it
+                # answers directly; otherwise the saved AI judgment stands.
+                rule=base['direct_answers'];direct=0
+                for qid,ai_direct in rule['ai_direct'].items():
+                    label=labels.get(rule['first_sentence'].get(qid) or '')
+                    if label and label['decision'] in ('Correct','Wrong'):direct+=label['decision']=='Correct'
+                    else:direct+=bool(ai_direct)
+                if direct<rule['minimum']:fixed=False
+            status='FAIL' if fixed is False or errors or counted else 'PENDING' if fixed is None or unknown or not selected else 'PASS'
+            verdicts[key]=dict(status=status,errors=errors,borderline=borderline,unreviewed=unknown,direct_answers=direct,
+                borderline_is_error=base.get('borderline_is_error',True),
                 owner_labelled=owner_count,AI_review=len(selected)-owner_count,fixed_gates_pass=fixed,
                 review='Owner overrides apply only to their exact bound units; remaining judgments are AI review.')
         return dict(total=len(items),owner_labelled=sum(r['owner_labelled'] for r in groups.values()),

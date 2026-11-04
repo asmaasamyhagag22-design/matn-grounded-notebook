@@ -42,6 +42,33 @@ def drain_generator(client):
             client.deadline = previous
 
 
+def memory_allows(sample=None):
+    """The guard's own threshold, read without reserving a call."""
+    from matn_chat.memory import MIN_AVAILABLE
+    from matn_storyboard import runtime as guard
+    return (sample or guard.sample_memory)()['available_bytes'] >= MIN_AVAILABLE
+
+
+def wait_for_memory(report, *, limit=120, sample=None, sleep=time.sleep):
+    """Wait visibly for the guard's own threshold instead of failing at once.
+
+    The threshold is unchanged: if memory is still short after the limit, the
+    guard in Calls.reserve refuses the call exactly as before.
+    """
+    from matn_chat.memory import MIN_AVAILABLE
+    from matn_storyboard import runtime as guard
+    # Read memory exactly where the guard in Calls.reserve reads it.
+    sample = sample or guard.sample_memory
+    waited = 0.
+    while True:
+        free = sample()['available_bytes']
+        if free >= MIN_AVAILABLE or waited >= limit:
+            return waited
+        report(free, MIN_AVAILABLE)
+        sleep(2)
+        waited += 2
+
+
 def preflight(*, fake=False, search_budget=0):
     rows = []
     for module in ("pydantic", "pptx", "pdfplumber", "pypdfium2", "PIL"):
@@ -169,7 +196,7 @@ def safe_progress(folder):
         value.update(verified=verified['sentences'])
         if value.get('stage') not in ('planning','drafting','checking'):value['stage']='Verified evidence so far'
     # Never return prompts, model responses or raw worker logs as live steps.
-    return {k: value[k] for k in ("stage", "source", "file", "pages", "completed", "total", "units", "status",'verified','ocr_total','sentence','sentences_total') if k in value} or "Reading and verifying sources…"
+    return {k: value[k] for k in ("stage", "source", "file", "pages", "completed", "total", "units", "status",'verified','ocr_total','sentence','sentences_total','standalone_question','available_gib','needed_gib') if k in value} or "Reading and verifying sources…"
 
 
 def worker_result(folder, output):

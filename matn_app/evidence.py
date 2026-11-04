@@ -635,7 +635,7 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
             if not (ledger / "ledger.json").exists():
                 open_ledger(ledger, experiment=1800, validation=180, closure=60)
             calls = Calls(ledger)
-            from .runtime import drain_generator
+            from .runtime import drain_generator, wait_for_memory, memory_allows
             class SerialNative(Native):
                 def check(self, text, evidence, target):
                     if generator is not None and generator.resident:
@@ -663,6 +663,14 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
                     # One local model family occupies RAM at a time, including
                     # the engine's failed-only redraft between native checks.
                     native.close()
+                    if self.resident and not memory_allows():
+                        # Plan -> write: when the resident generator itself
+                        # leaves less than the unchanged guard threshold, unload
+                        # it so the guard measures real headroom for a reload.
+                        drain_generator(self)
+                        self.resident = False
+                    wait_for_memory(lambda free, need: _event(folder, 'waiting_for_memory',
+                        available_gib=round(free / 1024**3, 2), needed_gib=round(need / 1024**3, 2)))
                     from matn_chat.streaming import StreamingGenerator
                     from matn_storyboard.core import digest
                     row = calls.reserve("generation", dict(payload_sha256=digest(body), payload=body))
@@ -958,6 +966,9 @@ def answer(request: dict) -> dict:
     with Conversation(request["session_dir"], session, scope) as conversation:
         question = str(request.get("question", ""))
         plan = conversation.plan(question)
+        if plan["reference_question"]:
+            # Reasoning trace only; the rewrite never appears in the answer.
+            _event(Path(request["workdir"]).resolve(), "followup_rewrite", standalone_question=plan["standalone_question"][:500])
         value = _answer(dict(request, query_plan=plan))
         # Conversation retains orientation only; subsequent retrieval and every
         # check still use the selected original source snapshots.

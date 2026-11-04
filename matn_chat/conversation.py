@@ -62,9 +62,12 @@ class Conversation:
         elliptical = bool(re.match(r'^(?:what about|how about|وماذا)\s+[^?]{1,50}\??$', question.strip(), re.I))
         current = re.sub(r'^and\s+', '', question.strip(), flags=re.I)
         query = current; inherited = ''; changes = []
+        if (reference or elliptical) and not self.value['turns']:
+            # Nothing earlier to resolve: "these experiments" in a first
+            # question is read as written, never a failed turn.
+            reference = elliptical = False
+            changes.append('reference_without_earlier_turn_answered_as_written')
         if reference or elliptical:
-            if not self.value['turns']:
-                raise ValueError('FOLLOWUP_NEEDS_CONTEXT')
             previous = self.value['turns'][-1]
             inherited = previous.get('retrieval_query', previous['question'])
             if YEAR.search(current):
@@ -76,11 +79,11 @@ class Conversation:
                 raise ValueError('FOLLOWUP_AMBIGUOUS_USE_EXPLICIT_TOPIC_AND_ENTITY')
             query = current + ' Regarding: ' + inherited
             changes.append('reference_resolved_from_previous_question_only')
-        else:
+        elif not changes:
             changes.append('self_contained_current_question_no_history')
         from .reliable import subquestions
         plan = dict(version='standalone-query-v2', current_question=question,
-            retrieval_query=query, scope_question=query, reference_question=inherited,
+            standalone_question=query, retrieval_query=query, scope_question=query, reference_question=inherited,
             answer_parts=subquestions(current),
             constraints=dict(years=sorted(set(YEAR.findall(query))), sources=self.scope.get('documents', [])),
             changes=changes, history_is_evidence=False, added_model_calls=0)
@@ -91,7 +94,10 @@ class Conversation:
         result['conversation']=dict(session=self.session,prior_turns=len(self.value['turns']),
                                     original_question=question,effective_question=effective,context_is_evidence=False,
                                     query_plan=getattr(self,'last_plan',None))
-        if result.get('sentences') and result['state'] not in ('error','deferred_memory'):
-            self.value['turns']=(self.value['turns']+[dict(question=question[:2000],retrieval_query=getattr(self,'last_plan',{}).get('retrieval_query',question)[:2000],answer=' '.join(s['text'] for s in result['sentences'])[:4000],
-                source_revision=result.get('source_revision'))])[-2:]
-            write(self.path,self.value)
+        # The user's question is orientation even when its answer failed, so a
+        # follow-up can still resolve it. Only verified answer text is kept.
+        answered=bool(result.get('sentences')) and result['state'] not in ('error','deferred_memory')
+        self.value['turns']=(self.value['turns']+[dict(question=question[:2000],retrieval_query=getattr(self,'last_plan',{}).get('retrieval_query',question)[:2000],
+            answer=' '.join(s['text'] for s in result['sentences'])[:4000] if answered else '',
+            source_revision=result.get('source_revision'))])[-2:]
+        write(self.path,self.value)

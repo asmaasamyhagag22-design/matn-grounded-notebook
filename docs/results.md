@@ -40,3 +40,18 @@ All22 synthetic content/layout slides passed measured geometry and the actual Li
 ## Public CI
 
 The exact offline command is `bash scripts/ci-fast.sh`, in a clean Python3.12 environment installed from `requirements-ci.txt`. It exercises synthetic contracts and deterministic adapters, without model downloads, research calls or private evaluation inputs. See `public-export.json` for the curated file identity and portability boundary. CI does not reproduce the scores above.
+
+## Answers v2 — 4 November 2026 (FAIL)
+
+20 new questions over GAO-21-519SP and arXiv 2601.14525v1 (CC BY 4.0), registered with the pass rule before one run in the real app, zero web searches, cross-family AI review.
+
+| Gate | Required | Result |
+|---|---|---|
+| Direct generated answers | ≥12 of 17 | 0 |
+| Verified "not covered" replies | 3 of 3 | 0 |
+| Excerpts shown as answers | 0 | 0 |
+| AI-reviewed silent errors | 0 | 0 (3 borderline) |
+| Median full answer | ≤300 s | 381.4 s |
+| Operational failures | 0 | 2 |
+
+Memory-guard deferrals fell from 18/20 to 0 after loading one heavy model at a time, but a kernel out-of-memory kill occurred while other desktop apps held 8–11 GiB. Rejected drafts are queued for owner labels to measure false blocks; no verification threshold was relaxed.

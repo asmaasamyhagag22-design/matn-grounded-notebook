@@ -27,7 +27,7 @@ REPLAYS = {
 
 
 class App:
-    def __init__(self, data=DATA_ROOT / "app", *, fake=False, search_budget=0, process_runner=None):
+    def __init__(self, data=DATA_ROOT / "app", *, fake=False, search_budget=0, process_runner=None, research_v2=False):
         if type(search_budget) is not int or search_budget < 0:
             raise ValueError("Search budget must be a nonnegative integer")
         if ORIGINAL.resolve() != ROOT.resolve() and Path(data).resolve().is_relative_to(ORIGINAL.resolve()):
@@ -37,6 +37,8 @@ class App:
         self.processes = process_runner or Processes()
         self.jobs = Jobs(self.store)
         self.search_budget = search_budget
+        # Research is frozen on the delivery code; v2 is a developer option.
+        self.research_v2 = research_v2 is True
         self.readiness = preflight(fake=fake, search_budget=search_budget)
 
     @property
@@ -56,7 +58,8 @@ class App:
             templates = []
         return dict(conversations=self.store.list(), preflight=self.readiness, templates=templates,
                     replays=[name for name,path in REPLAYS.items() if (ORIGINAL/path).is_dir()], busy=bool(self.jobs.active), fake=self.fake,
-                    search_remaining=self._search_remaining(), default_audience=DEFAULT_AUDIENCE)
+                    search_remaining=self._search_remaining(), default_audience=DEFAULT_AUDIENCE,
+                    research_v2=self.research_v2)
 
     def _search_remaining(self):
         budget = read(self.store.root / "search-reservations.json", {"reserved": 0})
@@ -250,9 +253,11 @@ class App:
         if action == "start":
             if not state["plans"]:
                 raise ValueError("Create a research plan first")
-            code = value.get("code", "v2")
+            code = value.get("code", "delivery")
             if code not in ("v2", "delivery"):
                 raise ValueError("Choose v2 or delivery research")
+            if code == "v2" and not self.research_v2:
+                raise ValueError("Research v2 is a developer option; start the app with --dev-research-v2")
             if value.get("plan"):
                 from matn_research.fast import PlanV2
                 plan = PlanV2.model_validate(value["plan"]).model_dump(mode="json")

@@ -55,6 +55,26 @@ def actor_transfer(text,quotes):
             (own if claim[0]<=parsed[0] else other).append(parsed[1])
     return bool(claim[1] in other and claim[1] not in own)
 
+REPAIR_HINTS={
+    'attribution_mismatch':'Keep the source sentence\'s own actor as the subject; never move an action to another actor, document or source.',
+    'modality_mismatch':'Use the source\'s exact modal or hedge words (may, can, should, involves, in some cases); never strengthen or weaken them.',
+    'negation_mismatch':'Keep every negation exactly as the source states it.',
+    'scope_unknown':'Keep the source\'s qualifiers (which environment, population, period or condition) and do not generalize beyond them.',
+    'entity_binding_unknown':'Name the subject and other entities with the words used in the evidence.',
+    'unsupported_numeric_form':'Copy each number exactly as written in the evidence, with its unit and what it measures.',
+    'number_not_in_evidence':'Use only numbers that appear in the assigned evidence.',
+    'number_unlinked':'Keep each number next to the entity and measure it belongs to in the evidence.',
+    'unsupported_statement':'Write the answer in your own sentence structure; do not reproduce the source sentence.',
+    'source_copy_not_answer':'Write the answer in your own sentence structure; do not reproduce the source sentence.',
+}
+
+
+def repair_hints(failures):
+    """Plain instructions for each failed check; verification is unchanged."""
+    codes=dict.fromkeys(c for f in failures for c in f.get('failure_codes',[]) if c in REPAIR_HINTS)
+    return ' '.join(dict.fromkeys(REPAIR_HINTS[c] for c in codes))
+
+
 def compact_payload(question, handles, failures=None, *, num_ctx=4096, plan=None):
     """A prose decoder with source IDs constrained independently of its wording."""
     item=dict(type='object',additionalProperties=False,required=['claim','handles','part'],properties=dict(
@@ -92,7 +112,7 @@ def compact_payload(question, handles, failures=None, *, num_ctx=4096, plan=None
     prompt+='Question: '+str(question)+'\nEvidence: '+json.dumps(evidence,ensure_ascii=False,separators=(',',':'))
     if plan:prompt+='\nPlan: '+json.dumps(plan,ensure_ascii=False,separators=(',',':'))
     if failures:
-        prompt+='\nRepair ONCE, only these failed slots in order, using only their original handles. Stay closer to evidence but paraphrase. Omit any unsupported replacement: '+json.dumps(failures)
+        prompt+='\nRepair ONCE, only these failed slots in order, using only their original handles. Stay closer to evidence but paraphrase. Omit any unsupported replacement. Repeating a failed sentence unchanged fails again. '+repair_hints(failures)+' Failed slots: '+json.dumps(failures)
     return dict(model=MODEL,prompt=prompt,format=schema,stream=True,think=False,truncate=False,keep_alive='60m',
         options=dict(num_ctx=num_ctx,num_predict=384,temperature=0,seed=20261101,num_thread=4))
 
@@ -160,10 +180,13 @@ class AppChatEngine(ReliableChatEngine):
         return picked
 
     def _call(self,body,timings,kind):
-        entry=dict(attempt=len(self.trace),kind=kind,payload=body,payload_sha256=hashlib.sha256(canonical(body)).hexdigest(),
-                   sentences=[],timings=dict(verification_seconds=0.))
-        self.trace.append(entry)
         tokens=self.token_counter(body['prompt']) if self.token_counter else len(body['prompt'])//3
+        # Size the KV cache to this prompt (same tokens fit, so the decode is
+        # unchanged); the overflow limit stays the engine's num_ctx.
+        body['options']['num_ctx']=min(self.num_ctx,max(2048,-(-(tokens+body['options']['num_predict']+512)//512)*512))
+        entry=dict(attempt=len(self.trace),kind=kind,payload=body,payload_sha256=hashlib.sha256(canonical(body)).hexdigest(),
+                   sentences=[],timings=dict(verification_seconds=0.),prompt_tokens=tokens)
+        self.trace.append(entry)
         if tokens+body['options']['num_predict']+512>self.num_ctx:raise engine.ChatFailure('context_budget_overflow')
         started=self.clock()
         try:

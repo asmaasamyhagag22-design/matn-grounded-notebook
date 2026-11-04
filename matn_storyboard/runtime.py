@@ -40,6 +40,11 @@ class Calls:
             raise TimeoutError('CALL_OR_EXPERIMENT_BUDGET')
         memory=sample_memory()
         minimum=(512 if kind=='native' and memory['l4_worker_rss_bytes'] else 1536)*1024**2
+        # Observability only: the threshold and the value it saw, pass or refuse.
+        with (self.folder/'memory-guard.jsonl').open('a') as stream:
+            stream.write(json.dumps(dict(kind=kind,at=memory.get('wall',time.time()),threshold_bytes=minimum,
+                available_bytes=memory['available_bytes'],ollama_runner_rss_bytes=memory.get('ollama_runner_rss_bytes'),
+                l4_worker_rss_bytes=memory.get('l4_worker_rss_bytes'),allowed=memory['available_bytes']>=minimum))+'\n')
         if memory['available_bytes']<minimum:
             raise MemoryError('DEFERRED_MEMORY_BEFORE_'+kind.upper())
         ledger['calls'][kind]+=1; write(self.path,ledger)

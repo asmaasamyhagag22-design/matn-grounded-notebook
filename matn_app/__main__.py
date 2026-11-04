@@ -16,12 +16,13 @@ def main():
     parser.add_argument("--search-budget", type=int, default=0, help="Explicit total search allowance for this app data folder; a run reserves 12")
     parser.add_argument("--fake", action="store_true", help="Clearly labelled fixture mode; no real model/search")
     parser.add_argument("--check", action="store_true", help="Read-only local preflight, no provider or search calls")
+    parser.add_argument("--dev-research-v2", action="store_true", help="Developer only: allow the experimental research v2 path (off by default)")
     args = parser.parse_args()
     if args.check:
         readiness = preflight(fake=args.fake, search_budget=args.search_budget)
         print(json.dumps(readiness, indent=2))
         return 0 if readiness["verdict"] == "GO" else 2
-    app = App(args.data, fake=args.fake, search_budget=args.search_budget)
+    app = App(args.data, fake=args.fake, search_budget=args.search_budget, research_v2=args.dev_research_v2)
     server = make_server(app, args.port)
     def stop(*_):
         threading.Thread(target=server.shutdown, daemon=True).start()

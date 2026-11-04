@@ -52,3 +52,21 @@ def test_http_labels_use_existing_authenticated_local_api(tmp_path,monkeypatch):
         with client.open('/labels/') as r:assert b'Your judgment, saved.' in r.read()
         assert (tmp_path/'labels/index.html').is_file()
     finally:server.shutdown();server.server_close();thread.join(5);app.close()
+
+
+def test_rule_specific_borderline_and_owner_decided_direct_answers(tmp_path):
+    from scripts.recompute_verdicts import recompute
+    a=dict(item(),id='a1',group='answers-v2',ai_verdict=dict(error=False,borderline=True))
+    b=dict(item(),id='b1',group='answers-v2',ai_verdict=dict(error=False,borderline=False))
+    store=LabelStore(tmp_path);store.merge([a,b])
+    direct=dict(minimum=2,first_sentence=dict(Q1='a1',Q2='b1'),ai_direct=dict(Q1=True,Q2=False))
+    write(tmp_path/'verdict-bases.json',dict(v2=dict(group='answers-v2',fixed_gates_pass=True,borderline_is_error=False,direct_answers=direct),
+                                            old=dict(group='answers-v2',fixed_gates_pass=True)))
+    value=recompute(tmp_path)['verdicts']
+    assert value['v2']['status']=='FAIL' and value['v2']['direct_answers']==1 and value['v2']['AI_only']==2
+    assert value['old']['status']=='FAIL' and value['old']['borderline']==1
+    store.submit('b1','Correct')
+    value=recompute(tmp_path)['verdicts']
+    assert value['v2']['status']=='PASS' and value['v2']['owner_labelled']==1 and value['v2']['direct_answers']==2
+    assert value['old']['status']=='FAIL'
+    assert json.loads((tmp_path/'verdicts.json').read_text())['owner_labelled']==1
