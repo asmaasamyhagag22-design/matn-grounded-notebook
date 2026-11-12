@@ -30,4 +30,4 @@ Document Q&A runs locally with a zero search budget. The research preview fetche
 
 ## Development checks
 
-In a clean Python 3.12 environment, install `requirements-ci.txt`, the rendering packages above and Node.js, then run `bash scripts/ci-fast.sh`. Enable the public hooks with `git config core.hooksPath .githooks`. The hooks check staged files and commit messages and run the full test suite on push.
+See the [contributing guide](../CONTRIBUTING.md) for the test environment, Git hooks and offline CI commands.
