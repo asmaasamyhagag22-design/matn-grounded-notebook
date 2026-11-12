@@ -196,6 +196,38 @@ def _own_segments(text, evidence, subjects=()):
     return [(a,z,s) for a,z,s in chunks if any(_contains(s,n) for n in names)]
 
 
+# ADR-0038 (owner decision, week-loop addendum 2 §1.1): a count written in words has no ledger token.
+# It links only when the claim repeats the cited span's exact number word for the same counted noun,
+# in a digital text block. 'one' and 'zero' are never counts here (pronoun/determiner ambiguity).
+_SPELLED_WORD = re.compile(r'[a-z]+(?:[- ][a-z]+)*')
+_NOT_NOUN = set('of the a an and or that which who whom whose to for from in on at by with as than are is was were be been '
+                'being have has had do does did will would can could may might should must not'.split())
+
+
+def _counted_phrase(text, end, limit=None):
+    """Up to three content words after a number, read only inside the cited span."""
+    words=[]
+    for w in re.findall(r"[A-Za-z][A-Za-z-]*|[^\sA-Za-z]", text[end:limit][:200])[:3]:
+        if not w[0].isalpha() or w.lower() in _NOT_NOUN: break
+        words.append(re.sub(r'(?<=[a-z]{3})s$','',w.lower()))
+    return words
+
+
+def _spelled_count(text, number, element, start, end, limit):
+    """ADR-0038: a spelled count is linked only to the same counted noun phrase.
+
+    The claim's words up to the source phrase's head must all come from the
+    source phrase ("nine principles" ~ "nine common principles"); a different
+    noun ("nine committees" for "nine members") never links.
+    """
+    source=element.block.text[start:end].lower(); claim=text[number.start:number.end].lower()
+    if _value(element.block.route) != 'text_layer' or _value(element.block.block_type) != 'text': return False
+    if not _SPELLED_WORD.fullmatch(source) or claim != source or number.value in (0, 1): return False
+    phrase=_counted_phrase(element.block.text,end,limit); said=_counted_phrase(text,number.end)
+    if not phrase or phrase[-1] not in said: return False
+    return set(said[:said.index(phrase[-1])+1]) <= set(phrase)
+
+
 def _l1(text, entries, target, *, parser=parse, entity_parser=entities):
     claim_numbers, problems=parser(text)
     if problems:
@@ -244,7 +276,9 @@ def _l1(text, entries, target, *, parser=parse, entity_parser=entities):
                 elif any(vs and not any(_linked(v) for v in vs) for vs in components):
                     badstatus=True
                 continue
-            if not ledger: continue
+            if not ledger:
+                if _spelled_count(text,n,e,start,end,ref.end): linked=True
+                continue
             for token in ledger:
                 if not _linked(token): badstatus=True; continue
                 if not _cell_number(d,e,token): nocell=True; continue
@@ -266,22 +300,59 @@ _DOWN=set('decrease decreased decreases decreasing fall falls fell fallen declin
 _NEG=set('not no never without cannot'.split())
 _MODAL=set('can could may might should must would will expected estimated likely unlikely'.split())
 _QUANTITY=set('all some most only few many every always'.split())
+_CALENDAR_MAY = re.compile(
+    r'\bMay(?=\s+(?:[12]\d{3}|(?:[1-9]|[12]\d|3[01])(?:st|nd|rd|th)?)\b(?![-‐‑]))',
+    re.I,
+)
+_SECOND_ACTION = re.compile(r'\band only (?:send|feed|pass|forward|return|include|emit|report|export)\b', re.I)
+
+
+def _without_calendar_may(text):
+    return _CALENDAR_MAY.sub('', text)
+
+
+def _negation_matches(text, evidence, claim_negation, evidence_negation):
+    if bool(claim_negation) == bool(evidence_negation):
+        return True
+    if claim_negation or evidence_negation != {'without'}:
+        return False
+    # In a literal first action followed by a separate output action, "without"
+    # may govern the output alone. The full source still goes to the scope gate.
+    first, *tail = _SECOND_ACTION.split(evidence, maxsplit=1)
+    return bool(tail and not (_words(first) & _NEG)
+                and first.strip().casefold() == text.strip().removesuffix('.').casefold())
+
+
+_SCOPE_GROUPS=tuple(frozenset(g.split()) for g in (
+    'national regional global local federal state provincial municipal', 'public private',
+    'annual quarterly monthly weekly daily', 'household sector industry occupation'))
 
 
 def _words(text): return set(re.findall(r"[a-z]+",text.lower()))
+
+
+def _modifiers(text):
+    tokens=re.findall(r"[a-z]+|[^\sa-z]",text.lower())
+    return {w for w,nxt in zip(tokens,tokens[1:]) if w.isalpha() and nxt.isalpha() and nxt not in _NOT_NOUN}
 
 
 def _l2(text, entries, target):
     segments=[s for _,_,_,q in entries for _,_,s in _own_segments(text,q)]
     if not segments: return _check(target,'L2')  # L3, not L2, owns missing bindings
     evidence=' '.join(segments); a=_words(text); b=_words(evidence); reasons=[]
+    # ADR-0038 companion: a scope word swapped for a sibling of the same group (federal -> state,
+    # public sector -> household) is a scope change even when no number is involved.
+    # Only a modifier counts ("state agencies", not "the reports state that"; not "made public").
+    quoted=_words(' '.join(q for _,_,_,q in entries)); used=_modifiers(text)
+    if any((used&group)-quoted and quoted&group for group in _SCOPE_GROUPS): reasons.append('scope_mismatch')
     if (a&_UP and not a&_DOWN and b&_DOWN and not b&_UP) or (a&_DOWN and not a&_UP and b&_UP and not b&_DOWN): reasons.append('direction_mismatch')
     # Presence comparison only when each side is one clause. Multi-clause ambiguity is L4's job.
     if len(segments)==1:
-        if bool(a&_NEG) != bool(b&_NEG): reasons.append('negation_mismatch')
+        if not _negation_matches(text,evidence,a&_NEG,b&_NEG): reasons.append('negation_mismatch')
         # Future copula and 'will need' preserve necessity, not an event prediction.
         copula=lambda t: re.sub(r'\bwill\s+(?:be(?=\s+(?:crucial|essential|necessary|important)\b)|need(?=\s+to\s+be\s+complemented\b))','',t.lower())
-        am=_words(copula(text))&_MODAL; bm=_words(copula(evidence))&_MODAL
+        am=_words(copula(_without_calendar_may(text)))&_MODAL
+        bm=_words(copula(_without_calendar_may(evidence)))&_MODAL
         if am != bm: reasons.append('modality_mismatch')
         # A quantity in an unrelated evidence adjunct is not the claim's quantifier.
         quant=lambda t: re.match(r'^(?:the\s+)?(all|some|most|only|few|many|every)\b',t.strip(),re.I)

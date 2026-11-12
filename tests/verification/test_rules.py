@@ -166,6 +166,29 @@ def test_l2_synonym_without_signal_passes_and_different_entity_is_not_a_veto():
     assert layers(rr)['L2']['verdict'] == 'pass'
 
 
+def test_l2_calendar_may_does_not_mask_an_actual_modal():
+    d = doc('The agency may review records from May 2019.')
+    claim = 'The agency reviews records from May 2019.'
+    assert 'modality_mismatch' in layers(result(d, request(d, claim)))['L2']['reasons']
+
+    d = doc('The agency reviewed records in May 2019.')
+    claim = 'The agency reviewed records in 2019.'
+    assert layers(result(d, request(d, claim)))['L2']['verdict'] == 'pass'
+
+    d = doc('46 may 3-D-print replacement parts.')
+    claim = '46 3-D-print replacement parts.'
+    assert 'modality_mismatch' in layers(result(d, request(d, claim)))['L2']['reasons']
+
+
+def test_l2_without_in_a_second_action_does_not_negate_the_first():
+    d = doc('We set a limit of 8192 tokens and only send the accepted output without debug traces.')
+    claim = 'We set a limit of 8192 tokens.'
+    assert layers(result(d, request(d, claim)))['L2']['verdict'] == 'pass'
+
+    d = doc('We set a limit of 8192 tokens without approval and only send the accepted output.')
+    assert 'negation_mismatch' in layers(result(d, request(d, claim)))['L2']['reasons']
+
+
 @pytest.mark.parametrize('entity,neighbor', [('France', 'Denmark'), ('Financial Services', 'IT Services')])
 def test_same_chunk_neighbor_does_not_bind_entity(entity, neighbor):
     d = doc(f'{entity} employment increased by 12 percent.', f'{neighbor} employment increased by 15 percent.')
@@ -179,6 +202,22 @@ def test_same_block_neighbor_number_and_no_entity_declaration_loophole():
     d = doc('France employment increased by 12 percent. Denmark employment increased by 15 percent.')
     rr = result(d, request(d, 'France employment increased by 15 percent.'))
     assert rr['status'] == 'rejected' and 'number_not_in_evidence' in reasons(rr)
+
+
+def test_number_cannot_borrow_its_actor_from_another_document(monkeypatch):
+    from tests.reading.structure import conftest as fixtures
+
+    france = doc('France employment increased by 12 percent.')
+    monkeypatch.setattr(fixtures, 'DOC', 'sha256-' + 'a' * 64)
+    denmark = doc('Denmark employment increased by 15 percent.')
+    claim = request(france, 'France employment increased by 15 percent.')
+    claim['claims'][0]['citations'].extend(request(denmark)['claims'][0]['citations'])
+    claim['selected_doc_ids'].append(denmark.doc_id)
+    claim['fingerprints'][denmark.doc_id] = fingerprint(denmark)
+
+    receipt = verify([france, denmark], claim).model_dump(mode='json')
+    assert layers(receipt)['L1']['verdict'] == 'reject'
+    assert 'number_not_in_evidence' in layers(receipt)['L1']['reasons']
 
 
 def test_final_sentence_gap_is_checked_after_good_atomic_decomposition():

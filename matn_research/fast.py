@@ -22,6 +22,7 @@ from matn_contracts.structure import DocumentStructure
 from matn_storyboard.core import digest, save_version
 from .models import Record, LIMITS
 from .network import canonical_url, concurrent_worker
+from .providers import discover
 from .reader import read_source
 
 POLICY = 'matn-v2-code-selects-v2'
@@ -136,7 +137,7 @@ def run_searches(jobs, rows, provider, cap, workers, prefix):
             jobs.save(); return [(r, jobs.step(n, dict(query=r['query'], provider=provider.name), lambda: None))
                                  for n, r, s in sent if s is None]
     with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-        futures = {n: pool.submit(concurrent_worker(provider.search), r['query']) for n, r in todo}
+        futures = {n: pool.submit(concurrent_worker(lambda q: discover(provider, q)), r['query']) for n, r in todo}
     results = []
     for name, r, _ in sent:
         try:

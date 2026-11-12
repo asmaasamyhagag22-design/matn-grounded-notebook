@@ -22,6 +22,7 @@ from matn_storyboard.planning import attach, payload as writing_payload
 from matn_storyboard.unit_composition import ComposedWorkflow
 from .models import Brief, Plan, Analysis, LIMITS
 from .network import canonical_url
+from .providers import discover
 from .reader import read_source
 
 VERSION = 'topic-research-v4-directed-views'
@@ -408,7 +409,7 @@ def cost_plan(pack, draft):
 
 
 def run(folder, brief, *, provider, generator, native, counter, fetch=None,
-        classification='Live public-topic run; Codex AI review required', requirements=None, local_slots=False):
+        classification='Live public-topic run; review required', requirements=None, local_slots=False):
     brief = Brief.model_validate(brief).model_dump()
     jobs = Jobs(folder, brief, classification=classification)
     if requirements is not None:
@@ -433,7 +434,7 @@ def run(folder, brief, *, provider, generator, native, counter, fetch=None,
         return jobs.value['outcome']
     manifest = dict(brief=brief, code=code_identity(), limits=LIMITS,
                     full_pipeline=dict(generation_cap=LIMITS['generation'], schedule='computed before analysis', native_upper=56, edit_native_reserve=8),
-                    acceptance='Four critical audience questions; >=80% semantic point coverage; final native support, visible edit and inference-free style; Codex AI review',
+                    acceptance='Four critical audience questions; >=80% semantic point coverage; final native support, visible edit and inference-free style; review',
                     created_at=time.time())
     if not (jobs.folder / 'manifest.json').exists():
         write(jobs.folder / 'manifest.json', manifest)
@@ -498,7 +499,7 @@ def run(folder, brief, *, provider, generator, native, counter, fetch=None,
                 if jobs.value['search_attempts'] >= LIMITS['search_requests']:
                     raise ValueError('SEARCH_CAP')
                 jobs.value['search_attempts'] += 1; jobs.save()
-                result = provider.search(query)
+                result = discover(provider, query)
                 return dict(result, facet=facet['id'], reason=('initial axis question: ' + facet['success']) if round_index == 0 else gap['reason'])
             try:
                 result = jobs.step(name, dict(query=query, provider=provider.name), search)
@@ -678,7 +679,7 @@ def gap_round(jobs, brief, task, documents, reads, seen_urls, seen_content, read
         def search(query=query, p=p):
             jobs.value['search_attempts'] += 1; jobs.value['gap_search_attempts'] = jobs.value.get('gap_search_attempts', 0) + 1
             jobs.save()
-            result = provider.search(query)
+            result = discover(provider, query)
             return dict(result, facet=p['facet'], requirement=p['id'], reason='gap round: requirement not fully established'
                         if FEATURES['gap_partial'] else 'gap round: requirement had no reviewed support')
         try:
@@ -1021,7 +1022,7 @@ def follow_saved_gaps(jobs, pack, analysis, documents, records, provider, genera
             if jobs.value['search_attempts'] >= LIMITS['search_requests']:
                 raise ValueError('SEARCH_CAP')
             jobs.value['search_attempts'] += 1; jobs.save()
-            return dict(provider.search(query), facet=facet['id'], missing_points=facet['missing_points'])
+            return dict(discover(provider, query), facet=facet['id'], missing_points=facet['missing_points'])
         result = jobs.step(name, dict(query=query, provider=provider.name), search)
         decisions = []
         for rank, hit in enumerate(result['response'].get('results', []), 1):
@@ -1092,7 +1093,8 @@ def refine_saved_result(folder, parent, facet_id, producer_snapshot, *, generato
         raise ValueError('PARENT_ANALYSIS_NOT_COMPLETED_MODEL_JOB')
     if facet_id not in {f['id'] for f in old['task']['facets']}:
         raise ValueError('UNKNOWN_REFINEMENT_FACET')
-    records=json.loads((parent/'reading-status.json').read_bytes())
+    from .retention import scrub_reading_records
+    records=scrub_reading_records(json.loads((parent/'reading-status.json').read_bytes()))
     documents=[DocumentStructure.model_validate_json((Path(r['folder'])/'document.json').read_bytes())
                for r in records if r.get('independent') and r['status']=='complete']
     pack,comparison=rebuild(old,documents)

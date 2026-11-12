@@ -17,10 +17,9 @@ wheelhouse/
 venv/
 env/
 .conda/
-# Node / Codex runtime junctions, at any depth
+# JavaScript dependencies
 node_modules
 **/node_modules/
-.codex-*/
 # Model files and runtime data
 *.gguf
 *.safetensors
@@ -40,6 +39,8 @@ models/
 .*-cache/
 # Run outputs ("output/", "outputs/", "tmp/" already ignored)
 runs/
+/work/
+/reports/
 # Generated decks and machine-specific diagnostics (document text / local paths)
 *.pptx
 codeintegrity-events.txt
@@ -59,8 +60,6 @@ _quarantine*/
 *.pem
 *.key
 .streamlit/secrets.toml
-# Claude Code local-only settings
-.claude/settings.local.json
 # Audit working files stay local; the report, findings and diffs are committed
 audit/scratch/
 audit/logs/

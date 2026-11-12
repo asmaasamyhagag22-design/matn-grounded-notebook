@@ -17,23 +17,15 @@ from .jobs import Jobs
 from .runtime import DATA_ROOT, ORIGINAL, ROOT, Processes, preflight, safe_progress, worker_result
 from .store import DEFAULT_AUDIENCE, Store, read, write
 
-REPLAYS = {
-    "devH": "out/leap-20261030/dev-h",
-    "H": "out/topic-research-round4-20261029/topic-h",
-    "A": "out/topic-research-sprint-20261029/topic-a",
-    "E": "out/topic-research-round2-20261029/topic-e",
-    "Oct27": "out/research-completion-20261027/research-delivery",
-}
-
-
 class App:
-    def __init__(self, data=DATA_ROOT / "app", *, fake=False, search_budget=0, process_runner=None, research_v2=False):
+    def __init__(self, data=DATA_ROOT / "app", *, fake=False, search_budget=0, process_runner=None, research_v2=False, answer_profile=None):
         if type(search_budget) is not int or search_budget < 0:
             raise ValueError("Search budget must be a nonnegative integer")
         if ORIGINAL.resolve() != ROOT.resolve() and Path(data).resolve().is_relative_to(ORIGINAL.resolve()):
-            raise ValueError("The original repository is a read-only vault; choose an app folder under work/")
+            raise ValueError("Choose an app data directory outside the read-only vault")
         self.store = Store(data)
         self.fake = fake
+        self.answer_profile = answer_profile
         self.processes = process_runner or Processes()
         self.jobs = Jobs(self.store)
         self.search_budget = search_budget
@@ -57,7 +49,7 @@ class App:
         except ImportError:
             templates = []
         return dict(conversations=self.store.list(), preflight=self.readiness, templates=templates,
-                    replays=[name for name,path in REPLAYS.items() if (ORIGINAL/path).is_dir()], busy=bool(self.jobs.active), fake=self.fake,
+                    replays=[], busy=bool(self.jobs.active), fake=self.fake,
                     search_remaining=self._search_remaining(), default_audience=DEFAULT_AUDIENCE,
                     research_v2=self.research_v2)
 
@@ -172,8 +164,6 @@ class App:
         return result
 
     def _saved_run(self, name):
-        if name in REPLAYS:
-            return ORIGINAL / REPLAYS[name]
         from eval.research.dashboard.data import collect
         row = next((r for r in self._scoreboard()["runs"] if r["id"] == name), None)
         if row:
@@ -335,7 +325,8 @@ class App:
         state = self.store.get(conversation)
         result = self._worker("matn_app.evidence_worker", dict(operation="answer", catalogs=state["catalogs"],
                              notebooks=state["notebooks"], question=question, session=conversation,
-                             session_dir=str(self.store.folder(conversation) / "answer-sessions")), folder, emit)
+                             session_dir=str(self.store.folder(conversation) / "answer-sessions"),
+                             **(dict(answer_profile=self.answer_profile) if self.answer_profile else {})), folder, emit)
         self._refresh_metrics(conversation, result.get("metrics"))
         self.store.message(conversation, "assistant", result["text"], kind="answer", result=result)
 
@@ -434,8 +425,11 @@ class App:
             rc = 0
         else:
             tree = ROOT if code == "v2" else self._delivery_tree()
+            # Frozen delivery code predates ADR-0035; the launcher applies the current
+            # search retention policy to it without changing the frozen tree.
+            launch = [] if tree == ROOT else [str(ROOT / "matn_app/frozen_research.py"), "--tree", str(tree)]
             try:
-                rc = self.processes.run([sys.executable, "-B", "-m", "matn_research", "live", "--topic", item["topic"],
+                rc = self.processes.run([sys.executable, "-B", *launch, "-m", "matn_research", "live", "--topic", item["topic"],
                                         "--audience", item.get("audience", state["audience"]), "--out", run, "--ledger", folder / "ledger", "--plan", folder / "approved-plan.json"],
                                        folder, emit, cwd=tree, progress=lambda: self._research_progress(run, folder / "ledger"), timeout=1250)
             except (TimeoutError, RuntimeError) as exc:

@@ -1,56 +1,14 @@
 {
-  "source": "out/leap-20261030/holdout-p",
-  "url": "https://didit.me/blog/digital-identity-public-sector-services/",
-  "raw_sha256": "4536b0acca7c303f1c9828051a7f40bb46f40ab4b8ac822fe4fcb354e63ca4ee",
-  "extraction": "Verbatim JSON-LD Organization object; HTML wrappers omitted.",
+  "url": "https://publisher.me/brief",
   "organization": {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Didit",
-    "legalName": "Didit Protocol",
-    "url": "https://didit.me",
-    "logo": "https://didit.me/logos/primary-horizontal-light.svg",
-    "sameAs": [
-      "https://www.linkedin.com/company/91001155",
-      "https://www.youtube.com/@getdidit",
-      "https://github.com/didit-protocol",
-      "https://x.com/didit"
-    ],
-    "foundingDate": "2023",
-    "founders": [
-      {
-        "@type": "Person",
-        "name": "Alberto Rosas"
-      },
-      {
-        "@type": "Person",
-        "name": "Alejandro Rosas"
-      }
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "ES",
-      "addressRegion": "Madrid"
-    },
+    "name": "Example Publisher",
+    "url": "https://publisher.me",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "sales",
-      "email": "hello@didit.me",
-      "availableLanguage": [
-        "en",
-        "es",
-        "fr",
-        "de",
-        "pt",
-        "it",
-        "ja",
-        "ko",
-        "zh",
-        "ar",
-        "hi",
-        "id",
-        "ru"
-      ]
+      "email": "sales@example.com"
     }
   }
 }

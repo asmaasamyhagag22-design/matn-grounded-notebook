@@ -1,4 +1,4 @@
-"""Snapshot-backed source prior regression tests; no model or network calls."""
+"""Source prior regression tests with synthetic publisher metadata; no model or network calls."""
 import json
 from pathlib import Path
 
@@ -12,7 +12,7 @@ from matn_research.source_type import classify, page_metadata
 FIXTURE = Path(__file__).parent / 'fixtures' / 'vendor-publisher.json'
 
 
-def saved_publisher():
+def publisher_fixture():
     return json.loads(FIXTURE.read_bytes())
 
 
@@ -20,12 +20,11 @@ def html_metadata(value):
     return page_metadata('<script type="application/ld+json">' + json.dumps(value) + '</script>')
 
 
-def test_actual_p_publisher_sales_contact_is_vendor_on_noncommercial_tld():
-    fixture = saved_publisher()
+def test_publisher_sales_contact_is_vendor_on_noncommercial_tld():
+    fixture = publisher_fixture()
     info = classify(fixture['url'], html_metadata(fixture['organization']))
     assert info['label'] == 'commercial-vendor'
     assert info['evidence'] == 'same-publisher sales contact metadata'
-    assert len(fixture['raw_sha256']) == 64
 
 
 @pytest.mark.parametrize('url', ['https://publisher.me/post', 'https://publisher.org/post', 'https://publisher.co.za/post'])
@@ -47,7 +46,6 @@ def test_offsite_sales_contact_does_not_classify_the_host_publisher():
 
 
 def test_generic_organization_business_or_support_does_not_imply_vendor():
-    # The saved UNCDF page declares LocalBusiness through its site template.
     business = {'@type': 'LocalBusiness', 'url': 'https://association.org'}
     support = {'@type': 'Organization', 'url': 'https://association.org', 'contactPoint': {'contactType': 'support'}}
     assert classify('https://association.org', html_metadata(business))['label'] == 'other'
@@ -69,7 +67,7 @@ def test_vendor_article_schema_does_not_turn_sales_publisher_into_news():
 
 
 def test_fast_source_labels_read_metadata_from_the_final_saved_source(tmp_path):
-    fixture = saved_publisher()
+    fixture = publisher_fixture()
     html = '<script type="application/ld+json">' + json.dumps(fixture['organization']) + '</script>'
     (tmp_path / 'original.bin').write_bytes(html.encode())
     record = dict(status='complete', independent=True, doc_id='read-d1', url='https://redirect.gov/brief',
@@ -85,7 +83,7 @@ def test_missing_snapshot_uses_the_transparent_url_fallback(tmp_path):
 
 
 def test_snapshot_labels_feed_existing_government_and_academic_prior(tmp_path):
-    fixture = saved_publisher()
+    fixture = publisher_fixture()
     (tmp_path / 'original.bin').write_text('<script type="application/ld+json">' + json.dumps(fixture['organization']) + '</script>')
     reads = [dict(status='complete', independent=True, doc_id='vendor', url=fixture['url'], folder=str(tmp_path), coverage=dict(kind='html')),
              dict(status='complete', independent=True, doc_id='public', url='https://agency.gov', folder=str(tmp_path / 'missing')),

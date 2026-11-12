@@ -25,7 +25,7 @@ HEADLINE_MAX_CHARS = 140
 FIGURES_PER_AXIS = {"summary": 0, "standard": 1, "detailed": 3}
 
 LABELS = {
-    "draft": "AI-assisted draft — every statement is source-linked",
+    "draft": "Draft — every statement is source-linked",
     "agenda": "Agenda",
     "section": "Source-linked evidence",
     "closing": "Evidence to take forward",

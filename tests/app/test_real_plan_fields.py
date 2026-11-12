@@ -1,4 +1,4 @@
-"""Exercise the actual plan-card renderer with a saved real --plan-only result."""
+"""Exercise the actual plan-card renderer with a synthetic plan-only result."""
 import json
 import os
 from pathlib import Path
@@ -7,11 +7,19 @@ import subprocess
 import pytest
 
 
-def test_real_plan_only_output_populates_all_twelve_editor_fields():
+def test_plan_only_output_populates_all_twelve_editor_fields():
     node=os.environ.get('MATN_NODE') or shutil.which('node')
     if not node:pytest.skip('JavaScript runtime required for the plan-renderer regression')
     root=next(p for p in Path(__file__).resolve().parents if (p/"matn_app").is_dir())
-    value=json.loads((Path(__file__).with_name('fixtures')/'real_plan_only.json').read_bytes())
+    value = {"plan": {"facets": [
+        {"id": axis, "label": label, "question": "", "searches": [search], "success": success}
+        for axis, label, search, success in (
+            ("overview", "Overview", "park operating hours", "List the opening hours."),
+            ("access", "Access", "park trail access", "Describe where visitors can enter."),
+            ("safety", "Safety", "park safety signs", "Describe the posted safety guidance."),
+            ("services", "Services", "park visitor services", "List facilities available to visitors."),
+        )
+    ]}}
     source=(root/'matn_app/static/app.js').read_text()
     start=source.index('function planCard(');end=source.index('\nfunction renderWorking(',start)
     code=r'''

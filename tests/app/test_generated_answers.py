@@ -60,6 +60,7 @@ def test_missing_fact_gets_generated_verified_background_not_an_excerpt(tmp_path
     import json
     from tests.app.test_evidence import ingest_json
     from matn_app import evidence
+    from matn_app.answer_profile import load_answer_profile
     _,source=ingest_json(tmp_path,{'finding':'Entities should review their data.'})
     catalog=evidence._load_catalog(source['catalog']);calls=[]
     def attempt(notebook,question,folder,**kwargs):
@@ -68,7 +69,9 @@ def test_missing_fact_gets_generated_verified_background_not_an_excerpt(tmp_path
         return dict(state='answered',sentences=[dict(text='Entities should review data before using it.',kind='generated_verified_unit',receipt_index=0,
             citations=[dict(doc_id=catalog.sources[0].doc_id,pdf_page_index=0,quote='Entities should review their data.')])],receipts=[dict(status='verified')],app_calls=dict(generation=2,native=1)),[]
     monkeypatch.setattr(evidence,'_notebook_answer',attempt)
-    value=evidence.answer(dict(question='How many agencies were certified in 2099?',catalogs=[source['catalog']],notebooks=['fixture.db'],workdir=str(tmp_path/'answer')))
+    value=evidence.answer(dict(question='How many agencies were certified in 2099?',catalogs=[source['catalog']],
+                               notebooks=['fixture.db'],workdir=str(tmp_path/'answer'),
+                               answer_profile=dict(load_answer_profile(),answer_path='v2')))
     assert value['status']=='partial_answer' and value['answer_kind']=='generated_source_coverage'
     assert '2099' not in calls[1] and 'not verified' in value['message']
     assert 'Entities should review their data.' not in value['text']

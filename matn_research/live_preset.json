@@ -31,5 +31,5 @@
   "diversity": 2,
   "synthesis_policy": "v2.2"
  },
- "decided_by": "P2/P4 bench + dev G/H (out/leap-20261030): hybrid pf30 div2 prior screen @k5 = 33/53 reviewed, 22/42 displayed, vendor 143/280; pf30 keeps displayed recall of pf40 with ~20% fewer embeddings. Planner/select output diet after dev G. Frozen before holdouts J\u2013M. After P6 (NO-GO): synthesis OFF in the live preset (v2.1 showed errors in dev G, J, L); v2.2 rules available behind synthesis_policy for development."
+ "decided_by": "Bench measurements selected the bounded hybrid shortlist and screened source mix. Synthesis is off in this preset."
 }

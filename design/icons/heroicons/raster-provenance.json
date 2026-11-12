@@ -1,5 +1,5 @@
 {
-  "tool": "CairoSVG 2.8.2 in isolated work/tools/svg-venv; no runtime dependency",
+  "tool": "CairoSVG 2.8.2, used for asset preparation only",
   "transform": "Black alpha mask at 256px, no geometry edits; runtime tints only",
   "license": "MIT, see LICENSE",
   "icons": [

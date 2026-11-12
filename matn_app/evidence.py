@@ -609,10 +609,16 @@ class _PerSourceSearch:
         return dict(hits=list(hits.values()), source_coverage=per_source)
 
 
-def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, query_plan=None):
+def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, query_plan=None,
+                     direct=True, answer_profile=None, source_metadata=None):
     from matn_storyboard.__main__ import load
     from matn_rag.search import Search
     from matn_chat.reliable import ReliableChatEngine
+    v3 = not fake and answer_profile is not None and answer_profile['answer_path'] == 'v3'
+    if v3:
+        from .answer_retrieval import ContextualHybridSearch
+        from .answer_v3 import QuoteFirstAnswerEngine, load_policy
+        policy = load_policy(answer_profile.get('v3_components'))
     repo, name, selected, documents, manifest = load(notebook)
     engine = None
     counter = None
@@ -621,7 +627,8 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
         search = _PerSourceSearch(Search(repo, None, lexical_only=True))
         if not fake:
             from .answer_retrieval import HybridSearch,HybridBlockRanker
-            search=HybridSearch(Search(repo,None,lexical_only=True))
+            lexical = Search(repo, None, lexical_only=True)
+            search = ContextualHybridSearch(lexical, policy, documents=documents, source_metadata=source_metadata) if v3 else HybridSearch(lexical)
         kwargs = dict(source_coverage=manifest.get("source_coverage", {}),
                       source_revisions=manifest.get("source_revisions", {}))
         if fake:
@@ -714,11 +721,30 @@ def _notebook_answer(notebook: str, question: str, folder: Path, *, fake: bool, 
         if not fake:
             kwargs['on_verified']=verified
             kwargs['on_status']=lambda stage,index,total:_event(folder,stage,sentence=index,sentences_total=total)
-        engine = (ReliableChatEngine if fake else AppChatEngine)(search, documents, **kwargs)
-        value = (engine.ask(name, selected, query_plan["current_question"], query_plan=query_plan)
-                 if query_plan else engine.ask(name, selected, question))
+        if v3:
+            kwargs.update(profile=answer_profile, policy=policy, num_ctx=policy['context_tokens'])
+        cls = QuoteFirstAnswerEngine if v3 else ReliableChatEngine if fake else AppChatEngine
+        engine = cls(search, documents, **kwargs)
+        try:
+            value = (engine.ask(name, selected, query_plan["current_question"], query_plan=query_plan)
+                     if query_plan else engine.ask(name, selected, question))
+        except Exception as exc:
+            if not v3:
+                raise
+            value = dict(state='error', error=type(exc).__name__, sentences=[], receipts=[])
+            engine.trace.append(dict(kind='answer_error', error=dict(detail=str(exc)[:300])))
         if value.get("error"):
             value["error_detail"] = next((entry["error"].get("detail", "") for entry in reversed(engine.trace) if entry.get("error")), "")
+        if direct and not fake and not v3 and not value.get("error"):
+            # ADR-0037: a verified answer must also address the question; a failed
+            # one is withheld so the coverage path explains what the sources cover.
+            from .on_question import gate
+            from matn_chat.reliable import LocalReranker
+            asked = query_plan["current_question"] if query_plan else str(question)
+            keep, value["on_question"] = gate(asked, value, LocalReranker(deadline=time.time() + 600))
+            if not keep:
+                value["withheld_off_question"] = [s for s in value.get("sentences", []) if s.get("kind") == "generated_verified_unit"]
+                value["sentences"] = [s for s in value.get("sentences", []) if s.get("kind") != "generated_verified_unit"]
         if not fake:
             _write(folder/'answer-embedding-calls.json',search.audit)
             ledger_value=json.loads((ledger/'ledger.json').read_bytes())
@@ -856,6 +882,34 @@ def _rank_citations(citations: list[dict], question: str) -> list[dict]:
 
 
 def _answer(request: dict) -> dict:
+    value = None
+    try:
+        value = _answer_unreconciled(request)
+        return value
+    finally:
+        # On failure nothing is shown, so nothing streamed may stay visible either.
+        try:
+            _reconcile_progress(Path(request["workdir"]).resolve(), value or {})
+        except (OSError, ValueError):
+            (Path(request["workdir"]).resolve() / 'verified-progress.json').unlink(missing_ok=True)
+
+
+def _reconcile_progress(folder, value):
+    """The live progress stream may only keep sentences the final answer shows (a later whole-answer gate can
+    remove a sentence that passed its own checks). Nothing shown -> no progress file."""
+    path = folder / 'verified-progress.json'
+    progress = json.loads(path.read_bytes()) if path.exists() else None
+    if not progress:
+        return
+    shown = {c.get('text') for c in value.get('citations') or []} if value.get('status') in ('answered', 'partial_answer') else set()
+    kept = [s for s in progress.get('sentences', []) if s.get('text') in shown]
+    if kept:
+        _write(path, dict(first_at=kept[0]['at'], sentences=kept, reconciled_with_final=True))
+    else:
+        path.unlink()
+
+
+def _answer_unreconciled(request: dict) -> dict:
     started = time.monotonic()
     folder = Path(request["workdir"]).resolve()
     folder.mkdir(parents=True, exist_ok=True)
@@ -878,9 +932,17 @@ def _answer(request: dict) -> dict:
     notebooks = _combine_notebooks(notebooks, folder)
     _event(folder, "answering_from_sources", sources=len(catalog.sources))
     fake = bool(request.get("fake", False))
+    from .answer_profile import load_answer_profile, validate_answer_profile
+    profile = validate_answer_profile(request['answer_profile']) if 'answer_profile' in request else load_answer_profile()
+    v3 = not fake and profile['answer_path'] == 'v3'
+    options = dict(answer_profile=profile, source_metadata={
+        source.doc_id: {'title': source.title, 'publisher': source.publisher, 'file': source.file,
+                        **{key: value for key, value in catalog.origin.get('source_metadata', {}).get(source.doc_id, {}).items()
+                           if value is not None}}
+        for source in catalog.sources}) if v3 else {}
     for notebook in dict.fromkeys(notebooks):
         try:
-            value, coverage = _notebook_answer(notebook, question, folder, fake=fake, query_plan=query_plan)
+            value, coverage = _notebook_answer(notebook, question, folder, fake=fake, query_plan=query_plan, **options)
             native_answers.append(value)
             regions=value.pop('_region_labels',{})
             for citation in citations:
@@ -897,43 +959,75 @@ def _answer(request: dict) -> dict:
     coverage_only=False
     def generated(value):
         return any(s.get('kind')=='generated_verified_unit' and s.get('receipt_index') is not None and value.get('receipts',[])[s['receipt_index']].get('receipt',value['receipts'][s['receipt_index']]).get('status')=='verified' for s in value.get('sentences',[]))
-    if not fake and not failures and notebooks and not any(generated(v) for v in native_answers):
+    # Answerability gate (addendum-1 §6, week-loop C1b): when the planner itself
+    # judged the requested answer not in the sources, its sentences describe
+    # neighbouring facts, not the answer. Nothing generated is shown and no
+    # background is drafted: the reply is the plain "could not verify" notice.
+    for value in native_answers:
+        if (value.get('answer_plan') or {}).get('answer_type')=='not in sources':
+            value['not_covered']=True
+    not_covered=any(v.get('not_covered') for v in native_answers)
+    # Gates above (on-question withholding, not covered) are final for these sentences: take them out of the live
+    # progress stream now, before the slow background-coverage call, not only when the answer returns.
+    _reconcile_progress(folder, dict(status='answered', citations=[dict(text=s['text']) for v in native_answers if not v.get('not_covered')
+                                                                    for s in v.get('sentences', []) if s.get('kind') == 'generated_verified_unit']))
+    if (not fake and not v3 and not failures and notebooks and not not_covered
+            and not any(generated(v) for v in native_answers)):
         from matn_chat.question_scope import YEAR
         background='Summarize supported source background relevant to this request; do not infer missing facts: '+YEAR.sub('',str(question)).replace('?','.')
         for notebook in dict.fromkeys(notebooks):
             child=folder/'coverage-attempt';child.mkdir(exist_ok=True)
             try:
-                value,coverage=_notebook_answer(notebook,background,child,fake=False)
+                value,coverage=_notebook_answer(notebook,background,child,fake=False,direct=False)
                 value['coverage_only']=True;native_answers.append(value);retrieval.extend(coverage)
                 coverage_only=coverage_only or generated(value)
             except Exception as exc:
                 failures.append(dict(stage='source_coverage',error=type(exc).__name__,detail=str(exc)[:300]))
-    selected = _rank_citations(citations, question)
+    if not v3:
+        _rank_citations(citations, question)
     text, answer_citations = [], []
-    # Engine answers remain verified by their actual receipts; excerpts are kept
-    # labelled by the engine. Previous assistant messages never enter this path.
+
+    def append_citation(sentence, refs, receipt, kind):
+        sid = str(len(answer_citations) + 1)
+        ref = refs[0] if refs else {}
+        source = next((s for s in catalog.sources if s.doc_id == ref.get("doc_id")), None)
+        answer_citations.append(dict(id=sid, text=sentence, quote=ref.get("quote", ""),
+                   source=source.id if source else ref.get("doc_id"), title=source.title if source else None,
+                   file=source.file if source else None, url=source.url if source else None,
+                   source_type=source.type if source else "uploaded document", fetched=source.accessed if source else None,
+                   status="verified" if receipt else "related_source_quote",
+                   page=ref.get("pdf_page_index", -1) + 1, path=None, span=ref, spans=refs,
+                   verification=receipt, kind=kind))
+        return f"{sentence} [{sid}]"
+
+    # Previous assistant messages never enter this path. A direct answer must
+    # have a verified receipt for each displayed sentence.
     for value in native_answers:
+        if value.get('not_covered'):
+            continue
         for sentence in value.get("sentences", []):
             receipt = value.get("receipts", [])[sentence["receipt_index"]] if sentence.get("receipt_index") is not None else None
             receipt = receipt.get("receipt", receipt) if receipt else None
             if sentence.get("kind") != "generated_verified_unit" or not receipt or receipt.get("status") != "verified":
                 continue
-            sid = str(len(answer_citations) + 1)
-            refs = sentence.get("citations", [])
-            ref = refs[0] if refs else {}
-            source = next((s for s in catalog.sources if s.doc_id == ref.get("doc_id")), None)
-            answer_citations.append(dict(id=sid, text=sentence["text"], quote=ref.get("quote", ""),
-                       source=source.id if source else ref.get("doc_id"), title=source.title if source else None,
-                       file=source.file if source else None, url=source.url if source else None,
-                       source_type=source.type if source else "uploaded document", fetched=source.accessed if source else None,
-                       status="verified" if receipt and receipt.get("status") == "verified" else "source_excerpt",
-                       page=ref.get("pdf_page_index", -1) + 1, path=None, span=ref, spans=refs,
-                       verification=receipt, kind=sentence.get("kind")))
-            text.append(sentence["text"] + " [" + sid + "]")
+            text.append(append_citation(sentence["text"], sentence.get("citations", []),
+                                        receipt, sentence["kind"]))
     # Retrieval stays internal. Never turn selected catalog entries, copied
     # source units or an excerpt recovery into a chat reply (including fixtures).
     partial=bool(text) and (coverage_only or bool(failures) or any(v.get('state')!='answered' for v in native_answers))
     response="\n\n".join(text)
+    if v3:
+        from .answer_v3 import ABSTENTION, RETRACTION, load_policy
+        if not response and not failures:
+            response = ABSTENTION
+            maximum = load_policy()['max_related_quotes']
+            related = [ref for value in native_answers for ref in value.get('related_quotes', [])][:maximum]
+            if related:
+                lines = [append_citation('“' + ref['quote'].strip() + '”', [ref], None, 'related_information')
+                         for ref in related]
+                response += '\n\nRelated information:\n' + '\n'.join(lines)
+        if response and any(v.get('dropped_sentences') for v in native_answers):
+            response = (response + '\n\n' if response else '') + RETRACTION
     if not response:
         response=("Fixture mode: generated answers require a real local model." if fake else
                   "I could not verify a written answer to this question from the available sources.")
@@ -942,7 +1036,9 @@ def _answer(request: dict) -> dict:
                 text=response,question=str(request.get('question','')),retryable=bool(failures),
                 answer_kind="generated_source_coverage" if coverage_only else "generated_answer" if text else "no_verified_generated_answer",fake=fake,
                 citations=answer_citations,failures=failures,coverage=retrieval,
-                engine_states=[v.get("state") for v in native_answers],
+                **(dict(answer_path='v3') if v3 else {}),
+                engine_states=[v.get("state") for v in native_answers if not v.get("not_covered")],
+                gate="planner_not_in_sources" if not_covered else None,
                 message="Context only: the requested answer was not verified. These sentences describe supported background." if coverage_only else "AI review, pending owner labels; verification is not a completeness judgment.",
                 unsupported_notice=not bool(text),
                 metrics=dict(seconds=round(time.monotonic()-started,3),sources=len(catalog.sources),
@@ -973,7 +1069,7 @@ def answer(request: dict) -> dict:
         # Conversation retains orientation only; subsequent retrieval and every
         # check still use the selected original source snapshots.
         remembered = dict(state="answered" if value["status"] == "answered" else "insufficient_evidence",
-                          sentences=[dict(text=c["text"]) for c in value["citations"]])
+                          sentences=[dict(text=c["text"]) for c in value["citations"] if c.get("kind") != "related_information"])
         conversation.remember(question, plan["retrieval_query"], remembered)
         value["conversation"] = remembered.get("conversation")
         value["query_plan"] = plan

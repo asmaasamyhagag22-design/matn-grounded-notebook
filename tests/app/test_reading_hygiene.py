@@ -1,7 +1,4 @@
-"""General region rules plus a separately stored real-page development sample."""
-import json
-from pathlib import Path
-import pytest
+"""Reading-region and evidence eligibility rules."""
 from matn_app.reading_hygiene import regions,allowed
 
 
@@ -11,18 +8,6 @@ def test_normal_questions_cannot_retrieve_footnotes_or_references():
         assert not allowed(kind,'What are the main findings?')
     assert allowed('footnote','What does footnote 31 say?')
     assert allowed('reference_list','Which references does the report cite?')
-
-
-def test_real_page_development_examples():
-    root=Path(__file__).resolve().parents[2].parent/'work/qa/real-region-examples.json'
-    if not root.exists():pytest.skip('Optional private local development pages are not exported')
-    from matn_contracts.structure import DocumentStructure
-    from hashlib import sha256
-    documents={}
-    for row in json.loads(root.read_bytes())['examples']:
-        path=Path(row['document']);assert sha256(path.read_bytes()).hexdigest()==row['document_sha256']
-        if str(path) not in documents:documents[str(path)]=DocumentStructure.model_validate_json(path.read_bytes())
-        assert regions(documents[str(path)])[row['block_id']]==row['expected'],row['text'][:100]
 
 
 def test_app_handle_filter_preserves_explicit_footnote_questions():
@@ -83,25 +68,6 @@ def test_heading_is_not_an_antecedent_for_a_lowercase_continuation():
     handles={'s1':dict(text=' '.join(e.block.text for e in d.elements),citations=refs),
              's2':dict(text=d.elements[1].block.text,citations=refs[1:])}
     assert eligible_handles(handles,d)=={}
-
-
-def test_real_repeated_header_and_list_of_figures_are_not_body_evidence():
-    root=Path(__file__).resolve().parents[2].parent/'work/qa/real-region-examples.json'
-    if not root.exists():pytest.skip('Optional private local development pages are not exported')
-    from matn_contracts.structure import DocumentStructure
-    from matn_chat.reliable import build_reliable_handles
-    from matn_rag.ingest import prepare
-    from matn_app.reading_hygiene import eligible_handles
-    paths=list(dict.fromkeys(row['document'] for row in json.loads(root.read_bytes())['examples']))
-    gao=DocumentStructure.model_validate_json(Path(paths[0]).read_bytes())
-    labels=regions(gao)
-    heading=next(e for e in gao.elements if e.block.page_index==81 and e.block.text.startswith('Appendix II: Insights'))
-    assert labels[heading.block.block_id]=='boilerplate'
-    handles=eligible_handles(build_reliable_handles((gao,),prepare(gao)[1]),gao)
-    assert not any(h['text'].startswith('Appendix II: Insights') for h in handles.values())
-    wb=DocumentStructure.model_validate_json(Path(paths[1]).read_bytes())
-    figures=next(e for e in wb.elements if e.block.page_index==3 and e.block.text.startswith('Figure 1.20'))
-    assert regions(wb)[figures.block.block_id]=='toc'
 
 
 def test_bibliography_continues_across_pages_until_an_appendix_heading():

@@ -134,7 +134,8 @@ def scope_obligations(text, units):
             if canon(dependency) not in canon(text): return False, obligations
         # Keep explicit modality, polarity and reporting attribution on paraphrase
         # paths too. This is conservative; aliases above are deliberately bounded.
-        src = canon(q); claim = canon(aligned_text)
+        src = canon(rules._without_calendar_may(q))
+        claim = canon(rules._without_calendar_may(aligned_text))
         for pattern in (r'\b(?:must not|should not|may not|must|should|may|might|could|cannot|never|not)\b',
                         r'\baccording to [\w -]+?(?= reports| says| states|$)'):
             for m in re.finditer(pattern, src):

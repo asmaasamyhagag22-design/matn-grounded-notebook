@@ -36,7 +36,6 @@ ADR does not answer it.
 |---|---|---|
 | `document_store.py` | pipeline | `pymupdf.open` for page text |
 | `inspect_pdf.py` | pipeline | `pymupdf` + `pymupdf4llm.to_markdown` |
-| `matn_presentation/assets.py` | pipeline | `fitz.open` / `Matrix` / `Rect` for page images |
 | `matn_presentation/live.py` | pipeline | `fitz.open` |
 | `benchmark_structured.py` | root benchmark script | `pymupdf` + `pymupdf4llm` |
 | `tests/make_sample_pdfs.py` | test fixtures | builds the sample PDFs |

@@ -1,57 +1,65 @@
-# Current result boundary — 2026-11-02
+# Results and methodology
 
-The latest registered generated-answer evaluation **FAILED (0/20)**, and the four new research topics **FAILED** with 9 AI-reviewed errors and 9 borderline units among 20 displayed units. Owner labels are pending. See the README for all gates and measurement limits. Historical document responses below were source-copy outputs and must not be counted as generated answers under the current chat contract.
+All measurements run on a 4-core laptop CPU (i7-1065G7), 15 GB RAM, no GPU, with `qwen3.5:9b` (Q4_K_M) through Ollama. Labels come from a blind reviewer model that does not see which variant produced an answer.
 
----
+## Method
 
-# Measurement scope and results
+- **Paired comparison.** Every question is run through both versions on the same machine, one job at a time, so timing is not contended.
+- **Sealed holdout.** Questions and answer keys are written by a separate model that has not seen the code. Only the SHA-256 is recorded before development; the file is opened once, after the code is frozen.
+- **Challenge set.** Planted errors in true source sentences (wrong number, unit, year, entity, scope, dropped negation, neighbouring claim) test whether the checker is too lenient. The unmodified sentences (verbatim controls) test whether it is too strict.
+- **Ablations.** Each component sits behind a switch and is measured alone before it is kept.
 
-Measurements below belong to the frozen private development runtime, not a fresh reproduction by public CI. Source identity: `e65f4d86d989c164f973cb84ac08580b523f47ad68a05b37eaba2df3fa68e4f4`. The curated portable export documents its differences in `public-export.json`. Evidence review is cross-family AI review, not human gold. Private source snapshots, sealed splits and raw runs are intentionally absent.
+## Current answer path vs previous version
 
-## Four fresh topics
+Paired development benchmark, 104 questions (81 answerable, 23 unanswerable):
 
-The four topics and the six conjunctive acceptance conditions were committed before the fixes and before any fresh-topic search. Ordinary application planning chose the axes; neither topics nor pass rules changed after measurement. Synthesis stayed OFF. The candidate **failed**.
+| | Previous | Current |
+|---|---:|---:|
+| Fully correct answers (of 81) | 7 | 22 |
+| Partially correct (of 81) | 5 | 6 |
+| Replies with a wrong or unsupported sentence (of 104) | 1 | 1 |
+| Off-question replies (of 104) | 2 | 2 |
+| Unanswerable questions correctly declined (of 23) | 20 | 22 |
+| Questions whose key evidence reaches the prompt (of 81) | 41 | 52 |
 
-| Run | Displayed units | Displayed axes / planned | Confirmed silent errors | Retained borderline | First verified s | Workflow s | App planning s | Inclusive App s |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| V2-R1 | 2 | 2/4 | 1 | 1 | 187.7 | 325.6 | 147.3 | 483.8 |
-| V2-R2 | 5 | 3/4 | 1 | 2 | 246.6 | 497.0 | 153.7 | 667.4 |
-| V2-R3 | 4 | 3/4 | 1 | 2 | 257.1 | 376.7 | 160.1 | 552.0 |
-| V2-R4 | 7 | 4/4 | 3 | 2 | 242.8 | 412.8 | 161.3 | 586.5 |
+Sealed holdout, 30 new questions (24 answerable, 6 unanswerable), run once per version:
 
-All 18 displayed units were reviewed against exact spans, context, classification and axis requirements. 6 confirmed errors and 7 borderline units remain recorded; none has new owner acceptance. Off-axis placement and an admitted funding acknowledgment show why exact copying alone does not establish useful evidence. All result pages were preserved. Search spending: 48/48 on a separate holdout ledger. Generation/native calls (including planning): 16/45. Meeting ledgers were not spent.
+| | Previous | Current |
+|---|---:|---:|
+| Fully correct (of 24) | 3 | 7 |
+| Partially correct (of 24) | 2 | 4 |
+| Wrong or unsupported replies (of 30) | 0 | 0 |
+| Unanswerable correctly declined (of 6) | 5 | 5 |
+| Median time per answer | 184 s | 189 s |
 
-Mean displayed-axis coverage: 3, required >3.25. Every first verified workflow checkpoint met412.175s; ordinary App planning is separately visible above and was not silently removed from the inclusive journey. Unweighted mean commercial share: complete independent reads 0.1868 (baseline0.3932), displayed units 0.1964 (baseline0.4482); unknown displayed source labels0. The same frozen classifier was used for both. Semantic publisher/hosting mismatches are recorded as review limitations rather than post-outcome relabelling. N–Q used different topics, so these comparisons establish no direct superiority on identical fresh inputs.
+## Fact-checking challenge set
 
-The fixed-input retrieval bench also failed its not-worse rule: live reviewed hits33→31/53, displayed hits20→19/42 and commercial slots140→142/280;17 criterion violations across variants. The private full suite passed2246 tests, with18 explicit optional/historical skips; normal hooks and replay checks passed. Passing tests does not override failed quality criteria. The operational runbook selects the preserved delivery fallback, not this fresh candidate, for live research.
+| Error type | n | Caught |
+|---|---:|---:|
+| Wrong entity | 38 | 38 |
+| Wrong number | 21 | 21 |
+| Number word swap | 12 | 12 |
+| Wrong year | 9 | 9 |
+| Swapped scope | 6 | 6 |
+| Dropped negation | 5 | 5 |
+| Unit change | 4 | 4 |
+| Neighbouring claim | 81 | 81 |
+| **Verbatim controls kept** | 81 | 81 |
 
-## Document development and latency
+The original multi-filter pipeline also caught every planted error, but it rejected all 81 verbatim controls as well, which is why it was replaced.
 
-The fixed12-question development set finished6 answered /4 partial /2 refused, with0 AI-reviewed silent errors. The final rejected-candidate sample contained one borderline candidate and no clear false block; it is too small to estimate verifier-wide accuracy. Overview junk dropped from4/6 sampled sentences to0/10 in the final development pass. “Answered” primarily means verified complete source copies, not established free-form synthesis.
+## Where the remaining headroom is
 
-The M1→M2 fixed CPU workload fell2764.799→1323.134s. GAO upload1218.996→680.030s met900s; the economic-report upload628.933→389.744s missed360s. Full answer latency278.435/251.004s met300s; first persisted source-bound responses278.413/250.963s missed240s. Foreground queue wait0.021s met1s. Duplicate preparation7.14/7.62s met20s with no new extraction/OCR/embedding/generation/native calls. Targets were committed before optimization and stayed fixed.
+When the answer-key evidence is handed directly to the writer, it drafts a fully correct answer for 52 of 81 questions; the sentence checker currently displays 14 of them. Most of the remaining gap is correct sentences that the entailment model scores low when the answer rephrases the source. Improving that check, and retrieval for questions that don't name their document, are the next steps.
 
-Later M6 cold real-document demo: uploads793.712/368.139s, two source-copy responses143.532/169.382s,14-slide deck QA_PASS after a preserved initial failure, correct template/reorder edits11.277/11.400s and byte-identical restore. The requested complete free-form answer demonstration remains partial. The separate public-safe screenshot run used a verified warm GAO reader161.973s and cold CC BY paper386.339s; responses132.927s answered /197.299s partial. These mixed preparation states are not a cold benchmark.
+## Component ablations
 
-## Presentation validation
-
-All22 synthetic content/layout slides passed measured geometry and the actual LibreOffice PDF in each of the three original templates. Six saved decks passed both renderers. Complete qualifiers, readable source chips and context in notes were retained. A later qualified key-number statement needed a taller content column; failed attempts were preserved before the general geometry correction. Windows PowerPoint rendering is unmeasured.
-
-## Public CI
-
-The exact offline command is `bash scripts/ci-fast.sh`, in a clean Python3.12 environment installed from `requirements-ci.txt`. It exercises synthetic contracts and deterministic adapters, without model downloads, research calls or private evaluation inputs. See `public-export.json` for the curated file identity and portability boundary. CI does not reproduce the scores above.
-
-## Answers v2 — 4 November 2026 (FAIL)
-
-20 new questions over GAO-21-519SP and arXiv 2601.14525v1 (CC BY 4.0), registered with the pass rule before one run in the real app, zero web searches, cross-family AI review.
-
-| Gate | Required | Result |
-|---|---|---|
-| Direct generated answers | ≥12 of 17 | 0 |
-| Verified "not covered" replies | 3 of 3 | 0 |
-| Excerpts shown as answers | 0 | 0 |
-| AI-reviewed silent errors | 0 | 0 (3 borderline) |
-| Median full answer | ≤300 s | 381.4 s |
-| Operational failures | 0 | 2 |
-
-Memory-guard deferrals fell from 18/20 to 0 after loading one heavy model at a time, but a kernel out-of-memory kill occurred while other desktop apps held 8–11 GiB. Rejected drafts are queued for owner labels to measure false blocks; no verification threshold was relaxed.
+| Component | Effect measured alone |
+|---|---|
+| Quotes expanded to full sentences | correct sentences shown 16 → 18, no new errors |
+| Number + unit/date check | planted errors caught 172 → 175, no correct sentence rejected |
+| Scope check | planted errors caught 172 → 173, no correct sentence rejected |
+| Document-aware ranking | evidence reach 26 → 29 on affected questions |
+| Document-aware packing | evidence reach 26 → 34, fully correct 4 → 9 on affected questions |
+| Simpler writer instructions | fully correct 7 → 11 on the same validated quotes |
+| Location boosting, joined-quote checking, multi-part schema | no gain; removed |

@@ -12,7 +12,8 @@ def assess(hit, document, facet, points):
     wanted = terms(' '.join([facet.get('query', facet.get('question','')), facet.get('label',''), *[p['description'] for p in points]]))
     text = ' '.join(e.block.text for e in document.elements)
     content_matches = sorted(wanted & terms(text))
-    metadata_matches = sorted(wanted & terms(str(hit.get('title','')) + ' ' + str(hit.get('content',''))))
+    # Search snippets and titles are provider output and are never kept (ADR-0035); only the URL is Matn's.
+    metadata_matches = sorted(wanted & terms(str(hit.get('url',''))))
     return dict(status=('unknown' if not wanted else 'candidate' if content_matches else 'unsuitable'),
         reason='No discriminating facet terms; suitability cannot be assessed lexically' if not wanted else 'Readable content has facet terms; authority and semantic sufficiency remain unknown' if content_matches else 'Readable content has no facet terms; fetch success is insufficient',
         content_matches=content_matches, metadata_matches=metadata_matches,

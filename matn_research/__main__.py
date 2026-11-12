@@ -106,7 +106,8 @@ def saved_worker(folder, pack_path, reading_status, ledger, *, reading_context=F
     saved = json.loads(Path(pack_path).read_bytes())
     calls = ResearchCalls(ledger); native = ResearchNative(calls, identity()); counter = TokenCounter()
     folder = Path(folder); folder.mkdir(parents=True, exist_ok=True)
-    write(folder/'reading-status.json', records)
+    from .retention import scrub_reading_records
+    write(folder/'reading-status.json', scrub_reading_records(records))
     try:
         generator = ResearchGenerator(calls)
         with initialized_session(calls, generator):

@@ -1,4 +1,4 @@
-"""Recompute every registered verdict (M7, M4, answers v2) from owner labels.
+"""Recompute registered verdicts from saved review decisions.
 
 Owner label beats AI review for its exact bound unit; borderline counts as each
 pre-registered rule states (verdict-bases.json). Never writes owner labels:

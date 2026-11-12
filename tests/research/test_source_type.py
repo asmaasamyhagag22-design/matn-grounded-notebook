@@ -5,7 +5,7 @@ from matn_research.source_type import classify, page_metadata, text
 
 
 @pytest.mark.parametrize('url,label', [
-    ('https://www.mcit.gov.eg/en/page', 'government'),
+    ('https://example.gov.eg/en/page', 'government'),
     ('https://digital.gov/guides', 'government'),
     ('https://www.gov.uk/service-manual', 'government'),
     ('https://www.data.gouv.fr/x', 'government'),

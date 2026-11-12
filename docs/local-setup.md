@@ -1,29 +1,33 @@
 # Local setup
 
-The tested desktop environment is Ubuntu 24.04, Python 3.12, four CPU cores and 15 GiB RAM, without a GPU. The public CI exercises deterministic offline contracts; it does not download inference weights or reproduce the private evaluations.
+Matn was tested on Ubuntu 24.04 with Python 3.12, four CPU cores and 15 GiB of RAM. Use the fixture walkthrough to try the UI with no model weights.
 
-## UI and rendering
+```bash
+python3.12 -m venv .venv
+.venv/bin/python -m pip install -r requirements-app.txt
+sudo apt-get install libreoffice-impress fonts-crosextra-carlito fonts-noto-core fonts-liberation
+.venv/bin/python -B -m matn_app --fake --search-budget 0
+```
 
-Create `.venv`, install `requirements-app.txt`, and install LibreOffice Impress, `fonts-crosextra-carlito`, `fonts-noto-core` and `fonts-liberation`. `design/fonts/fonts.json` lists exact package versions and file hashes; `matn_deck.measure.verify_fonts()` reports any mismatch. Font notices are under `design/fonts/licenses/`. Templates and icons have separate provenance files.
-
-Run `.venv/bin/python -B -m matn_app --fake --search-budget 0` for the labelled UI walkthrough. The default data directory is `.matn-data/app`, ignored by Git. Set `MATN_WORK_ROOT` to an absolute writable directory to move it. The app binds to loopback. Do not expose it as a multiuser service.
+Open `http://127.0.0.1:8787`, attach a small JSON file such as `{"policy":"Inspect equipment before use."}`, then ask what the policy says. The source overview includes a citation and the answer shows the fixture notice. The default data directory is `.matn-data/app`. Use `--data` for a different directory, or set `MATN_WORK_ROOT` to move the workspace. The server listens on loopback. Font hashes and notices are in [design/fonts](../design/fonts).
 
 ## Real local inference
 
-`pip install` alone does not provision these environments. The application fails closed when required models, identities or dependencies are absent. Provision and validate these components before using `./app.sh --search-budget 0`:
+- Run Ollama on `127.0.0.1:11434` and provision the pinned `qwen3.5:9b` generator and `qwen3-embedding:0.6b` embedder. The adapters check the model digests recorded in [generation.py](../matn_chat/generation.py) and [embedding.py](../matn_rag/embedding.py). Document Q&A uses hybrid retrieval, including embeddings for a bounded pool of passages when an index lacks vectors.
+- Set `MATN_NLI_PYTHON` to the Python executable of a separate CPU environment with PyTorch and Transformers. Set `MATN_MINICHECK_DIR` to the local `MiniCheck-RoBERTa-Large` directory. Use revision `74c8919647e61ed0f71bc177d94f10930f090068` of [MiniCheck-RoBERTa-Large](https://huggingface.co/lytang/MiniCheck-RoBERTa-Large) and copy [the acquisition receipt](../config/minicheck-acquisition.json) into the model directory as `acquisition.json`. The verifier checks the local files against the receipt.
+- The prompt budget uses `tokenizers` to read vocabulary metadata from the installed Qwen GGUF. Install `tokenizers` in the verifier environment or set `MATN_TOKENIZER_PYTHON` to a separate Python that has it. Set `OLLAMA_MODELS` if the Ollama model store is outside its standard location. The pinned blob is listed in [the tokenizer profile](../eval/chat/tokenizer_profile.json).
+- For scanned pages, install [the RapidOCR worker requirements](../requirements-ocr-rapid-linux.lock.txt) in `.venv-ocr-rapid` and provision the reader and layout models pinned in [rapidocr_settings.json](../matn_reading/ocr/rapidocr_settings.json) and [regions.py](../matn_reading/ocr/regions.py). GLM-OCR provides an independent numeric check over loopback. Its local model and limits are in [glm.py](../matn_reading/ocr/glm.py).
 
-1. Ollama on `127.0.0.1:11434`, with `qwen3.5:9b` digest `56671c2ab9385f9cfcb404638e32cd62d88e3501d44822208363c010179a3c90`. The generation adapter checks the digest and structured output. Research additionally uses `qwen3-embedding:0.6b` digest `ac6da0dfba84a81fdbfbaf330198c33cd77c4cdfc53e8bc50eb581914a15621d`. Document retrieval uses BM25 and does not need an embedding pass.
-2. A separate native verification environment, with PyTorch and Transformers matching the available platform lockfile. Set `MATN_NLI_PYTHON` to its absolute Python path and `MATN_MINICHECK_DIR` to the local MiniCheck model directory. The pinned repository is `lytang/MiniCheck-RoBERTa-Large`, revision `74c8919647e61ed0f71bc177d94f10930f090068`. The directory must be named `MiniCheck-RoBERTa-Large` and contain the byte-identical `acquisition.json` supplied in `config/minicheck-acquisition.json` (SHA256 `ca617cb5d612c538fc02db7ba732e39b0d40bcef8e08137cf459fb6818d3b026`). Download the pinned upstream files separately and copy that metadata file into the model directory; `matn_verification/l4_files.py` and `l4_worker.py` define and verify the contract. Neither weights nor receipts are distributed. A missing verifier produces unavailable/partial results rather than a verified answer.
-3. OCR requires a separate `.venv-ocr-rapid` environment from `requirements-ocr-rapid-linux.lock.txt`, and local files matching every hash/path in `matn_reading/ocr/rapidocr_settings.json` and `regions.py`. The layout model is required too. GLM-OCR on loopback provides independent numeric checks; its configured model tag and limits are in `matn_reading/ocr/glm.py`. OCR and local document generation block external egress. Do not use unverified substitute weights and report the old identity.
+Run `./app.sh --search-budget 0` on Ubuntu. This starts the same loopback server under a sleep inhibitor. Model weights are installed separately under their upstream licences. [Qwen generator](https://huggingface.co/Qwen/Qwen3.5-9B) · [Qwen embedder](https://huggingface.co/Qwen/Qwen3-Embedding-0.6B) · [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) · [GLM-OCR](https://huggingface.co/zai-org/GLM-OCR)
 
-Model setup is an advanced manual step in this export. Platform lockfiles are environment records, not universal installers. Windows PowerPoint output remains unmeasured. No model licence is conveyed by this project's pending licence; check each upstream model's terms separately.
+### Answer profiles
 
-## Public-source research
+The [shipped profile](../matn_app/answer_profile.json) selects the quote-first path. Pass `--answer-profile path/to/profile.json` to change it. A profile can select the earlier path with `{"answer_path":"v2"}`, or override individual booleans in [the quote-first policy](../matn_app/answer_v3_policy.json) under `v3_components`. The generator remains pinned.
 
-Search requires an explicit allowance and a separately configured Tavily account. Provide `TAVILY_API_KEY` in the process environment or the external configuration supported by `matn_research/providers.py`; never commit it. The preflight requires account qualification and available credit evidence. It is not a purchase flow. No searches run on startup or in CI. Source fetching is networked only in the explicit research journey; uploaded documents are processed locally.
+## Public-source research preview
 
-The fresh-topic candidate failed the pre-registered acceptance rule. Use saved reviewed evidence for demonstrations; a successful source-span check does not establish axis relevance. The original delivery gallery and its meeting ledgers are private operational artifacts and are not bundled here. An empty public `eval/registry.json` represents the absence of private evaluation documents, not a published test split. Historical evaluation commands need their own data and will not reproduce scores from this repository alone.
+Document Q&A runs locally with a zero search budget. The research preview fetches public sources only after an explicit search allowance and uses a separately configured Tavily account. Supply `TAVILY_API_KEY` as an environment variable and keep credentials out of Git. Use `--dev-research-v2` to enable the included experimental research implementation. CI uses synthetic fixtures for research checks.
 
 ## Development checks
 
-Install `requirements-ci.txt`, then run the exact CI command in `scripts/ci-fast.sh`. Enable the shipped hooks with `git config core.hooksPath .githooks`; they enforce forbidden-file checks, offline tests, Conventional Commits and the public owner's no-agent-trailer convention. The private development checkout uses a different trailer convention; the public export deliberately follows the owner's explicit publication instructions.
+In a clean Python 3.12 environment, install `requirements-ci.txt`, the rendering packages above and Node.js, then run `bash scripts/ci-fast.sh`. Enable the public hooks with `git config core.hooksPath .githooks`. The hooks check staged files and commit messages and run the full test suite on push.

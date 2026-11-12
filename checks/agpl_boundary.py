@@ -17,7 +17,7 @@ from pathlib import Path
 
 AGPL_ROOT = re.compile(r"^(fitz|pymupdf\w*)$")
 ALLOWED_PREFIXES = ("eval/",)
-FROZEN = {'document_store.py': 'pipeline: pymupdf.open for page text', 'inspect_pdf.py': 'pipeline: PDF inspection, pymupdf + pymupdf4llm.to_markdown', 'matn_presentation/assets.py': 'pipeline: fitz.open/Matrix/Rect for page images', 'matn_presentation/live.py': 'pipeline: fitz.open'}
+FROZEN = {'document_store.py': 'pipeline: pymupdf.open for page text', 'inspect_pdf.py': 'pipeline: PDF inspection, pymupdf + pymupdf4llm.to_markdown', 'matn_presentation/live.py': 'pipeline: fitz.open'}
 
 
 def _is_agpl(module: str) -> bool:

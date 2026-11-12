@@ -184,7 +184,7 @@ def summarize(run_id, folder, root=DELIVERY_ROOT, saved=None, diagnosis=None):
     explicit_kind=review.get('reviewer_type',review.get('review_kind','')).lower()
     if explicit_kind=='human':
         review_kind='human'
-    elif review_provenance and any(s in review_provenance.lower() for s in ('ai','claude','codex','gpt','qwen')):
+    elif review_provenance and 'ai' in review_provenance.lower():
         review_kind='AI'
     elif review_provenance:
         review_kind='reviewer type unknown'

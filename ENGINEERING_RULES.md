@@ -1,7 +1,6 @@
 # Matn engineering rules
 
-Matn is a local, offline PDF → summary → presentation tool. This development copy uses public documents only.
-Delivery safeguards and their status are recorded in `docs/PRE_DELIVERY_CHECKLIST.md`.
+Matn is a local, offline PDF → summary → presentation tool. The public examples use public documents only.
 
 1. Public documents only. Never open restricted ministry material or the commercial book, and never send ministry documents to a cloud service.
 2. Numbers and IDs are never invented. Code copies and verifies them against the source. A model must not invent, convert or recompute source numbers.
@@ -18,7 +17,7 @@ Delivery safeguards and their status are recorded in `docs/PRE_DELIVERY_CHECKLIS
 13. Deterministic IDs and hashes must derive from verified inputs. Fail closed on missing, mismatched or unverified evidence. Never treat unavailable table cells or chart text as validated numerical evidence.
 14. Every cited statement must bind to source blocks for the named entity, not a neighboring entity in the same chunk. Model labels and model screening must retain their provenance and must never imply human validation.
 
-Public publication branch: `main`, with the owner as author and committer, Conventional Commits and no Agent trailers. Use the configured environment interpreter with `-m pytest -q`.
+Public publication branch: `main`, with Conventional Commits with a reason in the body. Use the configured environment interpreter with `-m pytest -q`.
 Set `core.hooksPath` to `.githooks`: pre-commit enforces forbidden staged files and runs the fast subset for Python changes; pre-push runs the full suite. Slow cases are listed in `conftest.py`.
 
 Pipeline: `inspect_pdf.py`, `document_store.py`, `select_source.py`, `matn_summarization/`, `matn_presentation/`, `matn_app/`.

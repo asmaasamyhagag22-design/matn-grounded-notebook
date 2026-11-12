@@ -2,12 +2,7 @@ import json
 
 from matn_app.runtime import wait_for_memory
 from matn_chat.memory import MIN_AVAILABLE
-class Counter:
-    def __call__(self, prompt):
-        return 100
-
-    def close(self):
-        pass
+from tests.app.test_document_quality import Counter
 
 GiB = 1024 ** 3
 
@@ -31,6 +26,7 @@ import pytest
 @pytest.mark.parametrize('enough', [False, True])
 def test_generator_unloads_between_calls_only_below_guard_threshold(tmp_path, monkeypatch, enough):
     from tests.reading.pdf_fixtures import write_pdf
+    from matn_app.answer_profile import load_answer_profile
     from matn_app.evidence import ingest, answer
     from matn_chat.streaming import StreamingGenerator
     from matn_chat.engine import MiniCheck
@@ -57,7 +53,7 @@ def test_generator_unloads_between_calls_only_below_guard_threshold(tmp_path, mo
                     response=json.dumps(dict(sentences=[dict(claim='Workers should receive training before they operate equipment.', handles=[handle], part=0)])))
     monkeypatch.setattr(StreamingGenerator, 'generate_stream', generate)
     result = answer(dict(question='What should workers receive?', catalogs=[source['catalog']], notebooks=[source['notebook']],
-                         workdir=str(tmp_path / 'answer')))
+                         workdir=str(tmp_path / 'answer'),answer_profile=dict(load_answer_profile(),answer_path='v2')))
     assert result['status'] == 'answered', result['failures']
     events = [e for e in events if e != 'memory_checked']
     generations = [i for i, e in enumerate(events) if e != 'unload']

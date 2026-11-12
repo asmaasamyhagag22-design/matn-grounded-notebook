@@ -1,10 +1,25 @@
-"""Small search interface. No cloud extraction and no account creation."""
+"""Small search interface. No cloud extraction and no account creation.
+
+Search is discovery only (ADR-0035). A provider declares a `retention_policy`;
+`retain` applies it before a result leaves the provider, so no caller, checkpoint
+or ledger can persist provider content the policy does not allow. Evidence always
+comes from pages Matn fetches itself (`reader.read_source`).
+"""
 import json
 import os
 import shlex
 from pathlib import Path
 import time
+from typing import Protocol
 from .network import request
+from .retention import RETENTION_POLICIES, envelope, policy_of, retain  # noqa: F401  (re-exported)
+
+
+class SearchProvider(Protocol):
+    name: str
+    retention_policy: str
+
+    def search(self, query: str) -> dict: ...
 
 
 def load_settings(path=None):
@@ -67,10 +82,25 @@ def qualify(proof=None, *, usage=None, free_credit_budget=None):
     return result
 
 
+def discover(provider, query):
+    """The only way the pipeline searches: applies the provider's declared policy again.
+
+    The policy is validated before the (billable) request. A provider that declares
+    no policy gets the strictest one, and only allowlisted top-level keys survive,
+    so a new or misconfigured provider cannot put its content into a checkpoint.
+    """
+    policy = policy_of(provider)
+    return envelope(provider.search(query), policy)
+
+
 class TavilySearch:
     name = 'tavily-search'
+    # Tavily Search API Agreement (2023-11-30; re-checked 2026-11-04, see
+    # docs/compliance/search-providers.md): no storing or caching of output.
+    retention_policy = 'discovery-urls'
 
     def __init__(self, proof, *, usage=None, free_credit_budget=None, max_results=4):
+        policy_of(self)  # an unknown policy fails here, before any credit is spent
         import threading
         self.proof = proof
         self.usage = usage
@@ -108,9 +138,12 @@ class TavilySearch:
                       body=json.dumps(payload).encode(), redirects=0, max_bytes=512000,
                       headers={'Authorization': 'Bearer ' + os.environ['TAVILY_API_KEY'],
                                'Content-Type': 'application/json'})
-        # Preserve the full provider body; snippets remain discovery metadata.
-        return dict(provider=self.name, query=query, at=raw['fetched_at'],
-                    request=payload, response=json.loads(raw['body']), usage_before=self.usage)
+        # The full body lives only in this frame. Callers (and every checkpoint)
+        # get URLs in provider rank order plus credit usage, never content.
+        response, dropped = retain(json.loads(raw['body']), self.retention_policy)
+        return dict(provider=self.name, query=query, at=raw['fetched_at'], request=payload,
+                    retention_policy=self.retention_policy, dropped_fields=dropped,
+                    response=response, usage_before=self.usage)
 
     def _admit(self, query):
         if self.free_credit_budget is not None:

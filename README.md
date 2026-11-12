@@ -1,71 +1,151 @@
-# Matn — evidence, presented
+<div align="center">
 
-A local notebook for public documents, source-linked research and editable presentations. Matn reads PDF/JSON files, keeps exact evidence behind citations, and builds versioned decks with measured layouts.
+# Matn
 
-**Current quality status: generated-answer acceptance FAIL (twice).** Memory errors are fixed, but on this CPU laptop most generated answers are still blocked by verification or arrive too slowly. Topic research is experimental. These results do not establish deployment readiness.
+**A private, offline NotebookLM: ask your documents, and every answer leads back to the exact sentence that supports it.**
 
-![A real acceptance answer: verified, cited, but not responsive](docs/images/answers-v2-verified-not-responsive.jpg)
+Local LLM · hybrid RAG · quote-first answers · sentence-level fact-checking · source-linked presentations
 
-A real answers-v2 acceptance turn about *Towards Execution-Grounded Automated AI Research* (arXiv 2601.14525v1, CC BY 4.0). The sentence is verified against the cited span (open in the side panel), but it names the models instead of the execution rate that was asked, so the review counts it as **not a direct answer**. The next question shows the plain notice used when no sentence passes verification.
+[![Offline CI](https://github.com/asmaasamyhagag22-design/matn-grounded-notebook/actions/workflows/offline-fast.yml/badge.svg)](https://github.com/asmaasamyhagag22-design/matn-grounded-notebook/actions/workflows/offline-fast.yml)
+![Python 3.12](https://img.shields.io/badge/python-3.12-3776AB)
+![Runs on CPU](https://img.shields.io/badge/runs%20on-CPU%2C%2015%20GB%20RAM-2E7D6B)
+![License: MIT](https://img.shields.io/badge/license-MIT-lightgrey)
 
-![A real acceptance turn about GAO-21-519SP in dark mode: verified context, not an answer](docs/images/answers-v2-context-dark.jpg)
+![Matn answers a question and shows the exact source sentence behind the citation](docs/images/hero-answer.jpg)
 
-When the requested answer is not verified, Matn may still write verified context, labelled "Context only". It never shows retrieved passages as the reply. Both screenshots use only GAO-21-519SP and the CC BY paper; [demo credits](docs/demo-credits.md) identify the paper and its licence.
+</div>
 
-![A real documents-journey answer about the CC BY paper with its cited span open](docs/images/documents-journey-answer.jpg)
+## Why Matn
 
-A later **demo** turn (not part of the acceptance set), run with the other desktop apps closed: a direct, verified answer in 155.7 s with the exact span open in the side panel. In the same conversation, "What are the four principles…?" got a verified sentence about something else, which is why acceptance still fails.
+Government teams can't paste internal documents into a cloud assistant, and they can't act on an answer they can't check. Matn is built for that setting:
 
-## Two journeys
+- **Nothing leaves the machine.** Reading, retrieval, generation and verification all run locally, on a laptop CPU with 15 GB of RAM.
+- **Every sentence is traceable.** A click on a citation opens the exact source span, with its file, page and character offsets. Each verified sentence has a SHA-256 receipt.
+- **It says "the sources don't answer this"** instead of filling gaps, and it never passes off retrieved text as an answer.
+- **From documents to a deck.** Matn builds an editable presentation in which every statement is copied from verified evidence. You edit it by chatting.
 
-**Bring documents.** Read public PDFs or JSON → overview of each source → ask questions → open the exact cited span → build a presentation → edit and restore deck versions. The chat plans source handles, writes prose, verifies every sentence (numbers, dates, entities, entailment, subject/actor) fail-closed, and allows one repair. Retrieved text is never the reply. Follow-ups are rewritten into a standalone question, shown in the trace, never in the answer.
+## Results
 
-**Explore a topic (experimental, about 10 minutes).** Clarify the subject and audience → edit a four-axis plan → explicitly allow searches → read public sources → inspect supported units and gaps → build a presentation. **The v2 improvement attempts failed pre-registered holdouts, so the shipped path is the earlier, more conservative version.** The v2 code stays behind a developer flag (`--dev-research-v2`), off by default. Search allowance starts at zero.
+Measured on a 4-core laptop CPU with `qwen3.5:9b` (4-bit), on questions written in advance, with answers scored blind.
 
-## Latest measured results
-
-Questions and pass rules were registered before each run. Review is cross-family **AI review (not human gold)**; owner labels are counted separately and override AI review for their exact sentences. The portable public export differs from the measured private build; public CI does not reproduce these semantic scores.
-
-| Measurement (4 Nov, answers v2, 20 new questions) | Result |
+| | |
 |---|---|
-| Direct generated answers (17 answerable) | **0/17**, required 12 — FAIL |
-| Verified "not covered" replies (3 unanswerable) | **0/3** — FAIL |
-| Retrieved excerpts shown as answers | 0 — pass |
-| AI-reviewed silent errors in displayed sentences | 0 (3 borderline) — pass |
-| Median full answer | **381.4 s**, limit 300 s — FAIL |
-| `chat_error` / failed turns | **2** (one model-server crash, one interrupted turn) — FAIL |
-| Memory-guard deferrals (`DEFERRED_MEMORY_*`) | 0 (was 18/20 on 2 Nov) |
+| **3.1×** more fully correct answers than the previous version, with no increase in wrong ones | paired benchmark, 104 questions |
+| **0 of 30** wrong or unsupported answers shown | sealed holdout, written by a separate model and run once |
+| **176 / 176** planted errors caught, **81 / 81** true statements kept | fact-checking challenge set (wrong numbers, units, entities, years, negations, scope) |
+| **~2× faster** per answer when the quote-first path replaced the original verification pipeline | earlier paired benchmark, same questions and machine |
+| **×2.1** throughput from profiling the CPU pipeline | same workload, 2765 s → 1323 s |
 
-The 2 Nov run (0/20) also stands. Most drafts were rejected by the subject/attribution and scope checks before entailment; whether these are false blocks is pending owner labels, and no threshold was relaxed.
+Full methodology and per-set numbers: [docs/results.md](docs/results.md).
 
-## CPU memory and latency limits
+## How it works
 
-Measured on a 4-core CPU laptop, 15 GiB RAM, no GPU, with `qwen3.5:9b` (Q4_K_M, about 6.4 GiB resident) and a separate 1.6 GiB entailment verifier. The two never stay resident together; the generator is unloaded between calls only when free memory would fall below the 1.5 GiB guard. Matn needs about 7 GiB at its peak. With other desktop apps holding 8–11 GiB, the kernel ran out of memory and killed the model process during measurement. Close heavy browser tabs and other AI apps before asking questions. A typical answer takes 2–7 minutes (about 10 prompt tokens/s); a question that ends without a verified answer runs the planner twice and takes longer.
+```mermaid
+flowchart LR
+    A[PDF / JSON] --> B[Reader<br/>text, layout, OCR]
+    B --> C[Index<br/>BM25 + dense embeddings]
+    Q[Question] --> D[Retrieve & pack<br/>document-aware]
+    C --> D
+    D --> E[Select exact quotes<br/>structured output]
+    E --> F[Validate<br/>quote must be a substring of its source]
+    F --> G[Write answer<br/>only from validated quotes]
+    G --> H[Check each sentence<br/>entailment + numbers & units + scope]
+    H --> I[Answer with<br/>clickable citations]
+    H -. unsupported sentence .-> X[removed, rest of answer kept]
+```
 
-## Review and presentations
+**1. Read.** PDFs and JSON are parsed into blocks with page and layout information. Scanned pages go through local OCR (PP-OCRv5 via RapidOCR, with GLM-OCR as a second reader).
 
-- Local owner review at `/labels/`, linked from Evaluation: exact context, Correct/Wrong/Borderline/Skip and notes. AI judgments stay hidden until a decision. Evaluation shows "owner-labelled n / AI-only m" for each verdict, and `scripts/recompute_verdicts.py` recomputes every verdict from owner labels.
-- Generated sentences have small citation links; the exact source text appears in the side panel after a click.
-- Layout checks inspect geometry and the LibreOffice PDF. They do not establish evidence quality or Windows PowerPoint fidelity.
+**2. Retrieve.** Hybrid search combines BM25 and `qwen3-embedding:0.6b` over chunks that carry their section context. When a question names a document ("According to GAO's report…"), that document is ranked first and the prompt is packed with passages from across it, under a fixed token budget.
 
-## Run locally
+**3. Quote first, then write.** The model first selects exact quotes from the retrieved passages; code accepts only quotes that appear verbatim in their source. The answer is then written from those quotes alone, so a citation can never point to text the model invented.
 
-Python 3.12, LibreOffice and the fonts in `design/fonts/fonts.json` are required for presentation rendering. Real generation, independent verification and OCR require separately provisioned local model environments. See [local setup](docs/local-setup.md).
+**4. Check every sentence.** Each sentence is scored by an entailment model (MiniCheck, RoBERTa-Large) against its cited quote. Deterministic checks then confirm that every number appears in the quote with the same unit or date, and that the scope (which organization, which system) has not been swapped. A sentence that fails is removed on its own; the rest of the answer stays.
+
+## Engineering decisions
+
+- **Fix the input, not the output.** An earlier design stacked many blocking filters after generation. Measurement showed it rejected even sentences copied verbatim from the source. Replacing it with quote-first generation and one strong sentence-level check took verbatim acceptance from 0/81 to 81/81 and roughly halved answer time; the next round of input fixes tripled fully correct answers. *(ADRs in [docs/adr](docs/adr))*
+- **Retract sentences, not answers.** One unsupported sentence no longer silences a correct answer.
+- **Each v3.1 change behind a switch.** Document ranking, packing, quote expansion, the writer and the added checks each have a flag in a policy file, so each change was measured alone and kept only if it helped. Three candidate features were dropped this way.
+- **Evaluation you can't fool yourself with.** Sealed holdout sets are hashed before the code is written and opened once. Answers are labelled blind to the variant. A challenge set of planted errors guards against a checker that is too lenient, and verbatim controls guard against one that is too strict.
+- **Fits in 15 GB.** The 6.4 GB generator and the verifier are sequenced so they are never resident together, and a memory check can defer inference when free RAM is low.
+- **No hardcoded values.** Models, caps, thresholds and feature switches live in validated config files; each run records the config it used.
+
+## Presentations
+
+Ask for a presentation and Matn turns the verified evidence into an editable deck. Every content statement is copied from a cited source span. Edits happen in chat ("move slide 4 to position 5", "switch to the midnight template") in about 5.5 seconds, and every version can be restored.
+
+![Three original presentation templates](docs/images/templates.jpg)
+
+Each deck is rendered and checked by two renderers (python-pptx geometry and a LibreOffice PDF), then exported as PPTX or PDF.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/images/app-restored.jpg" alt="Deck versions and template choice in the side panel"></td>
+<td width="50%"><img src="docs/images/source-proof.jpg" alt="Source detail with page, offsets and receipt"></td>
+</tr>
+<tr>
+<td align="center"><sub>Chat-edited deck with versions</sub></td>
+<td align="center"><sub>Every claim opens its exact source</sub></td>
+</tr>
+</table>
+
+## Tech stack
+
+| Layer | Choice |
+|---|---|
+| Generation | `qwen3.5:9b` (Q4_K_M) via Ollama, structured outputs |
+| Retrieval | BM25 + `qwen3-embedding:0.6b`, SQLite store |
+| Verification | MiniCheck-RoBERTa-Large + deterministic number, unit, date and scope checks |
+| Reading | PDF text and layout, PP-OCRv5 (RapidOCR), PP-DocLayout, GLM-OCR |
+| Presentations | python-pptx, LibreOffice rendering, three original templates (OFL fonts, Heroicons) |
+| App | Python 3.12, server-sent events, local web UI |
+| Quality | pytest, offline CI with fake model adapters, pinned and licence-checked dependencies |
+
+All models are Apache-2.0 or MIT licensed and run without a GPU.
+
+## Quick start
 
 ```bash
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements-app.txt
 sudo apt-get install libreoffice-impress fonts-crosextra-carlito fonts-noto-core fonts-liberation
-# Labelled fixture walkthrough; no real model or search calls:
+
+# Walk through the app with fixtures (no models needed)
 .venv/bin/python -B -m matn_app --fake --search-budget 0
+
+# Real local inference (after installing the models in docs/local-setup.md)
+./app.sh --search-budget 0
 ```
 
-For real inference, provision the models described in the setup guide and run `./app.sh --search-budget 0`. Local preflight is not a provider quota check. Research requires separate explicit search allowance. Use public documents only.
+Close heavy apps first: Matn needs about 7 GB of free RAM at its peak. See [local setup](docs/local-setup.md) for models and OCR.
 
-## Validation and remaining work
+## Repository layout
 
-The offline CI subset runs in a clean environment with synthetic sources and fake adapters. [Export validation](docs/export-validation.md) records the checks; private measurements are not bundled. Historical results are [kept separately](docs/results.md).
+```
+matn_reading/        PDF/JSON reading, layout, OCR
+matn_rag/            chunking, BM25 + dense index, hybrid search
+matn_chat/           conversation, retrieval packing, quote-first answering
+matn_verification/   entailment, number/unit/date and scope checks
+matn_deck/           presentation building, templates, rendering QA
+matn_research/       topic → research (preview)
+matn_app/            web app, answer policy and config
+eval/  tests/        evaluation harness and test suite
+docs/adr/            architecture decision records
+```
 
-Remaining work: directly responsive answers (most drafts are still blocked or off-target), an owner-measured false-block rate for the attribution and scope checks, answer latency under 5 minutes on CPU, safe coexistence with other desktop apps in 15 GiB, semantic agreement detection between sources, broader human labels and Windows PowerPoint validation. Measured failures remain visible.
+## Roadmap
 
-Created by Asmaa Samy Hagag with AI-assisted implementation, testing and review. Project licence selection is pending; third-party asset licences are included with the relevant assets.
+- Arabic documents end to end: RTL extraction, Arabic retrieval and verification
+- GPU profile for the delivery server, with a larger-model bake-off
+- Multi-user deployment: authentication, roles, on-premises package
+- Head-to-head benchmark against NotebookLM on the same public documents
+
+## Author
+
+Built by **Asmaa Samy Hagag**, AI engineer (RAG, LLM systems, NLP).
+[GitHub](https://github.com/asmaasamyhagag22-design)
+
+Demo documents are public: GAO-21-519SP (U.S. GAO) and arXiv 2601.14525 (CC BY 4.0). See [demo credits](docs/demo-credits.md).
+
+Licensed under the [MIT License](LICENSE). Third-party asset licences are included with each asset.
